@@ -7,17 +7,14 @@ namespace ECommerceCore.Infrastructure.Repositories
     {
         private EcomDbContext _dbContext;
         public ICategoryRepository Category { get; private set; }
-
         public IProductRepository Product { get; private set; }
-
         public ICompanyRepository Company { get; private set; }
         public IShoppingCartRepository ShoppingCart { get; private set; }
         public IUserRepository ApplicationUser { get; private set; }
         public IOrderHeaderRepository OrderHeader { get; private set; }
         public IOrderDetailRepository OrderDetail { get; private set; }
-
         public IProductImageRepository ProductImage { get; private set; }
-
+        public IContactUsRepository ContactUs { get; private set; }
         public UnitOfWork(EcomDbContext dbContext)
         {
             _dbContext = dbContext ?? throw new ArgumentNullException(nameof(dbContext));
@@ -30,10 +27,16 @@ namespace ECommerceCore.Infrastructure.Repositories
             OrderDetail = new OrderDetailRepository(_dbContext);
             ProductImage = new ProductImageRepository(_dbContext);
         }
-
-        public void Save()
+        public async Task SaveAsync()
         {
-            _dbContext.SaveChanges();
+            await _dbContext.SaveChangesAsync();
+        }
+
+        // Optionally implement IDisposable for proper resource management
+        public void Dispose()
+        {
+            _dbContext?.Dispose();
+            GC.SuppressFinalize(this);
         }
     }
 }

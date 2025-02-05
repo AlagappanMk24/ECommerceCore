@@ -1,6 +1,8 @@
 ﻿using ECommerceCore.Application.Contract.Persistence;
+using ECommerceCore.Domain.Models.Entities;
 using ECommerceCore.Infrastructure.Data.Context;
 using Microsoft.EntityFrameworkCore;
+using Org.BouncyCastle.Asn1;
 using System.Linq.Expressions;
 
 namespace ECommerceCore.Infrastructure.Repositories
@@ -9,7 +11,6 @@ namespace ECommerceCore.Infrastructure.Repositories
     {
         private readonly EcomDbContext _dbContext;
         internal DbSet<T> dbset;
-
         public Repository(EcomDbContext dbContext)
         {
             _dbContext = dbContext;
@@ -18,12 +19,24 @@ namespace ECommerceCore.Infrastructure.Repositories
             _dbContext.Products.Include(u => u.Category).Include(u => u.CategoryId);
         }
 
-        public void Add(T entity)
+        /// <summary>
+        /// Adds a new entity to the database asynchronously.
+        /// </summary>
+        /// <param name="entity">The entity to be added.</param>
+        /// <returns>A task representing the asynchronous operation.</returns>
+        public async Task AddAsync(T entity)
         {
-            dbset.Add(entity);
+            await dbset.AddAsync(entity);
         }
 
-        public T Get(Expression<Func<T, bool>> filter, string? includeProperties = null, bool tracked = false)
+        /// <summary>
+        /// Retrieves a single entity that matches the specified filter.
+        /// </summary>
+        /// <param name="filter">The filter to apply when searching for the entity.</param>
+        /// <param name="includeProperties">Comma-separated list of related entities to include in the result.</param>
+        /// <param name="tracked">Indicates whether to track the retrieved entity.</param>
+        /// <returns>A task that represents the asynchronous operation. The task result contains the found entity or null if no entity matches the filter.</returns>
+        public async Task<T> GetAsync(Expression<Func<T, bool>> filter, string? includeProperties = null, bool tracked = false)
         {
             IQueryable<T> query;
             if (tracked)
@@ -45,12 +58,17 @@ namespace ECommerceCore.Infrastructure.Repositories
                     query = query.Include(includeProp);
                 }
             }
-            return query.FirstOrDefault();
+            return await query.FirstOrDefaultAsync();
 
         }
 
-        //Category,CoverType
-        public IEnumerable<T> GetAll(Expression<Func<T, bool>>? filter, string? includeProperties = null)
+        /// <summary>
+        /// Retrieves all entities that match the specified filter.
+        /// </summary>
+        /// <param name="filter">The filter to apply when searching for entities.</param>
+        /// <param name="includeProperties">Comma-separated list of related entities to include in the results.</param>
+        /// <returns>A task that represents the asynchronous operation. The task result contains a collection of entities that match the filter.</returns>
+        public async Task<IEnumerable<T>> GetAllAsync(Expression<Func<T, bool>>? filter, string? includeProperties = null)
         {
             IQueryable<T> query = dbset;
             if (filter != null)
@@ -65,17 +83,44 @@ namespace ECommerceCore.Infrastructure.Repositories
                     query = query.Include(includeProp);
                 }
             }
-            return query.ToList();
+            return await query.ToListAsync();
         }
 
-        public void Remove(T entity)
+        /// <summary>
+        /// Removes an entity from the database asynchronously.
+        /// </summary>
+        /// <param name="entity">The entity to be removed.</param>
+        /// <returns>A task representing the asynchronous operation.</returns>
+        public async Task RemoveAsync(T entity)
         {
             dbset.Remove(entity);
+            await _dbContext.SaveChangesAsync(); // Ensure changes are saved
         }
 
-        public void RemoveRange(IEnumerable<T> entity)
+        /// <summary>
+        /// Removes a range of entities from the database asynchronously.
+        /// </summary>
+        /// <param name="entities">The collection of entities to be removed.</param>
+        /// <returns>A task representing the asynchronous operation.</returns>
+        public async Task RemoveRangeAsync(IEnumerable<T> entities)
         {
-            dbset.RemoveRange(entity);
+            dbset.RemoveRange(entities);
+            await _dbContext.SaveChangesAsync(); // Ensure changes are saved
+        }
+
+        /// <summary>
+        /// Counts the number of entities that match the specified filter.
+        /// </summary>
+        /// <param name="filter">The filter to apply when counting entities.</param>
+        /// <returns>A task that represents the asynchronous operation. The task result contains the count of entities that match the filter.</returns>
+        public async Task<int> CountAsync(Expression<Func<T, bool>> filter = null)
+        {
+            IQueryable<T> query = dbset;
+            if (filter != null)
+            {
+                query = query.Where(filter);
+            }
+            return await query.CountAsync();
         }
     }
 }

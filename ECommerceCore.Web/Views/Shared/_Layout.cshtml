@@ -9,14 +9,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - ECommerceCore.Web</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
-    <link rel="stylesheet" href="~/BulkyWeb.styles.css" asp-append-version="true" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="//cdn.datatables.net/2.1.7/css/dataTables.dataTables.min.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"/>
+
 </head>
 <body>
-    <header>
+  @*   <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-primary border-bottom box-shadow mb-3">
             <div class="container-fluid">
                 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">EcommerceCore</a>
@@ -27,16 +28,12 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav me-auto">
                         <li class="nav-item">
-                            <a class="nav-link " asp-area="Customer" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a class="nav-link " asp-area="Customer" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                            <a class="nav-link text-light " asp-area="Customer" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
                         @if (User.IsInRole(AppConstants.Role_Admin))
                         {
                             <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <a class="nav-link dropdown-toggle text-light" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                     Content Managment
                                 </a>
                                 <ul class="dropdown-menu">
@@ -56,38 +53,88 @@
                                     <li class="nav-item">
                                         <a class="dropdown-item" asp-area="Admin" asp-controller="User" asp-action="Index">Manage User</a>
                                     </li>
-
+                                    <li class="nav-item">
+                                        <a class="dropdown-item" asp-area="Admin" asp-controller="Order" asp-action="Index">Manage Order</a>
+                                    </li>
                                 </ul>
                             </li>
-
                         }
-                        <li class="nav-item">
-                            <a class="nav-link " asp-area="Admin" asp-controller="Order" asp-action="Index">Manage Order</a>
-                        </li>
-
-
-                        <li class="nav-item">
-                            <a class="nav-link " asp-area="Customer" asp-controller="Cart" asp-action="Index">
+                        <li class="nav-item text-light">
+                            <a class="nav-link text-light" asp-area="" asp-controller="Cart" asp-action="Index">
                                 @await Component.InvokeAsync("ShoppingCart")
                             </a>
                         </li>
-
-
                     </ul>
                     <partial name="_LoginPartial" />
                 </div>
             </div>
         </nav>
+    </header> *@
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-primary shadow-sm mb-5">
+            <div class="container-fluid">
+                <!-- Brand and Toggler -->
+                <a class="navbar-brand d-flex align-items-center" asp-area="" asp-controller="Home" asp-action="Index">
+                    <i class="bi bi-bag-fill me-2"></i> EcommerceCore
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <!-- Navbar Content -->
+                <div class="collapse navbar-collapse" id="navbarContent">
+                    <!-- Left Section -->
+                    <ul class="navbar-nav me-auto">
+                        <li class="nav-item">
+                            <a class="nav-link text-light" asp-area="Customer" asp-controller="Home" asp-action="Index">
+                                <i class="bi bi-house-fill"></i> Home
+                            </a>
+                        </li>
+                        @if (User.IsInRole(AppConstants.Role_Admin))
+                        {
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle text-light" href="#" id="adminDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <i class="bi bi-gear-fill"></i> Admin
+                                </a>
+                                <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="adminDropdown">
+                                    <li><a class="dropdown-item" asp-area="Admin" asp-controller="Category" asp-action="Index">Category</a></li>
+                                    <li><a class="dropdown-item" asp-area="Admin" asp-controller="Product" asp-action="Index">Product</a></li>
+                                    <li><a class="dropdown-item" asp-area="Admin" asp-controller="Company" asp-action="Index">Company</a></li>
+                                    <li><hr class="dropdown-divider"></li>
+                                    <li><a class="dropdown-item" asp-area="Identity" asp-page="/Account/Register">Create User</a></li>
+                                    <li><a class="dropdown-item" asp-area="Admin" asp-controller="User" asp-action="Index">Manage User</a></li>
+                                    <li><a class="dropdown-item" asp-area="Admin" asp-controller="Order" asp-action="Index">Manage Order</a></li>
+                                </ul>
+                            </li>
+                        }
+                        <li class="nav-item">
+                            <a class="nav-link text-light" asp-area="" asp-controller="Cart" asp-action="Index">
+                               @await Component.InvokeAsync("ShoppingCart")
+                            </a>
+                        </li>
+                    </ul>
+
+                    <!-- Center Section (Search Bar) -->
+                    <form class="d-flex mx-auto" role="search">
+                        <input class="form-control me-2" type="search" placeholder="Search products..." aria-label="Search">
+                        <button class="btn btn-outline-light" type="submit"><i class="bi bi-search"></i></button>
+                    </form>
+                    <partial name="_LoginPartial" />
+                </div>
+            </div>
+        </nav>
     </header>
+
     <div class="container">
         <main role="main" class="pb-3">
             @RenderBody()
+            <partial name="_NotificationPartialView" />
         </main>
     </div>
 
     <footer class="border-top footer text-muted bg-primary mt-4">
         <div class="text-center text-bg-dark">
-            Made with <i class="bi bi-activity"></i> by Atharv
+            Made with <i class="bi bi-activity"></i> by Alagappan
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>

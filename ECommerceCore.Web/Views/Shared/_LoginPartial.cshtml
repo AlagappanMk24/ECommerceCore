@@ -1,4 +1,4 @@
-﻿@using Microsoft.AspNetCore.Identity
+﻿@* @using Microsoft.AspNetCore.Identity
 
 @inject SignInManager<IdentityUser> SignInManager
 @inject UserManager<IdentityUser> UserManager
@@ -7,21 +7,76 @@
 @if (SignInManager.IsSignedIn(User))
 {
     <li class="nav-item">
-        <a id="manage" class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello @UserManager.GetUserName(User)!</a>
+        <a id="manage" class="nav-link text-light" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello @UserManager.GetUserName(User)!</a>
     </li>
+        <li class="nav-item">
+            <a class="nav-link text-light" asp-area="Admin" asp-action="Wishlist" asp-controller="Product" title="Your Wishlist">Your Wishlist</a>
+        </li>
     <li class="nav-item">
         <form id="logoutForm" class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
-            <button id="logout" type="submit" class="nav-link btn btn-link text-dark border-0">Logout</button>
+            <button id="logout" type="submit" class="nav-link btn btn-link text-light border-0">Logout</button>
         </form>
     </li>
 }
 else
 {
     <li class="nav-item">
-        <a class="nav-link text-dark" id="register" asp-area="Identity" asp-page="/Account/Register">Register</a>
+        <a class="nav-link text-light" id="register" asp-area="Identity" asp-page="/Account/Register">Register</a>
     </li>
     <li class="nav-item">
-        <a class="nav-link text-dark" id="login" asp-area="Identity" asp-page="/Account/Login">Login</a>
+        <a class="nav-link text-light" id="login" asp-area="Identity" asp-page="/Account/Login">Login</a>
     </li>
 }
+</ul> *@
+
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+
+<ul class="navbar-nav">
+    @if (SignInManager.IsSignedIn(User))
+    {
+        <li class="nav-item dropdown">
+            <!-- Right Section -->
+            <ul class="navbar-nav ms-auto">
+                <!-- Notifications Dropdown -->
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle text-light" href="javascript:void(0);" id="notificationsDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="bi bi-bell-fill"></i>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-end" aria-labelledby="notificationsDropdown">
+                        <li><a class="dropdown-item" href="javascript:void(0);">No new notifications</a></li>
+                    </ul>
+                </li>
+
+                <!-- Account Dropdown -->
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle text-light d-flex align-items-center" href="javascript:void(0);" id="accountDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="bi bi-person-circle me-2"></i>Hello @UserManager.GetUserName(User)!
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-end" aria-labelledby="accountDropdown">
+                        <li><a class="dropdown-item" asp-area="" asp-controller="User" asp-action="Profile">Profile</a></li>
+                        <li><a class="dropdown-item" asp-area="" asp-controller="Account" asp-action="Orders">Orders</a></li>
+                        <li> <a class="dropdown-item" asp-area="" asp-controller="Wishlist" asp-action="Index" title="Your Wishlist">Your Wishlist</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">Logout</a></li>
+
+                    </ul>
+                </li>
+            </ul>
+        </li>
+    }
+    else
+    {
+        <!-- Guest Links -->
+        <li class="nav-item">
+            <a class="nav-link text-light" id="contactUs" asp-area="" asp-controller="ContactUs" asp-action="Index">Contact Us</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link text-light" id="register" asp-area="Identity" asp-page="/Account/Register">Register</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link text-light" id="login" asp-area="Identity" asp-page="/Account/Login">Login</a>
+        </li>
+    }
 </ul>

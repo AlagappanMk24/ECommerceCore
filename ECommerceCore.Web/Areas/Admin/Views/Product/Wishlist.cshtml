@@ -1,0 +1,132 @@
+﻿@using ECommerceCore.Domain.Models.Entities
+@model IEnumerable<Product>
+
+@{
+    ViewBag.Title = "Your Wishlist";
+}
+
+<div class="container py-5">
+    <h2 class="text-center mb-4">Your Wishlist</h2>
+    <div class="row">
+        @if (Model.Any())
+        {
+            foreach (var product in Model)
+            {
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="card shadow-sm border-0 rounded-lg">
+                        <div class="image-container">
+                            @if (product.ProductImages != null && product.ProductImages.Count() > 0)
+                            {
+                                <img src="@product.ProductImages.FirstOrDefault().ImageUrl" alt="@product.Title" class="card-img-top rounded-top img-fluid" />
+                            }
+                            else
+                            {
+                                <img src="https://placehold.co/500x600/png" alt="Placeholder Image" class="card-img-top rounded-top img-fluid" />
+                            }
+                        </div>
+
+                        <div class="card-body text-center">
+                            <h5 class="card-title text-uppercase fw-bold text-truncate">@product.Title</h5>
+                            <p class="card-text text-muted mb-1">by <span class="text-warning fw-semibold">@product.Author</span></p>
+                            <div class="d-flex justify-content-center align-items-center gap-2 mb-3">
+                                <span class="text-success fw-bold">@product.Price100.ToString("c")</span>
+                            </div>
+                            <button class="btn btn-danger btn-sm w-100 rounded-pill remove-from-wishlist" data-product-id="@product.Id">
+                                <i class="bi bi-heartbreak me-2"></i>Remove from Wishlist
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+        else
+        {
+            <div class="col-12">
+                <div class="alert alert-info text-center">Your wishlist is currently empty.</div>
+            </div>
+        }
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $(".remove-from-wishlist").on("click", function (e) {
+                e.preventDefault();
+
+                const productId = $(this).data("product-id");
+                const productCard = $(this).closest('.col-lg-4'); // Get the closest product card container
+
+                $.ajax({
+                    url: '/Admin/Product/RemoveFromWishlist', // Replace with your actual endpoint
+                    type: 'POST',
+                    data: { productId: productId },
+                    headers: {
+                        'X-CSRF-TOKEN': $('input[name="__RequestVerificationToken"]').val() // Include CSRF token
+                    },
+                    success: function (response) {
+                        if (response.success) {
+                            // Remove the product card from the UI
+                            productCard.remove();
+
+                                 // Update local storage
+                            let wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
+                            wishlist = wishlist.filter(id => id !== productId);
+                            localStorage.setItem('wishlist', JSON.stringify(wishlist));
+                                  // Check if there are any remaining product cards
+                            if ($('.row .col-lg-4').length === 0) {
+                                // No more product cards, show the alert div
+                                $(".row").html(`
+                                    <div class="col-12">
+                                        <div class="alert alert-info text-center">Your wishlist is currently empty.</div>
+                                    </div>
+                                `);
+                            }
+
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Removed!',
+                                text: response.message || "Product removed from your wishlist.",
+                                showConfirmButton: false,
+                                timer: 2000,
+                            });
+                        } else {
+                            Swal.fire({
+                                icon: 'warning',
+                                title: 'Oops!',
+                                text: response.message || "Failed to remove item from wishlist.",
+                                showConfirmButton: false,
+                                timer: 2000,
+                            });
+                        }
+                    },
+                    error: function () {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Error!',
+                            text: "An error occurred while removing the item from the wishlist.",
+                            showConfirmButton: false,
+                            timer: 2000,
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+}
+
+<style>
+    /* Ensure consistent image sizes */
+    .image-container {
+        width: 100%;
+        height: 500px;
+        overflow: hidden;
+        border-bottom: 1px solid #ddd;
+    }
+
+        .image-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Maintain aspect ratio while filling the container */
+        }
+</style>

@@ -1,0 +1,65 @@
+﻿/* Custom Toastr Styles */
+#toast-container {
+    margin-top: 80px; /* Adjust this value to move the toast down */
+}
+
+.toast {
+    border-radius: 10px; /* Rounded corners */
+    opacity: 0.95; /* Slightly transparent */
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5); /* Deeper shadow for more depth */
+    font-family: 'Arial', sans-serif; /* Change font family */
+    animation: slideIn 0.5s; /* Slide-in animation */
+    transition: all 0.3s ease-in-out; /* Smooth transition */
+}
+
+.toast-success {
+    /*background: linear-gradient(135deg, #28a745 0%, #218838 100%);*/ /* Gradient for success */
+    background-color: #28a745; /* Green for success */
+    color: white; /* White text */
+}
+
+.toast-error {
+    background-color: #dc3545; /* Red for error */
+    background: linear-gradient(135deg, #dc3545 0%, #c82333 100%); /* Gradient for error */
+    color: white; /* White text */
+}
+
+.toast-title {
+    font-weight: bold; /* Bold title */
+    font-size: 1.2rem; /* Larger title size */
+    margin-bottom: 5px; /* Space below title */
+}
+
+.toast-message {
+    font-size: 1rem; /* Message font size */
+}
+
+/* Slide-in animation */
+@keyframes slideIn {
+    from {
+        transform: translateY(-30px);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+/* Hover effect */
+.toast:hover {
+    transform: scale(1.05); /* Slightly enlarge on hover */
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.7); /* Stronger shadow on hover */
+}
+
+/* Responsive adjustments */
+@media (max-width: 576px) {
+    #toast-container {
+        margin-top: 60px; /* Reduce margin on small screens */
+    }
+
+    .toast {
+        font-size: 0.9rem; /* Smaller font size on small screens */
+    }
+}

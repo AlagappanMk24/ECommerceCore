@@ -7,7 +7,6 @@ namespace ECommerceCore.Infrastructure.Repositories
     public class CategoryRepository(EcomDbContext dbContext) : Repository<Category>(dbContext), ICategoryRepository
     {
         private EcomDbContext _dbContext = dbContext;
-
         public void Update(Category obj)
         {
             _dbContext.Categories.Update(obj);

@@ -1,0 +1,138 @@
+﻿@using ECommerceCore.Domain.Models.Entities
+@model ShoppingCart
+
+<form method="post" class="container">
+    <input hidden asp-for="ProductId" />
+    <div class="card shadow-lg border-0 mt-5 mb-5">
+        <div class="card-header bg-gradient bg-dark text-light py-3">
+            <div class="text-center">
+                <h2 class="text-white text-uppercase fw-bold">@Model.Product.Title</h2>
+                <p class="text-white-50 fst-italic">by @Model.Product.Author</p>
+            </div>
+        </div>
+
+        <div class="card-body p-4">
+            <div class="row">
+                <!-- Product Carousel -->
+                <div class="col-12 col-lg-4 text-center">
+                    @if (Model.Product.ProductImages != null && Model.Product.ProductImages.Count > 0)
+                    {
+                        <div id="carouselExampleIndicators" class="carousel slide shadow" data-bs-ride="carousel">
+                            <div class="carousel-indicators">
+                                @foreach (var imageWithIndex in Model.Product.ProductImages.Select((image, index) => new { Image = image, Index = index }))
+                                {
+                                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="@imageWithIndex.Index" class="@(imageWithIndex.Index == 0 ? "active" : "")"></button>
+                                }
+                            </div>
+                            <div class="carousel-inner" style="height:450px;">
+                                @foreach (var imageWithIndex in Model.Product.ProductImages.Select((image, index) => new { image = image, Index = index }))
+                                {
+                                    <div class="@(imageWithIndex.Index == 0 ? "carousel-item active" : "carousel-item")">
+                                        <img src="@imageWithIndex.image.ImageUrl" class="d-block w-100" alt="Product Image">
+                                    </div>
+                                }
+                            </div>
+                            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+                                <span class="carousel-control-prev-icon"></span>
+                            </button>
+                            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+                                <span class="carousel-control-next-icon"></span>
+                            </button>
+                        </div>
+                    }
+                </div>
+
+                <!-- Product Details -->
+                <div class="col-12 col-lg-8">
+                    <div class="mb-4">
+                        <span class="badge bg-success">@Model.Product.Category.Name</span>
+                        <span class="badge bg-warning text-dark ms-2">New Arrival</span>
+                    </div>
+
+                    <h5 class="text-secondary">ISBN: @Model.Product.ISBN</h5>
+                    <p class="text-muted"><del>List Price: @Model.Product.ListPrice.ToString("c")</del></p>
+
+                    <!-- Dynamic Pricing -->
+                    <div class="row text-center">
+                        <div class="col-3">
+                            <div class="bg-light border p-2">
+                                <strong>1-50</strong>
+                                <p>@Model.Product.Price.ToString("c")</p>
+                            </div>
+                        </div>
+                        <div class="col-3">
+                            <div class="bg-light border p-2">
+                                <strong>51-100</strong>
+                                <p>@Model.Product.Price50.ToString("c")</p>
+                            </div>
+                        </div>
+                        <div class="col-3">
+                            <div class="bg-light border p-2">
+                                <strong>100+</strong>
+                                <p>@Model.Product.Price100.ToString("c")</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Description -->
+                    <div class="mt-4">
+                        <h6 class="text-dark fw-bold">Product Description:</h6>
+                        <p class="text-secondary">@Html.Raw(@Model.Product.Description)</p>
+                    </div>
+
+                    <!-- Ratings and Reviews -->
+                    <div class="d-flex align-items-center mt-4">
+                        <div class="text-warning me-2">
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-half"></i>
+                        </div>
+                        <span class="text-muted">(4.5/5 based on 120 reviews)</span>
+                    </div>
+
+                    <!-- Add to Cart -->
+                    <div class="mt-4">
+                        <label for="quantity" class="form-label fw-semibold">Quantity</label>
+                        <div class="input-group mb-3">
+                            <input asp-for="Count" type="number" class="form-control" value="1" />
+                            <button type="submit" class="btn btn-primary bg-gradient fw-bold">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- FAQ Section -->
+            <div class="mt-5">
+                <h6 class="fw-bold">Frequently Asked Questions:</h6>
+                <div class="accordion" id="faqAccordion">
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="faq1">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse1">
+                                What is the return policy?
+                            </button>
+                        </h2>
+                        <div id="collapse1" class="accordion-collapse collapse">
+                            <div class="accordion-body">
+                                You can return this product within 30 days for a full refund.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="faq2">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse2">
+                                Does this product come with a warranty?
+                            </button>
+                        </h2>
+                        <div id="collapse2" class="accordion-collapse collapse">
+                            <div class="accordion-body">
+                                Yes, this product comes with a 1-year warranty.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

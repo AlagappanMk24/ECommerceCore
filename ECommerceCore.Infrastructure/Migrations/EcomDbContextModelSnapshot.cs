@@ -30,6 +30,15 @@ namespace ECommerceCore.Infrastructure.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("Deleted")
+                        .HasColumnType("bit");
+
                     b.Property<int>("DisplayOrder")
                         .HasColumnType("int");
 
@@ -37,6 +46,12 @@ namespace ECommerceCore.Infrastructure.Migrations
                         .IsRequired()
                         .HasMaxLength(30)
                         .HasColumnType("nvarchar(30)");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("UpdatedDate")
+                        .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 
@@ -46,18 +61,24 @@ namespace ECommerceCore.Infrastructure.Migrations
                         new
                         {
                             Id = 1,
+                            CreatedDate = new DateTime(2025, 2, 5, 10, 57, 43, 337, DateTimeKind.Utc).AddTicks(4154),
+                            Deleted = false,
                             DisplayOrder = 1,
                             Name = "Action"
                         },
                         new
                         {
                             Id = 2,
+                            CreatedDate = new DateTime(2025, 2, 5, 10, 57, 43, 337, DateTimeKind.Utc).AddTicks(4157),
+                            Deleted = false,
                             DisplayOrder = 2,
                             Name = "SciFi"
                         },
                         new
                         {
                             Id = 3,
+                            CreatedDate = new DateTime(2025, 2, 5, 10, 57, 43, 337, DateTimeKind.Utc).AddTicks(4158),
+                            Deleted = false,
                             DisplayOrder = 3,
                             Name = "History"
                         });
@@ -73,6 +94,15 @@ namespace ECommerceCore.Infrastructure.Migrations
 
                     b.Property<string>("City")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("Deleted")
+                        .HasColumnType("bit");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -90,6 +120,12 @@ namespace ECommerceCore.Infrastructure.Migrations
                     b.Property<string>("StreetAddress")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("UpdatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("UpdatedDate")
+                        .HasColumnType("datetime2");
+
                     b.HasKey("Id");
 
                     b.ToTable("Companies");
@@ -99,6 +135,8 @@ namespace ECommerceCore.Infrastructure.Migrations
                         {
                             Id = 1,
                             City = "Tech City",
+                            CreatedDate = new DateTime(2025, 2, 5, 10, 57, 43, 337, DateTimeKind.Utc).AddTicks(4366),
+                            Deleted = false,
                             Name = "Tech Solution",
                             PhoneNumber = "7887482473",
                             PostalCode = "12121",
@@ -109,6 +147,8 @@ namespace ECommerceCore.Infrastructure.Migrations
                         {
                             Id = 2,
                             City = "Vid City",
+                            CreatedDate = new DateTime(2025, 2, 5, 10, 57, 43, 337, DateTimeKind.Utc).AddTicks(4370),
+                            Deleted = false,
                             Name = "Vivid Books",
                             PhoneNumber = "7887482470",
                             PostalCode = "66666",
@@ -119,12 +159,60 @@ namespace ECommerceCore.Infrastructure.Migrations
                         {
                             Id = 3,
                             City = "Lala land",
+                            CreatedDate = new DateTime(2025, 2, 5, 10, 57, 43, 337, DateTimeKind.Utc).AddTicks(4372),
+                            Deleted = false,
                             Name = "Readers Club",
                             PhoneNumber = "7887482472",
                             PostalCode = "99999",
                             State = "NY",
                             StreetAddress = "999 Main st"
                         });
+                });
+
+            modelBuilder.Entity("ECommerceCore.Domain.Models.Entities.ContactUs", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("Deleted")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Message")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("Subject")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("UpdatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ContactUsSubmissions");
                 });
 
             modelBuilder.Entity("ECommerceCore.Domain.Models.Entities.OrderDetail", b =>
@@ -138,6 +226,15 @@ namespace ECommerceCore.Infrastructure.Migrations
                     b.Property<int>("Count")
                         .HasColumnType("int");
 
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("Deleted")
+                        .HasColumnType("bit");
+
                     b.Property<int>("OrderHeaderId")
                         .HasColumnType("int");
 
@@ -146,6 +243,12 @@ namespace ECommerceCore.Infrastructure.Migrations
 
                     b.Property<int>("ProductId")
                         .HasColumnType("int");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("UpdatedDate")
+                        .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 
@@ -174,6 +277,15 @@ namespace ECommerceCore.Infrastructure.Migrations
                     b.Property<string>("City")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("Deleted")
+                        .HasColumnType("bit");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -225,6 +337,12 @@ namespace ECommerceCore.Infrastructure.Migrations
                     b.Property<string>("TrackingNumber")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("UpdatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("UpdatedDate")
+                        .HasColumnType("datetime2");
+
                     b.HasKey("Id");
 
                     b.HasIndex("ApplicationUserId");
@@ -246,6 +364,15 @@ namespace ECommerceCore.Infrastructure.Migrations
 
                     b.Property<int>("CategoryId")
                         .HasColumnType("int");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("Deleted")
+                        .HasColumnType("bit");
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -271,6 +398,12 @@ namespace ECommerceCore.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("UpdatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("UpdatedDate")
+                        .HasColumnType("datetime2");
+
                     b.HasKey("Id");
 
                     b.HasIndex("CategoryId");
@@ -283,7 +416,9 @@ namespace ECommerceCore.Infrastructure.Migrations
                             Id = 1,
                             Author = "Billy Spark",
                             CategoryId = 1,
-                            Description = "Praesent vitae sodales libero. Praesent molestie orci augue, vitae euismod velit sollicitudin ac. Praesent vestibulum facilisis nibh ut ultricies.\r\n\r\nNunc malesuada viverra ipsum sit amet tincidunt. ",
+                            CreatedDate = new DateTime(2025, 2, 5, 10, 57, 43, 337, DateTimeKind.Utc).AddTicks(4406),
+                            Deleted = false,
+                            Description = "A thrilling race against time! When an ancient artifact surfaces, a group of daring adventurers must decipher its secrets before it falls into the wrong hands. Explosions, chases, and close calls abound in this action-packed adventure.",
                             ISBN = "SWD9999001",
                             ListPrice = 99.0,
                             Price = 90.0,
@@ -296,7 +431,9 @@ namespace ECommerceCore.Infrastructure.Migrations
                             Id = 2,
                             Author = "Nancy Hoover",
                             CategoryId = 2,
-                            Description = "Praesent vitae sodales libero. Praesent molestie orci augue, vitae euismod velit sollicitudin ac. Praesent vestibulum facilisis nibh ut ultricies.\r\n\r\nNunc malesuada viverra ipsum sit amet tincidunt. ",
+                            CreatedDate = new DateTime(2025, 2, 5, 10, 57, 43, 337, DateTimeKind.Utc).AddTicks(4412),
+                            Deleted = false,
+                            Description = "In the year 2342, humanity has colonized the outer reaches of the solar system. But a mysterious force is picking off outposts one by one. A lone pilot must uncover the truth behind the 'Dark Skies' before it's too late for humanity.",
                             ISBN = "CAW777777701",
                             ListPrice = 40.0,
                             Price = 30.0,
@@ -309,7 +446,9 @@ namespace ECommerceCore.Infrastructure.Migrations
                             Id = 3,
                             Author = "Julian Button",
                             CategoryId = 3,
-                            Description = "Praesent vitae sodales libero. Praesent molestie orci augue, vitae euismod velit sollicitudin ac. Praesent vestibulum facilisis nibh ut ultricies.\r\n\r\nNunc malesuada viverra ipsum sit amet tincidunt. ",
+                            CreatedDate = new DateTime(2025, 2, 5, 10, 57, 43, 337, DateTimeKind.Utc).AddTicks(4414),
+                            Deleted = false,
+                            Description = "The year is 1888. A renowned historian vanishes without a trace during an expedition to the American West. His journal, filled with cryptic clues about a hidden Native American tribe, is the only lead. Follow the trail of mystery and discover the secrets lost to time.",
                             ISBN = "RITO5555501",
                             ListPrice = 55.0,
                             Price = 50.0,
@@ -322,7 +461,9 @@ namespace ECommerceCore.Infrastructure.Migrations
                             Id = 4,
                             Author = "Abby Muscles",
                             CategoryId = 2,
-                            Description = "Praesent vitae sodales libero. Praesent molestie orci augue, vitae euismod velit sollicitudin ac. Praesent vestibulum facilisis nibh ut ultricies.\r\n\r\nNunc malesuada viverra ipsum sit amet tincidunt. ",
+                            CreatedDate = new DateTime(2025, 2, 5, 10, 57, 43, 337, DateTimeKind.Utc).AddTicks(4416),
+                            Deleted = false,
+                            Description = "A heartwarming science fiction story about a young girl who discovers a small, fluffy alien creature in her backyard. This gentle tale explores themes of friendship, acceptance, and the wonders of the universe.",
                             ISBN = "WS3333333301",
                             ListPrice = 70.0,
                             Price = 65.0,
@@ -335,7 +476,9 @@ namespace ECommerceCore.Infrastructure.Migrations
                             Id = 5,
                             Author = "Ron Parker",
                             CategoryId = 1,
-                            Description = "Praesent vitae sodales libero. Praesent molestie orci augue, vitae euismod velit sollicitudin ac. Praesent vestibulum facilisis nibh ut ultricies.\r\n\r\nNunc malesuada viverra ipsum sit amet tincidunt. ",
+                            CreatedDate = new DateTime(2025, 2, 5, 10, 57, 43, 337, DateTimeKind.Utc).AddTicks(4418),
+                            Deleted = false,
+                            Description = "A high-octane action thriller set on a remote island fortress. A team of elite mercenaries is hired to infiltrate the heavily guarded complex and retrieve a valuable asset. Prepare for intense combat, daring escapes, and unexpected twists.",
                             ISBN = "SOTJ1111111101",
                             ListPrice = 30.0,
                             Price = 27.0,
@@ -348,7 +491,9 @@ namespace ECommerceCore.Infrastructure.Migrations
                             Id = 6,
                             Author = "Laura Phantom",
                             CategoryId = 3,
-                            Description = "Praesent vitae sodales libero. Praesent molestie orci augue, vitae euismod velit sollicitudin ac. Praesent vestibulum facilisis nibh ut ultricies.\r\n\r\nNunc malesuada viverra ipsum sit amet tincidunt. ",
+                            CreatedDate = new DateTime(2025, 2, 5, 10, 57, 43, 337, DateTimeKind.Utc).AddTicks(4420),
+                            Deleted = false,
+                            Description = "Step back in time to the ancient forests of Europe. This historical fiction novel follows the lives of a Celtic tribe as they face Roman invasion and the changing tides of history. Explore the rich culture, myths, and struggles of a forgotten era.",
                             ISBN = "FOT000000001",
                             ListPrice = 25.0,
                             Price = 23.0,
@@ -366,12 +511,27 @@ namespace ECommerceCore.Infrastructure.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("Deleted")
+                        .HasColumnType("bit");
+
                     b.Property<string>("ImageUrl")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("ProductId")
                         .HasColumnType("int");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("UpdatedDate")
+                        .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 
@@ -389,14 +549,28 @@ namespace ECommerceCore.Infrastructure.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("ApplicationUserId")
-                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<int>("Count")
                         .HasColumnType("int");
 
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("Deleted")
+                        .HasColumnType("bit");
+
                     b.Property<int>("ProductId")
                         .HasColumnType("int");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("UpdatedDate")
+                        .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 
@@ -405,6 +579,48 @@ namespace ECommerceCore.Infrastructure.Migrations
                     b.HasIndex("ProductId");
 
                     b.ToTable("ShoppingCarts");
+                });
+
+            modelBuilder.Entity("ECommerceCore.Domain.Models.Entities.WishlistItem", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("AddedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("Deleted")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("UpdatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProductId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("WishlistItems");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -645,7 +861,7 @@ namespace ECommerceCore.Infrastructure.Migrations
             modelBuilder.Entity("ECommerceCore.Domain.Models.Entities.OrderDetail", b =>
                 {
                     b.HasOne("ECommerceCore.Domain.Models.Entities.OrderHeader", "OrderHeader")
-                        .WithMany()
+                        .WithMany("OrderDetails")
                         .HasForeignKey("OrderHeaderId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -698,9 +914,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                 {
                     b.HasOne("ECommerceCore.Domain.Models.Entities.ApplicationUser", "ApplicationUser")
                         .WithMany()
-                        .HasForeignKey("ApplicationUserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("ApplicationUserId");
 
                     b.HasOne("ECommerceCore.Domain.Models.Entities.Product", "Product")
                         .WithMany()
@@ -711,6 +925,25 @@ namespace ECommerceCore.Infrastructure.Migrations
                     b.Navigation("ApplicationUser");
 
                     b.Navigation("Product");
+                });
+
+            modelBuilder.Entity("ECommerceCore.Domain.Models.Entities.WishlistItem", b =>
+                {
+                    b.HasOne("ECommerceCore.Domain.Models.Entities.Product", "Product")
+                        .WithMany()
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("ECommerceCore.Domain.Models.Entities.ApplicationUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Product");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -771,6 +1004,11 @@ namespace ECommerceCore.Infrastructure.Migrations
                         .HasForeignKey("CompanyId");
 
                     b.Navigation("Company");
+                });
+
+            modelBuilder.Entity("ECommerceCore.Domain.Models.Entities.OrderHeader", b =>
+                {
+                    b.Navigation("OrderDetails");
                 });
 
             modelBuilder.Entity("ECommerceCore.Domain.Models.Entities.Product", b =>

@@ -1,2 +1,17 @@
-﻿@model int
-<i class="bi bi-cart"></i> &nbsp; (@Model)
+﻿@using ECommerceCore.Application.Constants
+
+@{
+    // Get the cart count from session, default to 0 if null
+    int cartCount = Context.Session.GetInt32(AppConstants.SessionCart) ?? 0;
+
+    if (cartCount == 0) // Check cookies if session is empty
+    {
+        var cartCountCookie = Context.Request.Cookies["CartCount"];
+        if (!string.IsNullOrEmpty(cartCountCookie) && int.TryParse(cartCountCookie, out int tempCartCount))
+        {
+            cartCount = tempCartCount;
+        }
+    }
+}
+
+ <i class="bi bi-cart-fill"></i> &nbsp; (@cartCount)

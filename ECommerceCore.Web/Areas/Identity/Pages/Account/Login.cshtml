@@ -5,79 +5,359 @@
     ViewData["Title"] = "Log in";
 }
 
-<h1>@ViewData["Title"]</h1>
-<div class="row">
-    <div class="col-md-4">
-        <section>
+<div class="min-vh-100 d-flex align-items-center justify-content-center bg-gradient">
+    <div class="card shadow-lg border-0" style="max-width: 500px; width: 100%; border-radius: 20px;">
+        <div class="card-body p-5">
+            <h2 class="text-center text-primary fw-bold mb-4">Welcome Back!</h2>
+            <h6 class="text-center text-muted mb-4">Please log in to continue</h6>
             <form id="account" method="post">
-                <h2>Use a local account to log in.</h2>
-                <hr />
-                <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
-                <div class="form-floating mb-3">
-                    <input asp-for="Input.Email" class="form-control" autocomplete="username" aria-required="true" placeholder="name@example.com" />
-                    <label asp-for="Input.Email" class="form-label">Email</label>
+                <div asp-validation-summary="ModelOnly" class="text-danger mb-3" role="alert"></div>
+
+                <div class="form-floating mb-4">
+                    <input asp-for="Input.Email" class="form-control" autocomplete="username" placeholder="Email"/>
+                    <label asp-for="Input.Email" class="form-label">Email Address</label>
                     <span asp-validation-for="Input.Email" class="text-danger"></span>
                 </div>
-                <div class="form-floating mb-3">
-                    <input asp-for="Input.Password" class="form-control" autocomplete="current-password" aria-required="true" placeholder="password" />
+
+                <div class="form-floating mb-4">
+                    <input asp-for="Input.Password" class="form-control" type="password" autocomplete="current-password" placeholder="Password" />
                     <label asp-for="Input.Password" class="form-label">Password</label>
                     <span asp-validation-for="Input.Password" class="text-danger"></span>
                 </div>
-                <div class="checkbox mb-3">
-                    <label asp-for="Input.RememberMe" class="form-label">
-                        <input class="form-check-input" asp-for="Input.RememberMe" />
-                        @Html.DisplayNameFor(m => m.Input.RememberMe)
-                    </label>
+
+                <div class="form-check mb-4">
+                    <input class="form-check-input" asp-for="Input.RememberMe" />
+                    <label class="form-check-label" asp-for="Input.RememberMe">Remember me</label>
                 </div>
-                <div>
-                    <button id="login-submit" type="submit" class="w-100 btn btn-lg btn-primary">Log in</button>
+
+                <button id="login-submit" type="submit" class="btn btn-primary btn-lg w-100 shadow">Log in</button>
+                <hr class="my-4" />
+                <div class="mt-4 d-flex justify-content-center">
+                    <a id="forgot-password" asp-page="./ForgotPassword" class="link-custom">Forgot your password?</a><br />
                 </div>
-                <div>
-                    <p>
-                        <a id="forgot-password" asp-page="./ForgotPassword">Forgot your password?</a>
-                    </p>
-                    <p>
-                        <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl">Register as a new user</a>
-                    </p>
-                    <p>
-                        <a id="resend-confirmation" asp-page="./ResendEmailConfirmation">Resend email confirmation</a>
-                    </p>
+                <div class="mt-2  d-flex justify-content-center gap-2">
+                    Don't have an account? <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl" class="link-custom"> Register now.</a>
                 </div>
+            
             </form>
-        </section>
-    </div>
-    <div class="col-md-6 col-md-offset-2">
-        <section>
-            <h3>Use another service to log in.</h3>
-            <hr />
-            @{
-                if ((Model.ExternalLogins?.Count ?? 0) == 0)
-                {
-                    <div>
-                        <p>
-                            There are no external authentication services configured. See this <a href="https://go.microsoft.com/fwlink/?LinkID=532715">article
-                            about setting up this ASP.NET application to support logging in via external services</a>.
-                        </p>
-                    </div>
-                }
-                else
-                {
-                    <form id="external-account" asp-page="./ExternalLogin" asp-route-returnUrl="@Model.ReturnUrl" method="post" class="form-horizontal">
-                        <div>
-                            <p>
-                                @foreach (var provider in Model.ExternalLogins!)
-                                {
-                                    <button type="submit" class="btn btn-primary" name="provider" value="@provider.Name" title="Log in using your @provider.DisplayName account">@provider.DisplayName</button>
-                                }
-                            </p>
-                        </div>
-                    </form>
-                }
-            }
-        </section>
+          @*   <div class="col-md-12 p-3 text-center">
+                <section>
+                    <p class="divider-text d-flex pt-2">OR</p>
+                    @{
+                        if ((Model.ExternalLogins?.Count ?? 0) == 0)
+                        {
+                            <div>
+                                <p>
+                                    There are no external authentication services configured. See this <a href="https://go.microsoft.com/fwlink/?LinkID=532715">
+                                        article
+                                        about setting up this ASP.NET application to support logging in via external services
+                                    </a>.
+                                </p>
+                            </div>
+                        }
+                        else
+                        {
+                            <form id="external-account" asp-page="./ExternalLogin" asp-route-returnUrl="@Model.ReturnUrl" method="post" class="form-horizontal">
+                                <div>
+                                    <p>
+                                        @foreach (var provider in Model.ExternalLogins!)
+                                        {
+                                            var buttonClass = provider.Name.ToLower() switch
+                                            {
+                                                "google" => "btn-google",
+                                                "microsoft" => "btn-microsoft",
+                                                "twitter" => "btn-twitter",
+                                                "facebook" => "btn-facebook",
+                                                "github" => "btn-github",
+                                                "linkedin" => "btn-linkedin",
+                                                "amazon" => "btn-amazon",
+                                                "apple" => "btn-apple",
+                                                "slack" => "btn-slack",
+                                                "spotify" => "btn-spotify",
+                                                _ => "btn-primary" // Default class for unknown providers
+                                            };
+
+                                            <button type="submit" class="@buttonClass" name="provider" value="@provider.Name" title="Log in using your @provider.DisplayName account">@provider.DisplayName</button>
+                                        }
+                                    </p>
+                                </div>
+                            </form>
+                        }
+                    }
+                </section>
+            </div> *@
+            <div class="external-logins">
+                <section>
+                    <p class="divider-text">OR</p>
+                    @{
+                        if ((Model.ExternalLogins?.Count ?? 0) == 0)
+                        {
+                            <div>
+                                <p>
+                                    There are no external authentication services configured. See this
+                                    <a href="https://go.microsoft.com/fwlink/?LinkID=532715" class="link-custom">
+                                        article about setting up this ASP.NET application to support logging in via external services
+                                    </a>.
+                                </p>
+                            </div>
+                        }
+                        else
+                        {
+                            <form id="external-account" asp-page="./ExternalLogin" asp-route-returnUrl="@Model.ReturnUrl" method="post" class="form-horizontal">
+                                <div class="d-flex justify-content-center flex-wrap gap-3">
+                                    @foreach (var provider in Model.ExternalLogins!)
+                                    {
+                                        var buttonClass = provider.Name.ToLower() switch
+                                        {
+                                            "google" => "btn-google",
+                                            "microsoft" => "btn-microsoft",
+                                            "twitter" => "btn-twitter",
+                                            "facebook" => "btn-facebook",
+                                            "github" => "btn-github",
+                                            "linkedin" => "btn-linkedin",
+                                            "amazon" => "btn-amazon",
+                                            "apple" => "btn-apple",
+                                            "slack" => "btn-slack",
+                                            "spotify" => "btn-spotify",
+                                            _ => "btn-primary"
+                                        };
+
+                                        <button type="submit" class="@buttonClass d-flex align-items-center justify-content-center"
+                                                name="provider" value="@provider.Name" title="Log in using @provider.DisplayName">
+                                            <i class="provider-icon @provider.Name.ToLower()"></i> @provider.DisplayName
+                                        </button>
+                                    }
+                                </div>
+                            </form>
+                        }
+                    }
+                </section>
+            </div>
+        </div>
     </div>
 </div>
+
+@{
+    if (TempData["ShowLoading"] != null && (bool)TempData["ShowLoading"])
+    {
+        <div id="loading-spinner" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(255, 255, 255, 0.8); z-index: 9999;">
+            <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">
+                <div class="spinner-border text-primary" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                </div>
+                <p>Redirecting...</p>
+            </div>
+        </div>
+        <script>
+               document.addEventListener('DOMContentLoaded', function () {
+                const loader = document.getElementById('loading-spinner');
+                loader.style.display = 'block'; // Show the loader during redirection
+
+                window.onload = function () {
+                    loader.style.display = 'none'; // Hide the loader after the page loads
+                };
+            });
+        </script>
+    }
+}
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
 }
+
+<style>
+    body {
+        /* background: linear-gradient(to bottom right, #e3f2fd, #bbdefb); */
+        background: linear-gradient(to right, #f8f9fa, #e9ecef);
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    .card {
+        border-radius: 20px;
+        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+        background: white;
+        animation: fadeIn 1.5s ease;
+    }
+
+    .btn-primary {
+        background-color: #007bff;
+        border: none;
+        transition: all 0.3s ease-in-out;
+    }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+    .btn-outline-danger {
+        color: #dc3545;
+        border: 1px solid #dc3545;
+        transition: all 0.3s ease;
+    }
+
+        .btn-outline-danger:hover {
+            background-color: #dc3545;
+            color: white;
+        }
+
+    .btn-outline-primary {
+        color: #007bff;
+        border: 1px solid #007bff;
+        transition: all 0.3s ease;
+    }
+
+        .btn-outline-primary:hover {
+            background-color: #007bff;
+            color: white;
+        }
+
+    .link-custom {
+        text-decoration: none;
+        color: #007bff;
+        font-weight: 500;
+        transition: color 0.3s ease;
+    }
+
+        .link-custom:hover {
+            color: #0056b3;
+            text-decoration: underline;
+        }
+
+    .form-floating .form-control {
+        border-radius: 10px;
+        padding: 10px 15px;
+    }
+
+    .form-floating label {
+        font-size: 0.9rem;
+        color: #6c757d;
+    }
+
+    .btn-google {
+        background-color: #DB4437 !important; /* Google */
+        color: white;
+        border: none;
+        transition: all 0.3s ease-in-out;
+    }
+
+    .btn-microsoft {
+        background-color: #0078D7; /* Microsoft */
+        color: white;
+        border: none;
+        transition: all 0.3s ease-in-out;
+    }
+
+    .btn-twitter {
+        background-color: #1DA1F2; /* Twitter */
+        color: white;
+        border: none;
+        transition: all 0.3s ease-in-out;
+    }
+
+    .btn-facebook {
+        background-color: #4267B2; /* Facebook */
+        color: white;
+        border: none;
+        transition: all 0.3s ease-in-out;
+    }
+
+    .btn-github {
+        background-color: #333333; /* GitHub */
+        color: white;
+        border: none;
+        transition: all 0.3s ease-in-out;
+    }
+
+    .btn-linkedin {
+        background-color: #0077B5; /* LinkedIn */
+        color: white;
+        border: none;
+        transition: all 0.3s ease-in-out;
+    }
+
+    .btn-amazon {
+        background-color: #FF9900; /* Amazon */
+        color: white;
+        border: none;
+        transition: all 0.3s ease-in-out;
+    }
+
+    .btn-apple {
+        background-color: #000000; /* Apple */
+        color: white;
+        border: none;
+        transition: all 0.3s ease-in-out;
+    }
+
+    .btn-slack {
+        background-color: #4A154B; /* Slack */
+        color: white;
+        border: none;
+        transition: all 0.3s ease-in-out;
+    }
+
+    .btn-spotify {
+        background-color: #1DB954; /* Spotify */
+        color: white;
+        border: none;
+        transition: all 0.3s ease-in-out;
+    }
+
+    .external-logins {
+        text-align: center;
+        margin: 20px 0;
+    }
+
+    .divider-text {
+        font-size: 1.2rem;
+        font-weight: bold;
+        margin: 15px 0;
+        color: #6c757d;
+    }
+
+    button {
+        border-radius: 5px;
+        padding: 10px 20px;
+        font-size: 1rem;
+        font-weight: 500;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        transition: all 0.3s ease-in-out;
+    }
+
+        button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Provider-specific icons */
+        button .provider-icon {
+            font-size: 1.5rem;
+            display: inline-block;
+        }
+
+    .provider-icon.google {
+        content: url('images/google-logo.png');
+    }
+
+    .provider-icon.microsoft {
+        content: url('images/microsoft-logo.png');
+    }
+    /* Add other icons accordingly */
+    .spinner-border {
+        width: 3rem;
+        height: 3rem;
+        border-width: 0.3rem;
+    }
+
+    #loading-spinner p {
+        font-size: 1.2rem;
+        color: #333;
+        margin-top: 10px;
+        text-align: center;
+    }
+</style>

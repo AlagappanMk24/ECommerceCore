@@ -1,0 +1,158 @@
+﻿@{
+    ViewData["Title"] = "E-commerce Management System";
+}
+
+<header class="hero bg-primary text-white py-5">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-md-6">
+                <h1 class="display-4 fw-bold">Streamline Your Online Store</h1>
+                <p class="lead">Powerful e-commerce management tools to boost sales, simplify operations, and grow your business.</p>
+                <div class="d-flex">
+                    <a class="btn btn-lg btn-light me-3" href="#features" role="button">Explore Features</a>
+                    <a class="btn btn-lg btn-outline-light" href="#pricing" role="button">See Pricing</a>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <img src="~/images/ecommerce-dashboard.png" alt="E-commerce Dashboard" class="img-fluid rounded shadow-lg">
+            </div>
+        </div>
+    </div>
+</header>
+
+<section id="features" class="features bg-light py-5">
+    <div class="container">
+        <h2 class="text-center mb-5">Key Features</h2>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="card shadow border-0 h-100">
+                    <div class="card-body text-center">
+                        <i class="fas fa-box-open fa-3x mb-3 text-primary"></i>
+                        <h5 class="card-title">Inventory Management</h5>
+                        <p class="card-text">Track stock levels, automate reordering, and prevent overselling.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card shadow border-0 h-100">
+                    <div class="card-body text-center">
+                        <i class="fas fa-chart-line fa-3x mb-3 text-primary"></i>
+                        <h5 class="card-title">Sales Analytics</h5>
+                        <p class="card-text">Gain insights into sales trends, customer behavior, and product performance.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card shadow border-0 h-100">
+                    <div class="card-body text-center">
+                        <i class="fas fa-truck fa-3x mb-3 text-primary"></i>
+                        <h5 class="card-title">Order Fulfillment</h5>
+                        <p class="card-text">Streamline order processing, shipping, and tracking.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row mt-4">
+            <div class="col-md-4">
+                <div class="card shadow border-0 h-100">
+                    <div class="card-body text-center">
+                        <i class="fas fa-users fa-3x mb-3 text-primary"></i>
+                        <h5 class="card-title">Customer Management</h5>
+                        <p class="card-text">Manage customer data, track interactions, and personalize marketing efforts.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card shadow border-0 h-100">
+                    <div class="card-body text-center">
+                        <i class="fas fa-credit-card fa-3x mb-3 text-primary"></i>
+                        <h5 class="card-title">Payment Gateway Integration</h5>
+                        <p class="card-text">Accept secure payments from various providers.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card shadow border-0 h-100">
+                    <div class="card-body text-center">
+                        <i class="fas fa-store fa-3x mb-3 text-primary"></i>
+                        <h5 class="card-title">Multi-Store Management</h5>
+                        <p class="card-text">Manage multiple online stores from a single dashboard.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="pricing" class="pricing bg-white py-5">
+    <div class="container">
+        <h2 class="text-center mb-5">Pricing Plans</h2>
+        <div class="row justify-content-center">
+            <div class="col-md-4">
+                <div class="card mb-4 rounded-3 shadow-sm">
+                    <div class="card-header py-3 text-center">
+                        <h4 class="my-0 fw-normal">Basic</h4>
+                    </div>
+                    <div class="card-body">
+                        <h1 class="card-title pricing-card-title text-center">$19<small class="text-muted fw-light">/month</small></h1>
+                        <ul class="list-unstyled mt-3 mb-4">
+                            <li>Basic Inventory</li>
+                            <li>Limited Analytics</li>
+                            <li>Standard Support</li>
+                        </ul>
+                        <div class="d-grid">
+                            <a asp-area="Identity" asp-page="/Account/Register" class="w-100 btn btn-lg btn-outline-primary" role="button">Sign up for free</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card mb-4 rounded-3 shadow-sm">
+                    <div class="card-header py-3 text-center">
+                        <h4 class="my-0 fw-normal">Pro</h4>
+                    </div>
+                    <div class="card-body">
+                        <h1 class="card-title pricing-card-title text-center">$49<small class="text-muted fw-light">/month</small></h1>
+                        <ul class="list-unstyled mt-3 mb-4">
+                            <li>Advanced Inventory</li>
+                            <li>Full Analytics</li>
+                            <li>Priority Support</li>
+                        </ul>
+                        <div class="d-grid">
+                            <button type="button" class="w-100 btn btn-lg btn-primary">Get started</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="contact" class="contact py-3">
+    <div class="container">
+        <h2 class="text-center mb-3">Let's Talk!</h2>
+        <p class="text-center mb-4">Get in touch with our team to discuss your e-commerce needs.</p>
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card shadow rounded-lg border-0" style="background-color: #f5f5dc">
+                    <div class="card-body p-5">
+                        @await Html.PartialAsync("_ContactUsFormPartial")
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<footer class="bg-dark text-white py-3 text-center">
+    <div class="container">
+        <p>&copy; @DateTime.Now.Year Ecommerce Management. All rights reserved.</p>
+    </div>
+</footer>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

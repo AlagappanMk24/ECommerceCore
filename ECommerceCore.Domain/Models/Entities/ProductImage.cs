@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace ECommerceCore.Domain.Models.Entities
 {
-    public class ProductImage
+    public class ProductImage : BaseEntity
     {
         public int Id { get; set; }
         [Required]

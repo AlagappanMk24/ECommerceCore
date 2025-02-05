@@ -2,7 +2,7 @@
 
 namespace ECommerceCore.Domain.Models.Entities
 {
-    public class Company
+    public class Company : BaseEntity
     {
         [Key]
         public int Id { get; set; }

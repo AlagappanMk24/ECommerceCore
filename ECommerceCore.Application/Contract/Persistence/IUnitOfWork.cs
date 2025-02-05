@@ -10,7 +10,7 @@
         IOrderDetailRepository OrderDetail { get; }
         IOrderHeaderRepository OrderHeader { get; }
         IProductImageRepository ProductImage { get; }
-
-        void Save();
+        IContactUsRepository ContactUs { get; }
+        Task SaveAsync();
     }
 }

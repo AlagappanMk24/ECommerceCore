@@ -1,15 +1,13 @@
-using ECommerceCore.Application.Contract.Persistence;
 using ECommerceCore.Application.DependencyInjection;
 using ECommerceCore.Infrastructure.Data.Context;
 using ECommerceCore.Infrastructure.Data.DbInitializer;
-using ECommerceCore.Infrastructure.Repositories;
 using ECommerceCore.Infrastructure.Utilities;
 using ECommerceCore.Web.Filters;
 using ECommerceCore.Web.Logger;
-using ECommerceCore.Web.Utilities;
+using Microsoft.AspNetCore.Authentication.Google;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 using Stripe;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -17,8 +15,6 @@ var builder = WebApplication.CreateBuilder(args);
 //builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<EcomDbContext>();
 
 builder.Services.AddRazorPages();
-
-builder.Services.AddScoped<IEmailSender, EmailSender>();
 
 /// <summary>
 /// Configures all required services for the application.
@@ -46,6 +42,8 @@ void ConfigureServices(IServiceCollection services, IConfiguration configuration
 
     ConfigureDatabase(services, configuration);
 
+    ConfigureEmailSettings(services, configuration);
+
     ConfigureStripeSettings(services, configuration);
 
     ConfigureIdentity(services);
@@ -59,6 +57,26 @@ void ConfigureServices(IServiceCollection services, IConfiguration configuration
     RegisterApplicationServices(services);
 
     ConfigureStripe(configuration);
+}
+
+/// <summary>
+/// Configures the database context using SQL Server.
+/// </summary>
+void ConfigureDatabase(IServiceCollection services, IConfiguration configuration)
+{
+    var connectionString = configuration.GetConnectionString("EcomDbConnection");
+
+    // Add DbContext with SQL Server
+    services.AddDbContext<EcomDbContext>(options =>
+        options.UseSqlServer(connectionString));
+}
+
+/// <summary>
+/// Configures Email settings from app configuration.
+/// </summary>
+void ConfigureEmailSettings(IServiceCollection services, IConfiguration configuration)
+{
+    services.Configure<EmailSettings>(configuration.GetSection("EmailSettings"));
 }
 
 /// <summary>
@@ -89,6 +107,18 @@ void ConfigureApplicationCookie(IServiceCollection services)
         options.LoginPath = "/Identity/Account/Login";
         options.LogoutPath = "/Identity/Account/Logout";
         options.AccessDeniedPath = "/Identity/Account/AccessDenied";
+
+        // Set the cookie expiration time
+        options.ExpireTimeSpan = TimeSpan.FromMinutes(30);
+
+        // Extend expiration with activity
+        options.SlidingExpiration = true;
+
+        // Prevent client-side access
+        options.Cookie.HttpOnly = true;
+
+        // Use HTTPS
+        options.Cookie.SecurePolicy = CookieSecurePolicy.Always; 
     });
 }
 
@@ -97,24 +127,25 @@ void ConfigureApplicationCookie(IServiceCollection services)
 /// </summary>
 void ConfigureExternalLogins(IServiceCollection services, IConfiguration configuration)
 {
-    services.AddAuthentication().AddFacebook(options =>
+    services.AddAuthentication()
+    .AddFacebook(fbOptions =>
     {
-        options.AppId = "";
-        options.AppSecret = "";
+        fbOptions.AppId = configuration.GetSection("FacebookKeys:AppId").Value;
+        fbOptions.AppSecret = configuration.GetSection("FacebookKeys:AppSecret").Value;
+    })
+    .AddGoogle(GoogleDefaults.AuthenticationScheme, googleOptions =>
+    {
+        googleOptions.ClientId = configuration.GetSection("GoogleKeys:ClientId").Value;
+        googleOptions.ClientSecret = configuration.GetSection("GoogleKeys:ClientSecret").Value;
     });
+    //.AddMicrosoftAccount(Microsoft.AuthenticationScheme, microsoftOptions =>
+    //{
+    //    microsoftOptions.ClientId = configuration.GetSection("GoogleKeys:ClientId").Value;
+    //    microsoftOptions.ClientSecret = configuration.GetSection("GoogleKeys:ClientSecret").Value;
+    //});
 }
 
-/// <summary>
-/// Configures the database context using SQL Server.
-/// </summary>
-void ConfigureDatabase(IServiceCollection services, IConfiguration configuration)
-{
-    var connectionString = configuration.GetConnectionString("EcomDbConnection");
 
-    // Add DbContext with SQL Server
-    services.AddDbContext<EcomDbContext>(options =>
-        options.UseSqlServer(connectionString));
-}
 
 /// <summary>
 /// Configures session settings.
@@ -123,7 +154,8 @@ void ConfigureSession(IServiceCollection services)
 {
     services.AddDistributedMemoryCache();
     services.AddSession(Options => {
-        Options.IdleTimeout = TimeSpan.FromMinutes(100);
+        Options.IdleTimeout = TimeSpan.FromMinutes(5);
+        // Prevent client-side access
         Options.Cookie.HttpOnly = true;
         Options.Cookie.IsEssential = true;
     });
@@ -170,8 +202,13 @@ void ConfigureMiddleware(WebApplication app)
     app.MapRazorPages();
 
     app.MapControllerRoute(
+      name: "areas",
+      pattern: "{area:exists}/{controller=Home}/{action=LandingPage}/{id?}"
+  );
+
+    app.MapControllerRoute(
         name: "default",
-        pattern: "{area=Customer}/{controller=Home}/{action=Index}/{id?}"
+        pattern: "{controller=Home}/{action=LandingPage}/{id?}"
     );
 
     SeedDatabase();

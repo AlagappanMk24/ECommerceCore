@@ -20,6 +20,8 @@ namespace ECommerceCore.Infrastructure.Data.Context
         public DbSet<ProductImage> ProductImages { get; set; }
         public DbSet<OrderHeader> OrderHeaders { get; set; }
         public DbSet<OrderDetail> OrderDetails { get; set; }
+        public DbSet<WishlistItem> WishlistItems { get; set; }
+        public DbSet<ContactUs> ContactUsSubmissions { get; set; } 
 
         //To do seeding or to add data in db
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -42,7 +44,7 @@ namespace ECommerceCore.Infrastructure.Data.Context
                     Id = 1,
                     Title = "Fortune of Time",
                     Author = "Billy Spark",
-                    Description = "Praesent vitae sodales libero. Praesent molestie orci augue, vitae euismod velit sollicitudin ac. Praesent vestibulum facilisis nibh ut ultricies.\r\n\r\nNunc malesuada viverra ipsum sit amet tincidunt. ",
+                    Description = "A thrilling race against time! When an ancient artifact surfaces, a group of daring adventurers must decipher its secrets before it falls into the wrong hands. Explosions, chases, and close calls abound in this action-packed adventure.",
                     ISBN = "SWD9999001",
                     ListPrice = 99,
                     Price = 90,
@@ -56,7 +58,7 @@ namespace ECommerceCore.Infrastructure.Data.Context
                     Id = 2,
                     Title = "Dark Skies",
                     Author = "Nancy Hoover",
-                    Description = "Praesent vitae sodales libero. Praesent molestie orci augue, vitae euismod velit sollicitudin ac. Praesent vestibulum facilisis nibh ut ultricies.\r\n\r\nNunc malesuada viverra ipsum sit amet tincidunt. ",
+                    Description = "In the year 2342, humanity has colonized the outer reaches of the solar system. But a mysterious force is picking off outposts one by one. A lone pilot must uncover the truth behind the 'Dark Skies' before it's too late for humanity.",
                     ISBN = "CAW777777701",
                     ListPrice = 40,
                     Price = 30,
@@ -70,7 +72,7 @@ namespace ECommerceCore.Infrastructure.Data.Context
                     Id = 3,
                     Title = "Vanish in the Sunset",
                     Author = "Julian Button",
-                    Description = "Praesent vitae sodales libero. Praesent molestie orci augue, vitae euismod velit sollicitudin ac. Praesent vestibulum facilisis nibh ut ultricies.\r\n\r\nNunc malesuada viverra ipsum sit amet tincidunt. ",
+                    Description = "The year is 1888. A renowned historian vanishes without a trace during an expedition to the American West. His journal, filled with cryptic clues about a hidden Native American tribe, is the only lead. Follow the trail of mystery and discover the secrets lost to time.",
                     ISBN = "RITO5555501",
                     ListPrice = 55,
                     Price = 50,
@@ -84,7 +86,7 @@ namespace ECommerceCore.Infrastructure.Data.Context
                     Id = 4,
                     Title = "Cotton Candy",
                     Author = "Abby Muscles",
-                    Description = "Praesent vitae sodales libero. Praesent molestie orci augue, vitae euismod velit sollicitudin ac. Praesent vestibulum facilisis nibh ut ultricies.\r\n\r\nNunc malesuada viverra ipsum sit amet tincidunt. ",
+                    Description = "A heartwarming science fiction story about a young girl who discovers a small, fluffy alien creature in her backyard. This gentle tale explores themes of friendship, acceptance, and the wonders of the universe.",
                     ISBN = "WS3333333301",
                     ListPrice = 70,
                     Price = 65,
@@ -98,7 +100,7 @@ namespace ECommerceCore.Infrastructure.Data.Context
                     Id = 5,
                     Title = "Rock in the Ocean",
                     Author = "Ron Parker",
-                    Description = "Praesent vitae sodales libero. Praesent molestie orci augue, vitae euismod velit sollicitudin ac. Praesent vestibulum facilisis nibh ut ultricies.\r\n\r\nNunc malesuada viverra ipsum sit amet tincidunt. ",
+                    Description = "A high-octane action thriller set on a remote island fortress. A team of elite mercenaries is hired to infiltrate the heavily guarded complex and retrieve a valuable asset. Prepare for intense combat, daring escapes, and unexpected twists.",
                     ISBN = "SOTJ1111111101",
                     ListPrice = 30,
                     Price = 27,
@@ -112,14 +114,13 @@ namespace ECommerceCore.Infrastructure.Data.Context
                     Id = 6,
                     Title = "Leaves and Wonders",
                     Author = "Laura Phantom",
-                    Description = "Praesent vitae sodales libero. Praesent molestie orci augue, vitae euismod velit sollicitudin ac. Praesent vestibulum facilisis nibh ut ultricies.\r\n\r\nNunc malesuada viverra ipsum sit amet tincidunt. ",
+                    Description = "Step back in time to the ancient forests of Europe. This historical fiction novel follows the lives of a Celtic tribe as they face Roman invasion and the changing tides of history. Explore the rich culture, myths, and struggles of a forgotten era.",
                     ISBN = "FOT000000001",
                     ListPrice = 25,
                     Price = 23,
                     Price50 = 22,
                     Price100 = 20,
                     CategoryId = 3
-
                 }
             );
         }

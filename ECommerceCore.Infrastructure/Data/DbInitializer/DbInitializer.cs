@@ -46,8 +46,8 @@ namespace ECommerceCore.Infrastructure.Data.DbInitializer
                 //If roles are not created, then we will crete admin user as well
                 _userManger.CreateAsync(new ApplicationUser
                 {
-                    UserName = "alagappantest@gmail.com",
-                    Email = "alagappantest@gmail.com",
+                    UserName = "alagappanmk98@gmail.com",
+                    Email = "alagappanmk98@gmail.com",
                     Name = "Alagappan",
                     PhoneNumber = "8668453402",
                     StreetAddress = "123 St, Besant Nagar",
@@ -56,7 +56,7 @@ namespace ECommerceCore.Infrastructure.Data.DbInitializer
                     City = "Chennai"
                 }, "Alagappan@123").GetAwaiter().GetResult();
 
-                ApplicationUser user = _dbContext.ApplicationUsers.FirstOrDefault(u => u.Email == "alagappantest@gmail.com");
+                ApplicationUser user = _dbContext.ApplicationUsers.FirstOrDefault(u => u.Email == "alagappanmk98@gmail.com");
                 _userManger.AddToRoleAsync(user, AppConstants.Role_Admin).GetAwaiter().GetResult();
 
             }

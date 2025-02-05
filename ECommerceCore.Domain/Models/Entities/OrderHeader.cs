@@ -4,10 +4,11 @@ using System.ComponentModel.DataAnnotations;
 
 namespace ECommerceCore.Domain.Models.Entities
 {
-    public class OrderHeader
+    public class OrderHeader : BaseEntity
     {
         public int Id { get; set; }
         public string ApplicationUserId { get; set; }
+
         [ForeignKey("ApplicationUserId")]
         [ValidateNever]
         public ApplicationUser ApplicationUser { get; set; }
@@ -39,5 +40,8 @@ namespace ECommerceCore.Domain.Models.Entities
         public string PostalCode { get; set; }
         [Required]
         public string Name { get; set; }
+
+        [ValidateNever]
+        public ICollection<OrderDetail>? OrderDetails { get; set; }
     }
 }

@@ -1,8 +1,9 @@
 ﻿using ECommerceCore.Application.Contract.Persistence;
+using ECommerceCore.Application.Contract.Service;
 using ECommerceCore.Infrastructure.Data.DbInitializer;
 using ECommerceCore.Infrastructure.Repositories;
+using ECommerceCore.Infrastructure.Services;
 using Microsoft.Extensions.DependencyInjection;
-using System.Reflection;
 
 namespace ECommerceCore.Application.DependencyInjection
 {
@@ -13,7 +14,16 @@ namespace ECommerceCore.Application.DependencyInjection
             // Register Unit Of Work and Generic Repository and Services
             services.AddScoped<IDbInitializer, DbInitializer>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
-           
+            services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IOrderService, OrderService>();
+            services.AddScoped<IProductService, ProductService>();
+            services.AddScoped<ICartService, CartService>();
+            services.AddScoped<IPaymentService, PaymentService>();
+            services.AddScoped<ICategoryService, CategoryService>();
+            services.AddScoped<IWishlistService, WishlistService>();
+            services.AddScoped<ICompanyService, CompanyService>();
+            services.AddScoped<IEmailService, EmailService>();
+            services.AddScoped<IContactUsService, ContactUsService>();
             return services;
         }
     }

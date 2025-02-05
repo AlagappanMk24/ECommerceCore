@@ -1,0 +1,126 @@
+﻿@{
+    var status = Context.Request.Query["status"];
+    var pending = "btn-outline-primary";
+    var inprocess = "btn-outline-primary";
+    var completed = "btn-outline-primary";
+    var approved = "btn-outline-primary";
+    var all = "btn-outline-primary";
+
+    switch (status)
+    {
+        case "pending":
+            pending = "btn-primary text-white";
+            break;
+        case "inprocess":
+            inprocess = "btn-primary text-white";
+            break;
+        case "completed":
+            completed = "btn-primary text-white";
+            break;
+        case "approved":
+            approved = "btn-primary text-white";
+            break;
+        default:
+            all = "btn-primary text-white";
+            break;
+    }
+}
+
+<div class="card shadow-lg rounded-4 border-0 my-4">
+    <div class="card-header  bg-secondary bg-gradient text-white text-center py-4">
+       <h2 class="display-6 fw-bold mb-0">📦 Order List</h2>
+        <p class="mt-2 text-light">Effortlessly manage your orders</p>
+    </div>
+    <div class="card-body">
+        <div class="d-flex flex-wrap justify-content-center pb-4">
+            <a asp-controller="Order" asp-action="Index" asp-route-status="inprocess" class="btn @inprocess mx-2 mb-2">
+                <i class="bi bi-hourglass-split me-2"></i> In Process
+            </a>
+            <a asp-controller="Order" asp-action="Index" asp-route-status="pending" class="btn @pending mx-2 mb-2">
+                 <i class="bi bi-clock-fill me-2"></i> Payment Pending
+            </a>
+            <a asp-controller="Order" asp-action="Index" asp-route-status="completed" class="btn @completed mx-2 mb-2">
+                     <i class="bi bi-check-circle-fill me-2"></i> Completed
+            </a>
+            <a asp-controller="Order" asp-action="Index" asp-route-status="approved" class="btn @approved mx-2 mb-2">
+                    <i class="bi bi-shield-fill-check me-2"></i> Approved
+            </a>
+            <a asp-controller="Order" asp-action="Index" asp-route-status="all" class="btn @all mx-2 mb-2">
+               <i class="bi bi-list-ul me-2"></i> All
+            </a>
+        </div>
+
+        <div class="table-responsive">
+            <table id="tblData" class="table table-hover table-bordered align-middle">
+                <thead class="table-primary">
+                    <tr>
+                        <th class="text-center">ID</th>
+                        <th>Name</th>
+                        <th>Phone</th>
+                        <th>Email</th>
+                        <th>Status</th>
+                        <th class="text-end">Total</th>
+                        <th class="text-center">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Dynamic rows will be populated here -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/js/Order.js"></script>
+}
+
+<style>
+    .card-header {
+        background: linear-gradient(45deg, #6a11cb, #2575fc);
+        color: #fff;
+        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+        border-radius: 0.5rem 0.5rem 0 0;
+    }
+
+    .btn {
+        font-size: 1rem;
+        padding: 0.5rem 1rem;
+        transition: all 0.3s ease;
+        border-radius: 0.5rem;
+    }
+
+        .btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+        }
+
+    .table {
+        border-radius: 0.5rem;
+        overflow: hidden;
+    }
+
+
+    .table-hover tbody tr:hover {
+        background-color: #f1f8ff;
+        transition: background-color 0.2s ease;
+    }
+
+    .table th {
+        text-transform: uppercase;
+        font-weight: 700;
+        background: #2575fc;
+        color: #fff;
+    }
+
+    .table td {
+        font-size: 0.95rem;
+    }
+
+    .table-responsive {
+        border-radius: 0.5rem;
+        overflow: hidden;
+    }
+
+
+</style>

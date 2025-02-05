@@ -1,5 +1,6 @@
 ﻿using ECommerceCore.Application.Constants;
 using ECommerceCore.Application.Contract.Persistence;
+using ECommerceCore.Application.Contract.Service;
 using ECommerceCore.Domain.Models.Entities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -8,84 +9,139 @@ namespace ECommerceCore.Web.Areas.Admin.Controllers
 {
     [Area("Admin")]
     [Authorize(Roles = AppConstants.Role_Admin)]
-    public class CompanyController(IUnitOfWork unitOfWork) : Controller
+    public class CompanyController(ICompanyService companyService, ILogger<CompanyController> logger) : Controller
     {
-        private readonly IUnitOfWork _unitOfWork = unitOfWork;
+        private readonly ICompanyService _companyService = companyService;
+        private readonly ILogger<CompanyController> _logger = logger;
 
-        //For to show Product
-        public IActionResult Index()
+        /// <summary>
+        /// Retrieves and displays a list of all companies.
+        /// </summary>
+        /// <returns>A view containing a list of companies.</returns>
+        public async Task<IActionResult> Index()
         {
-            List<Company> objCompanyList = _unitOfWork.Company.GetAll().ToList();
-            return View(objCompanyList);
-        }
-        //For Upsert
-        public IActionResult Upsert(int? Id)
-        {
-
-            if (Id == null || Id == 0)
+            try
             {
-                //create 
-                return View(new Company());
+                List<Company> objCompanyList = await _companyService.GetAllCompaniesAsync();
+                return View(objCompanyList);
             }
-            else
+            catch (Exception ex)
             {
-                //Update
-                Company company = _unitOfWork.Company.Get(u => u.Id == Id);
-                return View(company);
+                _logger.LogError(ex, "Error occurred while fetching companies");
+                return View("Error"); // Return an error view or handle as needed
             }
         }
 
-
-        //For to Upsert Product
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public IActionResult Upsert(Company obj)
+        /// <summary>
+        /// Prepares the view for adding or updating a company based on the provided ID.
+        /// </summary>
+        /// <param name="Id">The ID of the company to be updated; if null or 0, prepares for creating a new company.</param>
+        /// <returns>A view for creating or updating a company.</returns>
+        public async Task<IActionResult> Upsert(int? Id)
         {
-            if (ModelState.IsValid)
+            try
             {
-
-                if (obj.Id == 0)
+                if (Id == null || Id == 0)
                 {
-                    _unitOfWork.Company.Add(obj);
-                    TempData["Success"] = "Product added successfully";
+                    // Create
+                    return View(new Company());
                 }
                 else
                 {
-                    _unitOfWork.Company.Update(obj);
-                    TempData["Success"] = "Product updated successfully";
+                    // Update
+                    Company company = await _companyService.GetCompanyByIdAsync(Id.Value);
+                    if (company == null)
+                    {
+                        return NotFound();
+                    }
+                    return View(company);
                 }
-                _unitOfWork.Save();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error occurred while accessing company for Upsert");
+                return View("Error"); // Return an error view or handle as needed
+            }
+        }
 
+        /// <summary>
+        /// Adds a new company or updates an existing company based on the provided model.
+        /// </summary>
+        /// <param name="obj">The company object containing the data to be saved.</param>
+        /// <returns>Redirects to the Index action upon success; returns an error view if unsuccessful.</returns>
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Upsert(Company obj)
+        {
+            try
+            {
+                if (obj.Id == 0)
+                {
+                    await _companyService.AddCompanyAsync(obj);
+                    TempData["Success"] = "Company added successfully";
+                }
+                else
+                {
+                    await _companyService.UpdateCompanyAsync(obj);
+                    TempData["Success"] = "Company updated successfully";
+                }
                 return RedirectToAction("Index");
             }
-            else
+            catch (Exception ex)
             {
-                return View(obj); // return to the form with validation errors
+                _logger.LogError(ex, "Error occurred while saving company");
+                return View("Error"); // Return an error view or handle as needed
             }
-
         }
 
-        #region API CALLS
+        /// <summary>
+        /// Retrieves all companies and returns them as JSON data for API consumption.
+        /// </summary>
+        /// <returns>JSON containing the list of companies.</returns>
         [HttpGet]
-        public IActionResult GetAll()
+        public async Task<IActionResult> GetAll()
         {
-            List<Company> objCompanyList = _unitOfWork.Company.GetAll().ToList();
-            return Json(new { data = objCompanyList });
-        }
-        [HttpDelete]
-        public IActionResult Delete(int? Id)
-        {
-            var companyToBeDeleted = _unitOfWork.Company.Get(u => u.Id == Id);
-            if (companyToBeDeleted == null)
+            try
             {
-                return Json(new { success = false, message = "Error while deleting" });
+                List<Company> objCompanyList = await _companyService.GetAllCompaniesAsync();
+                return Json(new { data = objCompanyList });
             }
-            _unitOfWork.Company.Remove(companyToBeDeleted);
-            _unitOfWork.Save();
-            return Json(new { success = true, message = "Product delete Successful" });
-
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error occurred while fetching companies for API");
+                return Json(new { success = false, message = "Error occurred while fetching companies" });
+            }
         }
 
-        #endregion
+        /// <summary>
+        /// Deletes a company with the specified ID.
+        /// </summary>
+        /// <param name="Id">The ID of the company to be deleted.</param>
+        /// <returns>A JSON response indicating the success or failure of the deletion.</returns>
+        [HttpDelete]
+        public async Task<IActionResult> Delete(int? Id)
+        {
+            try
+            {
+                if (Id == null)
+                {
+                    return Json(new { success = false, message = "Company ID cannot be null" });
+                }
+
+                var companyToBeDeleted = await _companyService.GetCompanyByIdAsync(Id.Value);
+                if (companyToBeDeleted == null)
+                {
+                    return Json(new { success = false, message = "Error while deleting" });
+                }
+
+                await _companyService.DeleteCompanyAsync(companyToBeDeleted);
+                return Json(new { success = true, message = "Company deleted successfully" });
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error occurred while deleting company");
+                return Json(new { success = false, message = "Error occurred while deleting company" });
+            }
+        }
     }
 }

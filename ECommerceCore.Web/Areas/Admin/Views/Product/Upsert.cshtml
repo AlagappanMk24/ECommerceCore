@@ -1,0 +1,136 @@
+﻿@using ECommerceCore.Application.Contract.ViewModels
+@model ProductVM
+
+<div class="container my-5">
+    <div class="card shadow-lg border-0 rounded">
+        <!-- Header Section -->
+        <div class="card-header bg-gradient bg-primary text-white text-center py-4">
+            <h2 class="fw-bold">@(Model.Product.Id != 0 ? "Update" : "Create") Product</h2>
+            <p class="small text-light">Fill in the details below to add or update a product in your catalog.</p>
+        </div>
+
+        <!-- Body Section -->
+        <div class="card-body px-5 py-4">
+            <form method="post" class="row g-4" enctype="multipart/form-data">
+                <input asp-for="Product.Id" hidden />
+
+                <!-- Product Form -->
+                <div class="col-lg-12">
+                    <div class="row g-3">
+                        <!-- Validation Summary -->
+                        <div class="col-12">
+                            <div asp-validation-summary="ModelOnly" class="alert alert-danger d-none"></div>
+                        </div>
+
+                        <!-- Product Details -->
+                        <div class="col-md-6">
+                            <label asp-for="Product.Title" class="form-label fw-bold">Product Name</label>
+                            <input asp-for="Product.Title" class="form-control shadow-sm" placeholder="Enter product name">
+                            <span asp-validation-for="Product.Title" class="text-danger"></span>
+                        </div>
+                        <div class="col-md-6">
+                            <label asp-for="Product.ISBN" class="form-label fw-bold">ISBN</label>
+                            <input asp-for="Product.ISBN" class="form-control shadow-sm" placeholder="Enter ISBN">
+                            <span asp-validation-for="Product.ISBN" class="text-danger"></span>
+                        </div>
+                        <div class="col-md-12">
+                            <label asp-for="Product.Description" class="form-label fw-bold">Description</label>
+                            <textarea asp-for="Product.Description" class="form-control shadow-sm" id="editor" placeholder="Enter product description"></textarea>
+                        </div>
+                        <div class="col-md-4">
+                            <label asp-for="Product.Author" class="form-label fw-bold">Author</label>
+                            <input asp-for="Product.Author" class="form-control shadow-sm" placeholder="Enter author name">
+                            <span asp-validation-for="Product.Author" class="text-danger"></span>
+                        </div>
+                        <div class="col-md-4">
+                            <label asp-for="Product.CategoryId" class="form-label fw-bold">Category</label>
+                            <select asp-for="Product.CategoryId" asp-items="@Model.CategoryList" class="form-select shadow-sm">
+                                <option disabled selected>--Select Category--</option>
+                            </select>
+                            <span asp-validation-for="Product.CategoryId" class="text-danger"></span>
+                        </div>
+                        <div class="col-md-4">
+                            <label asp-for="Product.ListPrice" class="form-label fw-bold">List Price</label>
+                            <input asp-for="Product.ListPrice" class="form-control shadow-sm" placeholder="Enter list price">
+                            <span asp-validation-for="Product.ListPrice" class="text-danger"></span>
+                        </div>
+                        <div class="col-md-4">
+                            <label asp-for="Product.Price" class="form-label fw-bold">Price</label>
+                            <input asp-for="Product.Price" class="form-control shadow-sm" placeholder="Enter price">
+                            <span asp-validation-for="Product.Price" class="text-danger"></span>
+                        </div>
+                        <div class="col-md-4">
+                            <label asp-for="Product.Price50" class="form-label fw-bold">Price for 50+</label>
+                            <input asp-for="Product.Price50" class="form-control shadow-sm" placeholder="Enter price for 50+">
+                            <span asp-validation-for="Product.Price50" class="text-danger"></span>
+                        </div>
+                        <div class="col-md-4">
+                            <label asp-for="Product.Price100" class="form-label fw-bold">Price for 100+</label>
+                            <input asp-for="Product.Price100" class="form-control shadow-sm" placeholder="Enter price for 100+">
+                            <span asp-validation-for="Product.Price100" class="text-danger"></span>
+                        </div>
+                        <div class="col-md-6">
+                            <label asp-for="Product.ProductImages" class="form-label fw-bold">Upload Images</label>
+                            <input type="file" name="files" class="form-control shadow-sm" multiple>
+                        </div>
+                        
+                    </div>
+                </div>
+                <!-- Image Section -->
+                <div class="col-lg-4">
+                    <div class="row">
+                        @if (Model.Product.ProductImages != null)
+                        {
+                            foreach (var image in Model.Product.ProductImages)
+                            {
+                                <div class="col-12 mb-3">
+                                    <div class="card">
+                                        <img src="@image.ImageUrl" class="card-img-top" style="border-radius:5px;border:1px solid">
+                                        <div class="card-body text-center">
+                                            <a asp-action="DeleteImage" class="btn btn-danger btn-sm" asp-route-imageId="@image.Id">
+                                                <i class="bi bi-trash-fill"></i> Delete
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        }
+                    </div>
+                </div>
+
+                <div class="col-12 d-flex justify-content-center gap-4">
+                    <button type="submit" class="btn btn-success px-4 shadow-sm">
+                        <i class="bi bi-check-circle"></i> @(Model.Product.Id != 0 ? "Update" : "Create")
+                    </button>
+                    <a asp-controller="Product" asp-action="Index" class="btn btn-outline-secondary px-4 shadow-sm">
+                        <i class="bi bi-arrow-left-circle"></i> Back to List
+                    </a>
+                </div>
+            </form>
+        </div>
+        <!-- Footer Section -->
+        <div class="card-footer text-center text-muted py-3">
+            <small>Ensure all fields are filled correctly before submission.</small>
+        </div>
+    </div>
+</div>
+
+@section Scripts
+{
+    <script>
+        ClassicEditor
+            .create(document.querySelector('#editor'), {
+                toolbar: [
+                    'heading', '|', 'bold', 'italic', 'underline', 'strikethrough', '|',
+                    'fontColor', 'fontBackgroundColor', '|', 'link', 'blockQuote',
+                    'insertTable', '|', 'undo', 'redo'
+                ]
+            })
+            .catch(error => {
+                console.error(error);
+            });
+    </script>
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
+}

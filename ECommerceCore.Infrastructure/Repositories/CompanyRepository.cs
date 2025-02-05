@@ -6,8 +6,7 @@ namespace ECommerceCore.Infrastructure.Repositories
 {
     public class CompanyRepository(EcomDbContext dbContext) : Repository<Company>(dbContext), ICompanyRepository
     {
-        private EcomDbContext _dbContext = dbContext;
-
+        private readonly EcomDbContext _dbContext = dbContext;
         public void Update(Company obj)
         {
             _dbContext.Companies.Update(obj);

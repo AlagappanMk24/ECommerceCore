@@ -1,21 +1,20 @@
 ﻿using ECommerceCore.Application.Contract.Persistence;
 using ECommerceCore.Domain.Models.Entities;
 using ECommerceCore.Infrastructure.Data.Context;
+using Microsoft.EntityFrameworkCore;
 
 namespace ECommerceCore.Infrastructure.Repositories
 {
     public class OrderHeaderRepository(EcomDbContext dbContext) : Repository<OrderHeader>(dbContext), IOrderHeaderRepository
     {
         private EcomDbContext _dbContext = dbContext;
-
         public void Update(OrderHeader obj)
         {
             _dbContext.OrderHeaders.Update(obj);
         }
-
-        public void UpdateStatus(int id, string orderStatus, string? paymentStatus = null)
+        public async Task UpdateStatusAsync(int id, string orderStatus, string? paymentStatus = null)
         {
-            var orderFromDb = _dbContext.OrderHeaders.FirstOrDefault(x => x.Id == id);
+            var orderFromDb = await _dbContext.OrderHeaders.FirstOrDefaultAsync(x => x.Id == id);
             if (orderFromDb != null)
             {
                 orderFromDb.OrderStatus = orderStatus;
@@ -25,10 +24,9 @@ namespace ECommerceCore.Infrastructure.Repositories
                 }
             }
         }
-
-        public void UpdateStripePaymentId(int id, string sessionId, string paymentIntentId)
+        public async Task UpdateStripePaymentIdAsync(int id, string sessionId, string paymentIntentId)
         {
-            var orderFromDb = _dbContext.OrderHeaders.FirstOrDefault(x => x.Id == id);
+            var orderFromDb = await _dbContext.OrderHeaders.FirstOrDefaultAsync(x => x.Id == id);
             if (!string.IsNullOrEmpty(sessionId))
             {
                 orderFromDb.SessionId = sessionId;

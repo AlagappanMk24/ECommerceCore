@@ -1,6 +1,8 @@
 ﻿using ECommerceCore.Application.Contract.Persistence;
 using ECommerceCore.Domain.Models.Entities;
 using ECommerceCore.Infrastructure.Data.Context;
+using Microsoft.EntityFrameworkCore;
+using System.Linq.Expressions;
 
 namespace ECommerceCore.Infrastructure.Repositories
 {
@@ -25,6 +27,12 @@ namespace ECommerceCore.Infrastructure.Repositories
                 objFromDb.ProductImages = obj.ProductImages;
 
             }
+        }
+        public async Task<Product> GetAsync(Expression<Func<Product, bool>> filter)
+        {
+            return await _dbContext.Products
+                .Include(p => p.ProductImages)
+                .FirstOrDefaultAsync(filter);
         }
     }
 }

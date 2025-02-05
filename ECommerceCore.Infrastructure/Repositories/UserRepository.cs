@@ -5,17 +5,26 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ECommerceCore.Infrastructure.Repositories
 {
-    public class UserRepository : Repository<ApplicationUser>, IUserRepository
+    public class UserRepository(EcomDbContext dbContext) : Repository<ApplicationUser>(dbContext), IUserRepository
     {
-        private EcomDbContext _dbContext;
-        public UserRepository(EcomDbContext dbContext) : base(dbContext)
-        {
-            _dbContext = dbContext;
-        }
-
+        private readonly EcomDbContext _dbContext = dbContext;
         public void Update(ApplicationUser applicationUser)
         {
             _dbContext.ApplicationUsers.Update(applicationUser);
+        }
+        public async Task<bool> UpdateUserAsync(ApplicationUser user)
+        {
+            try
+            {
+                // Save changes to the database
+                _dbContext.Users.Update(user);
+                await _dbContext.SaveChangesAsync();
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
         }
     }
 }

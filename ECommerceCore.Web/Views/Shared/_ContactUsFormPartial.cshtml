@@ -1,0 +1,50 @@
+﻿@using ECommerceCore.Domain.Models.Entities
+@model ContactUs
+
+@if (!string.IsNullOrEmpty(ViewBag.SuccessMessage))
+{
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        @ViewBag.SuccessMessage
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
+
+<form asp-action="Index" method="post">
+    @*  <-- Add anti-forgery token *@
+    @Html.AntiForgeryToken() 
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+    <div class="mb-3">
+        <label asp-for="Name" class="form-label">Your Name</label>
+        <input asp-for="Name" class="form-control" placeholder="Enter your name" />
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Email" class="form-label">Email Address</label>
+        <input asp-for="Email" class="form-control" type="email" placeholder="Enter your email" />
+        <span asp-validation-for="Email" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Subject" class="form-label">Subject</label>
+        <input asp-for="Subject" class="form-control" placeholder="Enter the subject" />
+        <span asp-validation-for="Subject" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Message" class="form-label">Message</label>
+        <textarea asp-for="Message" class="form-control" rows="5" placeholder="Enter your message"></textarea>
+        <span asp-validation-for="Message" class="text-danger"></span>
+    </div>
+
+    <div class="d-grid gap-2">
+        <button class="btn btn-primary btn-lg" type="submit">Send Message</button>
+    </div>
+</form>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

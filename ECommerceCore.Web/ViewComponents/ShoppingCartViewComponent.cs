@@ -20,14 +20,19 @@ namespace ECommerceCore.Web.ViewComponents
             var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
 
             if (claim != null)
-            {
+            {  
+                // Check if session cart value is null
                 if (HttpContext.Session.GetInt32(AppConstants.SessionCart) == null)
                 {
-                    HttpContext.Session.SetInt32(AppConstants.SessionCart, _unitOfWork.ShoppingCart
-                   .GetAll(u => u.ApplicationUserId == claim.Value).Count());
-                }
-                return View(HttpContext.Session.GetInt32(AppConstants.SessionCart));
+                    // Get the count of shopping cart items asynchronously
+                    var cartItemsCount = await _unitOfWork.ShoppingCart
+                        .GetAllAsync(u => u.ApplicationUserId == claim.Value);
 
+                    // Set the session value
+                    HttpContext.Session.SetInt32(AppConstants.SessionCart, cartItemsCount.Count());
+                }
+                // Return the cart count from the session
+                return View(HttpContext.Session.GetInt32(AppConstants.SessionCart));
             }
             else
             {

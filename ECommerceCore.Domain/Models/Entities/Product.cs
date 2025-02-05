@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace ECommerceCore.Domain.Models.Entities
 {
-    public class Product
+    public class Product : BaseEntity
     {
         [Key]
         public int Id { get; set; }
