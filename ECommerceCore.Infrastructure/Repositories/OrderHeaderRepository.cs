@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ECommerceCore.Infrastructure.Repositories
 {
-    public class OrderHeaderRepository(EcomDbContext dbContext) : Repository<OrderHeader>(dbContext), IOrderHeaderRepository
+    public class OrderHeaderRepository(EcomDbContext dbContext) : GenericRepository<OrderHeader>(dbContext), IOrderHeaderRepository
     {
         private EcomDbContext _dbContext = dbContext;
         public void Update(OrderHeader obj)

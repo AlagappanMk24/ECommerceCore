@@ -2,8 +2,8 @@
 
 namespace ECommerceCore.Application.Contract.Persistence
 {
-    public interface IShoppingCartRepository : IRepository<ShoppingCart>
+    public interface IOrderDetailRepository : IGenericRepository<OrderDetail>
     {
-        void Update(ShoppingCart obj);
+        void Update(OrderDetail obj);
     }
 }

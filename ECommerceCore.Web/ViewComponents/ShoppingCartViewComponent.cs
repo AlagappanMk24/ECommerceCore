@@ -25,7 +25,7 @@ namespace ECommerceCore.Web.ViewComponents
                 if (HttpContext.Session.GetInt32(AppConstants.SessionCart) == null)
                 {
                     // Get the count of shopping cart items asynchronously
-                    var cartItemsCount = await _unitOfWork.ShoppingCart
+                    var cartItemsCount = await _unitOfWork.ShoppingCarts
                         .GetAllAsync(u => u.ApplicationUserId == claim.Value);
 
                     // Set the session value

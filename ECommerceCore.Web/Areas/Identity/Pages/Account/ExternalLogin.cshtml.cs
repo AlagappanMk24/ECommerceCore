@@ -27,13 +27,15 @@ namespace ECommerceCore.Web.Areas.Identity.Pages.Account
         private readonly IUserEmailStore<IdentityUser> _emailStore;
         private readonly IEmailService _emailService;
         private readonly ILogger<ExternalLoginModel> _logger;
+        private readonly IConfiguration _configuration;
 
         public ExternalLoginModel(
             SignInManager<IdentityUser> signInManager,
             UserManager<IdentityUser> userManager,
             IUserStore<IdentityUser> userStore,
             ILogger<ExternalLoginModel> logger,
-            IEmailService emailService)
+            IEmailService emailService, IConfiguration configuration
+            )
         {
             _signInManager = signInManager;
             _userManager = userManager;
@@ -41,6 +43,7 @@ namespace ECommerceCore.Web.Areas.Identity.Pages.Account
             _emailStore = GetEmailStore();
             _logger = logger;
             _emailService = emailService;
+            _configuration = configuration;
         }
 
         /// <summary>
@@ -94,15 +97,21 @@ namespace ECommerceCore.Web.Areas.Identity.Pages.Account
         }
 
         public IActionResult OnGet() => RedirectToPage("./Login");
-
         public IActionResult OnPost(string provider, string returnUrl = null)
         {
             // Request a redirect to the external login provider.
             var redirectUrl = Url.Page("./ExternalLogin", pageHandler: "Callback", values: new { returnUrl });
             var properties = _signInManager.ConfigureExternalAuthenticationProperties(provider, redirectUrl);
+            properties.Items["LoginProvider"] = provider;
+
+            if (provider == "Microsoft")
+            {
+                string tenantId = _configuration["MicrosoftKeys:TenantId"];
+                // Update the authentication challenge result with tenant-specific authorization endpoint
+                properties.Items["MicrosoftAuthenticationUrl"] = $"https://login.microsoftonline.com/{tenantId}/oauth2/v2.0/authorize";
+            }
             return new ChallengeResult(provider, properties);
         }
-
         public async Task<IActionResult> OnGetCallbackAsync(string returnUrl = null, string remoteError = null)
         {
             returnUrl = returnUrl ?? Url.Content("~/");
@@ -147,7 +156,6 @@ namespace ECommerceCore.Web.Areas.Identity.Pages.Account
                 return Page();
             }
         }
-
         public async Task<IActionResult> OnPostConfirmationAsync(string returnUrl = null)
         {
             returnUrl = returnUrl ?? Url.Content("~/");
@@ -219,7 +227,6 @@ namespace ECommerceCore.Web.Areas.Identity.Pages.Account
             ReturnUrl = returnUrl;
             return Page();
         }
-
         private ApplicationUser CreateUser()
         {
             try
@@ -233,7 +240,6 @@ namespace ECommerceCore.Web.Areas.Identity.Pages.Account
                     $"override the external login page in /Areas/Identity/Pages/Account/ExternalLogin.cshtml");
             }
         }
-
         private IUserEmailStore<IdentityUser> GetEmailStore()
         {
             if (!_userManager.SupportsUserEmail)

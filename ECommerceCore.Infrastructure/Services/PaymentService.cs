@@ -49,11 +49,11 @@ namespace ECommerceCore.Infrastructure.Services
         /// <returns>The URL for the created Stripe checkout session.</returns>
         public async Task<string> CreateStripeSession(int orderHeaderId, string scheme, string host)
         {
-            var orderHeader = await _unitOfWork.OrderHeader.GetAsync(
+            var orderHeader = await _unitOfWork.OrderHeaders.GetAsync(
                 u => u.Id == orderHeaderId,
                 includeProperties: "ApplicationUser"
             );
-            var orderDetails = await _unitOfWork.OrderDetail.GetAllAsync(
+            var orderDetails = await _unitOfWork.OrderDetails.GetAllAsync(
                 u => u.OrderHeaderId == orderHeaderId,
                 includeProperties: "Product"
             );
@@ -88,7 +88,7 @@ namespace ECommerceCore.Infrastructure.Services
             var service = new Stripe.Checkout.SessionService();
             var session = service.Create(options);
 
-            await _unitOfWork.OrderHeader.UpdateStripePaymentIdAsync(orderHeaderId, session.Id, session.PaymentIntentId);
+            await _unitOfWork.OrderHeaders.UpdateStripePaymentIdAsync(orderHeaderId, session.Id, session.PaymentIntentId);
             await _unitOfWork.SaveAsync();
 
             return session.Url;
@@ -101,7 +101,7 @@ namespace ECommerceCore.Infrastructure.Services
         /// <returns>A boolean indicating whether the payment was successfully confirmed.</returns>
         public async Task<bool> ConfirmPayment(int orderHeaderId)
         {
-            var orderHeader = await _unitOfWork.OrderHeader.GetAsync(
+            var orderHeader = await _unitOfWork.OrderHeaders.GetAsync(
                 u => u.Id == orderHeaderId,
                 includeProperties: "ApplicationUser"
             );
@@ -113,8 +113,8 @@ namespace ECommerceCore.Infrastructure.Services
 
                 if (session.PaymentStatus.ToLower() == "paid")
                 {
-                    await _unitOfWork.OrderHeader.UpdateStripePaymentIdAsync(orderHeaderId, session.Id, session.PaymentIntentId);
-                    await _unitOfWork.OrderHeader.UpdateStatusAsync(orderHeaderId, orderHeader.OrderStatus, AppConstants.PaymentStatusApproved);
+                    await _unitOfWork.OrderHeaders.UpdateStripePaymentIdAsync(orderHeaderId, session.Id, session.PaymentIntentId);
+                    await _unitOfWork.OrderHeaders.UpdateStatusAsync(orderHeaderId, orderHeader.OrderStatus, AppConstants.PaymentStatusApproved);
                     await _unitOfWork.SaveAsync();
                     return true;
                 }

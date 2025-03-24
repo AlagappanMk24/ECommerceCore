@@ -3,7 +3,7 @@ using System.Reflection;
 
 namespace ECommerceCore.Application.DependencyInjection
 {
-    public static class ModuleApplicationDependencies
+    public static class ApplicationServiceRegistration
     {
         public static IServiceCollection AddApplicationDependencies(this IServiceCollection services)
         {

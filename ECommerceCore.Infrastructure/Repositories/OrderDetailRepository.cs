@@ -4,7 +4,7 @@ using ECommerceCore.Infrastructure.Data.Context;
 
 namespace ECommerceCore.Infrastructure.Repositories
 {
-    public class OrderDetailRepository(EcomDbContext dbContext) : Repository<OrderDetail>(dbContext), IOrderDetailRepository
+    public class OrderDetailRepository(EcomDbContext dbContext) : GenericRepository<OrderDetail>(dbContext), IOrderDetailRepository
     {
         private EcomDbContext _dbContext = dbContext;
 

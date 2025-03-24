@@ -7,7 +7,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace ECommerceCore.Application.DependencyInjection
 {
-    public static class ModuleInfrastructureDependencies
+    public static class InfrastructureServiceRegistration
     {
         public static IServiceCollection AddInfrastructureDependencies(this IServiceCollection services)
         {

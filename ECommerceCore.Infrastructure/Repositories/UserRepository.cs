@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ECommerceCore.Infrastructure.Repositories
 {
-    public class UserRepository(EcomDbContext dbContext) : Repository<ApplicationUser>(dbContext), IUserRepository
+    public class UserRepository(EcomDbContext dbContext) : GenericRepository<ApplicationUser>(dbContext), IUserRepository
     {
         private readonly EcomDbContext _dbContext = dbContext;
         public void Update(ApplicationUser applicationUser)

@@ -4,6 +4,7 @@ using ECommerceCore.Infrastructure.Data.DbInitializer;
 using ECommerceCore.Infrastructure.Utilities;
 using ECommerceCore.Web.Filters;
 using ECommerceCore.Web.Logger;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Google;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -128,21 +129,22 @@ void ConfigureApplicationCookie(IServiceCollection services)
 void ConfigureExternalLogins(IServiceCollection services, IConfiguration configuration)
 {
     services.AddAuthentication()
-    .AddFacebook(fbOptions =>
-    {
-        fbOptions.AppId = configuration.GetSection("FacebookKeys:AppId").Value;
-        fbOptions.AppSecret = configuration.GetSection("FacebookKeys:AppSecret").Value;
-    })
+    //.AddFacebook(fbOptions =>
+    //{
+    //    fbOptions.AppId = configuration.GetSection("FacebookKeys:AppId").Value;
+    //    fbOptions.AppSecret = configuration.GetSection("FacebookKeys:AppSecret").Value;
+    //})
     .AddGoogle(GoogleDefaults.AuthenticationScheme, googleOptions =>
     {
         googleOptions.ClientId = configuration.GetSection("GoogleKeys:ClientId").Value;
         googleOptions.ClientSecret = configuration.GetSection("GoogleKeys:ClientSecret").Value;
+    })
+    .AddMicrosoftAccount(microsoftOptions =>
+    {
+        microsoftOptions.ClientId = configuration.GetSection("MicrosoftKeys:ClientId").Value;
+        microsoftOptions.ClientSecret = configuration.GetSection("MicrosoftKeys:ClientSecret").Value;
+        //microsoftOptions.CallbackPath = configuration.GetSection("MicrosoftKeys:CallbackPath").Value;
     });
-    //.AddMicrosoftAccount(Microsoft.AuthenticationScheme, microsoftOptions =>
-    //{
-    //    microsoftOptions.ClientId = configuration.GetSection("GoogleKeys:ClientId").Value;
-    //    microsoftOptions.ClientSecret = configuration.GetSection("GoogleKeys:ClientSecret").Value;
-    //});
 }
 
 

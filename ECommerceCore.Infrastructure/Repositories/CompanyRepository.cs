@@ -4,7 +4,7 @@ using ECommerceCore.Infrastructure.Data.Context;
 
 namespace ECommerceCore.Infrastructure.Repositories
 {
-    public class CompanyRepository(EcomDbContext dbContext) : Repository<Company>(dbContext), ICompanyRepository
+    public class CompanyRepository(EcomDbContext dbContext) : GenericRepository<Company>(dbContext), ICompanyRepository
     {
         private readonly EcomDbContext _dbContext = dbContext;
         public void Update(Company obj)

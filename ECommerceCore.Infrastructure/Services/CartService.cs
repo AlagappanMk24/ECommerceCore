@@ -21,12 +21,12 @@ namespace ECommerceCore.Infrastructure.Services
         {
             var shoppingCartVM = new ShoppingCartVM
             {
-                ShoppingCartList = await _unitOfWork.ShoppingCart.GetAllAsync(u => u.ApplicationUserId == userId, includeProperties: "Product"),
+                ShoppingCartList = await _unitOfWork.ShoppingCarts.GetAllAsync(u => u.ApplicationUserId == userId, includeProperties: "Product"),
                 OrderHeader = new()
             };
 
             // Retrieve all product images to populate cart items with their respective images
-            IEnumerable<ProductImage> productImages = await _unitOfWork.ProductImage.GetAllAsync();
+            IEnumerable<ProductImage> productImages = await _unitOfWork.ProductImages.GetAllAsync();
 
             foreach (var cart in shoppingCartVM.ShoppingCartList)
             {
@@ -49,9 +49,9 @@ namespace ECommerceCore.Infrastructure.Services
             if (isAuthenticated)
             {
                 // Fetch the cart item by ID
-                var cartFromDb = await _unitOfWork.ShoppingCart.GetAsync(u => u.Id == cartId);
+                var cartFromDb = await _unitOfWork.ShoppingCarts.GetAsync(u => u.Id == cartId);
                 cartFromDb.Count += 1;
-                _unitOfWork.ShoppingCart.Update(cartFromDb);
+                _unitOfWork.ShoppingCarts.Update(cartFromDb);
                 await _unitOfWork.SaveAsync();
                 await UpdateSessionCartCountAsync(cartFromDb.ApplicationUserId);
             }
@@ -69,7 +69,7 @@ namespace ECommerceCore.Infrastructure.Services
             if (isAuthenticated)
             {
                 // Fetch the cart item with tracking enabled
-                var cartFromDb = await _unitOfWork.ShoppingCart.GetAsync(u => u.Id == cartId, tracked: true);
+                var cartFromDb = await _unitOfWork.ShoppingCarts.GetAsync(u => u.Id == cartId, tracked: true);
                 if (cartFromDb != null)
                 {
                     if (cartFromDb.Count <= 1)
@@ -81,7 +81,7 @@ namespace ECommerceCore.Infrastructure.Services
                         // Decrement the item count
                         cartFromDb.Count -= 1;
                         // Update the cart in the database
-                        _unitOfWork.ShoppingCart.Update(cartFromDb);
+                        _unitOfWork.ShoppingCarts.Update(cartFromDb);
                     }
                 }
                 await _unitOfWork.SaveAsync();
@@ -101,11 +101,11 @@ namespace ECommerceCore.Infrastructure.Services
             if (isAuthenticated)
             {
                 // Fetch the cart item with tracking enabled
-                var cartFromDb = await _unitOfWork.ShoppingCart.GetAsync(u => u.Id == cartId, tracked: true);
+                var cartFromDb = await _unitOfWork.ShoppingCarts.GetAsync(u => u.Id == cartId, tracked: true);
                 if (cartFromDb != null)
                 {
                     string userId = cartFromDb.ApplicationUserId;
-                    await _unitOfWork.ShoppingCart.RemoveAsync(cartFromDb);
+                    await _unitOfWork.ShoppingCarts.RemoveAsync(cartFromDb);
                     await _unitOfWork.SaveAsync();
                     await UpdateSessionCartCountAsync(userId);
                 }
@@ -117,7 +117,7 @@ namespace ECommerceCore.Infrastructure.Services
         }
         public async Task<IEnumerable<ShoppingCart>> GetUserCart(string userId)
         {
-            return await _unitOfWork.ShoppingCart.GetAllAsync(u => u.ApplicationUserId == userId, includeProperties: "Product");
+            return await _unitOfWork.ShoppingCarts.GetAllAsync(u => u.ApplicationUserId == userId, includeProperties: "Product");
         }
         /// <summary>
         /// Retrieves a detailed summary of the shopping cart for a user, including user details and the order total.
@@ -127,11 +127,11 @@ namespace ECommerceCore.Infrastructure.Services
             // Fetch cart details and initialize order header
             var shoppingCartVM = new ShoppingCartVM
             {
-                ShoppingCartList = await _unitOfWork.ShoppingCart.GetAllAsync(u => u.ApplicationUserId == userId, includeProperties: "Product"),
+                ShoppingCartList = await _unitOfWork.ShoppingCarts.GetAllAsync(u => u.ApplicationUserId == userId, includeProperties: "Product"),
                 OrderHeader = new()
             };
             // Fetch user details
-            shoppingCartVM.OrderHeader.ApplicationUser = await _unitOfWork.ApplicationUser.GetAsync(u => u.Id == userId);
+            shoppingCartVM.OrderHeader.ApplicationUser = await _unitOfWork.ApplicationUsers.GetAsync(u => u.Id == userId);
 
             // Map user details to the order header
             MapUserDetails(shoppingCartVM.OrderHeader, shoppingCartVM.OrderHeader.ApplicationUser);
@@ -150,7 +150,7 @@ namespace ECommerceCore.Infrastructure.Services
         /// </summary>
         private async Task UpdateSessionCartCountAsync(string userId)
         {
-            var cartItems = await _unitOfWork.ShoppingCart.GetAllAsync(u => u.ApplicationUserId == userId);
+            var cartItems = await _unitOfWork.ShoppingCarts.GetAllAsync(u => u.ApplicationUserId == userId);
             int totalCartQuantity = cartItems.Any() ? cartItems.Sum(item => item.Count) : 0; // Ensure 0 when empty
 
             // Store the updated count in session

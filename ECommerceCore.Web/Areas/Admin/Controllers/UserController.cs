@@ -34,7 +34,7 @@ namespace ECommerceCore.Web.Areas.Admin.Controllers
         /// <returns>A view model for role management.</returns>
         public async Task<IActionResult> RoleManagment(string userId)
         {
-            var applicationUser = await _unitOfWork.ApplicationUser.GetAsync(u => u.Id == userId, includeProperties: "Company");
+            var applicationUser = await _unitOfWork.ApplicationUsers.GetAsync(u => u.Id == userId, includeProperties: "Company");
             var roles = await _userManager.GetRolesAsync(applicationUser);
 
             RoleManagementVM roleVM = new RoleManagementVM()
@@ -45,7 +45,7 @@ namespace ECommerceCore.Web.Areas.Admin.Controllers
                     Text = i.Name,
                     Value = i.Name
                 }).ToList(),
-                CompanyList = (await _unitOfWork.Company.GetAllAsync()).Select(i => new SelectListItem
+                CompanyList = (await _unitOfWork.Companies.GetAllAsync()).Select(i => new SelectListItem
                 {
                     Text = i.Name,
                     Value = i.Id.ToString()
@@ -65,7 +65,7 @@ namespace ECommerceCore.Web.Areas.Admin.Controllers
         [HttpPost]
         public async Task<IActionResult> RoleManagment(RoleManagementVM roleManagementVM)
         {
-            var applicationUser = await _unitOfWork.ApplicationUser.GetAsync(u => u.Id == roleManagementVM.ApplicationUser.Id);
+            var applicationUser = await _unitOfWork.ApplicationUsers.GetAsync(u => u.Id == roleManagementVM.ApplicationUser.Id);
             var oldRole = (await _userManager.GetRolesAsync(applicationUser)).FirstOrDefault();
       
             if (!(roleManagementVM.ApplicationUser.Role == oldRole))
@@ -80,7 +80,7 @@ namespace ECommerceCore.Web.Areas.Admin.Controllers
                     applicationUser.CompanyId = null;
                 }
 
-                _unitOfWork.ApplicationUser.Update(applicationUser);
+                _unitOfWork.ApplicationUsers.Update(applicationUser);
                 await _unitOfWork.SaveAsync();
 
                 // Remove old role and add new role
@@ -93,7 +93,7 @@ namespace ECommerceCore.Web.Areas.Admin.Controllers
                 if (oldRole == AppConstants.Role_Company && applicationUser.CompanyId != roleManagementVM.ApplicationUser.CompanyId)
                 {
                     applicationUser.CompanyId = roleManagementVM.ApplicationUser.CompanyId;
-                    _unitOfWork.ApplicationUser.Update(applicationUser);
+                    _unitOfWork.ApplicationUsers.Update(applicationUser);
                    await _unitOfWork.SaveAsync();
                 }
             }
@@ -108,7 +108,7 @@ namespace ECommerceCore.Web.Areas.Admin.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
-            var objUserList = await _unitOfWork.ApplicationUser.GetAllAsync(includeProperties: "Company");
+            var objUserList = await _unitOfWork.ApplicationUsers.GetAllAsync(includeProperties: "Company");
 
             foreach (var user in objUserList)
             {
@@ -134,7 +134,7 @@ namespace ECommerceCore.Web.Areas.Admin.Controllers
         [HttpPost]
         public async Task<IActionResult> LockUnlock([FromBody] string id)
         {
-            var objFromDb = await _unitOfWork.ApplicationUser.GetAsync(u => u.Id == id);
+            var objFromDb = await _unitOfWork.ApplicationUsers.GetAsync(u => u.Id == id);
             if (objFromDb == null)
             {
                 return Json(new { success = false, message = "Error while Locking/Unlocking" });
@@ -150,7 +150,7 @@ namespace ECommerceCore.Web.Areas.Admin.Controllers
                 objFromDb.LockoutEnd = DateTime.Now.AddYears(1000);
             }
 
-            _unitOfWork.ApplicationUser.Update(objFromDb);
+            _unitOfWork.ApplicationUsers.Update(objFromDb);
             await _unitOfWork.SaveAsync();
             return Json(new { success = true, message = "Operation Successful" });
         }

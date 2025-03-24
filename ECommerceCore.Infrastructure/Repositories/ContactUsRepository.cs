@@ -4,7 +4,7 @@ using ECommerceCore.Infrastructure.Data.Context;
 
 namespace ECommerceCore.Infrastructure.Repositories
 {
-    public class ContactUsRepository(EcomDbContext dbContext) : Repository<ContactUs>(dbContext), IContactUsRepository
+    public class ContactUsRepository(EcomDbContext dbContext) : GenericRepository<ContactUs>(dbContext), IContactUsRepository
     {
         private readonly EcomDbContext _dbContext = dbContext;
         public async Task AddAsync(ContactUs contactUs)

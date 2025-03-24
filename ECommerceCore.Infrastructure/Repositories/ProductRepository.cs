@@ -6,7 +6,7 @@ using System.Linq.Expressions;
 
 namespace ECommerceCore.Infrastructure.Repositories
 {
-    public class ProductRepository(EcomDbContext dbContext) : Repository<Product>(dbContext), IProductRepository
+    public class ProductRepository(EcomDbContext dbContext) : GenericRepository<Product>(dbContext), IProductRepository
     {
         private readonly EcomDbContext _dbContext = dbContext;
 

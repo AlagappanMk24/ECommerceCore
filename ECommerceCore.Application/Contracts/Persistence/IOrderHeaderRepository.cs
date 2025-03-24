@@ -2,7 +2,7 @@
 
 namespace ECommerceCore.Application.Contract.Persistence
 {
-    public interface IOrderHeaderRepository : IRepository<OrderHeader>
+    public interface IOrderHeaderRepository : IGenericRepository<OrderHeader>
     {
         void Update(OrderHeader obj);
         Task UpdateStatusAsync(int id, string orderStatus, string? paymentStatus = null);

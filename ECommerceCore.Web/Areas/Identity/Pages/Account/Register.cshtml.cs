@@ -130,7 +130,7 @@ namespace ECommerceCore.Web.Areas.Identity.Pages.Account
                     Text = i,
                     Value = i
                 }),
-                CompanyList = (await _unitOfWork.Company.GetAllAsync()).Select(i => new SelectListItem
+                CompanyList = (await _unitOfWork.Companies.GetAllAsync()).Select(i => new SelectListItem
                 {
                     Text = i.Name,
                     Value = i.Id.ToString()

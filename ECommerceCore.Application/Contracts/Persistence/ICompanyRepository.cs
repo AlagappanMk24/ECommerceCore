@@ -2,7 +2,7 @@
 
 namespace ECommerceCore.Application.Contract.Persistence
 {
-    public interface ICompanyRepository : IRepository<Company>
+    public interface ICompanyRepository : IGenericRepository<Company>
     {
         void Update(Company obj);
     }

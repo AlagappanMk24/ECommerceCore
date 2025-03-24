@@ -24,8 +24,8 @@ namespace ECommerceCore.Infrastructure.Services
         {
             return new OrderVM
             {
-                OrderHeader = await _unitOfWork.OrderHeader.GetAsync(o => o.Id == orderId, includeProperties: "ApplicationUser"),
-                OrderDetail = await _unitOfWork.OrderDetail.GetAllAsync(d => d.OrderHeaderId == orderId, includeProperties: "Product")
+                OrderHeader = await _unitOfWork.OrderHeaders.GetAsync(o => o.Id == orderId, includeProperties: "ApplicationUser"),
+                OrderDetail = await _unitOfWork.OrderDetails.GetAllAsync(d => d.OrderHeaderId == orderId, includeProperties: "Product")
             };
         }
 
@@ -36,7 +36,7 @@ namespace ECommerceCore.Infrastructure.Services
         /// <returns>A task representing the asynchronous operation.</returns>
         public async Task UpdateOrderDetailsAsync(OrderHeader orderHeader)
         {
-            var orderFromDb = await _unitOfWork.OrderHeader.GetAsync(o => o.Id == orderHeader.Id);
+            var orderFromDb = await _unitOfWork.OrderHeaders.GetAsync(o => o.Id == orderHeader.Id);
             orderFromDb.Name = orderHeader.Name;
             orderFromDb.PhoneNumber = orderHeader.PhoneNumber;
             orderFromDb.StreetAddress = orderHeader.StreetAddress;
@@ -46,7 +46,7 @@ namespace ECommerceCore.Infrastructure.Services
             orderFromDb.Carrier = orderHeader.Carrier ?? orderFromDb.Carrier;
             orderFromDb.TrackingNumber = orderHeader.TrackingNumber ?? orderFromDb.TrackingNumber;
 
-            _unitOfWork.OrderHeader.Update(orderFromDb);
+            _unitOfWork.OrderHeaders.Update(orderFromDb);
             await _unitOfWork.SaveAsync();
         }
 
@@ -58,7 +58,7 @@ namespace ECommerceCore.Infrastructure.Services
         /// <returns>A task representing the asynchronous operation.</returns>
         public async Task UpdateOrderStatusAsync(int orderId, string status)
         {
-            await _unitOfWork.OrderHeader.UpdateStatusAsync(orderId, status);
+            await _unitOfWork.OrderHeaders.UpdateStatusAsync(orderId, status);
             await _unitOfWork.SaveAsync();
         }
 
@@ -71,7 +71,7 @@ namespace ECommerceCore.Infrastructure.Services
         /// <returns>A task representing the asynchronous operation.</returns>
         public async Task ShipOrderAsync(int orderId, string carrier, string trackingNumber)
         {
-            var order = await _unitOfWork.OrderHeader.GetAsync(o => o.Id == orderId);
+            var order = await _unitOfWork.OrderHeaders.GetAsync(o => o.Id == orderId);
             order.Carrier = carrier;
             order.TrackingNumber = trackingNumber;
             order.OrderStatus = AppConstants.StatusShipped;
@@ -82,7 +82,7 @@ namespace ECommerceCore.Infrastructure.Services
                 order.PaymentDueDate = DateOnly.FromDateTime(DateTime.Now.AddDays(30));
             }
 
-            _unitOfWork.OrderHeader.Update(order);
+            _unitOfWork.OrderHeaders.Update(order);
             await _unitOfWork.SaveAsync();
         }
 
@@ -93,7 +93,7 @@ namespace ECommerceCore.Infrastructure.Services
         /// <returns>A task representing the asynchronous operation.</returns>
         public async Task CancelOrderAsync(int orderId)
         {
-            var order = await _unitOfWork.OrderHeader.GetAsync(o => o.Id == orderId);
+            var order = await _unitOfWork.OrderHeaders.GetAsync(o => o.Id == orderId);
 
             if (order.PaymentStatus == AppConstants.PaymentStatusApproved)
             {
@@ -106,7 +106,7 @@ namespace ECommerceCore.Infrastructure.Services
                 refundService.Create(options);
             }
 
-            await _unitOfWork.OrderHeader.UpdateStatusAsync(orderId, AppConstants.StatusCancelled, AppConstants.StatusRefunded);
+            await _unitOfWork.OrderHeaders.UpdateStatusAsync(orderId, AppConstants.StatusCancelled, AppConstants.StatusRefunded);
             await _unitOfWork.SaveAsync();
         }
 
@@ -122,12 +122,12 @@ namespace ECommerceCore.Infrastructure.Services
 
             if (user.IsInRole(AppConstants.Role_Admin) || user.IsInRole(AppConstants.Role_Employee))
             {
-                orders = await _unitOfWork.OrderHeader.GetAllAsync(includeProperties: "ApplicationUser");
+                orders = await _unitOfWork.OrderHeaders.GetAllAsync(includeProperties: "ApplicationUser");
             }
             else
             {
                 var userId = ((ClaimsIdentity)user.Identity).FindFirst(ClaimTypes.NameIdentifier).Value;
-                orders = await _unitOfWork.OrderHeader.GetAllAsync(o => o.ApplicationUserId == userId, includeProperties: "ApplicationUser");
+                orders = await _unitOfWork.OrderHeaders.GetAllAsync(o => o.ApplicationUserId == userId, includeProperties: "ApplicationUser");
             }
 
             return status.ToLower() switch
@@ -193,7 +193,7 @@ namespace ECommerceCore.Infrastructure.Services
         /// <returns>A task representing the asynchronous operation.</returns>
         public async Task CreateOrder(ShoppingCartVM cartVM)
         {
-            await _unitOfWork.OrderHeader.AddAsync(cartVM.OrderHeader);
+            await _unitOfWork.OrderHeaders.AddAsync(cartVM.OrderHeader);
             await _unitOfWork.SaveAsync();
 
             foreach (var cart in cartVM.ShoppingCartList)
@@ -205,7 +205,7 @@ namespace ECommerceCore.Infrastructure.Services
                     Price = cart.Price,
                     Count = cart.Count
                 };
-                await _unitOfWork.OrderDetail.AddAsync(orderDetail);
+                await _unitOfWork.OrderDetails.AddAsync(orderDetail);
             }
             await _unitOfWork.SaveAsync();
         }
@@ -219,7 +219,7 @@ namespace ECommerceCore.Infrastructure.Services
         /// <returns>A task representing the asynchronous operation.</returns>
         public async Task UpdateStripePaymentDetails(int orderId, string sessionId, string paymentIntentId)
         {
-            await _unitOfWork.OrderHeader.UpdateStripePaymentIdAsync(orderId, sessionId, paymentIntentId);
+            await _unitOfWork.OrderHeaders.UpdateStripePaymentIdAsync(orderId, sessionId, paymentIntentId);
             await _unitOfWork.SaveAsync();
         }
 
@@ -244,7 +244,7 @@ namespace ECommerceCore.Infrastructure.Services
         public async Task HandleOrderConfirmation(int id, HttpContext httpContext)
         {
             // Retrieve the order header with ApplicationUser details
-            var orderHeader = await _unitOfWork.OrderHeader.GetAsync(u => u.Id == id, includeProperties: "ApplicationUser");
+            var orderHeader = await _unitOfWork.OrderHeaders.GetAsync(u => u.Id == id, includeProperties: "ApplicationUser");
 
             if (orderHeader == null)
             {
@@ -259,8 +259,8 @@ namespace ECommerceCore.Infrastructure.Services
 
                 if (session != null && session.PaymentStatus.Equals("paid", StringComparison.OrdinalIgnoreCase))
                 {
-                    await _unitOfWork.OrderHeader.UpdateStripePaymentIdAsync(id, session.Id, session.PaymentIntentId);
-                    await _unitOfWork.OrderHeader.UpdateStatusAsync(id, AppConstants.StatusApproved, AppConstants.PaymentStatusApproved);
+                    await _unitOfWork.OrderHeaders.UpdateStripePaymentIdAsync(id, session.Id, session.PaymentIntentId);
+                    await _unitOfWork.OrderHeaders.UpdateStatusAsync(id, AppConstants.StatusApproved, AppConstants.PaymentStatusApproved);
                     await _unitOfWork.SaveAsync();
                 }
                 // Clear session if the payment is complete
@@ -268,10 +268,10 @@ namespace ECommerceCore.Infrastructure.Services
             }
 
             // Remove shopping cart items for the user
-            var shoppingCarts = await _unitOfWork.ShoppingCart.GetAllAsync(u => u.ApplicationUserId == orderHeader.ApplicationUserId);
+            var shoppingCarts = await _unitOfWork.ShoppingCarts.GetAllAsync(u => u.ApplicationUserId == orderHeader.ApplicationUserId);
             if (shoppingCarts.Any())
             {
-                await _unitOfWork.ShoppingCart.RemoveRangeAsync(shoppingCarts);
+                await _unitOfWork.ShoppingCarts.RemoveRangeAsync(shoppingCarts);
                 await _unitOfWork.SaveAsync();
             }
 

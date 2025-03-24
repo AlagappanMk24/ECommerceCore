@@ -1,4 +1,4 @@
-﻿@page
+﻿@* @page
 @model LoginModel
 
 @{
@@ -38,9 +38,9 @@
                 <div class="mt-2  d-flex justify-content-center gap-2">
                     Don't have an account? <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl" class="link-custom"> Register now.</a>
                 </div>
-            
-            </form>
-          @*   <div class="col-md-12 p-3 text-center">
+
+            </form> *@
+@*   <div class="col-md-12 p-3 text-center">
                 <section>
                     <p class="divider-text d-flex pt-2">OR</p>
                     @{
@@ -86,7 +86,7 @@
                     }
                 </section>
             </div> *@
-            <div class="external-logins">
+@*             <div class="external-logins">
                 <section>
                     <p class="divider-text">OR</p>
                     @{
@@ -360,4 +360,343 @@
         margin-top: 10px;
         text-align: center;
     }
+</style> *@
+
+@* @page
+@model LoginModel
+
+@{
+    ViewData["Title"] = "Log in";
+}
+
+<div class="d-flex justify-content-center align-items-center vh-100">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-10">
+                <div class="card shadow-sm p-4 d-flex flex-row align-items-stretch">
+                    <!-- Form Section -->
+                    <div class="col-md-6 p-4">
+                        <h3 class="text-primary mb-4">Sign In with Your Account</h3>
+                        @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+                        <form id="account" method="post" class="p-4 rounded bg-white">
+                            <div asp-validation-summary="ModelOnly" class="text-danger mb-3" role="alert"></div>
+
+                            <div class="form-floating mb-3">
+                                <input asp-for="Input.Email" class="form-control" autocomplete="username" aria-required="true" placeholder="name@example.com" />
+                                <label asp-for="Input.Email"><i class="bi bi-envelope"></i> Email</label>
+                                <span asp-validation-for="Input.Email" class="text-danger"></span>
+                            </div>
+
+                            <div class="form-floating mb-3">
+                                <input asp-for="Input.Password" class="form-control" autocomplete="current-password" aria-required="true" placeholder="Password" />
+                                <label asp-for="Input.Password"><i class="bi bi-lock"></i> Password</label>
+                                <span asp-validation-for="Input.Password" class="text-danger"></span>
+                            </div>
+
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <div class="form-check">
+                                    <input class="form-check-input" asp-for="Input.RememberMe" />
+                                    <label class="form-check-label" asp-for="Input.RememberMe">
+                                        @Html.DisplayNameFor(m => m.Input.RememberMe)
+                                    </label>
+                                </div>
+                                <a id="forgot-password" asp-page="./ForgotPassword" class="text-decoration-none">Forgot your password?</a>
+                            </div>
+
+                            <button id="login-submit" type="submit" class="btn btn-primary w-100 mb-3">Login</button>
+                            <div class="text-center">
+                                <p>Don't have an account? <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl" class="text-decoration-none">Create One</a></p>
+                            </div>
+                            <div class="text-center">
+                                <p><a id="resend-confirmation" asp-page="./ResendEmailConfirmation" class="text-decoration-none">Resend email confirmation</a></p>
+                            </div>
+                        </form>
+                        <div class="external-logins">
+                            <section>
+                                <p class="divider-text">OR</p>
+                                @{
+                                    if ((Model.ExternalLogins?.Count ?? 0) == 0)
+                                    {
+                                        <div>
+                                            <p>
+                                                There are no external authentication services configured. See this
+                                                <a href="https://go.microsoft.com/fwlink/?LinkID=532715" class="link-custom">
+                                                    article about setting up this ASP.NET application to support logging in via external services
+                                                </a>.
+                                            </p>
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        <form id="external-account" asp-page="./ExternalLogin" asp-route-returnUrl="@Model.ReturnUrl" method="post" class="form-horizontal">
+                                            <div class="d-flex justify-content-center flex-wrap gap-3">
+                                                @foreach (var provider in Model.ExternalLogins!)
+                                                {
+                                                    <button type="submit" class="d-flex align-items-center justify-content-center" style="
+                                                        display: flex;
+                                                        align-items: center;
+                                                        justify-content: center;
+                                                        padding: 9px;
+                                                        font-size: 11px;
+                                                        font-weight: 550;
+                                                        border-radius: 50%;
+                                                        width: 40px;
+                                                        height: 40px;
+                                                        cursor: pointer;"
+                                                            name="provider" value="@provider.Name" title="Log in using @provider.DisplayName">
+                                                        <img src="assets/google.png" alt="Google" />
+                                                    </button>
+                                                }
+                                            </div>
+                                        </form>
+                                    }
+                                }
+                            </section>
+                        </div>
+                    </div>
+
+                    <!-- Image Section -->
+                    <div class="col-md-6">
+                        <img src="~/images/ecommerce.jpg" class="img-fluid h-100 w-100 rounded-end" alt="Welcome Image">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
+
+<style>
+    body {
+        background: linear-gradient(to right, #eef2f3, #8EC5FC)
+    }
+
+    .text-primary {
+        color: #1a1a1a; 
+    }
+
+    .card {
+        border-radius: 1rem;
+        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+        display: flex;
+        overflow: hidden;
+    }
+
+    img {
+        object-fit: cover;
+        height: 100%;
+        width: 100%;
+    }
+
+    .rounded-end {
+        border-top-right-radius: 1rem;
+        border-bottom-right-radius: 1rem;
+    }
+
+    .external-logins {
+        text-align: center;
+        margin: 20px 0;
+    }
+
+    .divider-text {
+        font-size: 1.2rem;
+        font-weight: bold;
+        margin: 15px 0;
+        color: #6c757d;
+    }
+</style> *@
+@page
+@model LoginModel
+
+@{
+    ViewData["Title"] = "Log in";
+}
+
+<div class="d-flex justify-content-center align-items-center vh-100">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-10">
+                <div class="card glass-effect shadow-lg border-0 d-flex flex-row align-items-stretch overflow-hidden">
+                    <!-- Form Section -->
+                    <div class="col-md-6 p-5">
+                        <h3 class="text-primary mb-4 text-center">Welcome Back</h3>
+                        <p class="text-muted text-center mb-4">Login to continue</p>
+
+                        @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+                        <form id="account" method="post">
+                            <div asp-validation-summary="ModelOnly" class="text-danger mb-3" role="alert"></div>
+
+                            <div class="form-floating mb-3">
+                                <input asp-for="Input.Email" class="form-control animated-input" autocomplete="username" aria-required="true" placeholder="Email" />
+                                <label asp-for="Input.Email"><i class="bi bi-envelope"></i> Email</label>
+                                <span asp-validation-for="Input.Email" class="text-danger"></span>
+                            </div>
+
+                            <div class="form-floating mb-3">
+                                <input asp-for="Input.Password" type="password" class="form-control animated-input" autocomplete="current-password" aria-required="true" placeholder="Password" />
+                                <label asp-for="Input.Password"><i class="bi bi-lock"></i> Password</label>
+                                <span asp-validation-for="Input.Password" class="text-danger"></span>
+                            </div>
+
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <div class="form-check">
+                                    <input class="form-check-input" asp-for="Input.RememberMe" />
+                                    <label class="form-check-label" asp-for="Input.RememberMe">
+                                        @Html.DisplayNameFor(m => m.Input.RememberMe)
+                                    </label>
+                                </div>
+                                <a id="forgot-password" asp-page="./ForgotPassword" class="text-decoration-none text-primary">Forgot password?</a>
+                            </div>
+
+                            <button id="login-submit" type="submit" class="btn btn-primary w-100 py-2 fw-bold">Login</button>
+
+                            <div class="text-center mt-3">
+                                <p>New here? <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl" class="text-decoration-none text-primary fw-bold">Create an account</a></p>
+                            </div>
+
+                            <div class="text-center">
+                                <p><a id="resend-confirmation" asp-page="./ResendEmailConfirmation" class="text-decoration-none text-secondary">Resend email confirmation</a></p>
+                            </div>
+                        </form>
+
+                        <div class="external-logins text-center">
+                            <p class="divider-text">OR</p>
+                            @if (Model.ExternalLogins?.Count > 0)
+                            {
+                                <form id="external-account" asp-page="./ExternalLogin" asp-route-returnUrl="@Model.ReturnUrl" method="post">
+                                    <div class="d-flex justify-content-center gap-3">
+                                        @foreach (var provider in Model.ExternalLogins!)
+                                        {
+                                            var providerLogo = provider.Name switch
+                                            {
+                                                "Microsoft" => "microsoft.png",
+                                                "Google" => "google.png",
+                                                "Facebook" => "facebook.png",
+                                                "Twitter" => "twitter.png",
+                                                _ => "default.png"
+                                            };
+                                            <button type="submit" class="social-login-btn" name="provider" value="@provider.Name" title="Log in using @provider.DisplayName">
+                                                <img src="~/images/@providerLogo" alt="@provider.DisplayName" />
+                                            </button>
+                                        }
+                                    </div>
+                                </form>
+                            }
+                        </div>
+                    </div>
+
+                    <!-- Image Section -->
+                    <div class="col-md-6 d-none d-md-block">
+                        @* <img src="~/images/ecommerce.jpg" class="h-100 w-100 rounded-end" style="object-fit:cover"alt="Welcome Image"> *@
+                        <img src="~/images/login.jpg" class="h-100 w-100 rounded-end" style="object-fit:cover" alt="Login Image" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
+
+<style>
+    /* Background */
+    body {
+        /* background: linear-gradient(to right, #d4fc79, #96e6a1); */
+        /* background: linear-gradient(to right, #8EC5FC, #E0C3FC); */
+        /* background: linear-gradient(to right, #2193b0, #6dd5ed); */
+        /* background: linear-gradient(to right, #ff758c, #ff7eb3); */
+        /* background: linear-gradient(to right, #8e2de2, #4a00e0); */
+        /* background: linear-gradient(to right, #ffb347, #ffcc33); */
+        /* background: linear-gradient(to right, #e0f7fa, #ffffff); */
+        /* background: linear-gradient(to right, #232526, #414345); */
+        /* background-color: #0b3d91; */
+        /* background-color: #f4c2c2; */
+        background-color: #f5f5dc;
+    }
+
+    /* Glass Effect Card */
+    .glass-effect {
+        background: rgba(255, 255, 255, 0.15);
+        backdrop-filter: blur(10px);
+        border-radius: 1.2rem;
+        padding: 2rem;
+        box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.15);
+    }
+
+    /* Floating Labels */
+    .form-floating label {
+        color: #6c757d;
+    }
+
+    /* Animated Input */
+    .animated-input {
+        transition: all 0.3s ease;
+        border-radius: 0.5rem;
+    }
+
+        .animated-input:focus {
+            border-color: #007bff;
+            box-shadow: 0 0 10px rgba(0, 123, 255, 0.2);
+        }
+
+    /* Login Button */
+    .btn-primary {
+        background: #007bff;
+        border: none;
+        border-radius: 0.5rem;
+        transition: all 0.3s ease;
+    }
+
+        .btn-primary:hover {
+            background: #0056b3;
+            transform: translateY(-2px);
+        }
+
+    /* Divider Text */
+    .divider-text {
+        font-size: 1rem;
+        font-weight: bold;
+        color: #6c757d;
+        position: relative;
+    }
+
+        .divider-text:before,
+        .divider-text:after {
+            content: "";
+            display: inline-block;
+            width: 30%;
+            height: 1px;
+            background: #ccc;
+            vertical-align: middle;
+            margin: 0 10px;
+        }
+
+    /* External Login Buttons */
+    .social-login-btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 45px;
+        height: 45px;
+        border-radius: 50%;
+        border: 1px solid #ccc;
+        background: white;
+        cursor: pointer;
+        transition: transform 0.2s ease-in-out;
+    }
+
+        .social-login-btn img {
+            width: 25px;
+            height: 25px;
+        }
+
+        .social-login-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 8px rgba(0, 0, 0, 0.15);
+        }
 </style>

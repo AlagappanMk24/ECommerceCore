@@ -14,7 +14,7 @@ namespace ECommerceCore.Infrastructure.Services
         /// <returns>A list of all companies.</returns>
         public async Task<List<Company>> GetAllCompaniesAsync()
         {
-            return (List<Company>) await _unitOfWork.Company.GetAllAsync();
+            return (List<Company>) await _unitOfWork.Companies.GetAllAsync();
         }
 
         /// <summary>
@@ -24,7 +24,7 @@ namespace ECommerceCore.Infrastructure.Services
         /// <returns>The company with the specified ID.</returns>
         public async Task<Company> GetCompanyByIdAsync(int id)
         {
-            return await Task.Run(() => _unitOfWork.Company.GetAsync(u => u.Id == id));
+            return await Task.Run(() => _unitOfWork.Companies.GetAsync(u => u.Id == id));
         }
 
         /// <summary>
@@ -34,7 +34,7 @@ namespace ECommerceCore.Infrastructure.Services
         /// <returns>A task representing the asynchronous operation.</returns>
         public async Task AddCompanyAsync(Company company)
         {
-            await _unitOfWork.Company.AddAsync(company);
+            await _unitOfWork.Companies.AddAsync(company);
             await _unitOfWork.SaveAsync();
         }
 
@@ -45,7 +45,7 @@ namespace ECommerceCore.Infrastructure.Services
         /// <returns>A task representing the asynchronous operation.</returns>
         public async Task UpdateCompanyAsync(Company company)
         {
-            _unitOfWork.Company.Update(company);
+            _unitOfWork.Companies.Update(company);
             await _unitOfWork.SaveAsync(); 
         }
 
@@ -56,7 +56,7 @@ namespace ECommerceCore.Infrastructure.Services
         /// <returns>A task representing the asynchronous operation.</returns>
         public async Task DeleteCompanyAsync(Company company)
         {
-            await _unitOfWork.Company.RemoveAsync(company);
+            await _unitOfWork.Companies.RemoveAsync(company);
             await _unitOfWork.SaveAsync();
         }
     }

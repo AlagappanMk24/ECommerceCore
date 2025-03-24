@@ -16,7 +16,7 @@ namespace ECommerceCore.Infrastructure.Services
         }
         public async Task<ApplicationUser> GetApplicationUser(string userId)
         {
-            return await _unitOfWork.ApplicationUser.GetAsync(u => u.Id == userId);
+            return await _unitOfWork.ApplicationUsers.GetAsync(u => u.Id == userId);
         }
         public async Task<bool> UpdateUserAsync(string userId, ApplicationUser updatedUser)
         {
@@ -39,7 +39,7 @@ namespace ECommerceCore.Infrastructure.Services
                 existingUser.PostalCode = updatedUser.PostalCode;
 
                 // Save changes to the database
-                bool isUpdated = await _unitOfWork.ApplicationUser.UpdateUserAsync(existingUser);
+                bool isUpdated = await _unitOfWork.ApplicationUsers.UpdateUserAsync(existingUser);
                 return isUpdated;
             }
             catch (Exception ex)

@@ -11,22 +11,22 @@ namespace ECommerceCore.Infrastructure.Services
         private readonly IUnitOfWork _unitOfWork = unitOfWork;
         public async Task<IEnumerable<Product>> GetAllProductsAsync()
         {
-            return await _unitOfWork.Product.GetAllAsync(includeProperties: "Category");
+            return await _unitOfWork.Products.GetAllAsync(includeProperties: "Category");
         }
         public async Task<Product> GetProductByIdAsync(int id)
         {
-            return await _unitOfWork.Product.GetAsync(p => p.Id == id, includeProperties: "ProductImages");
+            return await _unitOfWork.Products.GetAsync(p => p.Id == id, includeProperties: "ProductImages");
         }
         public async Task<string> UpsertProductAsync(ProductVM productVM, List<IFormFile> files, string webRootPath)
         {
             if (productVM.Product.Id == 0)
             {
-                await _unitOfWork.Product.AddAsync(productVM.Product);
+                await _unitOfWork.Products.AddAsync(productVM.Product);
                 await _unitOfWork.SaveAsync();
             }
             else
             {
-                _unitOfWork.Product.Update(productVM.Product);
+                _unitOfWork.Products.Update(productVM.Product);
                 await _unitOfWork.SaveAsync();
             }
 
@@ -52,26 +52,26 @@ namespace ECommerceCore.Infrastructure.Services
                         ProductId = productVM.Product.Id
                     });
                 }
-                _unitOfWork.Product.Update(productVM.Product);
+                _unitOfWork.Products.Update(productVM.Product);
                 await _unitOfWork.SaveAsync();
             }
             return productVM.Product.Id == 0 ? "Product created successfully" : "Product updated successfully";
         }
         public async Task<string> DeleteProductImageAsync(int imageId, string webRootPath)
         {
-            var imageToBeDeleted = await _unitOfWork.ProductImage.GetAsync(u => u.Id == imageId);
+            var imageToBeDeleted = await _unitOfWork.ProductImages.GetAsync(u => u.Id == imageId);
             if (imageToBeDeleted == null) return "Image not found";
 
             var imagePath = Path.Combine(webRootPath, imageToBeDeleted.ImageUrl.TrimStart('\\'));
             if (File.Exists(imagePath)) File.Delete(imagePath);
 
-            await _unitOfWork.ProductImage.RemoveAsync(imageToBeDeleted);
+            await _unitOfWork.ProductImages.RemoveAsync(imageToBeDeleted);
             await _unitOfWork.SaveAsync();
             return "Image deleted successfully";
         }
         public async Task<object> DeleteProductAsync(int id, string webRootPath)
         {
-            var productToBeDeleted = await _unitOfWork.Product.GetAsync(u => u.Id == id);
+            var productToBeDeleted = await _unitOfWork.Products.GetAsync(u => u.Id == id);
             if (productToBeDeleted == null) return new { success = false, message = "Error while deleting" };
 
             string productPath = $@"images\products\product-{id}";
@@ -84,7 +84,7 @@ namespace ECommerceCore.Infrastructure.Services
                 }
             }
 
-            await _unitOfWork.Product.RemoveAsync(productToBeDeleted);
+            await _unitOfWork.Products.RemoveAsync(productToBeDeleted);
             await _unitOfWork.SaveAsync();
             return new { success = true, message = "Product deleted successfully" };
         }

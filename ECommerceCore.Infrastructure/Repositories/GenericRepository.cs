@@ -1,17 +1,15 @@
 ﻿using ECommerceCore.Application.Contract.Persistence;
-using ECommerceCore.Domain.Models.Entities;
 using ECommerceCore.Infrastructure.Data.Context;
 using Microsoft.EntityFrameworkCore;
-using Org.BouncyCastle.Asn1;
 using System.Linq.Expressions;
 
 namespace ECommerceCore.Infrastructure.Repositories
 {
-    public class Repository<T> : IRepository<T> where T : class
+    public class GenericRepository<T> : IGenericRepository<T> where T : class
     {
         private readonly EcomDbContext _dbContext;
         internal DbSet<T> dbset;
-        public Repository(EcomDbContext dbContext)
+        public GenericRepository(EcomDbContext dbContext)
         {
             _dbContext = dbContext;
             dbset = _dbContext.Set<T>();

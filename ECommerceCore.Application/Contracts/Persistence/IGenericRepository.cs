@@ -2,7 +2,7 @@
 
 namespace ECommerceCore.Application.Contract.Persistence
 {
-    public interface IRepository<T> where T : class
+    public interface IGenericRepository<T> where T : class
     {
         //T - category
         Task<IEnumerable<T>> GetAllAsync(Expression<Func<T, bool>>? filter = null, string? includeProperties = null);

@@ -2,7 +2,7 @@
 
 namespace ECommerceCore.Application.Contract.Persistence
 {
-    public interface IContactUsRepository : IRepository<ContactUs>
+    public interface IContactUsRepository : IGenericRepository<ContactUs>
     {
         Task AddAsync(ContactUs contactUs);
     }

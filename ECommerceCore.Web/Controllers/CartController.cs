@@ -91,7 +91,7 @@ namespace ECommerceCore.Web.Controllers
                 if (cartItem.ProductId != 0)
                 {
                     // Get product details
-                    cartItem.Product = await _unitOfWork.Product.GetAsync(p => p.Id == cartItem.ProductId);
+                    cartItem.Product = await _unitOfWork.Products.GetAsync(p => p.Id == cartItem.ProductId);
 
                     // Calculate price based on quantity
                     cartItem.Price = _cartService.GetPriceBasedOnQuantity(cartItem);

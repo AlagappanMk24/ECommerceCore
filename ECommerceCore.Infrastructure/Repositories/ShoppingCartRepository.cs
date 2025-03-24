@@ -4,7 +4,7 @@ using ECommerceCore.Infrastructure.Data.Context;
 
 namespace ECommerceCore.Infrastructure.Repositories
 {
-    public class ShoppingCartRepository(EcomDbContext dbContext) : Repository<ShoppingCart>(dbContext), IShoppingCartRepository
+    public class ShoppingCartRepository(EcomDbContext dbContext) : GenericRepository<ShoppingCart>(dbContext), IShoppingCartRepository
     {
         private EcomDbContext _dbContext = dbContext;
 

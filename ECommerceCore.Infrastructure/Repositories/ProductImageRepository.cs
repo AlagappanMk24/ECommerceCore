@@ -4,7 +4,7 @@ using ECommerceCore.Infrastructure.Data.Context;
 
 namespace ECommerceCore.Infrastructure.Repositories
 {
-    public class ProductImageRepository(EcomDbContext dbContext) : Repository<ProductImage>(dbContext), IProductImageRepository
+    public class ProductImageRepository(EcomDbContext dbContext) : GenericRepository<ProductImage>(dbContext), IProductImageRepository
     {
         private EcomDbContext _dbContext = dbContext;
 

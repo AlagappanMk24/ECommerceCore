@@ -14,7 +14,7 @@ namespace ECommerceCore.Infrastructure.Services
         /// <returns>An enumerable list of all categories.</returns>
         public async Task<IEnumerable<Category>> GetAllCategories()
         {
-            return await _unitOfWork.Category.GetAllAsync();
+            return await _unitOfWork.Categories.GetAllAsync();
         }
 
         /// <summary>
@@ -24,7 +24,7 @@ namespace ECommerceCore.Infrastructure.Services
         /// <returns>The category with the specified ID, or null if not found.</returns>
         public async Task<Category>? GetCategoryById(int id)
         {
-            return await _unitOfWork.Category.GetAsync(c => c.Id == id);
+            return await _unitOfWork.Categories.GetAsync(c => c.Id == id);
         }
 
         /// <summary>
@@ -37,7 +37,7 @@ namespace ECommerceCore.Infrastructure.Services
         {
             if (category == null) throw new ArgumentNullException(nameof(category));
 
-            await _unitOfWork.Category.AddAsync(category);
+            await _unitOfWork.Categories.AddAsync(category);
             await _unitOfWork.SaveAsync();
             return true;
         }
@@ -52,7 +52,7 @@ namespace ECommerceCore.Infrastructure.Services
         {
             if (category == null) throw new ArgumentNullException(nameof(category));
 
-            _unitOfWork.Category.Update(category);
+            _unitOfWork.Categories.Update(category);
             await _unitOfWork.SaveAsync();
             return true;
         }
@@ -64,11 +64,11 @@ namespace ECommerceCore.Infrastructure.Services
         /// <returns>A boolean value indicating whether the deletion was successful. Returns false if the category was not found.</returns>
         public async Task<bool> DeleteCategory(int id)
         {
-            var category = await _unitOfWork.Category.GetAsync(c => c.Id == id);
+            var category = await _unitOfWork.Categories.GetAsync(c => c.Id == id);
             if (category == null)
                 return false;
 
-            await _unitOfWork.Category.RemoveAsync(category);
+            await _unitOfWork.Categories.RemoveAsync(category);
             await _unitOfWork.SaveAsync();
             return true;
         }

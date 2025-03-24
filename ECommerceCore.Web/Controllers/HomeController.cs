@@ -33,7 +33,7 @@ namespace ECommerceCore.Web.Controllers
             if (claims != null)
             {
                 // Update the session cart count for the logged-in user
-                var cartItems = await _unitOfWork.ShoppingCart.GetAllAsync(u => u.ApplicationUserId == claims.Value);
+                var cartItems = await _unitOfWork.ShoppingCarts.GetAllAsync(u => u.ApplicationUserId == claims.Value);
                 cartCount = cartItems.Count();
             }
             else
@@ -46,7 +46,7 @@ namespace ECommerceCore.Web.Controllers
             HttpContext.Session.SetInt32(AppConstants.SessionCart, cartCount);
 
             // Fetch the list of products with related properties for display
-            IEnumerable<Product> productsList = await _unitOfWork.Product.GetAllAsync(includeProperties: "Category,ProductImages");
+            IEnumerable<Product> productsList = await _unitOfWork.Products.GetAllAsync(includeProperties: "Category,ProductImages");
             return View(productsList);
         }
 
@@ -59,7 +59,7 @@ namespace ECommerceCore.Web.Controllers
         {
             ShoppingCart cart = new()
             {
-                Product = await _unitOfWork.Product.GetAsync(u => u.Id == productId, includeProperties: "Category,ProductImages"),
+                Product = await _unitOfWork.Products.GetAsync(u => u.Id == productId, includeProperties: "Category,ProductImages"),
                 Count = 1,
                 ProductId = productId
             };
@@ -88,19 +88,19 @@ namespace ECommerceCore.Web.Controllers
                     shoppingCart.ApplicationUserId = userId;
 
                     // Check if the shopping cart entry already exists for this user and product
-                    ShoppingCart cartFromDb = await _unitOfWork.ShoppingCart.GetAsync(
+                    ShoppingCart cartFromDb = await _unitOfWork.ShoppingCarts.GetAsync(
                         u => u.ApplicationUserId == userId && u.ProductId == shoppingCart.ProductId);
 
                     if (cartFromDb != null)
                     {
                         // Update the existing cart entry
                         cartFromDb.Count += shoppingCart.Count;
-                        _unitOfWork.ShoppingCart.Update(cartFromDb);
+                        _unitOfWork.ShoppingCarts.Update(cartFromDb);
                     }
                     else
                     {
                         // Add a new cart entry
-                        await _unitOfWork.ShoppingCart.AddAsync(shoppingCart);
+                        await _unitOfWork.ShoppingCarts.AddAsync(shoppingCart);
                     }
 
                     // Save changes to the database
@@ -111,7 +111,7 @@ namespace ECommerceCore.Web.Controllers
                     //    u => u.ApplicationUserId == userId)).Count();
 
                     // Sum all quantities instead of counting unique products
-                    int cartCount = (await _unitOfWork.ShoppingCart.GetAllAsync(
+                    int cartCount = (await _unitOfWork.ShoppingCarts.GetAllAsync(
                                         u => u.ApplicationUserId == userId))
                                         .Sum(cart => cart.Count); 
 
