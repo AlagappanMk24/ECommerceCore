@@ -28,7 +28,6 @@ var app = builder.Build();
 ConfigureMiddleware(app);
 
 app.Run();
-
 void ConfigureServices(IServiceCollection services, IConfiguration configuration)
 {
     services.AddControllers(options =>
@@ -147,8 +146,6 @@ void ConfigureExternalLogins(IServiceCollection services, IConfiguration configu
     });
 }
 
-
-
 /// <summary>
 /// Configures session settings.
 /// </summary>
@@ -204,9 +201,9 @@ void ConfigureMiddleware(WebApplication app)
     app.MapRazorPages();
 
     app.MapControllerRoute(
-      name: "areas",
-      pattern: "{area:exists}/{controller=Home}/{action=LandingPage}/{id?}"
-  );
+        name: "areas",
+        pattern: "{area:exists}/{controller}/{action}/{id?}"
+    );
 
     app.MapControllerRoute(
         name: "default",

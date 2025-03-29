@@ -9,10 +9,20 @@ namespace ECommerceCore.Web.Controllers
     {
         private readonly IUserService _userService = userService;
         private readonly ILogger<UserController> _logger = logger;
+
+        /// <summary>
+        /// Returns the index view.
+        /// </summary>
+        /// <returns>The index view.</returns>
         public IActionResult Index()
         {
             return View();
         }
+
+        /// <summary>
+        /// Retrieves and displays the user's profile.
+        /// </summary>
+        /// <returns>The user's profile view, or an error response.</returns>
         public async Task<IActionResult> Profile()
         {
             try
@@ -36,6 +46,11 @@ namespace ECommerceCore.Web.Controllers
                 return StatusCode(500, "An error occurred. Please try again later."); // Return 500 Internal Server Error
             }
         }
+
+        /// <summary>
+        /// Retrieves the user's profile for editing.
+        /// </summary>
+        /// <returns>The user's profile edit view, or an error response.</returns>
         [HttpGet]
         public async Task<IActionResult> EditProfile()
         {
@@ -64,6 +79,11 @@ namespace ECommerceCore.Web.Controllers
             }
         }
 
+        /// <summary>
+        /// Updates the user's profile.
+        /// </summary>
+        /// <param name="model">The updated user profile model.</param>
+        /// <returns>A redirect to the profile view, or the edit view with errors.</returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> EditProfile(ApplicationUser model)

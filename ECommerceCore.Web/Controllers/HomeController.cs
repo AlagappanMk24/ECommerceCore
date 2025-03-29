@@ -161,11 +161,20 @@ namespace ECommerceCore.Web.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        /// <summary>
+        /// Retrieves the shopping cart from the HTTP request cookies.
+        /// </summary>
+        /// <returns>A list of ShoppingCart objects, or an empty list if the cookie is not found or is empty.</returns>
         private List<ShoppingCart> GetCartFromCookie()
         {
             var cartJson = HttpContext.Request.Cookies[CartCookieName];
             return string.IsNullOrEmpty(cartJson) ? new List<ShoppingCart>() : JsonSerializer.Deserialize<List<ShoppingCart>>(cartJson);
         }
+
+        /// <summary>
+        /// Sets the shopping cart to the HTTP response cookies, including the full cart and the total quantity.
+        /// </summary>
+        /// <param name="cart">The list of ShoppingCart objects to be saved in the cookie.</param>
         private void SetCartToCookie(List<ShoppingCart> cart)
         {
             string cartJson = JsonSerializer.Serialize(cart);
@@ -179,16 +188,30 @@ namespace ECommerceCore.Web.Controllers
             HttpContext.Response.Cookies.Append("CartCount", totalCartQuantity.ToString(),
                 new CookieOptions { Expires = DateTimeOffset.Now.AddDays(1) });
         }
+
+        /// <summary>
+        /// Returns the Privacy view.
+        /// </summary>
+        /// <returns>The Privacy view.</returns>
         public IActionResult Privacy()
         {
             return View();
         }
 
+        /// <summary>
+        /// Returns the Error view with the request ID.
+        /// </summary>
+        /// <returns>The Error view.</returns>
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+
+        /// <summary>
+        /// Returns the Landing Page view.
+        /// </summary>
+        /// <returns>The Landing Page view.</returns>
         public IActionResult LandingPage()
         {
             return View();

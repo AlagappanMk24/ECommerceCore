@@ -13,6 +13,11 @@ namespace ECommerceCore.Web.Controllers
             return View();
         }
 
+        /// <summary>
+        /// Handles the submission of the Contact Us form.
+        /// </summary>
+        /// <param name="contactUs">The ContactUs model containing form data.</param>
+        /// <returns>The Contact Us view with a success message.</returns>
         [HttpPost]
         [ValidateAntiForgeryToken] // For security, prevent cross-site request forgery
         public async Task<IActionResult> Index(ContactUs contactUs)

@@ -42,7 +42,7 @@ namespace ECommerceCore.Infrastructure.Services
                 bool isUpdated = await _unitOfWork.ApplicationUsers.UpdateUserAsync(existingUser);
                 return isUpdated;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return false;
             }

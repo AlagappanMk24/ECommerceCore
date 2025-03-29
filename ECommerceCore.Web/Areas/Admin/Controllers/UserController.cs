@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace ECommerceCore.Web.Areas.Admin.Controllers
 {
+
     [Area("Admin")]
     [Authorize(Roles = AppConstants.Role_Admin)]
     public class UserController(UserManager<IdentityUser> userManager, IUnitOfWork unitOfWork, RoleManager<IdentityRole> roleManager) : Controller
@@ -32,7 +33,9 @@ namespace ECommerceCore.Web.Areas.Admin.Controllers
         /// </summary>
         /// <param name="userId">The ID of the user to manage roles for.</param>
         /// <returns>A view model for role management.</returns>
-        public async Task<IActionResult> RoleManagment(string userId)
+        [HttpGet]
+        [Route("Admin/User/RoleManagment")]
+        public async Task<IActionResult> RoleManagement(string userId)
         {
             var applicationUser = await _unitOfWork.ApplicationUsers.GetAsync(u => u.Id == userId, includeProperties: "Company");
             var roles = await _userManager.GetRolesAsync(applicationUser);
@@ -63,11 +66,12 @@ namespace ECommerceCore.Web.Areas.Admin.Controllers
         /// <param name="roleManagementVM">The view model containing role management data.</param>
         /// <returns>A redirect to the index action.</returns>
         [HttpPost]
-        public async Task<IActionResult> RoleManagment(RoleManagementVM roleManagementVM)
+        [Route("Admin/User/RoleManagment")]
+        public async Task<IActionResult> RoleManagement(RoleManagementVM roleManagementVM)
         {
             var applicationUser = await _unitOfWork.ApplicationUsers.GetAsync(u => u.Id == roleManagementVM.ApplicationUser.Id);
             var oldRole = (await _userManager.GetRolesAsync(applicationUser)).FirstOrDefault();
-      
+
             if (!(roleManagementVM.ApplicationUser.Role == oldRole))
             {
                 //a role was updated
@@ -94,7 +98,7 @@ namespace ECommerceCore.Web.Areas.Admin.Controllers
                 {
                     applicationUser.CompanyId = roleManagementVM.ApplicationUser.CompanyId;
                     _unitOfWork.ApplicationUsers.Update(applicationUser);
-                   await _unitOfWork.SaveAsync();
+                    await _unitOfWork.SaveAsync();
                 }
             }
 

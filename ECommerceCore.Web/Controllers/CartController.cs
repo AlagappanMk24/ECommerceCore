@@ -9,6 +9,7 @@ using System.Text.Json;
 
 namespace ECommerceCore.Web.Controllers
 {
+    //[Area("Customer")]
     public class CartController(IUserService userService, ICartService cartService, IOrderService orderService, IPaymentService paymentService, IUnitOfWork unitOfWork, IHttpContextAccessor httpContextAccessor, ILogger<CartController> logger) : Controller
     {
         private readonly IUserService _userService = userService;
@@ -260,7 +261,9 @@ namespace ECommerceCore.Web.Controllers
                 }
 
                 _logger.LogInformation("Order successfully created with ID {OrderId}. Redirecting to OrderConfirmation.", shoppingCartVM.OrderHeader.Id);
-                return RedirectToAction(nameof(OrderConfirmation), new { id = shoppingCartVM.OrderHeader.Id });
+                return RedirectToAction("OrderConfirmation", "Cart", new { id = shoppingCartVM.OrderHeader.Id });
+
+                //return RedirectToAction(nameof(OrderConfirmation), new { id = shoppingCartVM.OrderHeader.Id });
             }
             catch (Exception ex)
             {

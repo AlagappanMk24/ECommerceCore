@@ -5,14 +5,17 @@ using System.Security.Claims;
 
 namespace ECommerceCore.Web.ViewComponents
 {
-    public class ShoppingCartViewComponent : ViewComponent
+    /// <summary>
+    /// A View Component that displays the shopping cart count for the current user.
+    /// </summary>
+    public class ShoppingCartViewComponent(IUnitOfWork unitOfWork) : ViewComponent
     {
-        private readonly IUnitOfWork _unitOfWork;
-        public ShoppingCartViewComponent(IUnitOfWork unitOfWork)
-        {
-            _unitOfWork = unitOfWork;
-        }
+        private readonly IUnitOfWork _unitOfWork = unitOfWork;
 
+        /// <summary>
+        /// Invokes the View Component to retrieve and display the shopping cart count.
+        /// </summary>
+        /// <returns>An <see cref="IViewComponentResult"/> representing the rendered View Component.</returns>
         public async Task<IViewComponentResult> InvokeAsync()
         {
             //To get user Id 

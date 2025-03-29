@@ -7,15 +7,14 @@ namespace ECommerceCore.Web.Areas.Admin.Controllers
 {
     [Area("Admin")]
     [Authorize(Roles = AppConstants.Role_Admin)]
-    public class DashboardController : Controller
+    public class DashboardController(IUnitOfWork unitOfWork) : Controller
     {
-        private readonly IUnitOfWork _unitOfWork;
+        private readonly IUnitOfWork _unitOfWork = unitOfWork;
 
-        public DashboardController(IUnitOfWork unitOfWork)
-        {
-            _unitOfWork = unitOfWork;
-        }
-
+        /// <summary>
+        /// Displays the main dashboard view, showing counts of orders, categories, users, and products.
+        /// </summary>
+        /// <returns>The dashboard view with data counts.</returns>
         public async Task<IActionResult> Index()
         {
             var orders = await _unitOfWork.OrderHeaders.GetAllAsync();

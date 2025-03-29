@@ -136,6 +136,13 @@ namespace ECommerceCore.Infrastructure.Services
             // Map user details to the order header
             MapUserDetails(shoppingCartVM.OrderHeader, shoppingCartVM.OrderHeader.ApplicationUser);
 
+            shoppingCartVM.ShoppingCartList = await _unitOfWork.ShoppingCarts.GetAllAsync(u => u.ApplicationUserId == userId, includeProperties: "Product,Product.ProductImages");
+            //// Fetch order details including Product and ProductImages
+            //shoppingCartVM.OrderHeader.OrderDetails = (await _unitOfWork.OrderDetails.GetAllAsync(
+            //    od => od.OrderHeader.ApplicationUserId == userId,
+            //    includeProperties: "Product,Product.ProductImages"
+            //)).ToList();
+
             foreach (var cart in shoppingCartVM.ShoppingCartList)
             {
                 cart.Price = GetPriceBasedOnQuantity(cart);

@@ -6,18 +6,12 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ECommerceCore.Infrastructure.Data.DbInitializer
 {
-    public class DbInitializer : IDbInitializer
+    public class DbInitializer(UserManager<IdentityUser> userManager, RoleManager<IdentityRole> roleManager, EcomDbContext dbContext) : IDbInitializer
     {
-        private readonly UserManager<IdentityUser> _userManger;
-        private readonly RoleManager<IdentityRole> _roleManger;
-        private readonly EcomDbContext _dbContext;
+        private readonly UserManager<IdentityUser> _userManger = userManager;
+        private readonly RoleManager<IdentityRole> _roleManger = roleManager;
+        private readonly EcomDbContext _dbContext = dbContext;
 
-        public DbInitializer(UserManager<IdentityUser> userManager, RoleManager<IdentityRole> roleManager, EcomDbContext dbContext)
-        {
-            _roleManger = roleManager;
-            _userManger = userManager;
-            _dbContext = dbContext;
-        }
         public void Initialize()
         {
             //migrations if they are not applied
@@ -30,8 +24,8 @@ namespace ECommerceCore.Infrastructure.Data.DbInitializer
             }
             catch (Exception ex)
             {
-
-                throw;
+                // Log exception
+                throw new Exception("Error applying migrations", ex);
             }
 
             //Create roles if they are not created

@@ -9,6 +9,10 @@ namespace ECommerceCore.Web.Controllers
     {
         private readonly IWishlistService _wishlistService = wishlistService;
 
+        /// <summary>
+        /// Retrieves and displays the wishlist items for the currently logged-in user.
+        /// </summary>
+        /// <returns>An IActionResult representing the wishlist view with a list of products.</returns>
         [HttpGet]
         public async Task<IActionResult> Index()
         {
@@ -21,6 +25,11 @@ namespace ECommerceCore.Web.Controllers
             return View(products);
         }
 
+        /// <summary>
+        /// Adds a product to the wishlist of the currently logged-in user.
+        /// </summary>
+        /// <param name="productId">The ID of the product to add to the wishlist.</param>
+        /// <returns>A JSON IActionResult indicating the success or failure of the operation.</returns>
         [HttpPost]
         [Authorize] // Requires user to be logged in
         public async Task<IActionResult> AddToWishlist(int productId)
@@ -52,6 +61,12 @@ namespace ECommerceCore.Web.Controllers
                 message = added ? "Item added to wishlist." : "Item is already in your wishlist."
             });
         }
+
+        /// <summary>
+        /// Removes a product from the wishlist of the currently logged-in user.
+        /// </summary>
+        /// <param name="productId">The ID of the product to remove from the wishlist.</param>
+        /// <returns>A JSON IActionResult indicating the success or failure of the removal operation.</returns>
         public async Task<IActionResult> RemoveFromWishlist(int productId)
         {
             string currentUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);

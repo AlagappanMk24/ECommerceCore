@@ -1,0 +1,123 @@
+﻿/* Background */
+body {
+    /* background: linear-gradient(to right, #d4fc79, #96e6a1); */
+    /* background: linear-gradient(to right, #8EC5FC, #E0C3FC); */
+    /* background: linear-gradient(to right, #2193b0, #6dd5ed); */
+    /* background: linear-gradient(to right, #ff758c, #ff7eb3); */
+    /* background: linear-gradient(to right, #8e2de2, #4a00e0); */
+    /* background: linear-gradient(to right, #ffb347, #ffcc33); */
+    /* background: linear-gradient(to right, #e0f7fa, #ffffff); */
+    /* background: linear-gradient(to right, #232526, #414345); */
+    /* background-color: #0b3d91; */
+    /* background-color: #f4c2c2; */
+    background-color: #f5f5dc;
+}
+
+/* Glass Effect Card */
+.glass-effect {
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(10px);
+    border-radius: 1.2rem;
+    padding: 2rem;
+    box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.15);
+}
+
+/* Floating Labels */
+.form-floating label {
+    color: #6c757d;
+}
+
+/* Animated Input */
+.animated-input {
+    transition: all 0.3s ease;
+    border-radius: 0.5rem;
+}
+
+    .animated-input:focus {
+        border-color: #007bff;
+        box-shadow: 0 0 10px rgba(0, 123, 255, 0.2);
+    }
+
+/* Login Button */
+.btn-primary {
+    background: #007bff;
+    border: none;
+    border-radius: 0.5rem;
+    transition: all 0.3s ease;
+}
+
+    .btn-primary:hover {
+        background: #0056b3;
+        transform: translateY(-2px);
+    }
+
+/* Divider Text */
+.divider-text {
+    font-size: 1rem;
+    font-weight: bold;
+    color: #6c757d;
+    position: relative;
+}
+
+    .divider-text:before,
+    .divider-text:after {
+        content: "";
+        display: inline-block;
+        width: 30%;
+        height: 1px;
+        background: #ccc;
+        vertical-align: middle;
+        margin: 0 10px;
+    }
+
+/* External Login Buttons */
+.social-login-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    border: 1px solid #ccc;
+    background: white;
+    cursor: pointer;
+    transition: transform 0.2s ease-in-out;
+}
+
+    .social-login-btn img {
+        width: 25px;
+        height: 25px;
+    }
+
+    .social-login-btn:hover {
+        transform: scale(1.1);
+        box-shadow: 0 0 8px rgba(0, 0, 0, 0.15);
+    }
+
+.link-custom {
+    text-decoration: none;
+    color: #007bff;
+    font-weight: 600;
+    position: relative;
+}
+
+    .link-custom::after {
+        content: '';
+        display: block;
+        height: 2px;
+        width: 0;
+        background: #007bff;
+        transition: width 0.3s;
+        position: absolute;
+        left: 50%;
+        bottom: -3px;
+        transform: translateX(-50%);
+    }
+
+    .link-custom:hover::after {
+        width: 100%;
+    }
+
+    .link-custom:hover {
+        color: #0056b3;
+    }

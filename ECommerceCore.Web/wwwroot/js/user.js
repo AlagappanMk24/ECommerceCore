@@ -6,7 +6,7 @@ $(document).ready(function () {
 
 function loadDataTable() {
     dataTable = $('#tblData').DataTable({
-        "ajax": { url: '/admin/user/getall' },
+        "ajax": { url: '/Admin/User/GetAll' },
         "columns": [
             { "data": "name", "width": "15%" },
             { "data": "email", "width": "15%" },
@@ -23,11 +23,11 @@ function loadDataTable() {
                         return `
                         <div class="text-center">
                              <a onclick=LockUnlock('${data.id}') class="btn btn-danger text-white" style="cursor:pointer; width:100px;">
-                                    <i class="bi bi-lock-fill"></i>  Lock
-                                </a> 
-                                <a href="/admin/user/RoleManagment?userId=${data.id}" class="btn btn-danger text-white" style="cursor:pointer; width:150px;">
-                                     <i class="bi bi-pencil-square"></i> Permission
-                                </a>
+                                  <i class="bi bi-lock-fill"></i>  Lock
+                             </a> 
+                             <a href="/Admin/User/RoleManagement?userId=${data.id}" class="btn btn-danger text-white" style="cursor:pointer; width:150px;">
+                                  <i class="bi bi-pencil-square"></i> Permission
+                             </a>
                         </div>
                     `
                     }
@@ -36,10 +36,10 @@ function loadDataTable() {
                         <div class="text-center">
                               <a onclick=LockUnlock('${data.id}') class="btn btn-success text-white" style="cursor:pointer; width:100px;">
                                     <i class="bi bi-unlock-fill"></i>  UnLock
-                                </a>
-                                <a href="/admin/user/RoleManagment?userId=${data.id}" class="btn btn-danger text-white" style="cursor:pointer; width:150px;">
-                                     <i class="bi bi-pencil-square"></i> Permission
-                                </a>
+                              </a>
+                              <a href="/Admin/User/RoleManagement?userId=${data.id}" class="btn btn-danger text-white" style="cursor:pointer; width:150px;">
+                                    <i class="bi bi-pencil-square"></i> Permission
+                              </a>
                         </div>
                     `
                     }

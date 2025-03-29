@@ -23,7 +23,6 @@
                 File.Create(logFilePath).Dispose();
             }
         }
-
         public IDisposable BeginScope<TState>(TState state) => null;
 
         public bool IsEnabled(LogLevel logLevel) => true;
@@ -57,27 +56,26 @@
                 File.AppendAllText(_logFilePath, logEntry);
             }
         }
-
-        private string GetLogLevelShortForm(LogLevel logLevel)
-        {
-            switch (logLevel.ToString())
-            {
-                case "Trace":
-                    return "TRC";
-                case "Debug":
-                    return "DBG";
-                case "Information":
-                    return "INFO";
-                case "Warning":
-                    return "WARN";
-                case "Error":
-                    return "ERR";
-                case "Critical":
-                    return "CRT";
-                default:
-                    return logLevel.ToString().ToUpper();
-            }
-        }
+        //private string GetLogLevelShortForm(LogLevel logLevel)
+        //{
+        //    switch (logLevel.ToString())
+        //    {
+        //        case "Trace":
+        //            return "TRC";
+        //        case "Debug":
+        //            return "DBG";
+        //        case "Information":
+        //            return "INFO";
+        //        case "Warning":
+        //            return "WARN";
+        //        case "Error":
+        //            return "ERR";
+        //        case "Critical":
+        //            return "CRT";
+        //        default:
+        //            return logLevel.ToString().ToUpper();
+        //    }
+        //}
         public void Dispose() { }
     }
 }

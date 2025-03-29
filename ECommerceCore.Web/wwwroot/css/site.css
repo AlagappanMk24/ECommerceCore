@@ -73,6 +73,10 @@ html {
 }
 
 .text-primary {
+    color: #3B71CA !important;
+}
+
+.text-black {
     color: #192E2F !important;
 }
 
@@ -80,8 +84,13 @@ html {
     color: #4b7147 !important;
 }
 
+.bg-black {
+    background-color: #192e2f !important;
+}
+
 .bg-primary {
-    background-color: #192E2F !important;
+    background-color: rgba(var(--bs-primary-rgb), var(--bs-bg-opacity)) !important;
+/*    background-color: #3B71CA !important;*/
 }
 
 .bg-secondary {
