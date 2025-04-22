@@ -1,15 +1,23 @@
 using ECommerceCore.Application.DependencyInjection;
 using ECommerceCore.Infrastructure.Data.Context;
 using ECommerceCore.Infrastructure.Data.DbInitializer;
+using ECommerceCore.Infrastructure.External.SMS;
+using ECommerceCore.Infrastructure.Shared;
+using ECommerceCore.Infrastructure.Shared.Security;
 using ECommerceCore.Infrastructure.Utilities;
 using ECommerceCore.Web.Filters;
 using ECommerceCore.Web.Logger;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Google;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Microsoft.Extensions.Options;
+using Microsoft.IdentityModel.Tokens;
+using Newtonsoft.Json;
 using Stripe;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -42,7 +50,15 @@ void ConfigureServices(IServiceCollection services, IConfiguration configuration
 
     ConfigureDatabase(services, configuration);
 
+    ConfigureJwtSettings(services, configuration);
+
+    ConfigureJwtAuthentication(services, configuration);
+
+    GenerateSecretKey(configuration);
+
     ConfigureEmailSettings(services, configuration);
+
+    ConfigureSmsSettings(services, configuration);
 
     ConfigureStripeSettings(services, configuration);
 
@@ -71,12 +87,74 @@ void ConfigureDatabase(IServiceCollection services, IConfiguration configuration
         options.UseSqlServer(connectionString));
 }
 
+void ConfigureJwtSettings(IServiceCollection services, IConfiguration configuration)
+{
+    services.Configure<JwtSettings>(configuration.GetSection("JwtSettings"));
+}
+
+void GenerateSecretKey(IConfiguration configuration)
+{
+    var jwtSettings = configuration.GetSection("JwtSettings").Get<JwtSettings>();
+
+    // Check if SecretKey is null or empty and generate a new one if necessary
+    if (string.IsNullOrEmpty(jwtSettings.SecretKey))
+    {
+        var secretKey = SecretKeyGenerator.GenerateSecretKey();
+        jwtSettings ??= new JwtSettings();
+        jwtSettings.SecretKey = secretKey;
+
+        // Update appsettings.json with the new secret key
+        var appSettingsFile = "appsettings.json";
+        var json = System.IO.File.ReadAllText(appSettingsFile);
+        dynamic jsonObj = JsonConvert.DeserializeObject(json);
+
+        jsonObj["JwtSettings"]["SecretKey"] = secretKey;
+        string output = JsonConvert.SerializeObject(jsonObj, Formatting.Indented);
+        System.IO.File.WriteAllText(appSettingsFile, output);
+    }
+}
+
+/// <summary>
+/// Configures jwt authentication
+/// </summary>
+void ConfigureJwtAuthentication(IServiceCollection services, IConfiguration configuration)
+{
+    var jwtSettings = configuration.GetSection("JwtSettings").Get<JwtSettings>();
+
+    var key = Encoding.UTF8.GetBytes(jwtSettings.SecretKey);
+
+    services.AddAuthentication(options =>
+    {
+        options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+        options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+        options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+    }).AddJwtBearer(options =>
+      {
+          options.TokenValidationParameters = new TokenValidationParameters
+          {
+              ValidateIssuerSigningKey = true,
+              IssuerSigningKey = new SymmetricSecurityKey(key),
+              ValidateIssuer = false,
+              ValidateAudience = false,
+              ValidateLifetime = true,
+              ClockSkew = TimeSpan.Zero
+          };
+      });
+}
 /// <summary>
 /// Configures Email settings from app configuration.
 /// </summary>
 void ConfigureEmailSettings(IServiceCollection services, IConfiguration configuration)
 {
     services.Configure<EmailSettings>(configuration.GetSection("EmailSettings"));
+}
+
+/// <summary>
+/// Configures SMS settings from app configuration.
+/// </summary>
+void ConfigureSmsSettings(IServiceCollection services, IConfiguration configuration)
+{
+    services.Configure<SMSSettings>(configuration.GetSection("SMSSettings"));
 }
 
 /// <summary>
@@ -109,7 +187,7 @@ void ConfigureApplicationCookie(IServiceCollection services)
         options.AccessDeniedPath = "/Identity/Account/AccessDenied";
 
         // Set the cookie expiration time
-        options.ExpireTimeSpan = TimeSpan.FromMinutes(30);
+        options.ExpireTimeSpan = TimeSpan.FromMinutes(10);
 
         // Extend expiration with activity
         options.SlidingExpiration = true;
@@ -118,7 +196,7 @@ void ConfigureApplicationCookie(IServiceCollection services)
         options.Cookie.HttpOnly = true;
 
         // Use HTTPS
-        options.Cookie.SecurePolicy = CookieSecurePolicy.Always; 
+        options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
     });
 }
 
@@ -152,7 +230,8 @@ void ConfigureExternalLogins(IServiceCollection services, IConfiguration configu
 void ConfigureSession(IServiceCollection services)
 {
     services.AddDistributedMemoryCache();
-    services.AddSession(Options => {
+    services.AddSession(Options =>
+    {
         Options.IdleTimeout = TimeSpan.FromMinutes(5);
         // Prevent client-side access
         Options.Cookie.HttpOnly = true;

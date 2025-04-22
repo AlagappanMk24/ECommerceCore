@@ -8,7 +8,10 @@ using System.Text.Encodings.Web;
 using ECommerceCore.Application.Constants;
 using ECommerceCore.Application.Contract.Persistence;
 using ECommerceCore.Application.Contract.Service;
-using ECommerceCore.Domain.Models.Entities;
+using ECommerceCore.Domain.Entities;
+using ECommerceCore.Domain.Exceptions;
+using ECommerceCore.Domain.ValueObjects;
+using ECommerceCore.Infrastructure.Services.Email;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -112,14 +115,31 @@ namespace ECommerceCore.Web.Areas.Identity.Pages.Account
             public string? City { get; set; }
             public string? State { get; set; }
             public string? PostalCode { get; set; }
-            public string? PhoneNumber { get; set; }
+            [Required]
+            [Display(Name = "Phone Number")]
+            public string PhoneNumber { get; set; }
+
+            [Required]
+            [Display(Name = "Country Code")]
+            public string CountryCode { get; set; }
+
+            [ValidateNever]
+            public IEnumerable<SelectListItem> CountryCodeList { get; set; } = new List<SelectListItem>
+            {
+                new SelectListItem { Value = "US", Text = "United States (+1)" },
+                new SelectListItem { Value = "IN", Text = "India (+91)" },
+                new SelectListItem { Value = "CA", Text = "Canada (+1)" },
+                new SelectListItem { Value = "AU", Text = "Australia (+61)" },
+                new SelectListItem { Value = "UK", Text = "United Kingdom (+44)" },
+                new SelectListItem { Value = "RU", Text = "Russia (+7)" },
+                new SelectListItem { Value = "CN", Text = "China (+86)" }
+            };
 
             //To show company list
             public int? CompanyId { get; set; }
             [ValidateNever]
             public IEnumerable<SelectListItem> CompanyList { get; set; }
         }
-
         public async Task OnGetAsync(string returnUrl = null)
         {
             //For drop down data
@@ -139,16 +159,26 @@ namespace ECommerceCore.Web.Areas.Identity.Pages.Account
             ReturnUrl = returnUrl;
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
         }
-
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
         {
             returnUrl ??= Url.Content("~/");
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
             if (ModelState.IsValid)
             {
+                try
+                {
+                    // Validate phone number
+                    var phoneNumber = new PhoneNumber(Input.PhoneNumber, Input.CountryCode);
+                    Input.PhoneNumber = phoneNumber.Value;
+                }
+                catch (InvalidPhoneException ex)
+                {
+                    ModelState.AddModelError("Input.PhoneNumber", ex.Message);
+                    return Page();
+                }
                 var user = CreateUser();
 
-                await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
+                await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);// Will auto-validate via Email value object
                 await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
 
                 user.Name = Input.Name;
@@ -156,7 +186,7 @@ namespace ECommerceCore.Web.Areas.Identity.Pages.Account
                 user.City = Input.City;
                 user.State = Input.State;
                 user.PostalCode = Input.PostalCode;
-                user.PhoneNumber = Input.PhoneNumber;
+                user.PhoneNumber = Input.PhoneNumber;// Will auto-validate via PhoneNumber value object
 
                 //For company
                 if (Input.Role == AppConstants.Role_Company)
@@ -216,7 +246,6 @@ namespace ECommerceCore.Web.Areas.Identity.Pages.Account
             // If we got this far, something failed, redisplay form
             return Page();
         }
-
         private ApplicationUser CreateUser()
         {
             try
@@ -230,7 +259,6 @@ namespace ECommerceCore.Web.Areas.Identity.Pages.Account
                     $"override the register page in /Areas/Identity/Pages/Account/Register.cshtml");
             }
         }
-
         private IUserEmailStore<IdentityUser> GetEmailStore()
         {
             if (!_userManager.SupportsUserEmail)

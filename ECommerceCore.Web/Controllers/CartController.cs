@@ -1,7 +1,8 @@
 ﻿using ECommerceCore.Application.Contract.Persistence;
 using ECommerceCore.Application.Contract.Service;
 using ECommerceCore.Application.Contract.ViewModels;
-using ECommerceCore.Domain.Models.Entities;
+using ECommerceCore.Domain.Entities;
+using ECommerceCore.Infrastructure.External.Payments;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;

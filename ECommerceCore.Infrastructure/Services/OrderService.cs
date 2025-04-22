@@ -2,7 +2,9 @@
 using ECommerceCore.Application.Contract.Persistence;
 using ECommerceCore.Application.Contract.Service;
 using ECommerceCore.Application.Contract.ViewModels;
-using ECommerceCore.Domain.Models.Entities;
+using ECommerceCore.Domain.Entities;
+using ECommerceCore.Domain.Enums;
+using ECommerceCore.Infrastructure.Services.Email;
 using Microsoft.AspNetCore.Http;
 using Stripe;
 using Stripe.Checkout;
@@ -74,10 +76,10 @@ namespace ECommerceCore.Infrastructure.Services
             var order = await _unitOfWork.OrderHeaders.GetAsync(o => o.Id == orderId);
             order.Carrier = carrier;
             order.TrackingNumber = trackingNumber;
-            order.OrderStatus = AppConstants.StatusShipped;
+            order.OrderStatus = OrderStatus.Shipped.ToString();
             order.ShippingDate = DateTime.Now;
 
-            if (order.PaymentStatus == AppConstants.PaymentStatusDelayedPayment)
+            if (order.PaymentStatus == PaymentStatus.ApprovedForDelayedPayment.ToString())
             {
                 order.PaymentDueDate = DateOnly.FromDateTime(DateTime.Now.AddDays(30));
             }
@@ -95,7 +97,7 @@ namespace ECommerceCore.Infrastructure.Services
         {
             var order = await _unitOfWork.OrderHeaders.GetAsync(o => o.Id == orderId);
 
-            if (order.PaymentStatus == AppConstants.PaymentStatusApproved)
+            if (order.PaymentStatus == PaymentStatus.Approved.ToString())
             {
                 var refundService = new RefundService();
                 var options = new RefundCreateOptions
@@ -106,7 +108,7 @@ namespace ECommerceCore.Infrastructure.Services
                 refundService.Create(options);
             }
 
-            await _unitOfWork.OrderHeaders.UpdateStatusAsync(orderId, AppConstants.StatusCancelled, AppConstants.StatusRefunded);
+            await _unitOfWork.OrderHeaders.UpdateStatusAsync(orderId, OrderStatus.Cancelled.ToString(), OrderStatus.Refunded.ToString());
             await _unitOfWork.SaveAsync();
         }
 
@@ -132,10 +134,10 @@ namespace ECommerceCore.Infrastructure.Services
 
             return status.ToLower() switch
             {
-                "pending" => orders.Where(o => o.PaymentStatus == AppConstants.PaymentStatusPending),
-                "inprocess" => orders.Where(o => o.OrderStatus == AppConstants.StatusInProcess),
-                "completed" => orders.Where(o => o.OrderStatus == AppConstants.StatusShipped),
-                "approved" => orders.Where(o => o.OrderStatus == AppConstants.StatusApproved),
+                "pending" => orders.Where(o => o.PaymentStatus == PaymentStatus.Pending.ToString()),
+                "inprocess" => orders.Where(o => o.OrderStatus == OrderStatus.Processing.ToString()),
+                "completed" => orders.Where(o => o.OrderStatus == OrderStatus.Shipped.ToString()),
+                "approved" => orders.Where(o => o.OrderStatus == OrderStatus.Approved.ToString()),
                 _ => orders
             };
         }
@@ -176,13 +178,13 @@ namespace ECommerceCore.Infrastructure.Services
         {
             if (user.CompanyId.GetValueOrDefault() == 0)
             {
-                orderHeader.PaymentStatus = AppConstants.PaymentStatusPending;
-                orderHeader.OrderStatus = AppConstants.StatusPending;
+                orderHeader.PaymentStatus = PaymentStatus.Pending.ToString();
+                orderHeader.OrderStatus = OrderStatus.Pending.ToString();
             }
             else
             {
-                orderHeader.PaymentStatus = AppConstants.PaymentStatusDelayedPayment;
-                orderHeader.OrderStatus = AppConstants.StatusApproved;
+                orderHeader.PaymentStatus = PaymentStatus.ApprovedForDelayedPayment.ToString();
+                orderHeader.OrderStatus = OrderStatus.Approved.ToString();
             }
         }
 
@@ -252,7 +254,7 @@ namespace ECommerceCore.Infrastructure.Services
             }
 
             // Handle payment status
-            if (orderHeader.PaymentStatus != AppConstants.PaymentStatusDelayedPayment)
+            if (orderHeader.PaymentStatus != PaymentStatus.ApprovedForDelayedPayment.ToString())
             {
                 var sessionService = new SessionService();
                 var session = sessionService.Get(orderHeader.SessionId);
@@ -260,7 +262,7 @@ namespace ECommerceCore.Infrastructure.Services
                 if (session != null && session.PaymentStatus.Equals("paid", StringComparison.OrdinalIgnoreCase))
                 {
                     await _unitOfWork.OrderHeaders.UpdateStripePaymentIdAsync(id, session.Id, session.PaymentIntentId);
-                    await _unitOfWork.OrderHeaders.UpdateStatusAsync(id, AppConstants.StatusApproved, AppConstants.PaymentStatusApproved);
+                    await _unitOfWork.OrderHeaders.UpdateStatusAsync(id, OrderStatus.Approved.ToString(), PaymentStatus.Approved.ToString());
                     await _unitOfWork.SaveAsync();
                 }
                 // Clear session if the payment is complete

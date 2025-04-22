@@ -1,4 +1,4 @@
-﻿using ECommerceCore.Domain.Models.Entities;
+﻿using ECommerceCore.Domain.Entities;
 using System.Security.Claims;
 
 namespace ECommerceCore.Application.Contract.Service

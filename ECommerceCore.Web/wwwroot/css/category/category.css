@@ -1,0 +1,30 @@
+﻿.card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+    .card:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    }
+
+.category-row:hover {
+    background-color: rgba(78, 84, 200, 0.05);
+}
+
+.badge {
+    font-weight: 500;
+    letter-spacing: 0.5px;
+}
+
+.input-group-text {
+    transition: all 0.3s ease;
+}
+
+.form-control:focus + .input-group-text {
+    background-color: #e9ecef;
+}
+
+.delete-btn:hover {
+    background-color: #dc3545;
+    color: white !important;
+}

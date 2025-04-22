@@ -1,5 +1,5 @@
 ﻿using ECommerceCore.Application.Contract.Service;
-using ECommerceCore.Domain.Models.Entities;
+using ECommerceCore.Domain.Entities;
 using ECommerceCore.Infrastructure.Data.Context;
 using Microsoft.EntityFrameworkCore;
 

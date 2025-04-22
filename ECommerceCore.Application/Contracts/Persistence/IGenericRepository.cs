@@ -11,5 +11,6 @@ namespace ECommerceCore.Application.Contract.Persistence
         Task RemoveAsync(T entity);
         Task RemoveRangeAsync(IEnumerable<T> entity);
         Task<int> CountAsync(Expression<Func<T, bool>> filter = null);
+        IQueryable<T> Query();
     }
 }

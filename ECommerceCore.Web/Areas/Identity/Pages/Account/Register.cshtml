@@ -51,15 +51,28 @@
                                     </div>
                                 </div>
                             </div>
-
                             <div class="row g-3 mt-3">
                                 <div class="col-md-6">
                                     <div class="form-floating">
-                                        <input asp-for="Input.PhoneNumber" class="form-control" aria-required="true" placeholder="Phone Number" />
-                                        <label asp-for="Input.PhoneNumber">Phone Number</label>
-                                        <span asp-validation-for="Input.PhoneNumber" class="text-danger"></span>
+                                        <select asp-for="Input.CountryCode" asp-items="@Model.Input.CountryCodeList"
+                                                class="form-select" id="countryCodeSelect">
+                                            <option value="">Select Country</option>
+                                        </select>
+                                        <label asp-for="Input.CountryCode">Country</label>
+                                        <span asp-validation-for="Input.CountryCode" class="text-danger"></span>
                                     </div>
                                 </div>
+                                <div class="col-md-6">
+                                    <div class="form-floating">
+                                        <input asp-for="Input.PhoneNumber" class="form-control"
+                                               id="phoneNumberInput" placeholder="Phone Number" />
+                                        <label asp-for="Input.PhoneNumber">Phone Number</label>
+                                        <span asp-validation-for="Input.PhoneNumber" class="text-danger"></span>
+                                        <small class="text-muted">Enter number without country code</small>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row g-3 mt-3">
                                 <div class="col-md-6">
                                     <div class="form-floating">
                                         <input asp-for="Input.StreetAddress" class="form-control" aria-required="true" placeholder="Street Address" />
@@ -67,9 +80,6 @@
                                         <span asp-validation-for="Input.StreetAddress" class="text-danger"></span>
                                     </div>
                                 </div>
-                            </div>
-
-                            <div class="row g-3 mt-3">
                                 <div class="col-md-6">
                                     <div class="form-floating">
                                         <input asp-for="Input.City" class="form-control" aria-required="true" placeholder="City" />
@@ -77,6 +87,9 @@
                                         <span asp-validation-for="Input.City" class="text-danger"></span>
                                     </div>
                                 </div>
+                            </div>
+
+                            <div class="row g-3 mt-3">
                                 <div class="col-md-6">
                                     <div class="form-floating">
                                         <input asp-for="Input.State" class="form-control" aria-required="true" placeholder="State" />
@@ -84,9 +97,6 @@
                                         <span asp-validation-for="Input.State" class="text-danger"></span>
                                     </div>
                                 </div>
-                            </div>
-
-                            <div class="row g-3 mt-3">
                                 <div class="col-md-6">
                                     <div class="form-floating">
                                         <input asp-for="Input.PostalCode" class="form-control" aria-required="true" placeholder="Postal Code" />
@@ -161,4 +171,28 @@
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const countrySelect = document.getElementById('countryCodeSelect');
+            const phoneInput = document.getElementById('phoneNumberInput');
+
+            // Format phone number on blur
+            phoneInput.addEventListener('blur', function() {
+                const countryCode = countrySelect.value;
+                if (countryCode && this.value) {
+                    const phoneNumber = new PhoneNumber(this.value, countryCode);
+                    this.value = phoneNumber.NationalNumber;
+                }
+            });
+
+            // Show full formatted number when focused
+            phoneInput.addEventListener('focus', function() {
+                const countryCode = countrySelect.value;
+                if (countryCode && this.value) {
+                    const phoneNumber = new PhoneNumber(this.value, countryCode);
+                    this.value = phoneNumber.Value;
+                }
+            });
+        });
+    </script>
 }

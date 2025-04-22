@@ -1,6 +1,6 @@
 ﻿using ECommerceCore.Application.Contract.Persistence;
 using ECommerceCore.Application.Contract.Service;
-using ECommerceCore.Domain.Models.Entities;
+using ECommerceCore.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
 

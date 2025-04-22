@@ -1,11 +1,11 @@
 ﻿using ECommerceCore.Application.Constants;
 using ECommerceCore.Application.Contract.Persistence;
-using ECommerceCore.Domain.Models.Entities;
-using ECommerceCore.Domain.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using System.Security.Claims;
 using System.Text.Json;
+using ECommerceCore.Domain.Entities;
+using ECommerceCore.Domain;
 
 namespace ECommerceCore.Web.Controllers
 {
@@ -213,6 +213,11 @@ namespace ECommerceCore.Web.Controllers
         /// </summary>
         /// <returns>The Landing Page view.</returns>
         public IActionResult LandingPage()
+        {
+            return View();
+        }
+
+        public IActionResult Dashboard()
         {
             return View();
         }

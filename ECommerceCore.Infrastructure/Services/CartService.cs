@@ -2,7 +2,7 @@
 using ECommerceCore.Application.Contract.Persistence;
 using ECommerceCore.Application.Contract.Service;
 using ECommerceCore.Application.Contract.ViewModels;
-using ECommerceCore.Domain.Models.Entities;
+using ECommerceCore.Domain.Entities;
 using Microsoft.AspNetCore.Http;
 using System.Text.Json;
 

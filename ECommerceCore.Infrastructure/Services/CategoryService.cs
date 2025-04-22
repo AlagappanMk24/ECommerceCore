@@ -1,12 +1,16 @@
-﻿using ECommerceCore.Application.Contract.Persistence;
+﻿using AutoMapper;
+using ECommerceCore.Application.Common.Results;
+using ECommerceCore.Application.Contract.Persistence;
 using ECommerceCore.Application.Contract.Service;
-using ECommerceCore.Domain.Models.Entities;
+using ECommerceCore.Application.Contracts.DTOs;
+using ECommerceCore.Domain.Entities;
 
 namespace ECommerceCore.Infrastructure.Services
 {
-    public class CategoryService(IUnitOfWork unitOfWork) : ICategoryService
+    public class CategoryService(IUnitOfWork unitOfWork, IMapper mapper) : ICategoryService
     {
         private readonly IUnitOfWork _unitOfWork = unitOfWork;
+        private readonly IMapper _mapper = mapper;
 
         /// <summary>
         /// Retrieves all categories from the database.
@@ -33,13 +37,23 @@ namespace ECommerceCore.Infrastructure.Services
         /// <param name="category">The category object to create.</param>
         /// <exception cref="ArgumentNullException">Thrown when the category object is null.</exception>
         /// <returns>A boolean value indicating whether the creation was successful.</returns>
-        public async Task<bool> CreateCategory(Category category)
+        public async Task<OperationResult<Category>> CreateCategoryAsync(CreateCategoryRequest request)
         {
-            if (category == null) throw new ArgumentNullException(nameof(category));
+            try
+            {
+                var category = _mapper.Map<Category>(request.CategoryDto);
+                category.CreatedBy = request.CurrentUser;
+                category.UpdatedBy = request.CurrentUser;
 
-            await _unitOfWork.Categories.AddAsync(category);
-            await _unitOfWork.SaveAsync();
-            return true;
+                await _unitOfWork.Categories.AddAsync(category);
+                await _unitOfWork.SaveAsync();
+
+                return OperationResult<Category>.SuccessResult(category);
+            }
+            catch (Exception)
+            {
+                return OperationResult<Category>.FailureResult("Failed to create category"); 
+            }
         }
 
         /// <summary>

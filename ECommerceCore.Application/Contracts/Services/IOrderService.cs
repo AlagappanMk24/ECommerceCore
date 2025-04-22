@@ -1,5 +1,5 @@
 ﻿using ECommerceCore.Application.Contract.ViewModels;
-using ECommerceCore.Domain.Models.Entities;
+using ECommerceCore.Domain.Entities;
 using Microsoft.AspNetCore.Http;
 using System.Security.Claims;
 

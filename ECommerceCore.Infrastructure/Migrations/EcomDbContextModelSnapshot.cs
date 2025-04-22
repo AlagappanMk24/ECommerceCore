@@ -22,7 +22,73 @@ namespace ECommerceCore.Infrastructure.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("ECommerceCore.Domain.Models.Entities.Category", b =>
+            modelBuilder.Entity("ECommerceCore.Domain.Entities.AuthState", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("EmailOTP")
+                        .HasMaxLength(10)
+                        .HasColumnType("nvarchar(10)");
+
+                    b.Property<bool>("EmailVerified")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime>("ExpiresAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("PasswordVerified")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("SmsOTP")
+                        .HasMaxLength(10)
+                        .HasColumnType("nvarchar(10)");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ExpiresAt");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("AuthStates");
+                });
+
+            modelBuilder.Entity("ECommerceCore.Domain.Entities.AuthToken", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime>("ExpiresAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsRevoked")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Token")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Token")
+                        .IsUnique();
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("AuthTokens");
+                });
+
+            modelBuilder.Entity("ECommerceCore.Domain.Entities.Category", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -39,13 +105,23 @@ namespace ECommerceCore.Infrastructure.Migrations
                     b.Property<bool>("Deleted")
                         .HasColumnType("bit");
 
+                    b.Property<string>("Description")
+                        .HasMaxLength(1000)
+                        .HasColumnType("nvarchar(1000)");
+
                     b.Property<int>("DisplayOrder")
                         .HasColumnType("int");
 
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasMaxLength(30)
-                        .HasColumnType("nvarchar(30)");
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
+
+                    b.Property<int?>("ParentCategoryId")
+                        .HasColumnType("int");
 
                     b.Property<string>("UpdatedBy")
                         .HasColumnType("nvarchar(max)");
@@ -55,36 +131,205 @@ namespace ECommerceCore.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("ParentCategoryId");
+
                     b.ToTable("Categories");
 
                     b.HasData(
                         new
                         {
                             Id = 1,
-                            CreatedDate = new DateTime(2025, 2, 5, 10, 57, 43, 337, DateTimeKind.Utc).AddTicks(4154),
+                            CreatedDate = new DateTime(2025, 4, 22, 10, 9, 54, 406, DateTimeKind.Utc).AddTicks(8904),
                             Deleted = false,
+                            Description = "Explore the latest gadgets and electronic devices.",
                             DisplayOrder = 1,
-                            Name = "Action"
+                            IsActive = true,
+                            Name = "Electronics"
                         },
                         new
                         {
                             Id = 2,
-                            CreatedDate = new DateTime(2025, 2, 5, 10, 57, 43, 337, DateTimeKind.Utc).AddTicks(4157),
+                            CreatedDate = new DateTime(2025, 4, 22, 10, 9, 54, 406, DateTimeKind.Utc).AddTicks(8907),
                             Deleted = false,
+                            Description = "Discover stylish clothing and accessories for all occasions.",
                             DisplayOrder = 2,
-                            Name = "SciFi"
+                            IsActive = true,
+                            Name = "Apparel"
                         },
                         new
                         {
                             Id = 3,
-                            CreatedDate = new DateTime(2025, 2, 5, 10, 57, 43, 337, DateTimeKind.Utc).AddTicks(4158),
+                            CreatedDate = new DateTime(2025, 4, 22, 10, 9, 54, 406, DateTimeKind.Utc).AddTicks(8909),
                             Deleted = false,
+                            Description = "Find everything you need for your home and outdoor spaces.",
                             DisplayOrder = 3,
-                            Name = "History"
+                            IsActive = true,
+                            Name = "Home & Garden"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            CreatedDate = new DateTime(2025, 4, 22, 10, 9, 54, 406, DateTimeKind.Utc).AddTicks(8910),
+                            Deleted = false,
+                            Description = "Immerse yourself in captivating stories and knowledge.",
+                            DisplayOrder = 4,
+                            IsActive = true,
+                            Name = "Books"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            CreatedDate = new DateTime(2025, 4, 22, 10, 9, 54, 406, DateTimeKind.Utc).AddTicks(8911),
+                            Deleted = false,
+                            Description = "Gear up for your active lifestyle and outdoor adventures.",
+                            DisplayOrder = 5,
+                            IsActive = true,
+                            Name = "Sports & Outdoors"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            CreatedDate = new DateTime(2025, 4, 22, 10, 9, 54, 406, DateTimeKind.Utc).AddTicks(8912),
+                            Deleted = false,
+                            Description = "Enhance your natural beauty and well-being.",
+                            DisplayOrder = 6,
+                            IsActive = true,
+                            Name = "Beauty & Personal Care"
+                        },
+                        new
+                        {
+                            Id = 7,
+                            CreatedDate = new DateTime(2025, 4, 22, 10, 9, 54, 406, DateTimeKind.Utc).AddTicks(8916),
+                            Deleted = false,
+                            Description = "Unleash fun and creativity for all ages.",
+                            DisplayOrder = 7,
+                            IsActive = true,
+                            Name = "Toys & Games"
+                        },
+                        new
+                        {
+                            Id = 8,
+                            CreatedDate = new DateTime(2025, 4, 22, 10, 9, 54, 406, DateTimeKind.Utc).AddTicks(8918),
+                            Deleted = false,
+                            Description = "The latest smartphones from top brands.",
+                            DisplayOrder = 1,
+                            IsActive = true,
+                            Name = "Smartphones",
+                            ParentCategoryId = 1
+                        },
+                        new
+                        {
+                            Id = 9,
+                            CreatedDate = new DateTime(2025, 4, 22, 10, 9, 54, 406, DateTimeKind.Utc).AddTicks(8920),
+                            Deleted = false,
+                            Description = "Powerful laptops for work and play.",
+                            DisplayOrder = 2,
+                            IsActive = true,
+                            Name = "Laptops",
+                            ParentCategoryId = 1
+                        },
+                        new
+                        {
+                            Id = 10,
+                            CreatedDate = new DateTime(2025, 4, 22, 10, 9, 54, 406, DateTimeKind.Utc).AddTicks(8922),
+                            Deleted = false,
+                            Description = "High-definition televisions for home entertainment.",
+                            DisplayOrder = 3,
+                            IsActive = true,
+                            Name = "Televisions",
+                            ParentCategoryId = 1
+                        },
+                        new
+                        {
+                            Id = 11,
+                            CreatedDate = new DateTime(2025, 4, 22, 10, 9, 54, 406, DateTimeKind.Utc).AddTicks(8924),
+                            Deleted = false,
+                            Description = "Stylish clothing for men.",
+                            DisplayOrder = 1,
+                            IsActive = true,
+                            Name = "Menswear",
+                            ParentCategoryId = 2
+                        },
+                        new
+                        {
+                            Id = 12,
+                            CreatedDate = new DateTime(2025, 4, 22, 10, 9, 54, 406, DateTimeKind.Utc).AddTicks(8925),
+                            Deleted = false,
+                            Description = "Trendy clothing for women.",
+                            DisplayOrder = 2,
+                            IsActive = true,
+                            Name = "Womenswear",
+                            ParentCategoryId = 2
+                        },
+                        new
+                        {
+                            Id = 13,
+                            CreatedDate = new DateTime(2025, 4, 22, 10, 9, 54, 406, DateTimeKind.Utc).AddTicks(8928),
+                            Deleted = false,
+                            Description = "Essential appliances for your kitchen.",
+                            DisplayOrder = 1,
+                            IsActive = true,
+                            Name = "Kitchen Appliances",
+                            ParentCategoryId = 3
+                        },
+                        new
+                        {
+                            Id = 14,
+                            CreatedDate = new DateTime(2025, 4, 22, 10, 9, 54, 406, DateTimeKind.Utc).AddTicks(8931),
+                            Deleted = false,
+                            Description = "Tools for maintaining your garden.",
+                            DisplayOrder = 2,
+                            IsActive = true,
+                            Name = "Garden Tools",
+                            ParentCategoryId = 3
+                        },
+                        new
+                        {
+                            Id = 15,
+                            CreatedDate = new DateTime(2025, 4, 22, 10, 9, 54, 406, DateTimeKind.Utc).AddTicks(8932),
+                            Deleted = false,
+                            Description = "Imaginative and engaging fictional works.",
+                            DisplayOrder = 1,
+                            IsActive = true,
+                            Name = "Fiction",
+                            ParentCategoryId = 4
+                        },
+                        new
+                        {
+                            Id = 16,
+                            CreatedDate = new DateTime(2025, 4, 22, 10, 9, 54, 406, DateTimeKind.Utc).AddTicks(8934),
+                            Deleted = false,
+                            Description = "Informative and factual books on various topics.",
+                            DisplayOrder = 2,
+                            IsActive = true,
+                            Name = "Non-Fiction",
+                            ParentCategoryId = 4
+                        },
+                        new
+                        {
+                            Id = 17,
+                            CreatedDate = new DateTime(2025, 4, 22, 10, 9, 54, 406, DateTimeKind.Utc).AddTicks(8935),
+                            Deleted = false,
+                            Description = "Gear for your outdoor adventures.",
+                            DisplayOrder = 1,
+                            IsActive = true,
+                            Name = "Camping & Hiking",
+                            ParentCategoryId = 5
+                        },
+                        new
+                        {
+                            Id = 18,
+                            CreatedDate = new DateTime(2025, 4, 22, 10, 9, 54, 406, DateTimeKind.Utc).AddTicks(8936),
+                            Deleted = false,
+                            Description = "Equipment and accessories for your fitness journey.",
+                            DisplayOrder = 2,
+                            IsActive = true,
+                            Name = "Fitness",
+                            ParentCategoryId = 5
                         });
                 });
 
-            modelBuilder.Entity("ECommerceCore.Domain.Models.Entities.Company", b =>
+            modelBuilder.Entity("ECommerceCore.Domain.Entities.Company", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -134,42 +379,90 @@ namespace ECommerceCore.Infrastructure.Migrations
                         new
                         {
                             Id = 1,
-                            City = "Tech City",
-                            CreatedDate = new DateTime(2025, 2, 5, 10, 57, 43, 337, DateTimeKind.Utc).AddTicks(4366),
+                            City = "Silicon City",
+                            CreatedDate = new DateTime(2025, 4, 22, 10, 9, 54, 406, DateTimeKind.Utc).AddTicks(9099),
                             Deleted = false,
-                            Name = "Tech Solution",
-                            PhoneNumber = "7887482473",
-                            PostalCode = "12121",
-                            State = "IL",
-                            StreetAddress = "123 Tech st"
+                            Name = "Tech Solutions Inc.",
+                            PhoneNumber = "555-123-4567",
+                            PostalCode = "94016",
+                            State = "CA",
+                            StreetAddress = "123 Innovation Way"
                         },
                         new
                         {
                             Id = 2,
-                            City = "Vid City",
-                            CreatedDate = new DateTime(2025, 2, 5, 10, 57, 43, 337, DateTimeKind.Utc).AddTicks(4370),
+                            City = "Fashionville",
+                            CreatedDate = new DateTime(2025, 4, 22, 10, 9, 54, 406, DateTimeKind.Utc).AddTicks(9102),
                             Deleted = false,
-                            Name = "Vivid Books",
-                            PhoneNumber = "7887482470",
-                            PostalCode = "66666",
-                            State = "IL",
-                            StreetAddress = "999 vid st"
+                            Name = "Fashion Forward Ltd.",
+                            PhoneNumber = "212-987-6543",
+                            PostalCode = "10001",
+                            State = "NY",
+                            StreetAddress = "456 Style Avenue"
                         },
                         new
                         {
                             Id = 3,
-                            City = "Lala land",
-                            CreatedDate = new DateTime(2025, 2, 5, 10, 57, 43, 337, DateTimeKind.Utc).AddTicks(4372),
+                            City = "Eco City",
+                            CreatedDate = new DateTime(2025, 4, 22, 10, 9, 54, 406, DateTimeKind.Utc).AddTicks(9104),
                             Deleted = false,
-                            Name = "Readers Club",
-                            PhoneNumber = "7887482472",
-                            PostalCode = "99999",
+                            Name = "Green Living Co.",
+                            PhoneNumber = "404-555-7890",
+                            PostalCode = "30303",
+                            State = "GA",
+                            StreetAddress = "789 Earth Street"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            City = "Booktown",
+                            CreatedDate = new DateTime(2025, 4, 22, 10, 9, 54, 406, DateTimeKind.Utc).AddTicks(9106),
+                            Deleted = false,
+                            Name = "Global Reads",
+                            PhoneNumber = "312-555-1122",
+                            PostalCode = "60602",
+                            State = "IL",
+                            StreetAddress = "101 Literary Lane"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            City = "Outdoorsville",
+                            CreatedDate = new DateTime(2025, 4, 22, 10, 9, 54, 406, DateTimeKind.Utc).AddTicks(9107),
+                            Deleted = false,
+                            Name = "Adventure Gear Corp.",
+                            PhoneNumber = "720-555-3344",
+                            PostalCode = "80202",
+                            State = "CO",
+                            StreetAddress = "222 Trail Road"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            City = "Cosmetic City",
+                            CreatedDate = new DateTime(2025, 4, 22, 10, 9, 54, 406, DateTimeKind.Utc).AddTicks(9108),
+                            Deleted = false,
+                            Name = "Glow & Glam",
+                            PhoneNumber = "310-555-0011",
+                            PostalCode = "90210",
+                            State = "CA",
+                            StreetAddress = "333 Radiant Road"
+                        },
+                        new
+                        {
+                            Id = 7,
+                            City = "Toyland",
+                            CreatedDate = new DateTime(2025, 4, 22, 10, 9, 54, 406, DateTimeKind.Utc).AddTicks(9110),
+                            Deleted = false,
+                            Name = "Fun Time Toys",
+                            PhoneNumber = "718-555-9988",
+                            PostalCode = "11201",
                             State = "NY",
-                            StreetAddress = "999 Main st"
+                            StreetAddress = "444 Playful Place"
                         });
                 });
 
-            modelBuilder.Entity("ECommerceCore.Domain.Models.Entities.ContactUs", b =>
+            modelBuilder.Entity("ECommerceCore.Domain.Entities.ContactUs", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -215,7 +508,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                     b.ToTable("ContactUsSubmissions");
                 });
 
-            modelBuilder.Entity("ECommerceCore.Domain.Models.Entities.OrderDetail", b =>
+            modelBuilder.Entity("ECommerceCore.Domain.Entities.OrderDetail", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -259,7 +552,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                     b.ToTable("OrderDetails");
                 });
 
-            modelBuilder.Entity("ECommerceCore.Domain.Models.Entities.OrderHeader", b =>
+            modelBuilder.Entity("ECommerceCore.Domain.Entities.OrderHeader", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -350,7 +643,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                     b.ToTable("OrderHeaders");
                 });
 
-            modelBuilder.Entity("ECommerceCore.Domain.Models.Entities.Product", b =>
+            modelBuilder.Entity("ECommerceCore.Domain.Entities.Product", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -394,6 +687,9 @@ namespace ECommerceCore.Infrastructure.Migrations
                     b.Property<double>("Price50")
                         .HasColumnType("float");
 
+                    b.Property<int>("StockQuantity")
+                        .HasColumnType("int");
+
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -414,96 +710,198 @@ namespace ECommerceCore.Infrastructure.Migrations
                         new
                         {
                             Id = 1,
-                            Author = "Billy Spark",
+                            Author = "Tech Solutions Inc.",
                             CategoryId = 1,
-                            CreatedDate = new DateTime(2025, 2, 5, 10, 57, 43, 337, DateTimeKind.Utc).AddTicks(4406),
+                            CreatedDate = new DateTime(2025, 4, 22, 10, 9, 54, 406, DateTimeKind.Utc).AddTicks(9143),
                             Deleted = false,
-                            Description = "A thrilling race against time! When an ancient artifact surfaces, a group of daring adventurers must decipher its secrets before it falls into the wrong hands. Explosions, chases, and close calls abound in this action-packed adventure.",
-                            ISBN = "SWD9999001",
-                            ListPrice = 99.0,
-                            Price = 90.0,
-                            Price100 = 80.0,
-                            Price50 = 85.0,
-                            Title = "Fortune of Time"
+                            Description = "Immerse yourself in stunning visuals with this 55-inch 4K Ultra HD Smart TV. Featuring High Dynamic Range (HDR) for vibrant colors and deep contrast, built-in Wi-Fi, and access to all your favorite streaming apps. Enjoy a cinematic experience in the comfort of your living room.",
+                            ISBN = "ELC-SMTV-001",
+                            ListPrice = 799.99000000000001,
+                            Price = 699.99000000000001,
+                            Price100 = 600.0,
+                            Price50 = 650.0,
+                            StockQuantity = 50,
+                            Title = "Smart TV 55 inch 4K UHD with HDR"
                         },
                         new
                         {
                             Id = 2,
-                            Author = "Nancy Hoover",
+                            Author = "Fashion Forward Ltd.",
                             CategoryId = 2,
-                            CreatedDate = new DateTime(2025, 2, 5, 10, 57, 43, 337, DateTimeKind.Utc).AddTicks(4412),
+                            CreatedDate = new DateTime(2025, 4, 22, 10, 9, 54, 406, DateTimeKind.Utc).AddTicks(9148),
                             Deleted = false,
-                            Description = "In the year 2342, humanity has colonized the outer reaches of the solar system. But a mysterious force is picking off outposts one by one. A lone pilot must uncover the truth behind the 'Dark Skies' before it's too late for humanity.",
-                            ISBN = "CAW777777701",
-                            ListPrice = 40.0,
-                            Price = 30.0,
-                            Price100 = 20.0,
-                            Price50 = 25.0,
-                            Title = "Dark Skies"
+                            Description = "Experience ultimate comfort with our premium 100% combed cotton men's t-shirt. Designed for a classic fit and exceptional softness, this navy blue tee is a versatile wardrobe staple perfect for everyday wear. Available in various sizes.",
+                            ISBN = "APP-MTSRT-002-NVY",
+                            ListPrice = 25.0,
+                            Price = 20.0,
+                            Price100 = 15.0,
+                            Price50 = 18.0,
+                            StockQuantity = 100,
+                            Title = "Premium Cotton T-Shirt - Mens (Navy Blue)"
                         },
                         new
                         {
                             Id = 3,
-                            Author = "Julian Button",
+                            Author = "Green Living Co.",
                             CategoryId = 3,
-                            CreatedDate = new DateTime(2025, 2, 5, 10, 57, 43, 337, DateTimeKind.Utc).AddTicks(4414),
+                            CreatedDate = new DateTime(2025, 4, 22, 10, 9, 54, 406, DateTimeKind.Utc).AddTicks(9150),
                             Deleted = false,
-                            Description = "The year is 1888. A renowned historian vanishes without a trace during an expedition to the American West. His journal, filled with cryptic clues about a hidden Native American tribe, is the only lead. Follow the trail of mystery and discover the secrets lost to time.",
-                            ISBN = "RITO5555501",
-                            ListPrice = 55.0,
-                            Price = 50.0,
-                            Price100 = 35.0,
-                            Price50 = 40.0,
-                            Title = "Vanish in the Sunset"
+                            Description = "Get your gardening tasks done with ease using our durable 3-piece garden tool set. Includes a sturdy trowel, hand fork, and cultivator, all featuring comfortable wooden handles for a secure grip. Perfect for both novice and experienced gardeners.",
+                            ISBN = "HGN-TLSET-003-WD",
+                            ListPrice = 49.950000000000003,
+                            Price = 40.0,
+                            Price100 = 30.0,
+                            Price50 = 35.0,
+                            StockQuantity = 30,
+                            Title = "Essential Garden Tool Set (3-Piece with Wooden Handles)"
                         },
                         new
                         {
                             Id = 4,
-                            Author = "Abby Muscles",
-                            CategoryId = 2,
-                            CreatedDate = new DateTime(2025, 2, 5, 10, 57, 43, 337, DateTimeKind.Utc).AddTicks(4416),
+                            Author = "A.B. Reader",
+                            CategoryId = 4,
+                            CreatedDate = new DateTime(2025, 4, 22, 10, 9, 54, 406, DateTimeKind.Utc).AddTicks(9152),
                             Deleted = false,
-                            Description = "A heartwarming science fiction story about a young girl who discovers a small, fluffy alien creature in her backyard. This gentle tale explores themes of friendship, acceptance, and the wonders of the universe.",
-                            ISBN = "WS3333333301",
-                            ListPrice = 70.0,
-                            Price = 65.0,
-                            Price100 = 55.0,
-                            Price50 = 60.0,
-                            Title = "Cotton Candy"
+                            Description = "Dive into the latest thrilling adventure featuring Detective Jane Doe as she unravels the secrets behind an ancient emerald tablet linked to a series of perplexing disappearances. Packed with suspense, twists, and turns that will keep you guessing until the very last page.",
+                            ISBN = "BOK-MYST-004-EMT",
+                            ListPrice = 15.5,
+                            Price = 12.0,
+                            Price100 = 9.0,
+                            Price50 = 10.0,
+                            StockQuantity = 75,
+                            Title = "The Mystery of the Emerald Tablet (A Detective Jane Doe Novel)"
                         },
                         new
                         {
                             Id = 5,
-                            Author = "Ron Parker",
-                            CategoryId = 1,
-                            CreatedDate = new DateTime(2025, 2, 5, 10, 57, 43, 337, DateTimeKind.Utc).AddTicks(4418),
+                            Author = "Adventure Gear Corp.",
+                            CategoryId = 5,
+                            CreatedDate = new DateTime(2025, 4, 22, 10, 9, 54, 406, DateTimeKind.Utc).AddTicks(9153),
                             Deleted = false,
-                            Description = "A high-octane action thriller set on a remote island fortress. A team of elite mercenaries is hired to infiltrate the heavily guarded complex and retrieve a valuable asset. Prepare for intense combat, daring escapes, and unexpected twists.",
-                            ISBN = "SOTJ1111111101",
-                            ListPrice = 30.0,
-                            Price = 27.0,
-                            Price100 = 20.0,
-                            Price50 = 25.0,
-                            Title = "Rock in the Ocean"
+                            Description = "Embark on your next outdoor adventure with the Adventure Pro 4-person camping tent. Constructed with durable, waterproof materials and featuring a spacious interior, ventilation windows, and easy setup. Perfect for family camping, backpacking, and weekend getaways.",
+                            ISBN = "SPT-CTNT-005-4P",
+                            ListPrice = 199.0,
+                            Price = 175.0,
+                            Price100 = 150.0,
+                            Price50 = 160.0,
+                            StockQuantity = 25,
+                            Title = "Adventure Pro 4-Person Waterproof Camping Tent"
                         },
                         new
                         {
                             Id = 6,
-                            Author = "Laura Phantom",
-                            CategoryId = 3,
-                            CreatedDate = new DateTime(2025, 2, 5, 10, 57, 43, 337, DateTimeKind.Utc).AddTicks(4420),
+                            Author = "Tech Solutions Inc.",
+                            CategoryId = 1,
+                            CreatedDate = new DateTime(2025, 4, 22, 10, 9, 54, 406, DateTimeKind.Utc).AddTicks(9155),
                             Deleted = false,
-                            Description = "Step back in time to the ancient forests of Europe. This historical fiction novel follows the lives of a Celtic tribe as they face Roman invasion and the changing tides of history. Explore the rich culture, myths, and struggles of a forgotten era.",
-                            ISBN = "FOT000000001",
-                            ListPrice = 25.0,
-                            Price = 23.0,
-                            Price100 = 20.0,
-                            Price50 = 22.0,
-                            Title = "Leaves and Wonders"
+                            Description = "Escape into your audio world with these premium noise-cancelling wireless Bluetooth headphones. Enjoy crystal-clear sound, deep bass, and up to 30 hours of playtime on a single charge. Features comfortable over-ear cups and intuitive controls. Ideal for travel, work, and relaxation.",
+                            ISBN = "ELC-WHP-006-BLK",
+                            ListPrice = 149.0,
+                            Price = 129.0,
+                            Price100 = 100.0,
+                            Price50 = 115.0,
+                            StockQuantity = 60,
+                            Title = "Noise-Cancelling Wireless Bluetooth Headphones (Black)"
+                        },
+                        new
+                        {
+                            Id = 7,
+                            Author = "Fashion Forward Ltd.",
+                            CategoryId = 2,
+                            CreatedDate = new DateTime(2025, 4, 22, 10, 9, 54, 406, DateTimeKind.Utc).AddTicks(9157),
+                            Deleted = false,
+                            Description = "Achieve your personal best with these lightweight and supportive performance running shoes for women. Designed with breathable mesh and responsive cushioning for a comfortable and energized run. Perfect for тренировки on the track or hitting the pavement.",
+                            ISBN = "APP-WRSHOE-007-ABL",
+                            ListPrice = 89.989999999999995,
+                            Price = 75.0,
+                            Price100 = 65.0,
+                            Price50 = 70.0,
+                            StockQuantity = 90,
+                            Title = "Performance Running Shoes - Womens (Aqua Blue)"
+                        },
+                        new
+                        {
+                            Id = 8,
+                            Author = "Green Living Co.",
+                            CategoryId = 3,
+                            CreatedDate = new DateTime(2025, 4, 22, 10, 9, 54, 406, DateTimeKind.Utc).AddTicks(9158),
+                            Deleted = false,
+                            Description = "Become the ultimate grill master with this versatile 3-burner propane BBQ grill. Features a convenient side burner for sauces and sides, a built-in thermometer for precise temperature control, and a durable weather-resistant cover to protect your investment.",
+                            ISBN = "HGN-BBQ-008-PC",
+                            ListPrice = 299.0,
+                            Price = 250.0,
+                            Price100 = 200.0,
+                            Price50 = 225.0,
+                            StockQuantity = 20,
+                            Title = "3-Burner Propane BBQ Grill with Side Burner & Cover"
+                        },
+                        new
+                        {
+                            Id = 9,
+                            Author = "Various Authors",
+                            CategoryId = 4,
+                            CreatedDate = new DateTime(2025, 4, 22, 10, 9, 54, 406, DateTimeKind.Utc).AddTicks(9160),
+                            Deleted = false,
+                            Description = "Embark on interstellar journeys with this captivating collection of classic science fiction short stories from visionary authors. Explore themes of space exploration, artificial intelligence, and the future of humanity in this must-have anthology for sci-fi enthusiasts.",
+                            ISBN = "BOK-SCIFI-009-TTC",
+                            ListPrice = 18.75,
+                            Price = 15.0,
+                            Price100 = 11.0,
+                            Price50 = 13.0,
+                            StockQuantity = 55,
+                            Title = "Timeless Tales of the Cosmos (A Science Fiction Anthology)"
+                        },
+                        new
+                        {
+                            Id = 10,
+                            Author = "Adventure Gear Corp.",
+                            CategoryId = 5,
+                            CreatedDate = new DateTime(2025, 4, 22, 10, 9, 54, 406, DateTimeKind.Utc).AddTicks(9162),
+                            Deleted = false,
+                            Description = "Conquer any trail with the Summit X full suspension mountain bike. Featuring lightweight aluminum frame, responsive suspension system, and 29-inch wheels for enhanced stability and control. Perfect for experienced riders seeking ultimate off-road performance.",
+                            ISBN = "SPT-MTB-010-FS29",
+                            ListPrice = 1200.0,
+                            Price = 1050.0,
+                            Price100 = 850.0,
+                            Price50 = 950.0,
+                            StockQuantity = 15,
+                            Title = "Summit X Full Suspension Mountain Bike (29 inch Wheels)"
+                        },
+                        new
+                        {
+                            Id = 11,
+                            Author = "Glow & Glam",
+                            CategoryId = 6,
+                            CreatedDate = new DateTime(2025, 4, 22, 10, 9, 54, 406, DateTimeKind.Utc).AddTicks(9163),
+                            Deleted = false,
+                            Description = "Replenish and revitalize your skin with our hydrating facial serum. Formulated with pure hyaluronic acid to lock in moisture, reduce the appearance of fine lines, and leave your complexion feeling smooth, plump, and radiant. Suitable for all skin types.",
+                            ISBN = "BPC-FSERUM-011",
+                            ListPrice = 35.0,
+                            Price = 28.0,
+                            Price100 = 22.0,
+                            Price50 = 25.0,
+                            StockQuantity = 80,
+                            Title = "Hydrating Facial Serum with Hyaluronic Acid"
+                        },
+                        new
+                        {
+                            Id = 12,
+                            Author = "Fun Time Toys",
+                            CategoryId = 7,
+                            CreatedDate = new DateTime(2025, 4, 22, 10, 9, 54, 406, DateTimeKind.Utc).AddTicks(9165),
+                            Deleted = false,
+                            Description = "Spark your child's imagination with this deluxe wooden train set. Featuring over 100 pieces including tracks, trains, bridges, figures, and scenery. Crafted from high-quality wood for lasting durability and endless hours of creative play. Perfect for ages 3 and up.",
+                            ISBN = "TOY-TRSET-012",
+                            ListPrice = 79.989999999999995,
+                            Price = 65.0,
+                            Price100 = 55.0,
+                            Price50 = 60.0,
+                            StockQuantity = 40,
+                            Title = "Deluxe Wooden Train Set (Over 100 Pieces)"
                         });
                 });
 
-            modelBuilder.Entity("ECommerceCore.Domain.Models.Entities.ProductImage", b =>
+            modelBuilder.Entity("ECommerceCore.Domain.Entities.ProductImage", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -538,9 +936,139 @@ namespace ECommerceCore.Infrastructure.Migrations
                     b.HasIndex("ProductId");
 
                     b.ToTable("ProductImages");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CreatedDate = new DateTime(2025, 4, 22, 10, 9, 54, 406, DateTimeKind.Utc).AddTicks(9196),
+                            Deleted = false,
+                            ImageUrl = "/images/products/smarttv_main.jpg",
+                            ProductId = 1
+                        },
+                        new
+                        {
+                            Id = 2,
+                            CreatedDate = new DateTime(2025, 4, 22, 10, 9, 54, 406, DateTimeKind.Utc).AddTicks(9198),
+                            Deleted = false,
+                            ImageUrl = "/images/products/smarttv_ports.jpg",
+                            ProductId = 1
+                        },
+                        new
+                        {
+                            Id = 3,
+                            CreatedDate = new DateTime(2025, 4, 22, 10, 9, 54, 406, DateTimeKind.Utc).AddTicks(9199),
+                            Deleted = false,
+                            ImageUrl = "/images/products/mens_tshirt_navy.jpg",
+                            ProductId = 2
+                        },
+                        new
+                        {
+                            Id = 4,
+                            CreatedDate = new DateTime(2025, 4, 22, 10, 9, 54, 406, DateTimeKind.Utc).AddTicks(9200),
+                            Deleted = false,
+                            ImageUrl = "/images/products/mens_tshirt_front.jpg",
+                            ProductId = 2
+                        },
+                        new
+                        {
+                            Id = 5,
+                            CreatedDate = new DateTime(2025, 4, 22, 10, 9, 54, 406, DateTimeKind.Utc).AddTicks(9201),
+                            Deleted = false,
+                            ImageUrl = "/images/products/garden_tool_set.jpg",
+                            ProductId = 3
+                        },
+                        new
+                        {
+                            Id = 6,
+                            CreatedDate = new DateTime(2025, 4, 22, 10, 9, 54, 406, DateTimeKind.Utc).AddTicks(9201),
+                            Deleted = false,
+                            ImageUrl = "/images/products/book_emerald_tablet.jpg",
+                            ProductId = 4
+                        },
+                        new
+                        {
+                            Id = 7,
+                            CreatedDate = new DateTime(2025, 4, 22, 10, 9, 54, 406, DateTimeKind.Utc).AddTicks(9202),
+                            Deleted = false,
+                            ImageUrl = "/images/products/tent_pitched.jpg",
+                            ProductId = 5
+                        },
+                        new
+                        {
+                            Id = 8,
+                            CreatedDate = new DateTime(2025, 4, 22, 10, 9, 54, 406, DateTimeKind.Utc).AddTicks(9203),
+                            Deleted = false,
+                            ImageUrl = "/images/products/tent_interior.jpg",
+                            ProductId = 5
+                        },
+                        new
+                        {
+                            Id = 9,
+                            CreatedDate = new DateTime(2025, 4, 22, 10, 9, 54, 406, DateTimeKind.Utc).AddTicks(9204),
+                            Deleted = false,
+                            ImageUrl = "/images/products/headphones_black.jpg",
+                            ProductId = 6
+                        },
+                        new
+                        {
+                            Id = 10,
+                            CreatedDate = new DateTime(2025, 4, 22, 10, 9, 54, 406, DateTimeKind.Utc).AddTicks(9354),
+                            Deleted = false,
+                            ImageUrl = "/images/products/womens_run_shoe_blue.jpg",
+                            ProductId = 7
+                        },
+                        new
+                        {
+                            Id = 11,
+                            CreatedDate = new DateTime(2025, 4, 22, 10, 9, 54, 406, DateTimeKind.Utc).AddTicks(9356),
+                            Deleted = false,
+                            ImageUrl = "/images/products/bbq_grill.jpg",
+                            ProductId = 8
+                        },
+                        new
+                        {
+                            Id = 12,
+                            CreatedDate = new DateTime(2025, 4, 22, 10, 9, 54, 406, DateTimeKind.Utc).AddTicks(9356),
+                            Deleted = false,
+                            ImageUrl = "/images/products/book_sci_fi_anthology.jpg",
+                            ProductId = 9
+                        },
+                        new
+                        {
+                            Id = 13,
+                            CreatedDate = new DateTime(2025, 4, 22, 10, 9, 54, 406, DateTimeKind.Utc).AddTicks(9357),
+                            Deleted = false,
+                            ImageUrl = "/images/products/mountain_bike.jpg",
+                            ProductId = 10
+                        },
+                        new
+                        {
+                            Id = 14,
+                            CreatedDate = new DateTime(2025, 4, 22, 10, 9, 54, 406, DateTimeKind.Utc).AddTicks(9358),
+                            Deleted = false,
+                            ImageUrl = "/images/products/facial_serum.jpg",
+                            ProductId = 11
+                        },
+                        new
+                        {
+                            Id = 15,
+                            CreatedDate = new DateTime(2025, 4, 22, 10, 9, 54, 406, DateTimeKind.Utc).AddTicks(9359),
+                            Deleted = false,
+                            ImageUrl = "/images/products/train_set_layout.jpg",
+                            ProductId = 12
+                        },
+                        new
+                        {
+                            Id = 16,
+                            CreatedDate = new DateTime(2025, 4, 22, 10, 9, 54, 406, DateTimeKind.Utc).AddTicks(9359),
+                            Deleted = false,
+                            ImageUrl = "/images/products/train_set_pieces.jpg",
+                            ProductId = 12
+                        });
                 });
 
-            modelBuilder.Entity("ECommerceCore.Domain.Models.Entities.ShoppingCart", b =>
+            modelBuilder.Entity("ECommerceCore.Domain.Entities.ShoppingCart", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -581,7 +1109,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                     b.ToTable("ShoppingCarts");
                 });
 
-            modelBuilder.Entity("ECommerceCore.Domain.Models.Entities.WishlistItem", b =>
+            modelBuilder.Entity("ECommerceCore.Domain.Entities.WishlistItem", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -830,7 +1358,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("ECommerceCore.Domain.Models.Entities.ApplicationUser", b =>
+            modelBuilder.Entity("ECommerceCore.Domain.Entities.ApplicationUser", b =>
                 {
                     b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUser");
 
@@ -858,18 +1386,28 @@ namespace ECommerceCore.Infrastructure.Migrations
                     b.HasDiscriminator().HasValue("ApplicationUser");
                 });
 
-            modelBuilder.Entity("ECommerceCore.Domain.Models.Entities.OrderDetail", b =>
+            modelBuilder.Entity("ECommerceCore.Domain.Entities.Category", b =>
                 {
-                    b.HasOne("ECommerceCore.Domain.Models.Entities.OrderHeader", "OrderHeader")
+                    b.HasOne("ECommerceCore.Domain.Entities.Category", "ParentCategory")
+                        .WithMany()
+                        .HasForeignKey("ParentCategoryId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.Navigation("ParentCategory");
+                });
+
+            modelBuilder.Entity("ECommerceCore.Domain.Entities.OrderDetail", b =>
+                {
+                    b.HasOne("ECommerceCore.Domain.Entities.OrderHeader", "OrderHeader")
                         .WithMany("OrderDetails")
                         .HasForeignKey("OrderHeaderId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("ECommerceCore.Domain.Models.Entities.Product", "Product")
+                    b.HasOne("ECommerceCore.Domain.Entities.Product", "Product")
                         .WithMany()
                         .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("OrderHeader");
@@ -877,31 +1415,31 @@ namespace ECommerceCore.Infrastructure.Migrations
                     b.Navigation("Product");
                 });
 
-            modelBuilder.Entity("ECommerceCore.Domain.Models.Entities.OrderHeader", b =>
+            modelBuilder.Entity("ECommerceCore.Domain.Entities.OrderHeader", b =>
                 {
-                    b.HasOne("ECommerceCore.Domain.Models.Entities.ApplicationUser", "ApplicationUser")
+                    b.HasOne("ECommerceCore.Domain.Entities.ApplicationUser", "ApplicationUser")
                         .WithMany()
                         .HasForeignKey("ApplicationUserId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.Navigation("ApplicationUser");
                 });
 
-            modelBuilder.Entity("ECommerceCore.Domain.Models.Entities.Product", b =>
+            modelBuilder.Entity("ECommerceCore.Domain.Entities.Product", b =>
                 {
-                    b.HasOne("ECommerceCore.Domain.Models.Entities.Category", "Category")
+                    b.HasOne("ECommerceCore.Domain.Entities.Category", "Category")
                         .WithMany()
                         .HasForeignKey("CategoryId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Category");
                 });
 
-            modelBuilder.Entity("ECommerceCore.Domain.Models.Entities.ProductImage", b =>
+            modelBuilder.Entity("ECommerceCore.Domain.Entities.ProductImage", b =>
                 {
-                    b.HasOne("ECommerceCore.Domain.Models.Entities.Product", "Product")
+                    b.HasOne("ECommerceCore.Domain.Entities.Product", "Product")
                         .WithMany("ProductImages")
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -910,16 +1448,17 @@ namespace ECommerceCore.Infrastructure.Migrations
                     b.Navigation("Product");
                 });
 
-            modelBuilder.Entity("ECommerceCore.Domain.Models.Entities.ShoppingCart", b =>
+            modelBuilder.Entity("ECommerceCore.Domain.Entities.ShoppingCart", b =>
                 {
-                    b.HasOne("ECommerceCore.Domain.Models.Entities.ApplicationUser", "ApplicationUser")
+                    b.HasOne("ECommerceCore.Domain.Entities.ApplicationUser", "ApplicationUser")
                         .WithMany()
-                        .HasForeignKey("ApplicationUserId");
+                        .HasForeignKey("ApplicationUserId")
+                        .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("ECommerceCore.Domain.Models.Entities.Product", "Product")
+                    b.HasOne("ECommerceCore.Domain.Entities.Product", "Product")
                         .WithMany()
                         .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("ApplicationUser");
@@ -927,15 +1466,15 @@ namespace ECommerceCore.Infrastructure.Migrations
                     b.Navigation("Product");
                 });
 
-            modelBuilder.Entity("ECommerceCore.Domain.Models.Entities.WishlistItem", b =>
+            modelBuilder.Entity("ECommerceCore.Domain.Entities.WishlistItem", b =>
                 {
-                    b.HasOne("ECommerceCore.Domain.Models.Entities.Product", "Product")
+                    b.HasOne("ECommerceCore.Domain.Entities.Product", "Product")
                         .WithMany()
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("ECommerceCore.Domain.Models.Entities.ApplicationUser", "User")
+                    b.HasOne("ECommerceCore.Domain.Entities.ApplicationUser", "User")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -997,21 +1536,21 @@ namespace ECommerceCore.Infrastructure.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("ECommerceCore.Domain.Models.Entities.ApplicationUser", b =>
+            modelBuilder.Entity("ECommerceCore.Domain.Entities.ApplicationUser", b =>
                 {
-                    b.HasOne("ECommerceCore.Domain.Models.Entities.Company", "Company")
+                    b.HasOne("ECommerceCore.Domain.Entities.Company", "Company")
                         .WithMany()
                         .HasForeignKey("CompanyId");
 
                     b.Navigation("Company");
                 });
 
-            modelBuilder.Entity("ECommerceCore.Domain.Models.Entities.OrderHeader", b =>
+            modelBuilder.Entity("ECommerceCore.Domain.Entities.OrderHeader", b =>
                 {
                     b.Navigation("OrderDetails");
                 });
 
-            modelBuilder.Entity("ECommerceCore.Domain.Models.Entities.Product", b =>
+            modelBuilder.Entity("ECommerceCore.Domain.Entities.Product", b =>
                 {
                     b.Navigation("ProductImages");
                 });

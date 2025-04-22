@@ -1,0 +1,724 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>ShopTech | @ViewData["Title"]</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Material Icons -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
+
+    <!-- CSS Libraries -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.5/dist/sweetalert2.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
+
+    <!-- Custom CSS -->
+    <link href="~/css/site.css" rel="stylesheet" />
+
+    <style>
+        :root {
+            --primary-color: #4361ee;
+            --secondary-color: #3f37c9;
+            --accent-color: #4895ef;
+            --dark-color: #1a1a2e;
+            --light-color: #f8f9fa;
+            --success-color: #4cc9f0;
+            --warning-color: #f8961e;
+            --danger-color: #f72585;
+            --sidebar-width: 280px;
+            --header-height: 70px;
+            --transition: all 0.3s ease;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f5f7fb;
+            color: #4a4a4a;
+            overflow-x: hidden;
+        }
+
+        .wrapper {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* Sidebar */
+        .main-sidebar {
+            width: var(--sidebar-width);
+            background: linear-gradient(180deg, var(--dark-color) 0%, #16213e 100%);
+            color: white;
+            position: fixed;
+            height: 100vh;
+            z-index: 1000;
+            box-shadow: 5px 0 15px rgba(0, 0, 0, 0.1);
+            transition: var(--transition);
+            transform: translateX(0);
+        }
+
+        .brand-link {
+            display: flex;
+            align-items: center;
+            padding: 1.5rem 1rem;
+            background: rgba(255, 255, 255, 0.1);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .brand-image {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+
+        .brand-text {
+            font-weight: 600;
+            font-size: 1.2rem;
+            color: white;
+        }
+
+        .sidebar {
+            height: calc(100vh - var(--header-height));
+            overflow-y: auto;
+            padding-bottom: 20px;
+        }
+
+        .user-panel {
+            padding: 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+            .user-panel .image img {
+                width: 45px;
+                height: 45px;
+                border: 2px solid var(--accent-color);
+            }
+
+            .user-panel .info a {
+                color: white;
+                font-weight: 500;
+                margin-left: 10px;
+            }
+
+        .sidebar-search {
+            padding: 15px;
+        }
+
+        .form-control-sidebar {
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            color: white;
+            border-radius: 30px;
+            padding: 10px 15px;
+        }
+
+            .form-control-sidebar::placeholder {
+                color: rgba(255, 255, 255, 0.5);
+            }
+
+        .btn-sidebar {
+            background: var(--accent-color);
+            color: white;
+            border-radius: 0 30px 30px 0;
+            border: none;
+        }
+
+        .nav-sidebar .nav-item {
+            margin: 5px 0;
+        }
+
+        .nav-sidebar .nav-link {
+            color: rgba(255, 255, 255, 0.8);
+            border-radius: 5px;
+            margin: 0 10px;
+            padding: 12px 15px;
+            display: flex;
+            align-items: center;
+            transition: var(--transition);
+        }
+
+            .nav-sidebar .nav-link:hover {
+                background: rgba(255, 255, 255, 0.1);
+                color: white;
+                transform: translateX(5px);
+            }
+
+            .nav-sidebar .nav-link.active {
+                background: var(--primary-color);
+                color: white;
+                box-shadow: 0 4px 12px rgba(67, 97, 238, 0.3);
+            }
+
+        .nav-sidebar .nav-icon {
+            font-size: 1.1rem;
+            margin-right: 10px;
+            width: 20px;
+            text-align: center;
+        }
+
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            margin-left: var(--sidebar-width);
+            transition: var(--transition);
+        }
+
+        /* Navbar */
+        .main-header {
+            background: white;
+            height: var(--header-height);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            position: sticky;
+            top: 0;
+            z-index: 999;
+            padding: 0 20px;
+        }
+
+        .navbar-nav .nav-link {
+            color: #555;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            transition: var(--transition);
+        }
+
+            .navbar-nav .nav-link:hover {
+                color: var(--primary-color);
+            }
+
+            .navbar-nav .nav-link i {
+                margin-right: 5px;
+            }
+
+        /* Content Header */
+        .content-header {
+            padding: 20px 30px 10px;
+            background: white;
+            border-radius: 10px;
+            margin: 20px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+
+            .content-header h1 {
+                font-weight: 600;
+                color: var(--dark-color);
+                margin: 0;
+                font-size: 1.8rem;
+            }
+
+        /* Cards */
+        .card {
+            border: none;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            margin-bottom: 25px;
+            transition: var(--transition);
+        }
+
+            .card:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            }
+
+        .card-header {
+            background: white;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+            padding: 20px 25px;
+            border-radius: 10px 10px 0 0 !important;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .card-title {
+            font-weight: 600;
+            color: var(--dark-color);
+            margin: 0;
+            font-size: 1.3rem;
+        }
+
+        .card-body {
+            padding: 25px;
+        }
+
+        .card-footer {
+            background: white;
+            border-top: 1px solid rgba(0, 0, 0, 0.05);
+            padding: 15px 25px;
+            border-radius: 0 0 10px 10px;
+        }
+
+        /* Buttons */
+        .btn {
+            border-radius: 6px;
+            font-weight: 500;
+            padding: 8px 20px;
+            transition: var(--transition);
+        }
+
+        .btn-primary {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+
+            .btn-primary:hover {
+                background-color: var(--secondary-color);
+                border-color: var(--secondary-color);
+                transform: translateY(-2px);
+            }
+
+        /* Footer */
+        .main-footer {
+            background: white;
+            padding: 15px 30px;
+            margin: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .fade-in {
+            animation: fadeIn 0.5s ease forwards;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--primary-color);
+            border-radius: 10px;
+        }
+
+        /* Badges */
+        .badge {
+            font-weight: 500;
+            padding: 5px 10px;
+            border-radius: 20px;
+        }
+
+        /* Custom Toggle Button */
+        .sidebar-toggle {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--dark-color);
+            cursor: pointer;
+            margin-right: 15px;
+        }
+    </style>
+</head>
+<body class="hold-transition sidebar-mini">
+    <!-- Site wrapper -->
+    <div class="wrapper">
+        <!-- Sidebar Toggle Button (Mobile) -->
+        <button class="sidebar-toggle d-lg-none">
+            <i class="fas fa-bars"></i>
+        </button>
+
+        <!-- Main Sidebar Container -->
+        <aside class="main-sidebar">
+            <!-- Brand Logo -->
+            <a href="/" class="brand-link">
+                <img src="~/img/shoptech-logo.png" alt="ShopTech Logo" class="brand-image">
+                <span class="brand-text">ShopTech</span>
+            </a>
+
+            <!-- Sidebar -->
+            <div class="sidebar">
+                <!-- Sidebar user panel -->
+                <div class="user-panel d-flex align-items-center">
+                    <div class="image">
+                        <img src="~/img/user-avatar.jpg" class="img-circle elevation-2" alt="User Image">
+                    </div>
+                    <div class="info">
+                        <a href="#" class="d-block">@User.Identity?.Name</a>
+                    </div>
+                </div>
+
+                <!-- Sidebar Search -->
+                <div class="form-inline px-3 mt-2">
+                    <div class="input-group">
+                        <input class="form-control form-control-sidebar" type="search" placeholder="Search..." aria-label="Search">
+                        <div class="input-group-append">
+                            <button class="btn btn-sidebar">
+                                <i class="fas fa-search"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sidebar Menu -->
+                <nav class="mt-3">
+                    <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu">
+                        <!-- Dashboard -->
+                        <li class="nav-item">
+                            <a href="/Admin/Dashboard/Index" class="nav-link">
+                                <i class="nav-icon fas fa-tachometer-alt"></i>
+                                <p>Dashboard</p>
+                                <span class="badge bg-primary float-end">New</span>
+                            </a>
+                        </li>
+
+                        <!-- Products Section -->
+                        <li class="nav-item mt-3">
+                            <p class="nav-link text-uppercase text-muted small fw-bold mb-0 px-3">PRODUCT MANAGEMENT</p>
+                        </li>
+
+                        <!-- Categories -->
+                        <li class="nav-item">
+                            <a href="/Admin/Categories/Index" class="nav-link">
+                                <i class="nav-icon fas fa-tags"></i>
+                                <p>Categories</p>
+                            </a>
+                        </li>
+
+                        <!-- Products -->
+                        <li class="nav-item">
+                            <a href="/Admin/Products/Index" class="nav-link">
+                                <i class="nav-icon fas fa-box-open"></i>
+                                <p>Products</p>
+                                <span class="badge bg-success float-end">24</span>
+                            </a>
+                        </li>
+
+                        <!-- Orders Section -->
+                        <li class="nav-item mt-3">
+                            <p class="nav-link text-uppercase text-muted small fw-bold mb-0 px-3">SALES & ORDERS</p>
+                        </li>
+
+                        <!-- Orders -->
+                        <li class="nav-item">
+                            <a href="/Admin/Order" class="nav-link">
+                                <i class="nav-icon fas fa-shopping-bag"></i>
+                                <p>Orders</p>
+                                <span class="badge bg-danger float-end">5</span>
+                            </a>
+                        </li>
+
+                        <!-- Users Section -->
+                        <li class="nav-item mt-3">
+                            <p class="nav-link text-uppercase text-muted small fw-bold mb-0 px-3">USER MANAGEMENT</p>
+                        </li>
+
+                        <!-- Users -->
+                        <li class="nav-item">
+                            <a href="/Admin/Users/" class="nav-link">
+                                <i class="nav-icon fas fa-users-cog"></i>
+                                <p>Users</p>
+                            </a>
+                        </li>
+
+                        <!-- Settings -->
+                        <li class="nav-item">
+                            <a href="/Identity/Account/Manage" class="nav-link">
+                                <i class="nav-icon fas fa-cog"></i>
+                                <p>Settings</p>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Navbar -->
+            <nav class="main-header navbar navbar-expand navbar-white navbar-light">
+                <!-- Left navbar links -->
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/Customer/Home">
+                            <i class="fas fa-home mr-1"></i> Home
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">
+                            <i class="fas fa-bell mr-1"></i> Notifications
+                            <span class="badge bg-danger rounded-pill">3</span>
+                        </a>
+                    </li>
+                </ul>
+
+                <!-- Right navbar links -->
+                <ul class="navbar-nav ml-auto">
+                    <!-- Messages Dropdown Menu -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link" data-bs-toggle="dropdown" href="#">
+                            <i class="far fa-comments mr-1"></i>
+                            <span class="badge bg-warning rounded-pill">4</span>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-lg dropdown-menu-end">
+                            <a href="#" class="dropdown-item">
+                                <div class="media">
+                                    <img src="~/img/user1-128x128.jpg" alt="User Avatar" class="img-size-50 mr-3 img-circle">
+                                    <div class="media-body">
+                                        <h3 class="dropdown-item-title">
+                                            Brad Diesel
+                                            <span class="float-right text-sm text-danger"><i class="fas fa-star"></i></span>
+                                        </h3>
+                                        <p class="text-sm">Call me whenever you can...</p>
+                                        <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>
+                                    </div>
+                                </div>
+                            </a>
+                            <div class="dropdown-divider"></div>
+                            <a href="#" class="dropdown-item">
+                                <div class="media">
+                                    <img src="~/img/user8-128x128.jpg" alt="User Avatar" class="img-size-50 img-circle mr-3">
+                                    <div class="media-body">
+                                        <h3 class="dropdown-item-title">
+                                            John Pierce
+                                            <span class="float-right text-sm text-muted"><i class="fas fa-star"></i></span>
+                                        </h3>
+                                        <p class="text-sm">I got your message bro</p>
+                                        <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>
+                                    </div>
+                                </div>
+                            </a>
+                            <div class="dropdown-divider"></div>
+                            <a href="#" class="dropdown-item dropdown-footer">See All Messages</a>
+                        </div>
+                    </li>
+
+                    <!-- User Account Dropdown -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link" data-bs-toggle="dropdown" href="#">
+                            <img src="~/img/user-avatar.jpg" class="img-circle elevation-2" alt="User Image" width="30" height="30">
+                            <span class="d-none d-md-inline ml-1">@User.Identity?.Name</span>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-end">
+                            <a href="#" class="dropdown-item">
+                                <i class="fas fa-user mr-2"></i> Profile
+                            </a>
+                            <a href="#" class="dropdown-item">
+                                <i class="fas fa-cog mr-2"></i> Settings
+                            </a>
+                            <div class="dropdown-divider"></div>
+                            <partial name="_LoginPartial" />
+                        </div>
+                    </li>
+                </ul>
+            </nav>
+
+            <!-- Content Wrapper -->
+            <div class="content-wrapper">
+                <!-- Content Header -->
+                <section class="content-header fade-in">
+                    <div class="container-fluid">
+                        <div class="row mb-2">
+                            <div class="col-sm-6">
+                                <h1>@ViewData["Title"]</h1>
+                            </div>
+                            <div class="col-sm-6">
+                                <ol class="breadcrumb float-sm-right">
+                                    <li class="breadcrumb-item"><a href="#">Home</a></li>
+                                    <li class="breadcrumb-item active">@ViewData["Title"]</li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Main Content -->
+                <section class="content fade-in">
+                    <div class="container-fluid">
+                        <!-- Stats Cards -->
+                        <div class="row mb-4">
+                            <div class="col-lg-3 col-6">
+                                <div class="card bg-primary text-white">
+                                    <div class="card-body">
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <div>
+                                                <h6 class="text-uppercase small">Total Revenue</h6>
+                                                <h3 class="mb-0">$24,780</h3>
+                                            </div>
+                                            <div class="icon">
+                                                <i class="fas fa-dollar-sign fa-2x opacity-50"></i>
+                                            </div>
+                                        </div>
+                                        <div class="mt-3">
+                                            <span class="text-success fw-bold">12.5% <i class="fas fa-arrow-up"></i></span>
+                                            <span class="text-white-50 ms-2">vs last month</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-3 col-6">
+                                <div class="card bg-success text-white">
+                                    <div class="card-body">
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <div>
+                                                <h6 class="text-uppercase small">Total Orders</h6>
+                                                <h3 class="mb-0">1,245</h3>
+                                            </div>
+                                            <div class="icon">
+                                                <i class="fas fa-shopping-cart fa-2x opacity-50"></i>
+                                            </div>
+                                        </div>
+                                        <div class="mt-3">
+                                            <span class="text-warning fw-bold">8.3% <i class="fas fa-arrow-up"></i></span>
+                                            <span class="text-white-50 ms-2">vs last month</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-3 col-6">
+                                <div class="card bg-info text-white">
+                                    <div class="card-body">
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <div>
+                                                <h6 class="text-uppercase small">Products</h6>
+                                                <h3 class="mb-0">324</h3>
+                                            </div>
+                                            <div class="icon">
+                                                <i class="fas fa-boxes fa-2x opacity-50"></i>
+                                            </div>
+                                        </div>
+                                        <div class="mt-3">
+                                            <span class="text-success fw-bold">5.2% <i class="fas fa-arrow-up"></i></span>
+                                            <span class="text-white-50 ms-2">vs last month</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-3 col-6">
+                                <div class="card bg-warning text-dark">
+                                    <div class="card-body">
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <div>
+                                                <h6 class="text-uppercase small">Customers</h6>
+                                                <h3 class="mb-0">1,893</h3>
+                                            </div>
+                                            <div class="icon">
+                                                <i class="fas fa-users fa-2x opacity-50"></i>
+                                            </div>
+                                        </div>
+                                        <div class="mt-3">
+                                            <span class="text-danger fw-bold">3.7% <i class="fas fa-arrow-down"></i></span>
+                                            <span class="text-dark-50 ms-2">vs last month</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Main Card -->
+                        <div class="card fade-in">
+                            <div class="card-header">
+                                <h3 class="card-title">@ViewData["CardTitle"]</h3>
+                                <div class="card-tools">
+                                    <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                                        <i class="fas fa-minus"></i>
+                                    </button>
+                                    <button type="button" class="btn btn-tool" data-card-widget="remove">
+                                        <i class="fas fa-times"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <partial name="_NotificationPartialView" />
+@*                                 @RenderBody() *@
+                            </div>
+                            <div class="card-footer">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div>
+                                        <small class="text-muted">Last updated: @DateTime.Now.ToString("MMMM dd, yyyy")</small>
+                                    </div>
+                                    <div>
+                                        <button class="btn btn-sm btn-primary">
+                                            <i class="fas fa-sync-alt mr-1"></i> Refresh
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+            <!-- Footer -->
+            <footer class="main-footer">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <strong>Copyright &copy; @DateTime.Now.Year <a href="#">ShopTech</a>.</strong> All rights reserved.
+                        </div>
+                        <div class="col-md-6 text-end">
+                            <b>Version</b> 2.0.0
+                        </div>
+                    </div>
+                </div>
+            </footer>
+        </div>
+    </div>
+
+    <!-- JavaScript Libraries -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.5/dist/sweetalert2.all.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <!-- Custom Script -->
+    <script>
+        // Toggle sidebar on mobile
+        document.querySelector('.sidebar-toggle').addEventListener('click', function() {
+            document.querySelector('.main-sidebar').classList.toggle('show');
+        });
+
+        // Initialize tooltips
+        var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+        var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+            return new bootstrap.Tooltip(tooltipTriggerEl);
+        });
+
+        // Add active class to current nav item
+        const currentPath = window.location.pathname;
+        document.querySelectorAll('.nav-link').forEach(link => {
+            if (link.getAttribute('href') === currentPath) {
+                link.classList.add('active');
+            }
+        });
+
+        // Animate elements when they come into view
+        const animateOnScroll = () => {
+            const elements = document.querySelectorAll('.fade-in');
+            elements.forEach(element => {
+                const elementPosition = element.getBoundingClientRect().top;
+                const screenPosition = window.innerHeight / 1.2;
+
+                if (elementPosition < screenPosition) {
+                    element.style.opacity = '1';
+                    element.style.transform = 'translateY(0)';
+                }
+            });
+        };
+
+        window.addEventListener('scroll', animateOnScroll);
+        document.addEventListener('DOMContentLoaded', animateOnScroll);
+    </script>
+
+    @* @await RenderSectionAsync("Scripts", required: false) *@
+</body>
+</html>

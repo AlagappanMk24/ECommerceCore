@@ -8,7 +8,7 @@ namespace ECommerceCore.Application.DependencyInjection
         public static IServiceCollection AddApplicationDependencies(this IServiceCollection services)
         {
             // Configuration of AutoMapper
-            //services.AddAutoMapper(Assembly.GetExecutingAssembly());
+            services.AddAutoMapper(Assembly.GetExecutingAssembly());
 
             return services;
         }

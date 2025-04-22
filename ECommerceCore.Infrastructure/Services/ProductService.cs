@@ -1,8 +1,11 @@
-﻿using ECommerceCore.Application.Contract.Persistence;
+﻿using ECommerceCore.Application.Common.QueryParameters;
+using ECommerceCore.Application.Common.Results;
+using ECommerceCore.Application.Contract.Persistence;
 using ECommerceCore.Application.Contract.Service;
 using ECommerceCore.Application.Contract.ViewModels;
-using ECommerceCore.Domain.Models.Entities;
+using ECommerceCore.Domain.Entities;
 using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 
 namespace ECommerceCore.Infrastructure.Services
 {
@@ -11,7 +14,86 @@ namespace ECommerceCore.Infrastructure.Services
         private readonly IUnitOfWork _unitOfWork = unitOfWork;
         public async Task<IEnumerable<Product>> GetAllProductsAsync()
         {
-            return await _unitOfWork.Products.GetAllAsync(includeProperties: "Category");
+            return await _unitOfWork.Products.GetAllAsync(includeProperties: "Category,ProductImages");
+        }
+        public async Task<PaginatedResult<Product>> GetProductsPaginatedAsync(ProductQueryParameters parameters)
+        {
+            try
+            {
+                // Base query
+                var query = _unitOfWork.Products.Query()
+                    .Include(p => p.Category)
+                    .Include(p => p.ProductImages)
+                    .AsQueryable();
+
+                // Apply filters
+                if (!string.IsNullOrEmpty(parameters.SearchTerm))
+                {
+                    query = query.Where(p =>
+                        p.Title.Contains(parameters.SearchTerm) ||
+                        p.ISBN.Contains(parameters.SearchTerm) ||
+                        p.Author.Contains(parameters.SearchTerm));
+                }
+
+                if (parameters.CategoryId.HasValue)
+                {
+                    query = query.Where(p => p.CategoryId == parameters.CategoryId.Value);
+                }
+
+                // Apply stock status filter if needed
+                // Note: You'll need to add StockQuantity property to Product model first
+
+                if (!string.IsNullOrEmpty(parameters.StockStatus))
+                {
+                    query = parameters.StockStatus switch
+                    {
+                        "in-stock" => query.Where(p => p.StockQuantity > 10),
+                        "low-stock" => query.Where(p => p.StockQuantity > 0 && p.StockQuantity <= 10),
+                        "out-of-stock" => query.Where(p => p.StockQuantity <= 0),
+                        _ => query
+                    };
+                }
+
+
+                // Apply sorting
+                if (!string.IsNullOrEmpty(parameters.SortColumn))
+                {
+                    query = parameters.SortColumn.ToLower() switch
+                    {
+                        "title" => parameters.SortDirection == "asc" ?
+                            query.OrderBy(p => p.Title) : query.OrderByDescending(p => p.Title),
+                        "isbn" => parameters.SortDirection == "asc" ?
+                            query.OrderBy(p => p.ISBN) : query.OrderByDescending(p => p.ISBN),
+                        "price" => parameters.SortDirection == "asc" ?
+                            query.OrderBy(p => p.ListPrice) : query.OrderByDescending(p => p.ListPrice),
+                        "author" => parameters.SortDirection == "asc" ?
+                            query.OrderBy(p => p.Author) : query.OrderByDescending(p => p.Author),
+                        _ => query.OrderBy(p => p.Title)
+                    };
+                }
+
+                // Get total count before pagination
+                var totalCount = await query.CountAsync();
+
+                // Apply pagination
+                var items = await query
+                    .Skip((parameters.PageNumber - 1) * parameters.PageSize)
+                    .Take(parameters.PageSize)
+                    .ToListAsync();
+
+                return new PaginatedResult<Product>
+                {
+                    Items = items,
+                    TotalCount = totalCount,
+                    PageNumber = parameters.PageNumber,
+                    PageSize = parameters.PageSize
+                };
+            }
+            catch (Exception ex)
+            {
+                // Log error
+                throw;
+            }
         }
         public async Task<Product> GetProductByIdAsync(int id)
         {

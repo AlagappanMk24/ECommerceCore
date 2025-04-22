@@ -1,7 +1,9 @@
-﻿using ECommerceCore.Application.Constants;
+﻿using ECommerceCore.Application.Common.QueryParameters;
+using ECommerceCore.Application.Constants;
 using ECommerceCore.Application.Contract.Service;
 using ECommerceCore.Application.Contract.ViewModels;
-using ECommerceCore.Domain.Models.Entities;
+using ECommerceCore.Application.Contracts.ViewModels;
+using ECommerceCore.Domain.Entities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -25,16 +27,45 @@ namespace ECommerceCore.Web.Areas.Admin.Controllers
         {
             try
             {
-                _logger.LogInformation("Fetching all products for the index page.");
-                var products = await _productService.GetAllProductsAsync();
-                _logger.LogInformation("Successfully retrieved products for the index page.");
-                return View(products);
+                _logger.LogInformation("Fetching data for the product index page.");
+                var categories = await _categoryService.GetAllCategories();
+
+                // Create default query parameters for initial state
+                var viewModel = new ProductIndexVM
+                {
+                    QueryParameters = new ProductQueryParameters
+                    {
+                        PageNumber = 1,
+                        PageSize = 10,
+                        SortColumn = "title",
+                        SortDirection = "asc"
+                    },
+                    Categories = categories
+                };
+
+                _logger.LogInformation("Successfully retrieved data for the product index page.");
+                return View(viewModel);
             }
             catch (Exception ex)
             {
                 _logger.LogError(ex, "Error occurred while loading the product index page.");
                 TempData["Error"] = "Unable to load products.";
                 return RedirectToAction("Error", "Home");
+            }
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> GetProducts(ProductQueryParameters queryParams)
+        {
+            try
+            {
+                var result = await _productService.GetProductsPaginatedAsync(queryParams);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error fetching products");
+                return StatusCode(500, new { error = "Error fetching products" });
             }
         }
 

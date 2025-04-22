@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Mvc;
 using ECommerceCore.Application.Constants;
 using ECommerceCore.Application.Contract.ViewModels;
 using ECommerceCore.Application.Contract.Service;
+using ECommerceCore.Infrastructure.External.Payments;
+using ECommerceCore.Domain.Enums;
 
 namespace ECommerceCore.Web.Areas.Admin.Controllers
 {
@@ -77,7 +79,7 @@ namespace ECommerceCore.Web.Areas.Admin.Controllers
         {
             try
             {
-                await _orderService.UpdateOrderStatusAsync(orderId, AppConstants.StatusInProcess);
+                await _orderService.UpdateOrderStatusAsync(orderId, OrderStatus.Processing.ToString());
                 TempData["Success"] = "Order processing started.";
                 _logger.LogInformation("Started processing for OrderId: {OrderId}", orderId);
                 return RedirectToAction(nameof(Details), new { orderId });

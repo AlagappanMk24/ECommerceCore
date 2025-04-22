@@ -1,6 +1,7 @@
 ﻿@model OrderVM
 @using ECommerceCore.Application.Constants
 @using ECommerceCore.Application.Contract.ViewModels
+@using ECommerceCore.Domain.Enums
 
 
 <form method="post">
@@ -511,7 +512,7 @@
                         {
                             <button type="submit" class="btn btn-warning px-4 py-2">Update Order Details</button>
                         }
-                        @if (Model.OrderHeader.PaymentStatus == AppConstants.PaymentStatusDelayedPayment && Model.OrderHeader.OrderStatus == AppConstants.StatusShipped)
+                        @if (Model.OrderHeader.PaymentStatus == PaymentStatus.ApprovedForDelayedPayment.ToString() && Model.OrderHeader.OrderStatus == OrderStatus.Shipped.ToString())
                         {
                             <button type="submit" class="btn btn-success px-4 py-2">Pay Now</button>
                         }

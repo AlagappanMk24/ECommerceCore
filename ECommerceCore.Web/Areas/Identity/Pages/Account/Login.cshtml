@@ -1,6 +1,6 @@
 ﻿@page
 @model LoginModel
-<link rel="stylesheet" href="~/css/auth/login.css"/>
+<link rel="stylesheet" href="~/css/auth/login.css" />
 @{
     ViewData["Title"] = "Log in";
 }
@@ -13,41 +13,82 @@
                     <!-- Form Section -->
                     <div class="col-md-6 p-5">
                         <h3 class="text-primary mb-4 text-center">Welcome Back</h3>
-                        <h5 class="text-muted text-center mb-4">Login to continue</h5>
+                        <h5 class="text-muted text-center mb-4">Secure Login</h5>
                         <form id="account" method="post">
                             <div asp-validation-summary="ModelOnly" class="text-danger mb-3" role="alert"></div>
-                            <div class="form-floating mb-3">
-                                <input asp-for="Input.Email" class="form-control animated-input" autocomplete="username" aria-required="true" placeholder="Email" />
-                                <label asp-for="Input.Email"><i class="bi bi-envelope"></i> Email</label>
-                                <span asp-validation-for="Input.Email" class="text-danger"></span>
-                            </div>
-                            <div class="form-floating mb-3">
-                                <input asp-for="Input.Password" type="password" class="form-control animated-input" autocomplete="current-password" aria-required="true" placeholder="Password" />
-                                <label asp-for="Input.Password"><i class="bi bi-lock"></i> Password</label>
-                                <span asp-validation-for="Input.Password" class="text-danger"></span>
-                            </div>
-                            <div class="d-flex justify-content-between align-items-center mb-3">
-                                <div class="form-check">
-                                    <input class="form-check-input" asp-for="Input.RememberMe" />
-                                    <label class="form-check-label" asp-for="Input.RememberMe">
-                                        @Html.DisplayNameFor(m => m.Input.RememberMe)
-                                    </label>
-                                </div>
-                                <a id="forgot-password" asp-page="./ForgotPassword" class="link-custom">Forgot password?</a>
-                            </div>
-                            <button id="login-submit" type="submit" class="btn btn-primary w-100 py-2 fw-bold">Login</button>
-                            <div class="text-center mt-3">
-                                @* <p>New here? <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl" class="link-custom">Create an account</a></p> *@
-                                <p>New here? <a asp-page="./Register"  class="link-custom">Create an account</a></p>
-                            </div>
-                           @*  <div class="text-center">
-                                <p><a id="resend-confirmation" asp-page="./ResendEmailConfirmation" class="text-decoration-none text-secondary">Resend email confirmation</a></p>
-                            </div> *@
-                        </form>
-                        <div class="external-logins text-center">
-                            <p class="divider-text">OR</p>
-                            @if (Model.ExternalLogins?.Count > 0)
+
+                            @if (!Model.PasswordVerified)
                             {
+                                <!-- Phase 1: Email/Password -->
+                                <div class="form-floating mb-3">
+                                    <input asp-for="Input.Email" class="form-control animated-input" autocomplete="username" aria-required="true" placeholder="Email" />
+                                    <label asp-for="Input.Email"><i class="bi bi-envelope"></i> Email</label>
+                                    <span asp-validation-for="Input.Email" class="text-danger"></span>
+                                </div>
+                                <div class="form-floating mb-3">
+                                    <input asp-for="Input.Password" type="password" class="form-control animated-input" autocomplete="current-password" aria-required="true" placeholder="Password" id="passwordField" />
+                                    <label asp-for="Input.Password"><i class="bi bi-lock"></i> Password</label>
+                                    <span class="password-toggle-icon position-absolute end-0 top-50 translate-middle-y pe-3" style="cursor: pointer;">
+                                        <i class="bi bi-eye-slash" id="togglePassword"></i>
+                                    </span>
+                                    <span asp-validation-for="Input.Password" class="text-danger"></span>
+                                </div>
+                                <div class="d-flex justify-content-between align-items-center mb-3">
+                                    <div class="form-check">
+                                        <input class="form-check-input" asp-for="Input.RememberMe" />
+                                        <label class="form-check-label" asp-for="Input.RememberMe">
+                                            @Html.DisplayNameFor(m => m.Input.RememberMe)
+                                        </label>
+                                    </div>
+                                    <a id="forgot-password" asp-page="./ForgotPassword" class="link-custom">Forgot password?</a>
+                                </div>
+                                <button type="submit" class="btn btn-primary w-100 py-2 fw-bold">Continue to Email Verification</button>
+
+                                <div class="text-center mt-3">
+                                    <p>New here? <a asp-page="./Register" class="link-custom">Create an account</a></p>
+                                </div>
+
+                                
+                            }
+                            else if (Model.PasswordVerified && !Model.EmailVerified)
+                            {
+                                <!-- Phase 2: Email OTP -->
+                                <div class="alert alert-info mb-4">
+                                    <i class="bi bi-envelope-check me-2"></i> We've sent a 6-digit verification code to your email.
+                                    <div class="small text-muted mt-1">Check your spam folder if you don't see it.</div>
+                                </div>
+                                <div class="form-floating mb-3">
+                                    <input asp-for="Input.EmailOTP" class="form-control animated-input" autocomplete="off" aria-required="true" placeholder="Email OTP" />
+                                    <label asp-for="Input.EmailOTP"><i class="bi bi-shield-lock"></i> Email Verification Code</label>
+                                    <span asp-validation-for="Input.EmailOTP" class="text-danger"></span>
+                                </div>
+                                <div class="mb-3 text-end">
+                                    <a href="#" id="resend-email-otp" class="link-custom">Resend Code</a>
+                                </div>
+                                <button type="submit" class="btn btn-primary w-100 py-2 fw-bold">Continue to SMS Verification</button>
+                            }
+                            else if (Model.PasswordVerified && Model.EmailVerified)
+                            {
+                                <!-- Phase 3: SMS OTP -->
+                                <div class="alert alert-info mb-4">
+                                    <i class="bi bi-phone me-2"></i> We've sent a 6-digit verification code to your phone.
+                                    <div class="small text-muted mt-1">It may take a moment to arrive.</div>
+                                </div>
+                                <div class="form-floating mb-3">
+                                    <input asp-for="Input.SmsOTP" class="form-control animated-input" autocomplete="off" aria-required="true" placeholder="SMS OTP" />
+                                    <label asp-for="Input.SmsOTP"><i class="bi bi-mobile"></i> SMS Verification Code</label>
+                                    <span asp-validation-for="Input.SmsOTP" class="text-danger"></span>
+                                </div>
+                                <div class="mb-3 text-end">
+                                    <a href="#" id="resend-sms-otp" class="link-custom">Resend Code</a>
+                                </div>
+                                <button type="submit" class="btn btn-primary w-100 py-2 fw-bold">Complete Login</button>
+                            }
+                        </form>
+                        @if (!Model.PasswordVerified && Model.ExternalLogins?.Count > 0)
+                        {
+                            <div class="external-logins text-center mt-4">
+                                <p class="divider-text">OR</p>
                                 <form id="external-account" asp-page="./ExternalLogin" asp-route-returnUrl="@Model.ReturnUrl" method="post">
                                     <div class="d-flex justify-content-center gap-3">
                                         @foreach (var provider in Model.ExternalLogins!)
@@ -66,13 +107,12 @@
                                         }
                                     </div>
                                 </form>
-                            }
-                        </div>
+                            </div>
+                        }
                     </div>
 
                     <!-- Image Section -->
                     <div class="col-md-6 d-none d-md-block">
-                        @* <img src="~/images/ecommerce.jpg" class="h-100 w-100 rounded-end" style="object-fit:cover"alt="Welcome Image"> *@
                         <img src="~/images/login.jpg" class="h-100 w-100 rounded-end" style="object-fit:cover" alt="Login Image" />
                     </div>
                 </div>
@@ -83,4 +123,405 @@
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
+    <script>
+         // Password visibility toggle
+        document.getElementById('togglePassword')?.addEventListener('click', function() {
+            const passwordField = document.getElementById('passwordField');
+            const icon = this;
+
+            if (passwordField.type === 'password') {
+                passwordField.type = 'text';
+                icon.classList.remove('bi-eye-slash');
+                icon.classList.add('bi-eye');
+            } else {
+                passwordField.type = 'password';
+                icon.classList.remove('bi-eye');
+                icon.classList.add('bi-eye-slash');
+            }
+        });
+
+        // Resend email OTP
+        document.getElementById('resend-email-otp')?.addEventListener('click', function(e) {
+            e.preventDefault();
+            fetch('/ResendEmailOTP', { method: 'POST' })
+                .then(response => {
+                    if (response.ok) {
+                        alert('New verification code sent to your email');
+                    } else {
+                        alert('Failed to resend code. Please try again.');
+                    }
+                });
+        });
+
+        // Resend SMS OTP
+        document.getElementById('resend-sms-otp')?.addEventListener('click', function(e) {
+            e.preventDefault();
+            fetch('/ResendSmsOTP', { method: 'POST' })
+                .then(response => {
+                    if (response.ok) {
+                        alert('New verification code sent to your phone');
+                    } else {
+                        alert('Failed to resend code. Please try again.');
+                    }
+                });
+        });
+    </script>
 }
+
+
+@*         @page
+@model LoginModel
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" />
+<link rel="stylesheet" href="~/css/auth/login.css" />
+@{
+    ViewData["Title"] = "Log in";
+}
+
+<div class="login-container">
+    <div class="background-animation">
+        <div class="shape shape-1"></div>
+        <div class="shape shape-2"></div>
+        <div class="shape shape-3"></div>
+        <div class="shape shape-4"></div>
+    </div>
+
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-xl-8 col-lg-10">
+                <div class="auth-card animate__animated animate__fadeIn">
+                    <!-- Image Section -->
+                    <div class="auth-image-section">
+                        <div class="auth-image-overlay"></div>
+                        <img src="~/images/login.jpg" class="auth-image" alt="Secure Login" />
+                        <div class="auth-image-content">
+                            <h2 class="text-white mb-3">Secure Authentication</h2>
+                            <p class="text-white-50">Multi-factor verification for your protection</p>
+                            <div class="features-list">
+                                <div class="feature-item">
+                                    <i class="bi bi-shield-check"></i>
+                                    <span>Email Verification</span>
+                                </div>
+                                <div class="feature-item">
+                                    <i class="bi bi-phone"></i>
+                                    <span>SMS Authentication</span>
+                                </div>
+                                <div class="feature-item">
+                                    <i class="bi bi-lock"></i>
+                                    <span>End-to-End Encryption</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Form Section -->
+                    <div class="auth-form-section">
+                        <div class="auth-form-container">
+                            <div class="logo-container mb-4">
+                                <i class="bi bi-shield-lock logo-icon"></i>
+                                <h3 class="logo-text">Secure<span>Auth</span></h3>
+                            </div>
+
+                            <div class="auth-phase-indicator mb-4">
+                                <div class="phase @(Model.PasswordVerified && Model.EmailVerified ? "complete" : Model.PasswordVerified ? "active" : "")">
+                                    <div class="phase-number">1</div>
+                                    <div class="phase-label">Password</div>
+                                </div>
+                                <div class="phase-line @(Model.PasswordVerified ? "active" : "")"></div>
+                                <div class="phase @(Model.PasswordVerified && Model.EmailVerified ? "active" : Model.PasswordVerified ? "complete" : "")">
+                                    <div class="phase-number">2</div>
+                                    <div class="phase-label">Email</div>
+                                </div>
+                                <div class="phase-line @(Model.PasswordVerified && Model.EmailVerified ? "active" : "")"></div>
+                                <div class="phase @(Model.PasswordVerified && Model.EmailVerified ? "active" : "")">
+                                    <div class="phase-number">3</div>
+                                    <div class="phase-label">SMS</div>
+                                </div>
+                            </div>
+
+                            <form id="account" method="post" class="auth-form">
+                                <div asp-validation-summary="ModelOnly" class="alert alert-danger mb-4 animate__animated animate__shakeX" role="alert"></div>
+
+                                @if (!Model.PasswordVerified)
+                                {
+                                    <!-- Phase 1: Email/Password -->
+                                    <div class="form-group floating-input mb-4">
+                                        <input asp-for="Input.Email" class="form-control" autocomplete="username" aria-required="true" placeholder=" " />
+                                        <label asp-for="Input.Email"><i class="bi bi-envelope me-2"></i>Email Address</label>
+                                        <span asp-validation-for="Input.Email" class="text-danger"></span>
+                                    </div>
+                                    <div class="form-group floating-input mb-4">
+                                        <input asp-for="Input.Password" type="password" class="form-control" autocomplete="current-password" aria-required="true" placeholder=" " id="passwordField" />
+                                        <label asp-for="Input.Password"><i class="bi bi-lock me-2"></i>Password</label>
+                                        <span class="password-toggle-icon" id="togglePassword">
+                                            <i class="bi bi-eye-slash"></i>
+                                        </span>
+                                        <span asp-validation-for="Input.Password" class="text-danger"></span>
+                                    </div>
+                                    <div class="d-flex justify-content-between align-items-center mb-4">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" asp-for="Input.RememberMe" id="rememberMe" />
+                                            <label class="form-check-label" for="rememberMe">
+                                                @Html.DisplayNameFor(m => m.Input.RememberMe)
+                                            </label>
+                                        </div>
+                                        <a id="forgot-password" asp-page="./ForgotPassword" class="text-link">Forgot password?</a>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary btn-auth w-100 py-3">
+                                        <span class="btn-text">Continue to Email Verification</span>
+                                        <i class="bi bi-arrow-right btn-icon"></i>
+                                    </button>
+
+                                    <div class="auth-divider my-4">
+                                        <span class="divider-text">or</span>
+                                    </div>
+
+                                    @if (Model.ExternalLogins?.Count > 0)
+                                    {
+                                        <div class="social-login">
+                                            <div class="d-flex justify-content-center gap-3">
+                                                @foreach (var provider in Model.ExternalLogins!)
+                                                {
+                                                    var providerClass = provider.Name switch
+                                                    {
+                                                        "Microsoft" => "microsoft",
+                                                        "Google" => "google",
+                                                        "Facebook" => "facebook",
+                                                        "Twitter" => "twitter",
+                                                        _ => "default"
+                                                    };
+                                                    <button type="submit" class="social-btn @providerClass" name="provider" value="@provider.Name" title="Log in using @provider.DisplayName">
+                                                        <i class="bi bi-@(provider.Name.ToLower())"></i>
+                                                    </button>
+                                                }
+                                            </div>
+                                        </div>
+                                    }
+
+                                    <div class="text-center mt-4">
+                                        <p class="auth-footer-text">New here? <a asp-page="./Register" class="text-link">Create an account</a></p>
+                                    </div>
+                                }
+                                else if (Model.PasswordVerified && !Model.EmailVerified)
+                                {
+                                    <!-- Phase 2: Email OTP -->
+                                    <div class="alert alert-info mb-4 animate__animated animate__fadeIn">
+                                        <div class="d-flex align-items-center">
+                                            <i class="bi bi-envelope-check me-3 fs-4"></i>
+                                            <div>
+                                                <strong>Verification code sent</strong>
+                                                <div class="small">We've sent a 6-digit code to your email address</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group floating-input mb-4">
+                                        <input asp-for="Input.EmailOTP" class="form-control" autocomplete="off" aria-required="true" placeholder=" " />
+                                        <label asp-for="Input.EmailOTP"><i class="bi bi-shield-lock me-2"></i>Email Verification Code</label>
+                                        <span asp-validation-for="Input.EmailOTP" class="text-danger"></span>
+                                    </div>
+                                    <div class="mb-4 text-end">
+                                        <a href="#" id="resend-email-otp" class="text-link">
+                                            <i class="bi bi-arrow-clockwise me-1"></i>Resend Code
+                                        </a>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary btn-auth w-100 py-3">
+                                        <span class="btn-text">Continue to SMS Verification</span>
+                                        <i class="bi bi-arrow-right btn-icon"></i>
+                                    </button>
+                                }
+                                else if (Model.PasswordVerified && Model.EmailVerified)
+                                {
+                                    <!-- Phase 3: SMS OTP -->
+                                    <div class="alert alert-info mb-4 animate__animated animate__fadeIn">
+                                        <div class="d-flex align-items-center">
+                                            <i class="bi bi-phone me-3 fs-4"></i>
+                                            <div>
+                                                <strong>SMS verification code</strong>
+                                                <div class="small">Enter the 6-digit code sent to your phone</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group floating-input mb-4">
+                                        <input asp-for="Input.SmsOTP" class="form-control" autocomplete="off" aria-required="true" placeholder=" " />
+                                        <label asp-for="Input.SmsOTP"><i class="bi bi-mobile me-2"></i>SMS Verification Code</label>
+                                        <span asp-validation-for="Input.SmsOTP" class="text-danger"></span>
+                                    </div>
+                                    <div class="mb-4 text-end">
+                                        <a href="#" id="resend-sms-otp" class="text-link">
+                                            <i class="bi bi-arrow-clockwise me-1"></i>Resend Code
+                                        </a>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary btn-auth w-100 py-3">
+                                        <span class="btn-text">Complete Login</span>
+                                        <i class="bi bi-check-circle btn-icon"></i>
+                                    </button>
+                                }
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <script>
+        // Password visibility toggle
+        document.getElementById('togglePassword')?.addEventListener('click', function() {
+            const passwordField = document.getElementById('passwordField');
+            const icon = this.querySelector('i');
+
+            if (passwordField.type === 'password') {
+                passwordField.type = 'text';
+                icon.classList.remove('bi-eye-slash');
+                icon.classList.add('bi-eye');
+                this.classList.add('active');
+            } else {
+                passwordField.type = 'password';
+                icon.classList.remove('bi-eye');
+                icon.classList.add('bi-eye-slash');
+                this.classList.remove('active');
+            }
+        });
+
+        // Resend email OTP with countdown
+        document.getElementById('resend-email-otp')?.addEventListener('click', function(e) {
+            e.preventDefault();
+            const resendLink = this;
+
+            // Disable link and show loading
+            resendLink.classList.add('disabled');
+            const originalText = resendLink.innerHTML;
+            resendLink.innerHTML = '<i class="bi bi-hourglass me-1"></i>Sending...';
+
+            fetch('/ResendEmailOTP', { method: 'POST' })
+                .then(response => {
+                    if (response.ok) {
+                        // Show success message
+                        const alert = document.createElement('div');
+                        alert.className = 'alert alert-success animate__animated animate__fadeIn';
+                        alert.innerHTML = '<i class="bi bi-check-circle me-2"></i>New verification code sent to your email';
+                        resendLink.closest('.auth-form').insertBefore(alert, resendLink.closest('.mb-4'));
+
+                        // Remove alert after 5 seconds
+                        setTimeout(() => {
+                            alert.classList.add('animate__fadeOut');
+                            setTimeout(() => alert.remove(), 500);
+                        }, 5000);
+
+                        // Start countdown
+                        let countdown = 30;
+                        resendLink.innerHTML = `<i class="bi bi-clock me-1"></i>Resend (${countdown}s)`;
+
+                        const timer = setInterval(() => {
+                            countdown--;
+                            if (countdown <= 0) {
+                                clearInterval(timer);
+                                resendLink.innerHTML = originalText;
+                                resendLink.classList.remove('disabled');
+                            } else {
+                                resendLink.innerHTML = `<i class="bi bi-clock me-1"></i>Resend (${countdown}s)`;
+                            }
+                        }, 1000);
+                    } else {
+                        throw new Error('Failed to resend');
+                    }
+                })
+                .catch(() => {
+                    resendLink.innerHTML = originalText;
+                    resendLink.classList.remove('disabled');
+                    alert('Failed to resend code. Please try again.');
+                });
+        });
+
+        // Resend SMS OTP with countdown
+        document.getElementById('resend-sms-otp')?.addEventListener('click', function(e) {
+            e.preventDefault();
+            const resendLink = this;
+
+            // Disable link and show loading
+            resendLink.classList.add('disabled');
+            const originalText = resendLink.innerHTML;
+            resendLink.innerHTML = '<i class="bi bi-hourglass me-1"></i>Sending...';
+
+            fetch('/ResendSmsOTP', { method: 'POST' })
+                .then(response => {
+                    if (response.ok) {
+                        // Show success message
+                        const alert = document.createElement('div');
+                        alert.className = 'alert alert-success animate__animated animate__fadeIn';
+                        alert.innerHTML = '<i class="bi bi-check-circle me-2"></i>New verification code sent to your phone';
+                        resendLink.closest('.auth-form').insertBefore(alert, resendLink.closest('.mb-4'));
+
+                        // Remove alert after 5 seconds
+                        setTimeout(() => {
+                            alert.classList.add('animate__fadeOut');
+                            setTimeout(() => alert.remove(), 500);
+                        }, 5000);
+
+                        // Start countdown
+                        let countdown = 30;
+                        resendLink.innerHTML = `<i class="bi bi-clock me-1"></i>Resend (${countdown}s)`;
+
+                        const timer = setInterval(() => {
+                            countdown--;
+                            if (countdown <= 0) {
+                                clearInterval(timer);
+                                resendLink.innerHTML = originalText;
+                                resendLink.classList.remove('disabled');
+                            } else {
+                                resendLink.innerHTML = `<i class="bi bi-clock me-1"></i>Resend (${countdown}s)`;
+                            }
+                        }, 1000);
+                    } else {
+                        throw new Error('Failed to resend');
+                    }
+                })
+                .catch(() => {
+                    resendLink.innerHTML = originalText;
+                    resendLink.classList.remove('disabled');
+                    alert('Failed to resend code. Please try again.');
+                });
+        });
+
+        // Add animation to form inputs on focus
+        document.querySelectorAll('.form-control').forEach(input => {
+            input.addEventListener('focus', function() {
+                this.parentElement.classList.add('focused');
+            });
+
+            input.addEventListener('blur', function() {
+                if (this.value === '') {
+                    this.parentElement.classList.remove('focused');
+                }
+            });
+
+            // Check if input has value on page load
+            if (input.value !== '') {
+                input.parentElement.classList.add('focused');
+            }
+        });
+
+        // Add ripple effect to buttons
+        document.querySelectorAll('.btn-auth').forEach(button => {
+            button.addEventListener('click', function(e) {
+                const rect = this.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+
+                const ripple = document.createElement('span');
+                ripple.className = 'ripple-effect';
+                ripple.style.left = `${x}px`;
+                ripple.style.top = `${y}px`;
+
+                this.appendChild(ripple);
+
+                setTimeout(() => {
+                    ripple.remove();
+                }, 1000);
+            });
+        });
+    </script>
+} *@
