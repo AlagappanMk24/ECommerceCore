@@ -1,8 +1,11 @@
-﻿namespace ECommerceCore.Application.Contract.Persistence
+﻿using ECommerceCore.Application.Contracts.Persistence;
+
+namespace ECommerceCore.Application.Contract.Persistence
 {
     public interface IUnitOfWork
     {
         ICategoryRepository Categories { get; }
+        IBrandRepository Brands { get; }
         IProductRepository Products { get; }
         ICompanyRepository Companies { get; }
         IShoppingCartRepository ShoppingCarts { get; }

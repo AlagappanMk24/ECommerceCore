@@ -7,7 +7,7 @@
         <div class="card-header bg-gradient bg-dark text-light py-3">
             <div class="text-center">
                 <h2 class="text-white text-uppercase fw-bold">@Model.Product.Title</h2>
-                <p class="text-white-50 fst-italic">by @Model.Product.Author</p>
+                <p class="text-white-50 fst-italic">by @Model.Product.Description</p>
             </div>
         </div>
 
@@ -49,8 +49,8 @@
                         <span class="badge bg-warning text-dark ms-2">New Arrival</span>
                     </div>
 
-                    <h5 class="text-secondary">ISBN: @Model.Product.ISBN</h5>
-                    <p class="text-muted"><del>List Price: @Model.Product.ListPrice.ToString("c")</del></p>
+                    <h5 class="text-secondary">ISBN: @Model.Product.SKU</h5>
+                    <p class="text-muted"><del>List Price: @Model.Product.Price.ToString("c")</del></p>
 
                     <!-- Dynamic Pricing -->
                     <div class="row text-center">
@@ -60,7 +60,7 @@
                                 <p>@Model.Product.Price.ToString("c")</p>
                             </div>
                         </div>
-                        <div class="col-3">
+                     @*    <div class="col-3">
                             <div class="bg-light border p-2">
                                 <strong>51-100</strong>
                                 <p>@Model.Product.Price50.ToString("c")</p>
@@ -71,7 +71,7 @@
                                 <strong>100+</strong>
                                 <p>@Model.Product.Price100.ToString("c")</p>
                             </div>
-                        </div>
+                        </div> *@
                     </div>
 
                     <!-- Description -->

@@ -1,4 +1,4 @@
-﻿@using ECommerceCore.Application.Contract.ViewModels
+﻿@* @using ECommerceCore.Application.Contract.ViewModels
 @model ProductVM
 
 <div class="container my-5">
@@ -73,7 +73,7 @@
                             <label asp-for="Product.ProductImages" class="form-label fw-bold">Upload Images</label>
                             <input type="file" name="files" class="form-control shadow-sm" multiple>
                         </div>
-                        
+
                     </div>
                 </div>
                 <!-- Image Section -->
@@ -129,6 +129,294 @@
             .catch(error => {
                 console.error(error);
             });
+    </script>
+    @{
+        <partial name="_ValidationScriptsPartial" />
+    }
+}
+ *@
+
+            @using ECommerceCore.Application.Contract.ViewModels
+@model ProductVM
+
+<div class="container my-5">
+    <div class="card shadow-lg border-0 rounded">
+        <!-- Header Section -->
+        <div class="card-header bg-gradient bg-primary text-white text-center py-4">
+            <h2 class="fw-bold">@(Model.Product.Id != 0 ? "Update" : "Create") Product</h2>
+            <p class="small text-light">Fill in the details below to add or update a product in your catalog.</p>
+        </div>
+
+        <!-- Body Section -->
+        <div class="card-body px-5 py-4">
+            <form method="post" class="row g-4" enctype="multipart/form-data">
+                <input asp-for="Product.Id" hidden />
+
+                <!-- Product Form -->
+                <div class="col-lg-12">
+                    <div class="row g-3">
+                        <!-- Validation Summary -->
+                        <div class="col-12">
+                            <div asp-validation-summary="ModelOnly" class="alert alert-danger d-none"></div>
+                        </div>
+
+                        <!-- Basic Product Details -->
+                        <div class="col-md-6">
+                            <label asp-for="Product.Title" class="form-label fw-bold">Product Name</label>
+                            <input asp-for="Product.Title" class="form-control shadow-sm" placeholder="Enter product name">
+                            <span asp-validation-for="Product.Title" class="text-danger"></span>
+                        </div>
+                        <div class="col-md-6">
+                            <label asp-for="Product.SKU" class="form-label fw-bold">SKU</label>
+                            <input asp-for="Product.SKU" class="form-control shadow-sm" placeholder="Enter SKU">
+                            <span asp-validation-for="Product.SKU" class="text-danger"></span>
+                        </div>
+                        <div class="col-md-6">
+                            <label asp-for="Product.Barcode" class="form-label fw-bold">Barcode</label>
+                            <input asp-for="Product.Barcode" class="form-control shadow-sm" placeholder="Enter barcode">
+                            <span asp-validation-for="Product.Barcode" class="text-danger"></span>
+                        </div>
+                        <div class="col-md-6">
+                            <label asp-for="Product.StockQuantity" class="form-label fw-bold">Stock Quantity</label>
+                            <input asp-for="Product.StockQuantity" class="form-control shadow-sm" placeholder="Enter stock quantity">
+                            <span asp-validation-for="Product.StockQuantity" class="text-danger"></span>
+                        </div>
+
+                        <!-- Description -->
+                        <div class="col-md-12">
+                            <label asp-for="Product.Description" class="form-label fw-bold">Description</label>
+                            <textarea asp-for="Product.Description" class="form-control shadow-sm" id="editor" placeholder="Enter product description"></textarea>
+                        </div>
+                        <div class="col-md-12">
+                            <label asp-for="Product.ShortDescription" class="form-label fw-bold">Short Description</label>
+                            <textarea asp-for="Product.ShortDescription" class="form-control shadow-sm" rows="3" placeholder="Enter short description for preview listings"></textarea>
+                        </div>
+
+                        <!-- Categories and Brand -->
+                        <div class="col-md-6">
+                            <label asp-for="Product.CategoryId" class="form-label fw-bold">Category</label>
+                            <select asp-for="Product.CategoryId" asp-items="@Model.CategoryList" class="form-select shadow-sm">
+                                <option disabled selected>--Select Category--</option>
+                            </select>
+                            <span asp-validation-for="Product.CategoryId" class="text-danger"></span>
+                        </div>
+                        <div class="col-md-6">
+                            <label asp-for="Product.BrandId" class="form-label fw-bold">Brand</label>
+                            <select asp-for="Product.BrandId" asp-items="@Model.BrandList" class="form-select shadow-sm">
+                                <option disabled selected>--Select Brand--</option>
+                            </select>
+                            <span asp-validation-for="Product.BrandId" class="text-danger"></span>
+                        </div>
+
+                        <!-- Pricing -->
+                        <div class="col-12">
+                            <h5 class="border-bottom pb-2">Pricing Information</h5>
+                        </div>
+                        <div class="col-md-6">
+                            <label asp-for="Product.Price" class="form-label fw-bold">Regular Price</label>
+                            <input asp-for="Product.Price" class="form-control shadow-sm" placeholder="Enter regular price">
+                            <span asp-validation-for="Product.Price" class="text-danger"></span>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-check mt-4">
+                                <input asp-for="Product.IsDiscounted" class="form-check-input" type="checkbox" id="enableDiscount">
+                                <label class="form-check-label" for="enableDiscount">
+                                    Enable Discount
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 discount-fields" style="display: none;">
+                            <label asp-for="Product.DiscountPrice" class="form-label fw-bold">Discount Price</label>
+                            <input asp-for="Product.DiscountPrice" class="form-control shadow-sm" placeholder="Enter discount price">
+                            <span asp-validation-for="Product.DiscountPrice" class="text-danger"></span>
+                        </div>
+                        <div class="col-md-4 discount-fields" style="display: none;">
+                            <label asp-for="Product.DiscountStartDate" class="form-label fw-bold">Discount Start Date</label>
+                            <input asp-for="Product.DiscountStartDate" class="form-control shadow-sm" type="datetime-local">
+                        </div>
+                        <div class="col-md-4 discount-fields" style="display: none;">
+                            <label asp-for="Product.DiscountEndDate" class="form-label fw-bold">Discount End Date</label>
+                            <input asp-for="Product.DiscountEndDate" class="form-control shadow-sm" type="datetime-local">
+                        </div>
+
+                        <!-- Physical Attributes -->
+                        <div class="col-12">
+                            <h5 class="border-bottom pb-2">Physical Attributes</h5>
+                        </div>
+                        <div class="col-md-3">
+                            <label asp-for="Product.WeightInKg" class="form-label fw-bold">Weight (kg)</label>
+                            <input asp-for="Product.WeightInKg" class="form-control shadow-sm" placeholder="Enter weight">
+                            <span asp-validation-for="Product.WeightInKg" class="text-danger"></span>
+                        </div>
+                        <div class="col-md-3">
+                            <label asp-for="Product.WidthInCm" class="form-label fw-bold">Width (cm)</label>
+                            <input asp-for="Product.WidthInCm" class="form-control shadow-sm" placeholder="Enter width">
+                            <span asp-validation-for="Product.WidthInCm" class="text-danger"></span>
+                        </div>
+                        <div class="col-md-3">
+                            <label asp-for="Product.HeightInCm" class="form-label fw-bold">Height (cm)</label>
+                            <input asp-for="Product.HeightInCm" class="form-control shadow-sm" placeholder="Enter height">
+                            <span asp-validation-for="Product.HeightInCm" class="text-danger"></span>
+                        </div>
+                        <div class="col-md-3">
+                            <label asp-for="Product.LengthInCm" class="form-label fw-bold">Length (cm)</label>
+                            <input asp-for="Product.LengthInCm" class="form-control shadow-sm" placeholder="Enter length">
+                            <span asp-validation-for="Product.LengthInCm" class="text-danger"></span>
+                        </div>
+
+                        <!-- Inventory Settings -->
+                        <div class="col-12">
+                            <h5 class="border-bottom pb-2">Inventory Settings</h5>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-check">
+                                <input asp-for="Product.AllowBackorder" class="form-check-input" type="checkbox">
+                                <label class="form-check-label" for="Product_AllowBackorder">
+                                    Allow Backorder
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Product Flags -->
+                        <div class="col-12">
+                            <h5 class="border-bottom pb-2">Product Flags</h5>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-check">
+                                <input asp-for="Product.IsActive" class="form-check-input" type="checkbox">
+                                <label class="form-check-label" for="Product_IsActive">
+                                    Active Product
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-check">
+                                <input asp-for="Product.IsFeatured" class="form-check-input" type="checkbox">
+                                <label class="form-check-label" for="Product_IsFeatured">
+                                    Featured Product
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-check">
+                                <input asp-for="Product.IsNewArrival" class="form-check-input" type="checkbox">
+                                <label class="form-check-label" for="Product_IsNewArrival">
+                                    New Arrival
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-check">
+                                <input asp-for="Product.IsTrending" class="form-check-input" type="checkbox">
+                                <label class="form-check-label" for="Product_IsTrending">
+                                    Trending Product
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- SEO -->
+                        <div class="col-12">
+                            <h5 class="border-bottom pb-2">SEO Information</h5>
+                        </div>
+                        <div class="col-md-6">
+                            <label asp-for="Product.MetaTitle" class="form-label fw-bold">Meta Title</label>
+                            <input asp-for="Product.MetaTitle" class="form-control shadow-sm" placeholder="Enter meta title">
+                        </div>
+                        <div class="col-md-6">
+                            <label asp-for="Product.MetaDescription" class="form-label fw-bold">Meta Description</label>
+                            <textarea asp-for="Product.MetaDescription" class="form-control shadow-sm" rows="3" placeholder="Enter meta description"></textarea>
+                        </div>
+
+                        <!-- Images Upload -->
+                        <div class="col-12">
+                            <h5 class="border-bottom pb-2">Product Images</h5>
+                        </div>
+                        <div class="col-md-12">
+                            <label asp-for="Product.ProductImages" class="form-label fw-bold">Upload Images</label>
+                            <input type="file" name="files" class="form-control shadow-sm" multiple>
+                        </div>
+                    </div>
+                </div>
+                @if (Model.Product.ProductImages != null && Model.Product.ProductImages.Any())
+                {
+                    <!-- Image Gallery Section -->
+                    <div class="col-lg-4">
+                        <h5 class="mb-3">Current Images</h5>
+                        <div class="row">
+
+                            @foreach (var image in Model.Product.ProductImages)
+                            {
+                                <div class="col-6 mb-3">
+                                    <div class="card h-100">
+                                        <img src="@image.ImageUrl" class="card-img-top" style="height: 120px; object-fit: cover; border-radius:5px;">
+                                        <div class="card-body text-center p-2">
+                                            <a asp-action="DeleteImage" class="btn btn-danger btn-sm" asp-route-imageId="@image.Id">
+                                                <i class="bi bi-trash-fill"></i> Delete
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                            @* }
+                        else
+                        {
+                            <div class="alert alert-info">
+                                <i class="bi bi-info-circle"></i> No images uploaded yet.
+                            </div>
+                        } *@
+                        </div>
+                    </div>
+                }
+
+                <div class="col-12 d-flex justify-content-center gap-4 mt-4">
+                    <button type="submit" class="btn btn-success px-4 shadow-sm">
+                        <i class="bi bi-check-circle"></i> @(Model.Product.Id != 0 ? "Update" : "Create")
+                    </button>
+                    <a asp-controller="Product" asp-action="Index" class="btn btn-outline-secondary px-4 shadow-sm">
+                        <i class="bi bi-arrow-left-circle"></i> Back to List
+                    </a>
+                </div>
+            </form>
+        </div>
+        <!-- Footer Section -->
+        <div class="card-footer text-center text-muted py-3">
+            <small>Ensure all fields are filled correctly before submission.</small>
+        </div>
+    </div>
+</div>
+
+@section Scripts
+{
+    <script>
+        ClassicEditor
+            .create(document.querySelector('#editor'), {
+                toolbar: [
+                    'heading', '|', 'bold', 'italic', 'underline', 'strikethrough', '|',
+                    'fontColor', 'fontBackgroundColor', '|', 'link', 'blockQuote',
+                    'insertTable', '|', 'undo', 'redo'
+                ]
+            })
+            .catch(error => {
+                console.error(error);
+            });
+
+        // Toggle discount fields based on checkbox
+        document.getElementById('enableDiscount').addEventListener('change', function() {
+            const discountFields = document.querySelectorAll('.discount-fields');
+            discountFields.forEach(field => {
+                field.style.display = this.checked ? 'block' : 'none';
+            });
+        });
+
+        // Initialize discount fields display on page load
+        window.addEventListener('DOMContentLoaded', function() {
+            const isDiscounted = document.getElementById('enableDiscount').checked;
+            const discountFields = document.querySelectorAll('.discount-fields');
+            discountFields.forEach(field => {
+                field.style.display = isDiscounted ? 'block' : 'none';
+            });
+        });
     </script>
     @{
         <partial name="_ValidationScriptsPartial" />

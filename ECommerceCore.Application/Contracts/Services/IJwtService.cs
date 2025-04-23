@@ -8,7 +8,7 @@ namespace ECommerceCore.Application.Contracts.Services
     {
         string GenerateSecretKey(int length = 32);
         string GenerateJwtToken(IdentityUser user);
-        Task<AuthToken> StoreTokenAsync(string userId, string token);
+        Task StoreTokenAsync(string userId, string token);
         Task<bool> ValidateTokenAsync(string token);
         Task CleanupExpiredTokensAsync();
         Task RevokeTokenAsync(string userId);

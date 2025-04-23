@@ -1,4 +1,5 @@
 ﻿using ECommerceCore.Application.Contract.Persistence;
+using ECommerceCore.Application.Contracts.Persistence;
 using ECommerceCore.Infrastructure.Data.Context;
 using ECommerceCore.Infrastructure.Persistence.Repositories;
 
@@ -9,6 +10,7 @@ namespace ECommerceCore.Infrastructure.Persistence
         private EcomDbContext _dbContext = dbContext ?? throw new ArgumentNullException(nameof(dbContext));
         //public ICategoryRepository Categories { get; private set; }
         public ICategoryRepository Categories => new CategoryRepository(_dbContext);
+        public IBrandRepository Brands => new BrandRepository(_dbContext);
         public IProductRepository Products => new ProductRepository(_dbContext);
         public ICompanyRepository Companies => new CompanyRepository(_dbContext);
         public IShoppingCartRepository ShoppingCarts => new ShoppingCartRepository(_dbContext);

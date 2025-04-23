@@ -1,0 +1,215 @@
+﻿@using ECommerceCore.Domain.Entities
+@model Product
+@{
+    ViewData["Title"] = "Product Details";
+}
+<link href="~/css/product/product-detail.css" rel="stylesheet" />
+
+<div class="product-detail-container">
+    <!-- Product Header with Glass Effect -->
+    <div class="product-header glass-header">
+        <div class="header-content">
+            <div class="title-section">
+                <i class="fas fa-box-open"></i>
+                <h2>Product Details</h2>
+                <span class="badge product-status">
+                    @if (Model.StockQuantity > 10)
+                    {
+                        <span class="in-stock">In Stock (@Model.StockQuantity)</span>
+                    }
+                    else if (Model.StockQuantity > 0)
+                    {
+                        <span class="low-stock">Low Stock (@Model.StockQuantity)</span>
+                    }
+                    else
+                    {
+                        <span class="out-of-stock">Out of Stock</span>
+                    }
+                </span>
+            </div>
+            <div class="action-section">
+                <a asp-controller="Product" asp-action="Index" class="btn btn-back">
+                    <i class="fas fa-arrow-left"></i> Back to Inventory
+                </a>
+                <div class="action-buttons">
+                    <a asp-controller="Product" asp-action="Upsert" asp-route-id="@Model.Id" class="btn-action btn-edit">
+                        <i class="bi bi-pencil-square"></i> Edit
+                    </a>
+                    <button class="btn-action btn-delete" onclick="deleteProduct('@Model.Id', '@Model.Title.Replace("'", "\\'")')">
+                        <i class="bi bi-trash"></i> Delete
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Product Detail Content -->
+    <div class="product-content">
+        <!-- Product Gallery -->
+        <div class="product-gallery">
+            @if (Model.ProductImages != null && Model.ProductImages.Count > 0)
+            {
+                <!-- Main Image -->
+                <div class="main-image">
+                    <img id="mainImage" src="@Model.ProductImages[0].ImageUrl" alt="@Model.Title" class="active">
+                </div>
+
+                <!-- Thumbnails -->
+                <div class="thumbnails">
+                    @foreach (var image in Model.ProductImages)
+                    {
+                        <div class="thumbnail">
+                            <img src="@image.ImageUrl" alt="Thumbnail" onclick="changeMainImage(this)">
+                        </div>
+                    }
+                </div>
+            }
+            else
+            {
+                <!-- Default image if no images available -->
+                <div class="main-image">
+                    <img id="mainImage" src="/images/default-product.png" alt="@Model.Title">
+                </div>
+            }
+        </div>
+
+        <!-- Product Info -->
+        <div class="product-info">
+            <h1 class="product-title">@Model.Title</h1>
+            <div class="product-meta">
+                <span class="sku">SKU: @Model.SKU</span>
+                <span class="category">Category: <span class="category-badge">@Model.Category.Name</span></span>
+                @* <span class="brand">Brand: <span class="brand-badge">@Model.Brand.Name</span></span> *@
+            </div>
+
+            <div class="product-meta">
+                <span>@Model.ShortDescription</span>
+            </div>
+            
+            <div class="product-pricing">
+                @if (Model.IsDiscounted &&
+                (!Model.DiscountStartDate.HasValue || Model.DiscountStartDate.Value <= DateTime.Now) &&
+                (!Model.DiscountEndDate.HasValue || Model.DiscountEndDate.Value >= DateTime.Now))
+                {
+                    <div class="price-tier discount-active">
+                        <span class="price-label">Regular Price:</span>
+                        <span class="price-value price-original">$@Model.Price.ToString("0.00")</span>
+                    </div>
+                    <div class="price-tier discount-price">
+                        <span class="price-label">Special Price:</span>
+                        <span class="price-value">$@Model.DiscountPrice.ToString("0.00")</span>
+                        <span class="discount-badge">Save $@((Model.Price - Model.DiscountPrice).ToString("0.00"))</span>
+                    </div>
+                    @if (Model.DiscountEndDate.HasValue)
+                    {
+                        <div class="discount-timer">
+                            <i class="fas fa-clock"></i>
+                            <span>Offer ends: @Model.DiscountEndDate.Value.ToString("MMM dd, yyyy")</span>
+                        </div>
+                    }
+                }
+                else
+                {
+                    <div class="price-tier">
+                        <span class="price-label">Price:</span>
+                        <span class="price-value">$@Model.Price.ToString("0.00")</span>
+                    </div>
+                }
+            </div>
+
+            <div class="stock-info">
+                <div class="stock-quantity">
+                    <i class="fas fa-boxes"></i>
+                    <span>Current Stock: @Model.StockQuantity units</span>
+                    @if (Model.AllowBackorder && Model.StockQuantity <= 0)
+                    {
+                        <span class="backorder-badge">Backorders Accepted</span>
+                    }
+                </div>
+                <div class="stock-progress">
+                    @{
+                        var stockPercentage = Model.StockQuantity > 100 ? 100 : Model.StockQuantity;
+                    }
+                    <div class="progress-bar" style="width: @stockPercentage%"></div>
+                </div>
+            </div>
+
+            <div class="product-description">
+                <h3>Description</h3>
+                <p>@(string.IsNullOrEmpty(Model.Description) ? "No description available" : Model.Description)</p>
+            </div>
+
+            <div class="product-stats">
+                <h3>Product Stats</h3>
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <i class="fas fa-eye"></i>
+                        <span class="stat-value">@Model.Views</span>
+                        <span class="stat-label">Views</span>
+                    </div>
+                    <div class="stat-item">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span class="stat-value">@Model.SoldCount</span>
+                        <span class="stat-label">Sold</span>
+                    </div>
+                    <div class="stat-item">
+                        <i class="fas fa-star"></i>
+                        <span class="stat-value">@Model.AverageRating.ToString("0.0")</span>
+                        <span class="stat-label">Rating (@Model.TotalReviews Reviews)</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="product-specs">
+                <h3>Product Details</h3>
+                <div class="specs-grid">
+                    @if (!string.IsNullOrEmpty(Model.Barcode))
+                    {
+                        <div class="spec-item">
+                            <span class="spec-label">Barcode:</span>
+                            <span class="spec-value">@Model.Barcode</span>
+                        </div>
+                    }
+                    @if (Model.WeightInKg > 0)
+                    {
+                        <div class="spec-item">
+                            <span class="spec-label">Weight:</span>
+                            <span class="spec-value">@Model.WeightInKg kg</span>
+                        </div>
+                    }
+                    @if (Model.WidthInCm > 0 && Model.HeightInCm > 0 && Model.LengthInCm > 0)
+                    {
+                        <div class="spec-item">
+                            <span class="spec-label">Dimensions:</span>
+                            <span class="spec-value">@Model.LengthInCm × @Model.WidthInCm × @Model.HeightInCm cm</span>
+                        </div>
+                    }
+                    @if (Model.Specifications != null && Model.Specifications.Any())
+                    {
+                        @foreach (var spec in Model.Specifications)
+                        {
+                            <div class="spec-item">
+                                <span class="spec-label">@spec.Key:</span>
+                                <span class="spec-value">@spec.Value</span>
+                            </div>
+                        }
+                    }
+                </div>
+            </div>
+            @if (Model.Tags != null && Model.Tags.Any())
+            {
+                <div class="product-tags">
+                    <h3>Tags</h3>
+                    <div class="tags-container">
+                        @foreach (var tag in Model.Tags)
+                        {
+                            <span class="tag">@tag.TagName</span>
+                        }
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+<script src="~/js/product/product-detail.js"></script>

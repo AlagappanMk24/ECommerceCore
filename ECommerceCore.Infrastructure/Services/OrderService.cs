@@ -162,9 +162,11 @@ namespace ECommerceCore.Infrastructure.Services
         /// <param name="cartVM">The shopping cart view model containing the items to calculate.</param>
         public void CalculateOrderTotal(ShoppingCartVM cartVM)
         {
+            cartVM.OrderHeader.OrderTotal = 0; // Reset total before calculating
+
             foreach (var cart in cartVM.ShoppingCartList)
             {
-                cart.Price = GetPriceBasedOnQuantity(cart); // Move this helper to a service if necessary
+                cart.Price = GetPriceBasedOnQuantity(cart); 
                 cartVM.OrderHeader.OrderTotal += (cart.Price * cart.Count);
             }
         }
@@ -232,9 +234,16 @@ namespace ECommerceCore.Infrastructure.Services
         /// <returns>The price based on the quantity.</returns>
         private double GetPriceBasedOnQuantity(ShoppingCart cart)
         {
-            if (cart.Count <= 50) return cart.Product.Price;
-            if (cart.Count <= 100) return cart.Product.Price50;
-            return cart.Product.Price100;
+            // Check if the product is discounted and if the discount is currently active
+            if (cart.Product.IsDiscounted &&
+                (!cart.Product.DiscountStartDate.HasValue || cart.Product.DiscountStartDate.Value <= DateTime.Now) &&
+                (!cart.Product.DiscountEndDate.HasValue || cart.Product.DiscountEndDate.Value >= DateTime.Now))
+            {
+                return cart.Product.DiscountPrice;
+            }
+
+            // Return regular price if not discounted or discount is not active
+            return cart.Product.Price;
         }
 
         /// <summary>

@@ -2,6 +2,7 @@
 using ECommerceCore.Application.Constants;
 using ECommerceCore.Application.Contract.Service;
 using ECommerceCore.Application.Contract.ViewModels;
+using ECommerceCore.Application.Contracts.Services;
 using ECommerceCore.Application.Contracts.ViewModels;
 using ECommerceCore.Domain.Entities;
 using Microsoft.AspNetCore.Authorization;
@@ -12,11 +13,12 @@ namespace ECommerceCore.Web.Areas.Admin.Controllers
 {
     [Area("Admin")]
     [Authorize(Roles = AppConstants.Role_Admin)]
-    public class ProductController(IWebHostEnvironment webHostEnvironment, IProductService productService, ICategoryService categoryService, ILogger<ProductController> logger) : Controller
+    public class ProductController(IWebHostEnvironment webHostEnvironment, IProductService productService, ICategoryService categoryService, IBrandService brandService, ILogger<ProductController> logger) : Controller
     {
         private readonly IWebHostEnvironment _webHostEnvironment = webHostEnvironment;
         private readonly IProductService _productService = productService;
         private readonly ICategoryService _categoryService = categoryService;
+        private readonly IBrandService _brandService = brandService;
         private readonly ILogger<ProductController> _logger = logger;
 
         /// <summary>
@@ -55,7 +57,7 @@ namespace ECommerceCore.Web.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> GetProducts(ProductQueryParameters queryParams)
+        public async Task<IActionResult> GetProducts([FromBody] ProductQueryParameters queryParams)
         {
             try
             {
@@ -83,6 +85,7 @@ namespace ECommerceCore.Web.Areas.Admin.Controllers
                     : $"Loading the Upsert page for product ID: {id}.");
 
                 var categories = await _categoryService.GetAllCategories();
+                var brands = await _brandService.GetAllBrands();
                 var productVM = new ProductVM
                 {
                     CategoryList = categories.Select(c => new SelectListItem
@@ -90,6 +93,11 @@ namespace ECommerceCore.Web.Areas.Admin.Controllers
                         Text = c.Name,
                         Value = c.Id.ToString()
                     }).ToList(),
+                    BrandList = brands.Select(u => new SelectListItem
+                    {
+                        Text = u.Name,
+                        Value = u.Id.ToString()
+                    }),
                     Product = id == null ? new Product() : await _productService.GetProductByIdAsync(id.Value)
                 };
 
@@ -131,6 +139,21 @@ namespace ECommerceCore.Web.Areas.Admin.Controllers
                 _logger.LogError(ex, "Error occurred while saving the product.");
                 TempData["Error"] = "Unable to save the product.";
                 return RedirectToAction("Index");
+            }
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Details(int id)
+        {
+            try
+            {
+                var result = await _productService.GetProductByIdAsync(id);
+                return View(result);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error fetching products");
+                return StatusCode(500, new { error = "Error fetching products" });
             }
         }
 

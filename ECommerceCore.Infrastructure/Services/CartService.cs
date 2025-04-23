@@ -137,11 +137,6 @@ namespace ECommerceCore.Infrastructure.Services
             MapUserDetails(shoppingCartVM.OrderHeader, shoppingCartVM.OrderHeader.ApplicationUser);
 
             shoppingCartVM.ShoppingCartList = await _unitOfWork.ShoppingCarts.GetAllAsync(u => u.ApplicationUserId == userId, includeProperties: "Product,Product.ProductImages");
-            //// Fetch order details including Product and ProductImages
-            //shoppingCartVM.OrderHeader.OrderDetails = (await _unitOfWork.OrderDetails.GetAllAsync(
-            //    od => od.OrderHeader.ApplicationUserId == userId,
-            //    includeProperties: "Product,Product.ProductImages"
-            //)).ToList();
 
             foreach (var cart in shoppingCartVM.ShoppingCartList)
             {
@@ -196,9 +191,16 @@ namespace ECommerceCore.Infrastructure.Services
         /// </summary>
         public double GetPriceBasedOnQuantity(ShoppingCart cart)
         {
-            if (cart.Count <= 50) return cart.Product.Price;
-            if (cart.Count <= 100) return cart.Product.Price50;
-            return cart.Product.Price100;
+            // Check if the product is discounted and if the discount is currently active
+            if (cart.Product.IsDiscounted &&
+                (!cart.Product.DiscountStartDate.HasValue || cart.Product.DiscountStartDate.Value <= DateTime.Now) &&
+                (!cart.Product.DiscountEndDate.HasValue || cart.Product.DiscountEndDate.Value >= DateTime.Now))
+            {
+                return cart.Product.DiscountPrice;
+            }
+
+            // Return regular price if not discounted or discount is not active
+            return cart.Product.Price;
         }
         private void IncrementAnonymousCartItem(int productId)
         {

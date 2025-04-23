@@ -24,6 +24,7 @@ namespace ECommerceCore.Application.DependencyInjection
             services.AddScoped<ICartService, CartService>();
             services.AddScoped<IPaymentService, StripeService>();
             services.AddScoped<ICategoryService, CategoryService>();
+            services.AddScoped<IBrandService, BrandService>();
             services.AddScoped<IWishlistService, WishlistService>();
             services.AddScoped<ICompanyService, CompanyService>();
             services.AddScoped<IEmailService, EmailService>();

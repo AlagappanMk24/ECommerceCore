@@ -16,23 +16,72 @@ namespace ECommerceCore.Infrastructure.Persistence.Repositories
             if (objFromDb != null)
             {
                 objFromDb.Title = obj.Title;
-                objFromDb.ISBN = obj.ISBN;
-                objFromDb.Price = obj.Price;
-                objFromDb.Price50 = obj.Price50;
-                objFromDb.ListPrice = obj.ListPrice;
-                objFromDb.Price100 = obj.Price100;
                 objFromDb.Description = obj.Description;
+                objFromDb.ShortDescription = obj.ShortDescription;
+                objFromDb.Price = obj.Price;
+                objFromDb.DiscountPrice = obj.DiscountPrice;
+                objFromDb.IsDiscounted = obj.IsDiscounted;
+                objFromDb.DiscountStartDate = obj.DiscountStartDate;
+                objFromDb.DiscountEndDate = obj.DiscountEndDate;
+                objFromDb.StockQuantity = obj.StockQuantity;
+                objFromDb.AllowBackorder = obj.AllowBackorder;
+                objFromDb.SKU = obj.SKU;
+                objFromDb.Barcode = obj.Barcode;
                 objFromDb.CategoryId = obj.CategoryId;
-                objFromDb.Author = obj.Author;
-                objFromDb.ProductImages = obj.ProductImages;
+                objFromDb.BrandId = obj.BrandId;
+                objFromDb.WeightInKg = obj.WeightInKg;
+                objFromDb.WidthInCm = obj.WidthInCm;
+                objFromDb.HeightInCm = obj.HeightInCm;
+                objFromDb.LengthInCm = obj.LengthInCm;
+                objFromDb.IsActive = obj.IsActive;
+                objFromDb.IsFeatured = obj.IsFeatured;
+                objFromDb.IsNewArrival = obj.IsNewArrival;
+                objFromDb.IsTrending = obj.IsTrending;
+                objFromDb.MetaTitle = obj.MetaTitle;
+                objFromDb.MetaDescription = obj.MetaDescription;
+                // We typically don't update analytics fields from a direct update
+                // as they might be managed by other processes
+                // objFromDb.Views = obj.Views;
+                // objFromDb.SoldCount = obj.SoldCount;
+                objFromDb.AverageRating = obj.AverageRating;
+                objFromDb.TotalReviews = obj.TotalReviews;
+
+                // If ProductImages is not null, update them
+                if (obj.ProductImages != null)
+                {
+                    objFromDb.ProductImages = obj.ProductImages;
+                }
+
+                // If Specifications is not null, update them
+                if (obj.Specifications != null)
+                {
+                    objFromDb.Specifications = obj.Specifications;
+                }
+
+                // If Variants is not null, update them
+                if (obj.Variants != null)
+                {
+                    objFromDb.Variants = obj.Variants;
+                }
+
+                // If Tags is not null, update them
+                if (obj.Tags != null)
+                {
+                    objFromDb.Tags = obj.Tags;
+                }
 
             }
         }
         public async Task<Product> GetAsync(Expression<Func<Product, bool>> filter)
         {
             return await _dbContext.Products
-                .Include(p => p.ProductImages)
-                .FirstOrDefaultAsync(filter);
+            .Include(p => p.ProductImages)
+            .Include(p => p.Category)
+            .Include(p => p.Brand)
+            .Include(p => p.Specifications)
+            .Include(p => p.Variants)
+            .Include(p => p.Tags)
+            .FirstOrDefaultAsync(filter);
         }
     }
 }

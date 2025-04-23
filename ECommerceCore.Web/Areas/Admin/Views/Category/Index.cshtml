@@ -1,4 +1,162 @@
 ﻿@using ECommerceCore.Application.Contract.ViewModels
+@using ECommerceCore.Application.Contracts.ViewModels
+@model CategoryVM
+@{
+    ViewData["Title"] = "Category Management";
+}
+<link href="~/css/product/product.css" rel="stylesheet" />
+<link href="~/css/category/category.css" rel="stylesheet" />
+<form id="antiForgeryForm" method="post" style="display: none;">
+    @Html.AntiForgeryToken()
+</form>
+
+<div class="product-management-container">
+    <div class="card-header glass-header">
+        <div class="header-content">
+            <div class="title-section">
+                <i class="bi bi-grid"></i>
+                <h2>Category Management</h2>
+                <span class="badge product-count" id="totalCount">0 items</span>
+            </div>
+            <div class="action-section">
+                <div class="search-box">
+                    <i class="fas fa-search"></i>
+                    <input type="text" id="categorySearch" placeholder="Search categories...">
+                </div>
+                <a asp-controller="Category" asp-action="Upsert" class="btn btn-primary btn-add">
+                    <i class="bi bi-plus-circle-dotted"></i> Add Category
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="filters-section">
+        <div class="filter-group">
+            <label>Sort By</label>
+            <select class="form-select" id="sortBy">
+                <option value="name-asc">Name (A-Z)</option>
+                <option value="name-desc">Name (Z-A)</option>
+                <option value="displayorder-asc">Display Order (Low-High)</option>
+                <option value="displayorder-desc">Display Order (High-Low)</option>
+            </select>
+        </div>
+        <button id="resetFilters" class="btn btn-outline-secondary">
+            <i class="fas fa-sync-alt"></i> Reset
+        </button>
+    </div>
+
+    <div class="table-responsive">
+        <table class="products-table">
+            <thead>
+                <tr>
+                    <th class="sortable" data-sort="name">
+                        <span>Category Name</span>
+                        <i class="fas fa-sort"></i>
+                    </th>
+                    <th class="sortable numeric" data-sort="displayorder">
+                        <span>Display Order</span>
+                        <i class="fas fa-sort"></i>
+                    </th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody id="categoriesTableBody">
+                @if (Model != null && Model.Categories != null && Model.Categories.Any())
+                {
+                    @foreach (var category in Model.Categories)
+                    {
+                        <tr>
+                            <td>@category.Name</td>
+                            <td class="numeric">@category.DisplayOrder</td>
+                            <td>
+                                <div class="action-buttons">
+                                    <a asp-controller="Category" asp-action="Upsert" asp-route-id="@category.Id" class="btn-action btn-edit">
+                                        <i class="bi bi-pencil-fill"></i>
+                                    </a>
+                                    <button class="btn-action btn-delete" data-bs-toggle="modal" data-bs-target="#deleteModal" data-id="@category.Id" data-name="@category.Name">
+                                        <i class="bi bi-trash-fill"></i>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr><td colspan="3" class="text-center">No categories found.</td></tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+    <div id="loadingIndicator" class="text-center py-4" style="display:none;">
+        <div class="spinner-border text-primary" role="status">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+    </div>
+
+    <div id="emptyState" class="empty-state" style="display: none;">
+        <div class="empty-icon">
+            <i class="bi bi-grid"></i>
+        </div>
+        <h3>No Categories Found</h3>
+        <p>No categories match your search criteria.</p>
+        <button id="resetEmptyState" class="btn btn-primary">
+            <i class="fas fa-sync-alt"></i> Reset Filters
+        </button>
+    </div>
+
+    <div class="pagination-container" style="display:none;">
+        <div class="pagination-info">
+            Showing <span id="showingFrom">0</span> to <span id="showingTo">0</span> of <span id="totalItems">0</span> categories
+        </div>
+        <div class="pagination-controls">
+            <button class="btn-pagination" id="prevPage" disabled>
+                <i class="fas fa-chevron-left"></i>
+            </button>
+            <div class="page-numbers" id="pageNumbers">
+            </div>
+            <button class="btn-pagination" id="nextPage" disabled>
+                <i class="fas fa-chevron-right"></i>
+            </button>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content border-0 shadow">
+            <div class="modal-header border-0">
+                <h5 class="modal-title text-danger">
+                    <i class="bi bi-exclamation-triangle-fill me-2"></i> Confirm Deletion
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure you want to delete <strong id="categoryToDelete">this category</strong>?</p>
+                <p class="small text-muted">This action cannot be undone and will permanently remove the category.</p>
+            </div>
+            <div class="modal-footer border-0">
+                <button type="button" class="btn btn-outline-secondary rounded-pill px-4"
+                        data-bs-dismiss="modal">
+                    Cancel
+                </button>
+                <form id="deleteForm" method="post" asp-controller="Category" asp-action="Delete">
+                    <input type="hidden" name="id" id="deleteCategoryId" />
+                    <button type="submit" class="btn btn-danger rounded-pill px-4">
+                        <i class="bi bi-trash-fill me-2"></i> Delete
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript" src="~/js/category/categoryIndex.js"></script>
+
+
+
+@* @using ECommerceCore.Application.Contract.ViewModels
 @model CategoryVM
 
 <link rel="stylesheet" href="~/css/category/category.css" />
@@ -278,7 +436,7 @@
             });
         }
 
-       
+
 
         function showToast(type, message) {
                 const toast = `<div class="toast align-items-center text-white bg-${type} border-0 show" role="alert" aria-live="assertive" aria-atomic="true">
@@ -333,7 +491,7 @@
         });
     </script>
     <partial name="_ValidationScriptsPartial" />
-}
+} *@
 <!-- #endregion -->
 
 

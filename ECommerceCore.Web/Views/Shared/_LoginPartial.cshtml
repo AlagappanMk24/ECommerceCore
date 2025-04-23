@@ -29,7 +29,7 @@ else
 }
 </ul> *@
 
-      @*   @using Microsoft.AspNetCore.Identity
+@*   @using Microsoft.AspNetCore.Identity
 @inject SignInManager<IdentityUser> SignInManager
 @inject UserManager<IdentityUser> UserManager
 
@@ -162,7 +162,7 @@ else
     }
 </ul> *@
 
-        @using Microsoft.AspNetCore.Identity
+@using Microsoft.AspNetCore.Identity
 @inject SignInManager<IdentityUser> SignInManager
 @inject UserManager<IdentityUser> UserManager
 
@@ -176,7 +176,7 @@ else
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle text-dark position-relative hover-effect" href="javascript:void(0);" id="notificationsDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         <i class="bi bi-bell-fill"></i>
-                      @*   <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                        @*   <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
                             3
                             <span class="visually-hidden">unread notifications</span>
                         </span> *@
@@ -294,3 +294,94 @@ else
         </li>
     }
 </ul>
+
+<!-- Hidden Anti-Forgery Token for AJAX -->
+@Html.AntiForgeryToken()
+
+<!-- JavaScript for Logout -->
+
+<script type="text/javascript">
+         const logoutLink = document.getElementById('logoutLink');
+         if (logoutLink) {
+             logoutLink.addEventListener('click', function (e) {
+                 e.preventDefault();
+
+                 // Get anti-forgery token
+                 const tokenInput = document.querySelector('input[name="__RequestVerificationToken"]');
+                 if (!tokenInput) {
+                     Swal.fire({
+                         icon: 'error',
+                         title: 'Error',
+                         text: 'Anti-forgery token missing. Please refresh the page.'
+                     });
+                     return;
+                 }
+                 const token = tokenInput.value;
+
+                 // Send AJAX POST request to logout
+                 fetch('/Identity/Account/Logout', {
+                     method: 'POST',
+                     headers: {
+                         'Content-Type': 'application/json',
+                         'RequestVerificationToken': token
+                     },
+                     body: JSON.stringify({})
+                 })
+                 .then(response => {
+                     if (!response.ok) {
+                         throw new Error(`Logout failed: ${response.statusText}`);
+                     }
+                     return response.json();
+                 })
+                 .then(data => {
+                     if (data.status === 'Success') {
+                       Swal.fire({
+                            icon: 'success',
+                            title: 'Logged Out',
+                            text: 'You have been logged out successfully.',
+                            timer: 1500,
+                            showConfirmButton: false
+                        }).then(() => {
+                             window.location.href = '/Home/LandingPage';
+                        });
+                     } else {
+                         throw new Error('Unexpected response: ' + data);
+                     }
+                 })
+                 .catch(error => {
+                     console.error('Logout error:', error);
+                     Swal.fire({
+                         icon: 'error',
+                         title: 'Error',
+                         text: 'An error occurred while logging out: ' + error.message
+                     });
+                 });
+             });
+         }
+         else {
+             console.warn('Logout link not found in DOM.');
+         }
+
+    // Function to update navbar for guest users
+    function updateNavBarForGuest() {
+        console.log("test");
+        const navList = document.querySelector('.navbar-nav');
+        navList.innerHTML = `
+            <li class="nav-item">
+                <a class="nav-link text-dark hover-effect" id="contactUs" href="/ContactUs">
+                    <i class="bi bi-chat-left-text-fill me-1"></i> Contact Us
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-dark hover-effect" id="register" href="/Identity/Account/Register">
+                    <i class="bi bi-person-plus-fill me-1"></i> Register
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="btn btn-outline-primary ms-2" id="login" href="/Identity/Account/Login">
+                    <i class="bi bi-box-arrow-in-right me-1"></i> Login
+                </a>
+            </li>
+        `;
+    }
+</script>

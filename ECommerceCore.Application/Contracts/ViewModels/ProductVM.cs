@@ -10,5 +10,9 @@ namespace ECommerceCore.Application.Contract.ViewModels
 
         [ValidateNever]
         public IEnumerable<SelectListItem> CategoryList { get; set; }
+
+        [ValidateNever]
+        public IEnumerable<SelectListItem> BrandList { get; set; }
+
     }
 }

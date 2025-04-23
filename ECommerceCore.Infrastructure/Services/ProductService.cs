@@ -25,14 +25,22 @@ namespace ECommerceCore.Infrastructure.Services
                     .Include(p => p.Category)
                     .Include(p => p.ProductImages)
                     .AsQueryable();
-
-                // Apply filters
+                // Apply enhanced search filters
                 if (!string.IsNullOrEmpty(parameters.SearchTerm))
                 {
+                    string searchTerm = parameters.SearchTerm.ToLower().Trim();
                     query = query.Where(p =>
-                        p.Title.Contains(parameters.SearchTerm) ||
-                        p.ISBN.Contains(parameters.SearchTerm) ||
-                        p.Author.Contains(parameters.SearchTerm));
+                        p.Title.ToLower().Contains(searchTerm) ||
+                        p.Description.ToLower().Contains(searchTerm) ||
+                        p.ShortDescription.ToLower().Contains(searchTerm) ||
+                        p.SKU.ToLower().Contains(searchTerm) ||
+                        p.Barcode.ToLower().Contains(searchTerm) ||
+                        p.MetaTitle.ToLower().Contains(searchTerm) ||
+                        p.MetaDescription.ToLower().Contains(searchTerm) ||
+                        p.Brand.Name.ToLower().Contains(searchTerm) ||
+                        p.Category.Name.ToLower().Contains(searchTerm) ||
+                        (p.Tags != null && p.Tags.Any(t => t.TagName.ToLower().Contains(searchTerm)))
+                    );
                 }
 
                 if (parameters.CategoryId.HasValue)
@@ -40,9 +48,7 @@ namespace ECommerceCore.Infrastructure.Services
                     query = query.Where(p => p.CategoryId == parameters.CategoryId.Value);
                 }
 
-                // Apply stock status filter if needed
-                // Note: You'll need to add StockQuantity property to Product model first
-
+                // Apply stock status filter 
                 if (!string.IsNullOrEmpty(parameters.StockStatus))
                 {
                     query = parameters.StockStatus switch
@@ -54,20 +60,30 @@ namespace ECommerceCore.Infrastructure.Services
                     };
                 }
 
-
                 // Apply sorting
                 if (!string.IsNullOrEmpty(parameters.SortColumn))
                 {
                     query = parameters.SortColumn.ToLower() switch
                     {
                         "title" => parameters.SortDirection == "asc" ?
-                            query.OrderBy(p => p.Title) : query.OrderByDescending(p => p.Title),
-                        "isbn" => parameters.SortDirection == "asc" ?
-                            query.OrderBy(p => p.ISBN) : query.OrderByDescending(p => p.ISBN),
+                    query.OrderBy(p => p.Title) : query.OrderByDescending(p => p.Title),
+                        "sku" => parameters.SortDirection == "asc" ?
+                            query.OrderBy(p => p.SKU) : query.OrderByDescending(p => p.SKU),
                         "price" => parameters.SortDirection == "asc" ?
-                            query.OrderBy(p => p.ListPrice) : query.OrderByDescending(p => p.ListPrice),
-                        "author" => parameters.SortDirection == "asc" ?
-                            query.OrderBy(p => p.Author) : query.OrderByDescending(p => p.Author),
+                            query.OrderBy(p => p.Price) : query.OrderByDescending(p => p.Price),
+                        "brand" => parameters.SortDirection == "asc" ?
+                            query.OrderBy(p => p.Brand.Name) : query.OrderByDescending(p => p.Brand.Name),
+                        "category" => parameters.SortDirection == "asc" ?
+                            query.OrderBy(p => p.Category.Name) : query.OrderByDescending(p => p.Category.Name),
+                        "rating" => parameters.SortDirection == "asc" ?
+                            query.OrderBy(p => p.AverageRating) : query.OrderByDescending(p => p.AverageRating),
+                        "soldcount" => parameters.SortDirection == "asc" ?
+                            query.OrderBy(p => p.SoldCount) : query.OrderByDescending(p => p.SoldCount),
+                        "views" => parameters.SortDirection == "asc" ?
+                            query.OrderBy(p => p.Views) : query.OrderByDescending(p => p.Views),
+                        "newarrival" => query.OrderByDescending(p => p.IsNewArrival),
+                        "trending" => query.OrderByDescending(p => p.IsTrending),
+                        "featured" => query.OrderByDescending(p => p.IsFeatured),
                         _ => query.OrderBy(p => p.Title)
                     };
                 }
@@ -97,7 +113,7 @@ namespace ECommerceCore.Infrastructure.Services
         }
         public async Task<Product> GetProductByIdAsync(int id)
         {
-            return await _unitOfWork.Products.GetAsync(p => p.Id == id, includeProperties: "ProductImages");
+            return await _unitOfWork.Products.GetAsync(p => p.Id == id, includeProperties: "Category,ProductImages");
         }
         public async Task<string> UpsertProductAsync(ProductVM productVM, List<IFormFile> files, string webRootPath)
         {
