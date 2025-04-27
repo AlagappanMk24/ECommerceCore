@@ -1,7 +1,6 @@
 ﻿using ECommerceCore.Application.Contract.Persistence;
 using ECommerceCore.Domain.Entities;
 using ECommerceCore.Infrastructure.Data.Context;
-using Microsoft.EntityFrameworkCore;
 
 namespace ECommerceCore.Infrastructure.Persistence.Repositories
 {

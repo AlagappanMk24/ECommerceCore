@@ -8,12 +8,10 @@ using System.Text;
 using System.Text.Encodings.Web;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
 using ECommerceCore.Application.Constants;
-using ECommerceCore.Application.Contract.Service;
 using ECommerceCore.Domain.Entities;
 using ECommerceCore.Infrastructure.Services.Email;
 
@@ -22,18 +20,18 @@ namespace ECommerceCore.Web.Areas.Identity.Pages.Account
     [AllowAnonymous]
     public class ExternalLoginModel : PageModel
     {
-        private readonly SignInManager<IdentityUser> _signInManager;
-        private readonly UserManager<IdentityUser> _userManager;
-        private readonly IUserStore<IdentityUser> _userStore;
-        private readonly IUserEmailStore<IdentityUser> _emailStore;
+        private readonly SignInManager<ApplicationUser> _signInManager;
+        private readonly UserManager<ApplicationUser> _userManager;
+        private readonly IUserStore<ApplicationUser> _userStore;
+        private readonly IUserEmailStore<ApplicationUser> _emailStore;
         private readonly IEmailService _emailService;
         private readonly ILogger<ExternalLoginModel> _logger;
         private readonly IConfiguration _configuration;
 
         public ExternalLoginModel(
-            SignInManager<IdentityUser> signInManager,
-            UserManager<IdentityUser> userManager,
-            IUserStore<IdentityUser> userStore,
+            SignInManager<ApplicationUser> signInManager,
+            UserManager<ApplicationUser> userManager,
+            IUserStore<ApplicationUser> userStore,
             ILogger<ExternalLoginModel> logger,
             IEmailService emailService, IConfiguration configuration
             )
@@ -41,7 +39,7 @@ namespace ECommerceCore.Web.Areas.Identity.Pages.Account
             _signInManager = signInManager;
             _userManager = userManager;
             _userStore = userStore;
-            _emailStore = GetEmailStore();
+            _emailStore = (IUserEmailStore<ApplicationUser>)GetEmailStore();
             _logger = logger;
             _emailService = emailService;
             _configuration = configuration;
@@ -90,7 +88,8 @@ namespace ECommerceCore.Web.Areas.Identity.Pages.Account
             //Adding for other entity for external login as Facebook
             [Required]
             public string Name { get; set; }
-            public string? StreetAddress { get; set; }
+            public string Address1 { get; set; }
+            public string Address2 { get; set; }
             public string? City { get; set; }
             public string? State { get; set; }
             public string? PostalCode { get; set; }
@@ -175,7 +174,7 @@ namespace ECommerceCore.Web.Areas.Identity.Pages.Account
                 await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
                 await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
                 //Adding details
-                user.StreetAddress = Input.StreetAddress;
+                user.Address1 = Input.Address1;
                 user.City = Input.City;
                 user.PostalCode = Input.PostalCode;
                 user.State = Input.State;
@@ -189,7 +188,7 @@ namespace ECommerceCore.Web.Areas.Identity.Pages.Account
                     if (result.Succeeded)
                     {
                         //After success we need to add user in db
-                        await _userManager.AddToRoleAsync(user, AppConstants.Role_Customer);
+                        await _userManager.AddToRoleAsync(user, AppConstants.Role_Admin);
 
                         _logger.LogInformation("User created an account using {Name} provider.", info.LoginProvider);
 
@@ -236,18 +235,18 @@ namespace ECommerceCore.Web.Areas.Identity.Pages.Account
             }
             catch
             {
-                throw new InvalidOperationException($"Can't create an instance of '{nameof(IdentityUser)}'. " +
-                    $"Ensure that '{nameof(IdentityUser)}' is not an abstract class and has a parameterless constructor, or alternatively " +
+                throw new InvalidOperationException($"Can't create an instance of '{nameof(ApplicationUser)}'. " +
+                    $"Ensure that '{nameof(ApplicationUser)}' is not an abstract class and has a parameterless constructor, or alternatively " +
                     $"override the external login page in /Areas/Identity/Pages/Account/ExternalLogin.cshtml");
             }
         }
-        private IUserEmailStore<IdentityUser> GetEmailStore()
+        private IUserEmailStore<ApplicationUser> GetEmailStore()
         {
             if (!_userManager.SupportsUserEmail)
             {
                 throw new NotSupportedException("The default UI requires a user store with email support.");
             }
-            return (IUserEmailStore<IdentityUser>)_userStore;
+            return (IUserEmailStore<ApplicationUser>)_userStore;
         }
     }
 }

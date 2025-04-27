@@ -2,8 +2,10 @@
 using ECommerceCore.Application.Common.Results;
 using ECommerceCore.Application.Contract.Persistence;
 using ECommerceCore.Application.Contract.Service;
+using ECommerceCore.Application.Contract.ViewModels;
 using ECommerceCore.Application.Contracts.DTOs;
 using ECommerceCore.Domain.Entities;
+using Microsoft.EntityFrameworkCore;
 
 namespace ECommerceCore.Infrastructure.Services
 {
@@ -11,80 +13,98 @@ namespace ECommerceCore.Infrastructure.Services
     {
         private readonly IUnitOfWork _unitOfWork = unitOfWork;
         private readonly IMapper _mapper = mapper;
-
-        /// <summary>
-        /// Retrieves all categories from the database.
-        /// </summary>
-        /// <returns>An enumerable list of all categories.</returns>
         public async Task<IEnumerable<Category>> GetAllCategories()
         {
             return await _unitOfWork.Categories.GetAllAsync();
         }
-
-        /// <summary>
-        /// Retrieves a category by its unique ID.
-        /// </summary>
-        /// <param name="id">The ID of the category to retrieve.</param>
-        /// <returns>The category with the specified ID, or null if not found.</returns>
         public async Task<Category>? GetCategoryById(int id)
         {
             return await _unitOfWork.Categories.GetAsync(c => c.Id == id);
         }
-
-        /// <summary>
-        /// Creates a new category in the database.
-        /// </summary>
-        /// <param name="category">The category object to create.</param>
-        /// <exception cref="ArgumentNullException">Thrown when the category object is null.</exception>
-        /// <returns>A boolean value indicating whether the creation was successful.</returns>
-        public async Task<OperationResult<Category>> CreateCategoryAsync(CreateCategoryRequest request)
+        public async Task<PaginatedResult<CategoryDto>> GetCategoriesPaginatedAsync(CategoryQueryParameters parameters)
         {
             try
             {
-                var category = _mapper.Map<Category>(request.CategoryDto);
-                category.CreatedBy = request.CurrentUser;
-                category.UpdatedBy = request.CurrentUser;
+                // Base query
+                var query = _unitOfWork.Categories.Query()
+                    .Include(c => c.ParentCategory)
+                    .AsQueryable();
 
-                await _unitOfWork.Categories.AddAsync(category);
-                await _unitOfWork.SaveAsync();
+                // Apply search filter
+                if (!string.IsNullOrEmpty(parameters.SearchTerm))
+                {
+                    string searchTerm = parameters.SearchTerm.ToLower().Trim();
+                    query = query.Where(c =>
+                        c.Name.ToLower().Contains(searchTerm) ||
+                        (c.Description != null && c.Description.ToLower().Contains(searchTerm))
+                    );
+                }
 
-                return OperationResult<Category>.SuccessResult(category);
+                // Apply parent category filter
+                if (parameters.ParentCategoryId.HasValue)
+                {
+                    query = query.Where(c => c.ParentCategoryId == parameters.ParentCategoryId.Value);
+                }
+
+                // Apply active status filter
+                if (parameters.IsActive.HasValue)
+                {
+                    query = query.Where(c => c.IsActive == parameters.IsActive.Value);
+                }
+
+                // Apply sorting
+                if (!string.IsNullOrEmpty(parameters.SortColumn))
+                {
+                    query = parameters.SortColumn.ToLower() switch
+                    {
+                        "name" => parameters.SortDirection == "asc" ?
+                            query.OrderBy(c => c.Name) : query.OrderByDescending(c => c.Name),
+                        "displayorder" => parameters.SortDirection == "asc" ?
+                            query.OrderBy(c => c.DisplayOrder) : query.OrderByDescending(c => c.DisplayOrder),
+                        "parentcategory" => parameters.SortDirection == "asc" ?
+                            query.OrderBy(c => c.ParentCategory.Name) : query.OrderByDescending(c => c.ParentCategory.Name),
+                        _ => query.OrderBy(c => c.DisplayOrder)
+                    };
+                }
+                else
+                {
+                    // Default sort by display order
+                    query = query.OrderBy(c => c.DisplayOrder);
+                }
+
+                // Get total count before pagination
+                var totalCount = await query.CountAsync();
+
+                // Apply pagination
+                var items = await query
+                    .Skip((parameters.PageNumber - 1) * parameters.PageSize)
+                    .Take(parameters.PageSize)
+                    .Select(c => new CategoryDto
+                    {
+                        Id = c.Id,
+                        Name = c.Name,
+                        Description = c.Description,
+                        DisplayOrder = c.DisplayOrder,
+                        IsActive = c.IsActive,
+                        ParentCategoryId = c.ParentCategoryId,
+                        ParentCategoryName = c.ParentCategory != null ? c.ParentCategory.Name : null
+                    })
+                    .ToListAsync();
+
+                return new PaginatedResult<CategoryDto>
+                {
+                    Items = items,
+                    TotalCount = totalCount,
+                    PageNumber = parameters.PageNumber,
+                    PageSize = parameters.PageSize
+                };
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                return OperationResult<Category>.FailureResult("Failed to create category"); 
+                //_logger.LogError(ex, "Error in GetCategoriesPaginatedAsync");
+                throw;
             }
         }
 
-        /// <summary>
-        /// Updates an existing category in the database.
-        /// </summary>
-        /// <param name="category">The category object to update.</param>
-        /// <exception cref="ArgumentNullException">Thrown when the category object is null.</exception>
-        /// <returns>A boolean value indicating whether the update was successful.</returns>
-        public async Task<bool> UpdateCategory(Category category)
-        {
-            if (category == null) throw new ArgumentNullException(nameof(category));
-
-            _unitOfWork.Categories.Update(category);
-            await _unitOfWork.SaveAsync();
-            return true;
-        }
-
-        /// <summary>
-        /// Deletes a category from the database by its unique ID.
-        /// </summary>
-        /// <param name="id">The ID of the category to delete.</param>
-        /// <returns>A boolean value indicating whether the deletion was successful. Returns false if the category was not found.</returns>
-        public async Task<bool> DeleteCategory(int id)
-        {
-            var category = await _unitOfWork.Categories.GetAsync(c => c.Id == id);
-            if (category == null)
-                return false;
-
-            await _unitOfWork.Categories.RemoveAsync(category);
-            await _unitOfWork.SaveAsync();
-            return true;
-        }
     }
 }

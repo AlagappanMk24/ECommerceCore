@@ -39,12 +39,14 @@ namespace ECommerceCore.Infrastructure.Services
         public async Task UpdateOrderDetailsAsync(OrderHeader orderHeader)
         {
             var orderFromDb = await _unitOfWork.OrderHeaders.GetAsync(o => o.Id == orderHeader.Id);
-            orderFromDb.Name = orderHeader.Name;
-            orderFromDb.PhoneNumber = orderHeader.PhoneNumber;
-            orderFromDb.StreetAddress = orderHeader.StreetAddress;
-            orderFromDb.City = orderHeader.City;
-            orderFromDb.State = orderHeader.State;
-            orderFromDb.PostalCode = orderHeader.PostalCode;
+            orderFromDb.ShippingContactName = orderHeader.ShippingContactName;
+            orderFromDb.ShippingContactPhone = orderHeader.ShippingContactPhone;
+            orderFromDb.ShipToAddress.ShippingAddress1 = orderHeader.ShipToAddress.ShippingAddress1;
+            orderFromDb.ShipToAddress.ShippingAddress2 = orderHeader.ShipToAddress.ShippingAddress2;
+            orderFromDb.ShipToAddress.ShippingCity = orderHeader.ShipToAddress.ShippingCity;
+            orderFromDb.ShipToAddress.ShippingState = orderHeader.ShipToAddress.ShippingState;
+            orderFromDb.ShipToAddress.ShippingZipCode = orderHeader.ShipToAddress.ShippingZipCode;
+            orderFromDb.ShipToAddress.ShippingCountry = orderHeader.ShipToAddress.ShippingCountry;
             orderFromDb.Carrier = orderHeader.Carrier ?? orderFromDb.Carrier;
             orderFromDb.TrackingNumber = orderHeader.TrackingNumber ?? orderFromDb.TrackingNumber;
 
@@ -103,7 +105,7 @@ namespace ECommerceCore.Infrastructure.Services
                 var options = new RefundCreateOptions
                 {
                     Reason = RefundReasons.RequestedByCustomer,
-                    PaymentIntent = order.PaymentIntenId
+                    PaymentIntent = order.PaymentIntentId
                 };
                 refundService.Create(options);
             }

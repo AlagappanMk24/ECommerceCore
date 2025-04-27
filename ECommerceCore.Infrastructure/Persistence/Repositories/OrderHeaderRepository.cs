@@ -33,7 +33,7 @@ namespace ECommerceCore.Infrastructure.Persistence.Repositories
             }
             if (!string.IsNullOrEmpty(paymentIntentId))
             {
-                orderFromDb.PaymentIntenId = paymentIntentId;
+                orderFromDb.PaymentIntentId = paymentIntentId;
                 orderFromDb.PaymentDate = DateTime.Now;
             }
         }

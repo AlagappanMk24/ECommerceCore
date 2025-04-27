@@ -1,0 +1,147 @@
+﻿@using ECommerceCore.Application.Contracts.ViewModels.Customers
+@model CustomerUpsertVM
+@{
+    ViewData["Title"] = Model.Customer?.Id == 0 ? "Create Customer" : "Edit Customer";
+}
+
+<link href="~/css/common/shared.css" rel="stylesheet" />
+<link href="~/css/customer/customer-upsert.css" rel="stylesheet" />
+
+<div class="management-container">
+    <div class="card-header glass-header">
+        <div class="header-content">
+            <div class="title-section">
+                <i class="bi bi-person-plus"></i>
+                <h2>@(Model.Customer?.Id == 0 ? "Create Customer" : "Edit Customer")</h2>
+            </div>
+            <div class="action-section">
+                <a asp-action="Index" class="btn btn-outline-secondary">
+                    <i class="bi bi-arrow-left"></i> Back to List
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-container">
+        <form method="post" asp-action="Upsert" class="needs-validation">
+            <input asp-for="Customer.Id" hidden />
+
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="row">
+                <!-- Basic Information -->
+                <div class="col-md-6">
+                    <div class="card form-card">
+                        <div class="card-header">
+                            <h3><i class="bi bi-person"></i> Basic Information</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="mb-3">
+                                <label asp-for="Customer.Name" class="form-label">Customer Name</label>
+                                <input asp-for="Customer.Name" class="form-control" placeholder="Enter customer name" />
+                                <span asp-validation-for="Customer.Name" class="text-danger"></span>
+                            </div>
+
+                            <div class="mb-3">
+                                <label asp-for="Customer.Email" class="form-label">Email Address</label>
+                                <input asp-for="Customer.Email" type="email" class="form-control" placeholder="Enter email address" />
+                                <span asp-validation-for="Customer.Email" class="text-danger"></span>
+                            </div>
+
+                            <div class="mb-3">
+                                <label asp-for="Customer.PhoneNumber" class="form-label">Phone Number</label>
+                                <input asp-for="Customer.PhoneNumber" class="form-control" placeholder="Enter phone number" />
+                                <span asp-validation-for="Customer.PhoneNumber" class="text-danger"></span>
+                            </div>
+
+                            <div class="mb-3">
+                                <label asp-for="Customer.CompanyId" class="form-label">Company</label>
+                                <select asp-for="Customer.CompanyId" asp-items="@(new SelectList(Model.Companies, "Id", "Name"))" class="form-select">
+                                    <option disabled selected>-- Select Company --</option>
+                                </select>
+                                <span asp-validation-for="Customer.CompanyId" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Address Information -->
+                <div class="col-md-6">
+                    <div class="card form-card">
+                        <div class="card-header">
+                            <h3><i class="bi bi-geo-alt"></i> Address Information</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="mb-3">
+                                <label asp-for="Customer.Address.Address1" class="form-label">Address Line 1</label>
+                                <input asp-for="Customer.Address.Address1" class="form-control" placeholder="Enter address line 2" />
+                                <span asp-validation-for="Customer.Address.Address1" class="text-danger"></span>
+                            </div>
+                            <div class="mb-3">
+                                <label asp-for="Customer.Address.Address2" class="form-label">Address Line 2</label>
+                                <input asp-for="Customer.Address.Address2" class="form-control" placeholder="Enter address line 1" />
+                                <span asp-validation-for="Customer.Address.Address2" class="text-danger"></span>
+                            </div>
+                            <div class="mb-3">
+                                <label asp-for="Customer.Address.City" class="form-label">City</label>
+                                <input asp-for="Customer.Address.City" class="form-control" placeholder="Enter city" />
+                                <span asp-validation-for="Customer.Address.City" class="text-danger"></span>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label asp-for="Customer.Address.State" class="form-label">State/Province</label>
+                                    <input asp-for="Customer.Address.State" class="form-control" placeholder="Enter state/province" />
+                                    <span asp-validation-for="Customer.Address.State" class="text-danger"></span>
+                                </div>
+
+                                <div class="col-md-6 mb-3">
+                                    <label asp-for="Customer.Address.ZipCode" class="form-label">Postal Code</label>
+                                    <input asp-for="Customer.Address.ZipCode" class="form-control" placeholder="Enter postal code" />
+                                    <span asp-validation-for="Customer.Address.ZipCode" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-actions">
+                <button type="submit" class="btn btn-primary">
+                    <i class="bi bi-save"></i> Save Customer
+                </button>
+                <a asp-action="Index" class="btn btn-outline-secondary">
+                    <i class="bi bi-x-circle"></i> Cancel
+                </a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+
+    <script>
+        // Any additional validation or dynamic functionality
+        $(document).ready(function() {
+            // Example of custom validation or field handling
+            $("#Customer_PhoneNumber").on("input", function() {
+                // Format phone number as user types
+                let input = $(this).val().replace(/\D/g, '');
+                let formattedInput = "";
+
+                if (input.length > 0) {
+                    formattedInput = "(" + input.substring(0, 3);
+                    if (input.length >= 4) {
+                        formattedInput += ") " + input.substring(3, 6);
+                    }
+                    if (input.length >= 7) {
+                        formattedInput += "-" + input.substring(6, 10);
+                    }
+                }
+
+                $(this).val(formattedInput);
+            });
+        });
+    </script>
+}

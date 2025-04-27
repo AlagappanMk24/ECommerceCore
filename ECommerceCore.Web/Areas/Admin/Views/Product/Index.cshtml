@@ -4,21 +4,21 @@
 @{
     ViewData["Title"] = "Product Inventory";
 }
-<link href="~/css/product/product.css" rel="stylesheet" />
+<link href="~/css/common/shared.css" rel="stylesheet" />
 
 <!-- Add a hidden form to include the anti-forgery token -->
 <form id="antiForgeryForm" method="post" style="display: none;">
     @Html.AntiForgeryToken()
 </form>
 
-<div class="product-management-container">
+<div class="management-container">
     <!-- Card Header with Glass Effect -->
     <div class="card-header glass-header">
         <div class="header-content">
             <div class="title-section">
                 <i class="fas fa-box-open"></i>
                 <h2>Product Inventory</h2>
-                <span class="badge product-count" id="totalCount">0 items</span>
+                <span class="badge count-badge" id="totalCount">0 items</span>
             </div>
             <div class="action-section">
                 <div class="search-box">
@@ -71,7 +71,7 @@
 
     <!-- Products Table -->
     <div class="table-responsive">
-        <table class="products-table">
+        <table class="data-table">
             <thead>
                 <tr>
                     <th class="sortable" data-sort="title">

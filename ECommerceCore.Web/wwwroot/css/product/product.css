@@ -1,6 +1,6 @@
 ﻿
 /* Main Container */
-.product-management-container {
+/*.product-management-container {
     background: #fff;
     border-radius: 12px;
     box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
@@ -12,10 +12,10 @@
     .product-management-container:hover {
         box-shadow: 0 12px 40px rgba(0, 0, 0, 0.12);
         transform: translateY(-2px);
-    }
+    }*/
 
 /* Glass Header */
-.glass-header {
+/*.glass-header {
     background: linear-gradient(135deg, rgba(41, 128, 185, 0.9) 0%, rgba(109, 213, 250, 0.9) 100%);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
@@ -58,10 +58,10 @@
     display: flex;
     align-items: center;
     gap: 1rem;
-}
+}*/
 
 /* Search Box */
-.search-box {
+/*.search-box {
     position: relative;
     min-width: 250px;
 }
@@ -92,10 +92,10 @@
             background: rgba(255, 255, 255, 0.25);
             outline: none;
             box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.15);
-        }
+        }*/
 
 /* Add Product Button */
-.btn-add {
+/*.btn-add {
     background-color: rgba(255, 255, 255, 0.9);
     color: #2980b9;
     border: none;
@@ -113,10 +113,10 @@
         color: #1a5276;
         transform: translateY(-2px);
         box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    }
+    }*/
 
 /* Filters Section */
-.filters-section {
+/*.filters-section {
     padding: 1rem 2rem;
     background: #f8fafc;
     border-bottom: 1px solid #e2e8f0;
@@ -160,10 +160,10 @@
     align-items: center;
     gap: 0.5rem;
     padding: 0.4rem 0.75rem;
-}
+}*/
 
 /* Products Table */
-.table-responsive {
+/*.table-responsive {
     overflow-x: auto;
     padding: 0 0.5rem;
 }
@@ -205,10 +205,10 @@
     .products-table td {
         padding: 1.25rem;
         vertical-align: middle;
-    }
+    }*/
 
 /* Product Info Cell */
-.product-info {
+/*.product-info {
     display: flex;
     align-items: center;
     gap: 1rem;
@@ -242,26 +242,26 @@
 .product-details small {
     color: #64748b;
     font-size: 0.8rem;
-}
+}*/
 
 /* Price Cell */
-.price {
+/*.price {
     font-weight: 500;
     color: #1e293b;
-}
+}*/
 
 /* Category Badge */
-.category-badge {
+/*.category-badge {
     background: #e0f2fe;
     color: #0369a1;
     padding: 0.35rem 0.75rem;
     border-radius: 50px;
     font-size: 0.8rem;
     font-weight: 500;
-}
+}*/
 
 /* Stock Badge */
-.stock-badge {
+/*.stock-badge {
     display: inline-block;
     padding: 0.35rem 0.75rem;
     border-radius: 50px;
@@ -284,10 +284,10 @@
 .out-of-stock {
     background: #fee2e2;
     color: #991b1b;
-}
+}*/
 
 /* Action Buttons */
-.actions {
+/*.actions {
     width: 180px;
 }
 
@@ -338,10 +338,10 @@
 
     .btn-delete:hover {
         background: #fecaca;
-    }
+    }*/
 
 /* Sortable Headers */
-.sortable {
+/*.sortable {
     cursor: pointer;
     user-select: none;
     position: relative;
@@ -373,10 +373,10 @@
 
     .sortable.desc i::before {
         content: "\f0dd";
-    }
+    }*/
 
 /* Pagination */
-.pagination-container {
+/*.pagination-container {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -446,10 +446,10 @@
         background: #2980b9;
         border-color: #2980b9;
         color: white;
-    }
+    }*/
 
 /* Empty State */
-.empty-state {
+/*.empty-state {
     padding: 3rem 2rem;
     text-align: center;
     max-width: 500px;
@@ -470,27 +470,27 @@
 .empty-state p {
     color: #64748b;
     margin-bottom: 1.5rem;
-}
+}*/
 
 /* Loading Indicator */
-#loadingIndicator {
+/*#loadingIndicator {
     display: none;
 }
 
 .spinner-border {
     width: 3rem;
     height: 3rem;
-}
+}*/
 
 /* Page Ellipsis */
-.page-ellipsis {
+/*.page-ellipsis {
     display: inline-block;
     padding: 0.5rem;
     color: #64748b;
-}
+}*/
 
 /* Error State */
-.error-state {
+/*.error-state {
     text-align: center;
     padding: 2rem;
     color: #dc3545;
@@ -499,9 +499,9 @@
     .error-state i {
         font-size: 3rem;
         margin-bottom: 1rem;
-    }
+    }*/
 /* Responsive Adjustments */
-@media (max-width: 992px) {
+/*@media (max-width: 992px) {
     .header-content {
         flex-direction: column;
         align-items: flex-start;
@@ -557,4 +557,4 @@
     .btn-action {
         width: 100%;
     }
-}
+}*/

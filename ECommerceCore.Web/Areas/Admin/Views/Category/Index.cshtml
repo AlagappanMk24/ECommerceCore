@@ -1,22 +1,23 @@
 ﻿@using ECommerceCore.Application.Contract.ViewModels
 @using ECommerceCore.Application.Contracts.ViewModels
-@model CategoryVM
+@model CategoryIndexVM
 @{
     ViewData["Title"] = "Category Management";
 }
-<link href="~/css/product/product.css" rel="stylesheet" />
+<link href="~/css/common/shared.css" rel="stylesheet" />
 <link href="~/css/category/category.css" rel="stylesheet" />
+
 <form id="antiForgeryForm" method="post" style="display: none;">
     @Html.AntiForgeryToken()
 </form>
 
-<div class="product-management-container">
+<div class="management-container">
     <div class="card-header glass-header">
         <div class="header-content">
             <div class="title-section">
                 <i class="bi bi-grid"></i>
                 <h2>Category Management</h2>
-                <span class="badge product-count" id="totalCount">0 items</span>
+                <span class="badge count-badge" id="totalCount">0 items</span>
             </div>
             <div class="action-section">
                 <div class="search-box">
@@ -30,7 +31,16 @@
         </div>
     </div>
 
+    <!-- Filters Section -->
     <div class="filters-section">
+        <div class="filter-group">
+            <label>Status</label>
+            <select class="form-select" id="statusFilter">
+                <option value="">All Status</option>
+                <option value="active">Active</option>
+                <option value="inactive">Inactive</option>
+            </select>
+        </div>
         <div class="filter-group">
             <label>Sort By</label>
             <select class="form-select" id="sortBy">
@@ -46,50 +56,34 @@
     </div>
 
     <div class="table-responsive">
-        <table class="products-table">
+        <table class="data-table">
             <thead>
                 <tr>
                     <th class="sortable" data-sort="name">
                         <span>Category Name</span>
                         <i class="fas fa-sort"></i>
                     </th>
+                    <th>
+                        <span>Description</span>
+                    </th>
                     <th class="sortable numeric" data-sort="displayorder">
                         <span>Display Order</span>
                         <i class="fas fa-sort"></i>
+                    </th>
+                    <th>
+                        <span>Active</span>
                     </th>
                     <th>Actions</th>
                 </tr>
             </thead>
             <tbody id="categoriesTableBody">
-                @if (Model != null && Model.Categories != null && Model.Categories.Any())
-                {
-                    @foreach (var category in Model.Categories)
-                    {
-                        <tr>
-                            <td>@category.Name</td>
-                            <td class="numeric">@category.DisplayOrder</td>
-                            <td>
-                                <div class="action-buttons">
-                                    <a asp-controller="Category" asp-action="Upsert" asp-route-id="@category.Id" class="btn-action btn-edit">
-                                        <i class="bi bi-pencil-fill"></i>
-                                    </a>
-                                    <button class="btn-action btn-delete" data-bs-toggle="modal" data-bs-target="#deleteModal" data-id="@category.Id" data-name="@category.Name">
-                                        <i class="bi bi-trash-fill"></i>
-                                    </button>
-                                </div>
-                            </td>
-                        </tr>
-                    }
-                }
-                else
-                {
-                    <tr><td colspan="3" class="text-center">No categories found.</td></tr>
-                }
+                <!-- Will be populated by JavaScript -->
             </tbody>
         </table>
     </div>
 
-    <div id="loadingIndicator" class="text-center py-4" style="display:none;">
+    <!-- Loading Indicator -->
+    <div id="loadingIndicator" class="text-center py-4">
         <div class="spinner-border text-primary" role="status">
             <span class="visually-hidden">Loading...</span>
         </div>
@@ -106,7 +100,8 @@
         </button>
     </div>
 
-    <div class="pagination-container" style="display:none;">
+    <!-- Pagination -->
+    <div class="pagination-container">
         <div class="pagination-info">
             Showing <span id="showingFrom">0</span> to <span id="showingTo">0</span> of <span id="totalItems">0</span> categories
         </div>
@@ -115,6 +110,7 @@
                 <i class="fas fa-chevron-left"></i>
             </button>
             <div class="page-numbers" id="pageNumbers">
+                <!-- Will be filled by JavaScript -->
             </div>
             <button class="btn-pagination" id="nextPage" disabled>
                 <i class="fas fa-chevron-right"></i>
@@ -152,599 +148,4 @@
     </div>
 </div>
 
-<script type="text/javascript" src="~/js/category/categoryIndex.js"></script>
-
-
-
-@* @using ECommerceCore.Application.Contract.ViewModels
-@model CategoryVM
-
-<link rel="stylesheet" href="~/css/category/category.css" />
-
-<!-- Main Container -->
-<div class="container-fluid px-4">
-    <!-- Main Card -->
-    <div class="card shadow-lg border-0 rounded-4 overflow-hidden">
-        <!-- Card Header with Search and Filter -->
-        <div class="card-header py-3" style="background: linear-gradient(135deg, #4e54c8, #8f94fb);">
-            <div class="d-flex justify-content-between align-items-center flex-wrap">
-                <h4 class="text-white mb-0">
-                    <i class="bi bi-grid me-2"></i>Categories List
-                </h4>
-                <div class="d-flex mt-2 mt-md-0">
-                    <div class="input-group me-2" style="width: 250px;">
-                        <span class="input-group-text bg-white border-0">
-                            <i class="bi bi-search text-secondary"></i>
-                        </span>
-                        <input type="text" id="searchInput" class="form-control border-0 shadow-none"
-                               placeholder="Search categories...">
-                    </div>
-                    <div class="dropdown me-2">
-                        <button class="btn btn-light dropdown-toggle" type="button" id="filterDropdown"
-                                data-bs-toggle="dropdown" aria-expanded="false">
-                            <i class="bi bi-funnel me-1"></i> Filter
-                        </button>
-                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="filterDropdown">
-                            <li><a class="dropdown-item" href="#" data-sort="name-asc">By Name (A-Z)</a></li>
-                            <li><a class="dropdown-item" href="#" data-sort="name-desc">By Name (Z-A)</a></li>
-                            <li><a class="dropdown-item" href="#" data-sort="order-asc">By Order (Low-High)</a></li>
-                            <li><a class="dropdown-item" href="#" data-sort="order-desc">By Order (High-Low)</a></li>
-                            <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" href="#" data-filter="all">Show All</a></li>
-                        </ul>
-                    </div>
-                    <button class="btn btn-light fw-bold shadow-sm px-4"
-                            data-bs-toggle="modal"
-                            data-bs-target="#categoryModal">
-                        <i class="bi bi-plus-circle me-2"></i> Add New
-                    </button>
-                </div>
-            </div>
-        </div>
-
-        <!-- Card Body -->
-        <div class="card-body p-0" id="categoriesTableContainer">
-            @await Html.PartialAsync("_CategoriesTablePartial", Model)
-        </div>
-    </div>
-</div>
-
-<!-- Modal for Creating/Updating Category -->
-<div class="modal fade" id="categoryModal" tabindex="-1" aria-labelledby="categoryModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content border-0 shadow-lg">
-            <div class="modal-header" style="background: linear-gradient(135deg, #4e54c8, #8f94fb);">
-                <h5 class="modal-title text-white" id="categoryModalLabel">
-                    @if (Model.Category?.Id == null)
-                    {
-                        <span><i class="bi bi-plus-circle me-2"></i> Create New Category</span>
-                    }
-                    else
-                    {
-                        <span><i class="bi bi-pencil-square me-2"></i> Edit Category</span>
-                    }
-                </h5>
-                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body p-4">
-                <form method="post" id="categoryForm">
-                    @Html.AntiForgeryToken()
-                    <input type="hidden" id="categoryIdInput" name="Id" value="" />
-                    <div class="mb-4">
-                        <label for="Category_Name" class="form-label fw-semibold">Category Name</label>
-                        <div class="input-group">
-                            <span class="input-group-text bg-light border-end-0">
-                                <i class="bi bi-tag text-secondary"></i>
-                            </span>
-                            <input type="text" class="form-control ps-2"
-                                   id="Name" name="Name"
-                                   placeholder="Enter category name" required
-                                   data-val="true"
-                                   data-val-required="The Category Name field is required." />
-                        </div>
-                        <span class="text-danger small field-validation-valid"
-                              data-valmsg-for="Name" data-valmsg-replace="true"></span>
-                    </div>
-                    <div class="mb-4">
-                        <label for="Category_DisplayOrder" class="form-label fw-semibold">Display Order</label>
-                        <div class="input-group">
-                            <span class="input-group-text bg-light border-end-0">
-                                <i class="bi bi-sort-numeric-up text-secondary"></i>
-                            </span>
-                            <input type="number" class="form-control ps-2"
-                                   id="DisplayOrder" name="DisplayOrder"
-                                   placeholder="Enter display order" required
-                                   data-val="true"
-                                   data-val-required="The Display Order field is required."
-                                   data-val-range="Display order must be between 1-100"
-                                   data-val-range-min="1"
-                                   data-val-range-max="100" />
-                        </div>
-                        <span class="text-danger small field-validation-valid"
-                              data-valmsg-for="DisplayOrder" data-valmsg-replace="true"></span>
-                    </div>
-                    <div class="modal-footer border-0 pt-0">
-                        <button type="button" class="btn btn-outline-secondary rounded-pill px-4"
-                                data-bs-dismiss="modal">
-                            Cancel
-                        </button>
-                        <button type="submit" id="submitButton" class="btn btn-primary rounded-pill px-4">
-                            @if (Model.Category?.Id == null)
-                            {
-                                <i class="bi bi-plus-circle me-2"></i>
-                                <span>Create Category</span>
-                            }
-                            else
-                            {
-                                <i class="bi bi-check-circle me-2"></i>
-                                <span>Update Changes</span>
-                            }
-                        </button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- Delete Confirmation Modal -->
-<div class="modal fade" id="deleteModal" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content border-0 shadow">
-            <div class="modal-header border-0">
-                <h5 class="modal-title text-danger">
-                    <i class="bi bi-exclamation-triangle-fill me-2"></i> Confirm Deletion
-                </h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <p>Are you sure you want to delete <strong id="categoryToDelete">this category</strong>?</p>
-                <p class="small text-muted">This action cannot be undone and will permanently remove the category.</p>
-            </div>
-            <div class="modal-footer border-0">
-                <button type="button" class="btn btn-outline-secondary rounded-pill px-4"
-                        data-bs-dismiss="modal">
-                    Cancel
-                </button>
-                <form id="deleteForm" method="post" asp-controller="Category" asp-action="Delete">
-                    <input type="hidden" name="id" id="deleteCategoryId" />
-                    <button type="submit" class="btn btn-danger rounded-pill px-4">
-                        <i class="bi bi-trash-fill me-2"></i> Delete
-                    </button>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- #region JS -->
-@section Scripts {
-    <script>
-        // Initialize variables
-        let isEditMode = false;
-        const $categoryForm = $('#categoryForm');
-        const $categoryModal = $('#categoryModal');
-        const $submitButton = $('#submitButton');
-
-         $(document).ready(function () {
-            loadCategories(1); // Load first page by default
-        });
-
-        // Form submission handler
-        $categoryForm.on('submit', function(e) {
-                e.preventDefault();
-
-                const url = $('#categoryIdInput').val()
-                    ? `/Admin/Category/Edit/${$('#categoryIdInput').val()}`
-                    : '/Admin/Category/Create';
-
-                const formData = $categoryForm.serialize();
-                $.ajax({
-                    url: url,
-                    type: 'POST',
-                    data: formData,
-                    headers: {
-                        'RequestVerificationToken': $('input[name="__RequestVerificationToken"]').val()
-                    },
-                    beforeSend: function() {
-                        $submitButton.prop('disabled', true)
-                            .html('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Processing...');
-                    },
-                    success: function(response) {
-                        if (response.success) {
-                            showToast('success', response.message);
-                            $categoryModal.modal('hide');
-                            refreshCategoryList();
-                        } else {
-                            showToast('error', response.message);
-                            if (response.errors) {
-                                displayValidationErrors(response.errors);
-                            }
-                        }
-                    },
-                    error: function(xhr) {
-                        showToast('error', 'An error occurred. Please try again.');
-                        console.error('Error:', xhr.responseText);
-                    },
-                    complete: function() {
-                        $submitButton.prop('disabled', false)
-                        .html($('#categoryIdInput').val()
-                                ? '<i class="bi bi-plus-circle me-2"></i> Create Category'
-                                : '<i class="bi bi-check-circle me-2"></i> Update Changes');
-                    }
-                });
-        });
-
-        // When create button is clicked
-        $('[data-bs-target="#categoryModal"]').on('click', function() {
-              isEditMode = false;
-              $('#categoryModalLabel').html('<i class="bi bi-plus-circle me-2"></i> Create New Category');
-              $categoryForm.trigger('reset');
-              $categoryForm.attr('action', '/Admin/Category/Create');
-              $('#categoryIdInput').val('');
-              $submitButton.html('<i class="bi bi-plus-circle me-2"></i> Create Category');
-        });
-
-        // Populate edit modal
-        window.populateEditModal = function(element) {
-             isEditMode = true;
-             const categoryId = $(element).data('id');
-
-             $.ajax({
-                   url: `/Admin/Category/GetCategoryForEdit?id=${categoryId}`,
-                   type: 'GET',
-                   success: function(data) {
-                        $('#categoryModalLabel').html('<i class="bi bi-pencil-square me-2"></i> Edit Category');
-                        $('[name="Category.Name"]').val(data.name);
-                        $('[name="Category.DisplayOrder"]').val(data.displayOrder);
-                        $('#categoryIdInput').val(data.id);
-                        $categoryForm.attr('action', `/Admin/Category/Edit/${data.id}`);
-                        $submitButton.html('<i class="bi bi-check-circle me-2"></i> Update Changes');
-                   },
-                   error: function(xhr) {
-                        showToast('error', 'Failed to load category data');
-                        console.error('Error:', xhr.responseText);
-                   }
-             });
-        };
-
-        function loadCategories(pageNumber) {
-            $.ajax({
-                url: `/Admin/Category/GetCategories?pageNumber=${pageNumber}&pageSize=10`,
-                type: 'GET',
-                success: function (data) {
-                    $('#categoriesTableContainer').html(data);
-                },
-                error: function (xhr) {
-                    console.error('Error loading categories:', xhr.responseText);
-                }
-            });
-        }
-
-        // Helper functions
-        function refreshCategoryList() {
-            $.ajax({
-                url: '/Admin/Category/GetCategories',
-                type: 'GET',
-                success: function(data) {
-                   $('#categoriesTableContainer').html(data);
-                },
-                error: function(xhr) {
-                    console.error('Error refreshing categories:', xhr.responseText);
-                    showToast('error', 'Failed to refresh categories');
-                }
-            });
-        }
-
-
-
-        function showToast(type, message) {
-                const toast = `<div class="toast align-items-center text-white bg-${type} border-0 show" role="alert" aria-live="assertive" aria-atomic="true">
-                    <div class="d-flex">
-                        <div class="toast-body">${message}</div>
-                        <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
-                    </div>
-                </div>`;
-
-                $('#toastContainer').append(toast);
-                setTimeout(() => $('.toast').toast('hide'), 5000);
-        }
-
-        // Reset form when modal is hidden
-        $categoryModal.on('hidden.bs.modal', function() {
-                $categoryForm.trigger('reset');
-                $('.field-validation-error').text('');
-                $('#categoryIdInput').val('');
-                $submitButton.html('<i class="bi bi-plus-circle me-2"></i> Create Category');
-        });
-
-        // Delete confirmation
-        document.querySelectorAll('.delete-btn').forEach(btn => {
-            btn.addEventListener('click', function() {
-                const categoryId = this.getAttribute('data-id');
-                const categoryName = this.getAttribute('data-name');
-
-                document.getElementById('categoryToDelete').textContent = categoryName;
-                document.getElementById('deleteCategoryId').value = categoryId;
-
-                const deleteModal = new bootstrap.Modal(document.getElementById('deleteModal'));
-                deleteModal.show();
-            });
-        });
-
-        // Search functionality
-        document.getElementById('searchInput').addEventListener('input', function() {
-            const searchValue = this.value.toLowerCase();
-            document.querySelectorAll('.category-row').forEach(row => {
-                const categoryName = row.querySelector('h6').textContent.toLowerCase();
-                row.style.display = categoryName.includes(searchValue) ? '' : 'none';
-            });
-        });
-
-        // Sorting functionality
-        document.querySelectorAll('[data-sort]').forEach(item => {
-            item.addEventListener('click', function(e) {
-                e.preventDefault();
-                const sortType = this.getAttribute('data-sort');
-                // Implement sorting logic here
-            });
-        });
-    </script>
-    <partial name="_ValidationScriptsPartial" />
-} *@
-<!-- #endregion -->
-
-
-
-
-@* <!-- Card Wrapper -->
-<div class="card shadow-lg border-0 rounded-3">
-    <!-- Header -->
-    <div class="card-header py-4" style="background: linear-gradient(90deg, #343a40, #6c757d);">
-        <div class="d-flex justify-content-between align-items-center">
-            <h4 class="text-white fw-bold mb-0">Category Management</h4>
-            <button class="btn btn-light fw-bold shadow-sm px-4" data-bs-toggle="modal" data-bs-target="#categoryModal">
-                <i class="bi bi-plus-circle me-2"></i> Add Category
-            </button>
-        </div>
-    </div>
-
-    <!-- Body -->
-    <div class="card-body p-4 bg-light">
-        @if (!Model.Categories.Any())
-        {
-            <!-- Empty State -->
-            <div class="text-center py-5">
-                <i class="bi bi-folder-x text-secondary" style="font-size: 3rem;"></i>
-                <h5 class="mt-3 text-muted">No categories available.</h5>
-                <p class="text-muted">Click the "Add Category" button above to create a new one.</p>
-            </div>
-        }
-        else
-        {
-            <!-- Table Wrapper -->
-            <div class="table-responsive">
-                <table class="table table-hover align-middle bg-white rounded-3 shadow-sm">
-                    <thead class="text-uppercase bg-dark text-white">
-                        <tr>
-                            <th scope="col" class="text-start px-4">Category Name</th>
-                            <th scope="col" class="text-center">Display Order</th>
-                            <th scope="col" class="text-center">Status</th>
-                            <th scope="col" class="text-center">Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (var obj in Model.Categories.OrderBy(u => u.DisplayOrder))
-                        {
-                            <tr>
-                                <td class="px-4 fw-semibold">@obj.Name</td>
-                                <td class="text-center">@obj.DisplayOrder</td>
-                                <td class="text-center">
-                                    <span class="badge bg-success px-3 py-2">Active</span>
-                                </td>
-                                <td class="text-center">
-                                    <div class="btn-group">
-                                        <a href="javascript:void(0);"
-                                           class="btn btn-outline-warning btn-sm fw-bold"
-                                           data-bs-toggle="modal"
-                                           data-bs-target="#categoryModal"
-                                           data-id="@obj.Id"
-                                           data-name="@obj.Name"
-                                           data-display-order="@obj.DisplayOrder"
-                                           onclick="populateEditModal(this)">
-                                            <i class="bi bi-pencil-square me-1"></i> Edit
-                                        </a>
-                                        <a asp-controller="Category" asp-action="Delete" asp-route-id="@obj.Id"
-                                           class="btn btn-outline-danger btn-sm fw-bold">
-                                            <i class="bi bi-trash me-1"></i> Delete
-                                        </a>
-                                    </div>
-                                </td>
-                            </tr>
-                        }
-                    </tbody>
-                </table>
-            </div>
-        }
-    </div>
-</div>
-
-<!-- Modal for Creating/Updating Category -->
-<div class="modal fade" id="categoryModal" tabindex="-1" aria-labelledby="categoryModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header" style="background: linear-gradient(90deg, #343a40, #6c757d);">
-                <h5 class="modal-title text-white" id="categoryModalLabel">
-                    @if (Model.Category?.Id == null)
-                    {
-                        <span>Create New Category</span>
-                    }
-                    else
-                    {
-                        <span>Edit Category</span>
-                    }
-                </h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <form method="post"
-                      asp-controller="Category"
-                      asp-action="@((Model.Category?.Id == null) ? "Create" : "Edit")"
-                      asp-route-id="@Model.Category?.Id">
-                    <div class="mb-3">
-                        <label asp-for="Category.Name" class="form-label">Category Name</label>
-                        <input asp-for="Category.Name" class="form-control" placeholder="Enter category name" required />
-                        <span asp-validation-for="Category.Name" class="text-danger"></span>
-                    </div>
-                    <div class="mb-3">
-                        <label asp-for="Category.DisplayOrder" class="form-label">Display Order</label>
-                        <input asp-for="Category.DisplayOrder" class="form-control" placeholder="Enter display order" required />
-                        <span asp-validation-for="Category.DisplayOrder" class="text-danger"></span>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="submit" class="btn btn-success">
-                            @if (Model.Category?.Id == null)
-                            {
-                                <span>Create</span>
-                            }
-                            else
-                            {
-                                <span>Update</span>
-                            }
-                        </button>
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-</div> *@
-@* 
-@section Scripts {
-    <script>
-        function populateEditModal(element) {
-            // Get data attributes from the clicked element
-            const categoryId = element.getAttribute('data-id');
-            const categoryName = element.getAttribute('data-name');
-            const displayOrder = element.getAttribute('data-display-order');
-
-            // Populate the modal fields
-            // document.getElementById('categoryModalLabel').innerText = 'Edit Category';
-            document.querySelector('[name="Category.Name"]').value = categoryName || '';
-            document.querySelector('[name="Category.DisplayOrder"]').value = displayOrder || '';
-
-            // Update the form action
-            const form = document.querySelector('form');
-            form.setAttribute('action', `/Category/Edit/${categoryId}`);
-        }
-    </script>
-    <partial name="_ValidationScriptsPartial" />
-} *@
-
-@* <!-- Card Wrapper -->
-<div class="card shadow-lg border-0 rounded-3 overflow-hidden">
-    <!-- Header -->
-    <div class="card-header py-4 text-white d-flex justify-content-between align-items-center"C>
-        <h4 class="fw-bold mb-0"><i class="bi bi-grid me-2"></i>Category Management</h4>
-        <button class="btn btn-light fw-bold shadow-sm px-4" data-bs-toggle="modal" data-bs-target="#categoryModal">
-            <i class="bi bi-plus-circle me-2"></i> Add Category
-        </button>
-    </div>
-
-    <!-- Body -->
-    <div class="card-body p-4 bg-light">
-        @if (!Model.Categories.Any())
-        {
-            <div class="text-center py-5">
-                <i class="bi bi-folder-x text-secondary" style="font-size: 3rem;"></i>
-                <h5 class="mt-3 text-muted">No categories available.</h5>
-                <p class="text-muted">Click the "Add Category" button above to create a new one.</p>
-            </div>
-        }
-        else
-        {
-            <div class="table-responsive">
-                <table class="table table-hover align-middle bg-white rounded-3 shadow-sm">
-                    <thead class="text-uppercase bg-gradient text-white" style="background: linear-gradient(135deg, #ff416c, #ff4b2b);">
-                        <tr>
-                            <th scope="col" class="text-start px-4">Category Name</th>
-                            <th scope="col" class="text-center">Display Order</th>
-                            <th scope="col" class="text-center">Status</th>
-                            <th scope="col" class="text-center">Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (var obj in Model.Categories.OrderBy(u => u.DisplayOrder))
-                        {
-                            <tr>
-                                <td class="px-4 fw-semibold">@obj.Name</td>
-                                <td class="text-center">@obj.DisplayOrder</td>
-                                <td class="text-center">
-                                    <span class="badge bg-success px-3 py-2">Active</span>
-                                </td>
-                                <td class="text-center">
-                                    <div class="btn-group">
-                                        <button class="btn btn-outline-primary btn-sm fw-bold" data-bs-toggle="modal" data-bs-target="#categoryModal" data-id="@obj.Id" data-name="@obj.Name" data-display-order="@obj.DisplayOrder" onclick="populateEditModal(this)">
-                                            <i class="bi bi-pencil-square me-1"></i> Edit
-                                        </button>
-                                        <a asp-controller="Category" asp-action="Delete" asp-route-id="@obj.Id" class="btn btn-outline-danger btn-sm fw-bold">
-                                            <i class="bi bi-trash me-1"></i> Delete
-                                        </a>
-                                    </div>
-                                </td>
-                            </tr>
-                        }
-                    </tbody>
-                </table>
-            </div>
-        }
-    </div>
-</div>
-
-<!-- Modal for Creating/Updating Category -->
-<div class="modal fade" id="categoryModal" tabindex="-1" aria-labelledby="categoryModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header text-white" style="background: linear-gradient(135deg, #ff416c, #ff4b2b);">
-                <h5 class="modal-title" id="categoryModalLabel">Create New Category</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <form method="post" asp-controller="Category" asp-action="Create">
-                    <div class="mb-3">
-                        <label asp-for="Category.Name" class="form-label">Category Name</label>
-                        <input asp-for="Category.Name" class="form-control" placeholder="Enter category name" required />
-                        <span asp-validation-for="Category.Name" class="text-danger"></span>
-                    </div>
-                    <div class="mb-3">
-                        <label asp-for="Category.DisplayOrder" class="form-label">Display Order</label>
-                        <input asp-for="Category.DisplayOrder" class="form-control" placeholder="Enter display order" required />
-                        <span asp-validation-for="Category.DisplayOrder" class="text-danger"></span>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="submit" class="btn btn-success">Save</button>
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
-
-@section Scripts {
-    <script>
-        function populateEditModal(element) {
-            const categoryId = element.getAttribute('data-id');
-            const categoryName = element.getAttribute('data-name');
-            const displayOrder = element.getAttribute('data-display-order');
-
-            document.querySelector('[name="Category.Name"]').value = categoryName || '';
-            document.querySelector('[name="Category.DisplayOrder"]').value = displayOrder || '';
-            document.getElementById('categoryModalLabel').innerText = 'Edit Category';
-
-            const form = document.querySelector('form');
-            form.setAttribute('action', `/Category/Edit/${categoryId}`);
-        }
-    </script>
-}
- *@
+<script type="text/javascript" src="~/js/category/category.js"></script>

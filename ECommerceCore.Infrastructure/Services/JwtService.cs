@@ -19,7 +19,7 @@ namespace ECommerceCore.Infrastructure.Services
         private readonly IConfiguration _configuration = configuration;
         private readonly EcomDbContext _context = context;
         private readonly ILogger<JwtService> _logger = logger;
-        public string GenerateJwtToken(IdentityUser user)
+        public string GenerateJwtToken(ApplicationUser user)
         {
             var claims = new[]
             {

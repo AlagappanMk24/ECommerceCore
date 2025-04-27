@@ -18,6 +18,14 @@ namespace ECommerceCore.Infrastructure.Data.Context
         public DbSet<OrderHeader> OrderHeaders { get; set; }
         public DbSet<OrderDetail> OrderDetails { get; set; }
         public DbSet<WishlistItem> WishlistItems { get; set; }
+        public DbSet<Customer> Customers { get; set; }
+        public DbSet<Invoice> Invoices { get; set; }
+        public DbSet<InvoiceItem> InvoiceItems { get; set; }
+        public DbSet<InvoiceAttachments> InvoiceAttachments { get; set; }
+        public DbSet<TaxDetail> TaxDetails { get; set; }
+        public DbSet<Location> Locations { get; set; }
+        public DbSet<Currency> Currencies { get; set; }
+        public DbSet<Timezone> Timezones { get; set; }
         public DbSet<ContactUs> ContactUsSubmissions { get; set; } 
         public DbSet<AuthState> AuthStates { get; set; }
         public DbSet<AuthToken> AuthTokens { get; set; }

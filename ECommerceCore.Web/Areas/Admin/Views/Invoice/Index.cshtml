@@ -1,0 +1,153 @@
+﻿@using ECommerceCore.Application.Contracts.ViewModels
+@using ECommerceCore.Domain.Entities
+@model InvoiceIndexVM
+@{
+    ViewData["Title"] = "Invoice Management";
+}
+<link href="~/css/common/shared.css" rel="stylesheet" />
+<link href="~/css/invoice/invoice.css" rel="stylesheet" />
+
+<!-- Add a hidden form to include the anti-forgery token -->
+<form id="antiForgeryForm" method="post" style="display: none;">
+    @Html.AntiForgeryToken()
+</form>
+
+<div class="management-container">
+    <!-- Card Header with Glass Effect -->
+    <div class="card-header glass-header">
+        <div class="header-content">
+            <div class="title-section">
+                <i class="fas fa-file-invoice"></i>
+                <h2>Invoice Management</h2>
+                <span class="badge count-badge" id="totalCount">0 items</span>
+            </div>
+            <div class="action-section">
+                <div class="search-box">
+                    <i class="fas fa-search"></i>
+                    <input type="text" id="invoiceSearch" placeholder="Search invoices...">
+                </div>
+                <a asp-controller="Invoice" asp-action="Upsert" class="btn btn-primary btn-add">
+                    <i class="bi bi-plus-circle-dotted"></i> Add Invoice
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Filters Section -->
+    <div class="filters-section">
+        <div class="filter-group">
+            <label>Customer</label>
+            <select class="form-select" id="customerFilter">
+                <option value="">All Customers</option>
+                @foreach (var customer in Model.Customers)
+                {
+                    <option value="@customer.Id">@customer.Name</option>
+                }
+            </select>
+        </div>
+        <div class="filter-group">
+            <label>Status</label>
+            <select class="form-select" id="statusFilter">
+                <option value="">All Statuses</option>
+                <option value="Draft">Draft</option>
+                <option value="Sent">Sent</option>
+                <option value="PartiallyPaid">Partially Paid</option>
+                <option value="Paid">Paid</option>
+                <option value="Overdue">Overdue</option>
+                <option value="Void">Void</option>
+            </select>
+        </div>
+        <div class="filter-group">
+            <label>Type</label>
+            <select class="form-select" id="typeFilter">
+                <option value="">All Types</option>
+                <option value="Standard">Standard</option>
+                <option value="Recurring">Recurring</option>
+                <option value="Proforma">Proforma</option>
+                <option value="CreditNote">Credit Note</option>
+            </select>
+        </div>
+        <div class="filter-group">
+            <label>Sort By</label>
+            <select class="form-select" id="sortBy">
+                <option value="invoiceNumber-asc">Invoice Number (A-Z)</option>
+                <option value="invoiceNumber-desc">Invoice Number (Z-A)</option>
+                <option value="totalAmount-asc">Total Amount (Low-High)</option>
+                <option value="totalAmount-desc">Total Amount (High-Low)</option>
+                <option value="issueDate-asc">Issue Date (Oldest-Newest)</option>
+                <option value="issueDate-desc">Issue Date (Newest-Oldest)</option>
+            </select>
+        </div>
+        <button id="resetFilters" class="btn btn-outline-secondary">
+            <i class="fas fa-sync-alt"></i> Reset
+        </button>
+    </div>
+
+    <!-- Invoices Table -->
+    <div class="table-responsive">
+        <table class="data-table">
+            <thead>
+                <tr>
+                    <th class="sortable" data-sort="invoiceNumber">
+                        <span>Invoice Number</span>
+                        <i class="fas fa-sort"></i>
+                    </th>
+                    <th>Customer</th>
+                    <th class="sortable" data-sort="issueDate">
+                        <span>Issue Date</span>
+                        <i class="fas fa-sort"></i>
+                    </th>
+                    <th class="sortable numeric" data-sort="totalAmount">
+                        <span>Total Amount</span>
+                        <i class="fas fa-sort"></i>
+                    </th>
+                    <th>Status</th>
+                    <th>Type</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody id="invoicesTableBody">
+                <!-- Will be populated by JavaScript -->
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Loading Indicator -->
+    <div id="loadingIndicator" class="text-center py-4">
+        <div class="spinner-border text-primary" role="status">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+    </div>
+
+    <!-- Empty State (hidden by default) -->
+    <div id="emptyState" class="empty-state" style="display: none;">
+        <div class="empty-icon">
+            <i class="fas fa-file-invoice"></i>
+        </div>
+        <h3>No Invoices Found</h3>
+        <p>No invoices match your search criteria.</p>
+        <button id="resetEmptyState" class="btn btn-primary">
+            <i class="fas fa-sync-alt"></i> Reset Filters
+        </button>
+    </div>
+
+    <!-- Pagination -->
+    <div class="pagination-container">
+        <div class="pagination-info">
+            Showing <span id="showingFrom">0</span> to <span id="showingTo">0</span> of <span id="totalItems">0</span> invoices
+        </div>
+        <div class="pagination-controls">
+            <button class="btn-pagination" id="prevPage" disabled>
+                <i class="fas fa-chevron-left"></i>
+            </button>
+            <div class="page-numbers" id="pageNumbers">
+                <!-- Will be filled by JavaScript -->
+            </div>
+            <button class="btn-pagination" id="nextPage" disabled>
+                <i class="fas fa-chevron-right"></i>
+            </button>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript" src="~/js/invoice/invoice.js"></script>

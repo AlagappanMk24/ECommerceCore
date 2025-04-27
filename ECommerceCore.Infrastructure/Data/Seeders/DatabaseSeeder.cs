@@ -809,6 +809,921 @@ namespace ECommerceCore.Infrastructure.Data.Seeders
                 new ProductVariant { Id = 17, ProductId = 10, VariantName = "For Dry Skin", SKU = "BPC-AAGE-010-DRY", Price = 89.99, DiscountPrice = 75.99, StockQuantity = 10 },
                 new ProductVariant { Id = 18, ProductId = 10, VariantName = "For Sensitive Skin", SKU = "BPC-AAGE-010-SENS", Price = 94.99, DiscountPrice = 79.99, StockQuantity = 5 }
             );
+
+            // Seed Currencies
+            modelBuilder.Entity<Currency>().HasData(
+                new Currency { Id = 1, Code = "USD", Symbol = "$", Name = "US Dollar" },
+                new Currency { Id = 2, Code = "EUR", Symbol = "€", Name = "Euro" },
+                new Currency { Id = 3, Code = "GBP", Symbol = "£", Name = "British Pound" },
+                new Currency { Id = 4, Code = "CAD", Symbol = "C$", Name = "Canadian Dollar" },
+                new Currency { Id = 5, Code = "AUD", Symbol = "A$", Name = "Australian Dollar" },
+                new Currency { Id = 6, Code = "JPY", Symbol = "¥", Name = "Japanese Yen" },
+                new Currency { Id = 7, Code = "INR", Symbol = "₹", Name = "Indian Rupee" },
+                new Currency { Id = 8, Code = "CHF", Symbol = "Fr", Name = "Swiss Franc" }
+            );
+
+            // Seed Timezones
+            modelBuilder.Entity<Timezone>().HasData(
+                new Timezone { Id = 1, Name = "America/New_York", UtcOffset = "-05:00", UtcOffsetString = "EST", Abbreviation = "EST" },
+                new Timezone { Id = 2, Name = "Europe/London", UtcOffset = "+00:00", UtcOffsetString = "GMT", Abbreviation = "GMT" },
+                new Timezone { Id = 3, Name = "Asia/Tokyo", UtcOffset = "+09:00", UtcOffsetString = "JST", Abbreviation = "JST" },
+                new Timezone { Id = 4, Name = "Australia/Sydney", UtcOffset = "+10:00", UtcOffsetString = "AEDT", Abbreviation = "AEDT" },
+                new Timezone { Id = 5, Name = "America/Toronto", UtcOffset = "-05:00", UtcOffsetString = "EST", Abbreviation = "EST" },
+                new Timezone { Id = 6, Name = "Europe/Paris", UtcOffset = "+01:00", UtcOffsetString = "CET", Abbreviation = "CET" },
+                new Timezone { Id = 7, Name = "Asia/Mumbai", UtcOffset = "+05:30", UtcOffsetString = "IST", Abbreviation = "IST" },
+                new Timezone { Id = 8, Name = "Europe/Zurich", UtcOffset = "+01:00", UtcOffsetString = "CET", Abbreviation = "CET" }
+            );
+
+            // Seed Customers (8 seeds)
+            modelBuilder.Entity<Customer>().HasData(
+                new Customer
+                {
+                    Id = 1,
+                    Name = "John Doe",
+                    Email = "john.doe@example.com",
+                    PhoneNumber = "555-0101",
+                    CompanyId = 1, // Tech Solutions Inc.
+                },
+                new Customer
+                {
+                    Id = 2,
+                    Name = "Jane Smith",
+                    Email = "jane.smith@example.com",
+                    PhoneNumber = "555-0102",
+                    CompanyId = 2, // Fashion Forward Ltd.
+                },
+                new Customer
+                {
+                    Id = 3,
+                    Name = "Hiroshi Tanaka",
+                    Email = "hiroshi.tanaka@example.com",
+                    PhoneNumber = "555-0103",
+                    CompanyId = 1, // Tech Solutions Inc.
+                },
+                new Customer
+                {
+                    Id = 4,
+                    Name = "Emma Brown",
+                    Email = "emma.brown@example.com",
+                    PhoneNumber = "555-0104",
+                    CompanyId = 5, // Adventure Gear Corp.
+                },
+                new Customer
+                {
+                    Id = 5,
+                    Name = "Liam Johnson",
+                    Email = "liam.johnson@example.com",
+                    PhoneNumber = "555-0105",
+                    CompanyId = 6, // Glow & Glam
+                },
+                new Customer
+                {
+                    Id = 6,
+                    Name = "Sophie Martin",
+                    Email = "sophie.martin@example.com",
+                    PhoneNumber = "555-0106",
+                    CompanyId = 7, // Fun Time Toys
+                },
+                new Customer
+                {
+                    Id = 7,
+                    Name = "Arjun Patel",
+                    Email = "arjun.patel@example.com",
+                    PhoneNumber = "555-0107",
+                    CompanyId = 4, // Global Reads
+                },
+                new Customer
+                {
+                    Id = 8,
+                    Name = "Clara Fischer",
+                    Email = "clara.fischer@example.com",
+                    PhoneNumber = "555-0108",
+                    CompanyId = 1, // Tech Solutions Inc.
+                }
+            );
+
+            // Seed Address for Customers (owned type)
+            modelBuilder.Entity<Customer>()
+                .OwnsOne(c => c.Address)
+                .HasData(
+                    new
+                    {
+                        CustomerId = 1,
+                        Address1 = "123 Maple St",
+                        Address2 = "Apt 4B",
+                        City = "Springfield",
+                        State = "IL",
+                        Country = "USA",
+                        ZipCode = "62701"
+                    },
+                    new
+                    {
+                        CustomerId = 2,
+                        Address1 = "456 Oak Ave",
+                        Address2 = "Suite 201",
+                        City = "London",
+                        State = "Greater London",
+                        Country = "UK",
+                        ZipCode = "SW1A 1AA"
+                    },
+                    new
+                    {
+                        CustomerId = 3,
+                        Address1 = "789 Sakura St",
+                        Address2 = "2 Chome-1-1",
+                        City = "Tokyo",
+                        State = "Tokyo",
+                        Country = "Japan",
+                        ZipCode = "100-0001"
+                    },
+                    new
+                    {
+                        CustomerId = 4,
+                        Address1 = "101 Pine Rd",
+                        Address2 = "Level 5",
+                        City = "Sydney",
+                        State = "NSW",
+                        Country = "Australia",
+                        ZipCode = "2000"
+                    },
+                    new
+                    {
+                        CustomerId = 5,
+                        Address1 = "202 Birch Ln",
+                        Address2 = "Unit 12",
+                        City = "Toronto",
+                        State = "ON",
+                        Country = "Canada",
+                        ZipCode = "M5V 2T7"
+                    },
+                    new
+                    {
+                        CustomerId = 6,
+                        Address1 = "303 Cedar St",
+                        Address2 = "Batiment C",
+                        City = "Paris",
+                        State = "Île-de-France",
+                        Country = "France",
+                        ZipCode = "75001"
+                    },
+                    new
+                    {
+                        CustomerId = 7,
+                        Address1 = "404 Elm Dr",
+                        Address2 = "Near Main Gate",
+                        City = "Mumbai",
+                        State = "MH",
+                        Country = "India",
+                        ZipCode = "400001"
+                    },
+                    new
+                    {
+                        CustomerId = 8,
+                        Address1 = "505 Spruce Ct",
+                        Address2 = "Block A",
+                        City = "Zurich",
+                        State = "Zurich",
+                        Country = "Switzerland",
+                        ZipCode = "8001"
+                    }
+                );
+
+            // Seed Locations (8 seeds)
+            modelBuilder.Entity<Location>().HasData(
+                new Location
+                {
+                    Id = 1,
+                    CompanyId = 1, // Tech Solutions Inc.
+                    Name = "Silicon City Office",
+                    CurrencyId = 1, // USD
+                    TimezoneId = 1, // America/New_York
+                },
+                new Location
+                {
+                    Id = 2,
+                    CompanyId = 2, // Fashion Forward Ltd.
+                    Name = "Fashionville Store",
+                    CurrencyId = 1, // USD
+                    TimezoneId = 1, // America/New_York
+                },
+                new Location
+                {
+                    Id = 3,
+                    CompanyId = 3, // Green Living Co.
+                    Name = "Eco City Warehouse",
+                    CurrencyId = 1, // USD
+                    TimezoneId = 1, // America/New_York
+                },
+                new Location
+                {
+                    Id = 4,
+                    CompanyId = 4, // Global Reads
+                    Name = "London Bookstore",
+                    CurrencyId = 3, // GBP
+                    TimezoneId = 2, // Europe/London
+                },
+                new Location
+                {
+                    Id = 5,
+                    CompanyId = 5, // Adventure Gear Corp.
+                    Name = "Sydney Outlet",
+                    CurrencyId = 5, // AUD
+                    TimezoneId = 4, // Australia/Sydney
+                },
+                new Location
+                {
+                    Id = 6,
+                    CompanyId = 6, // Glow & Glam
+                    Name = "Paris Boutique",
+                    CurrencyId = 2, // EUR
+                    TimezoneId = 6, // Europe/Paris
+                },
+                new Location
+                {
+                    Id = 7,
+                    CompanyId = 7, // Fun Time Toys
+                    Name = "Mumbai Store",
+                    CurrencyId = 7, // INR
+                    TimezoneId = 7, // Asia/Mumbai
+                },
+                new Location
+                {
+                    Id = 8,
+                    CompanyId = 1, // Tech Solutions Inc.
+                    Name = "Zurich Tech Hub",
+                    CurrencyId = 8, // CHF
+                    TimezoneId = 8, // Europe/Zurich
+                }
+            );
+
+            // Seed Address for Locations (owned type)
+            modelBuilder.Entity<Location>()
+                .OwnsOne(l => l.Address)
+                .HasData(
+                    new
+                    {
+                        LocationId = 1,
+                        Address1 = "123 Innovation Way",
+                        Address2 = "Tech Park, Suite 100",
+                        City = "Silicon City",
+                        State = "CA",
+                        Country = "USA",
+                        ZipCode = "94016"
+                    },
+                    new
+                    {
+                        LocationId = 2,
+                        Address1 = "456 Style Avenue",
+                        Address2 = "Fashion Mall, Unit 22",
+                        City = "Fashionville",
+                        State = "NY",
+                        Country = "USA",
+                        ZipCode = "10001"
+                    },
+                    new
+                    {
+                        LocationId = 3,
+                        Address1 = "789 Earth Street",
+                        Address2 = "Industrial Zone, Gate 5",
+                        City = "Eco City",
+                        State = "GA",
+                        Country = "USA",
+                        ZipCode = "30303"
+                    },
+                    new
+                    {
+                        LocationId = 4,
+                        Address1 = "101 Literary Lane",
+                        Address2 = "Off Charing Cross Rd",
+                        City = "London",
+                        State = "London",
+                        Country = "UK",
+                        ZipCode = "WC1B 3PA"
+                    },
+                    new
+                    {
+                        LocationId = 5,
+                        Address1 = "222 Trail Road",
+                        Address2 = "Near Blue Mountains Entry",
+                        City = "Sydney",
+                        State = "NSW",
+                        Country = "Australia",
+                        ZipCode = "2000"
+                    },
+                    new
+                    {
+                        LocationId = 6,
+                        Address1 = "333 Radiant Road",
+                        Address2 = "Galerie Vivienne",
+                        City = "Paris",
+                        State = "Paris",
+                        Country = "France",
+                        ZipCode = "75002"
+                    },
+                    new
+                    {
+                        LocationId = 7,
+                        Address1 = "444 Playful Place",
+                        Address2 = "Linking Road, Bandra",
+                        City = "Mumbai",
+                        State = "MH",
+                        Country = "India",
+                        ZipCode = "400002"
+                    },
+                    new
+                    {
+                        LocationId = 8,
+                        Address1 = "555 Tech Park",
+                        Address2 = "Innovation Center, Floor 3",
+                        City = "Zurich",
+                        State = "",
+                        Country = "Switzerland",
+                        ZipCode = "8002"
+                    }
+                );
+
+            // Seed OrderHeaders (to link with Invoices)
+            modelBuilder.Entity<OrderHeader>().HasData(
+                new OrderHeader
+                {
+                    Id = 1,
+                    ApplicationUserId = null,
+                    CustomerId = 1,
+                    OrderDate = new DateTime(2025, 4, 1),
+                    ShippingDate = new DateTime(2025, 4, 3),
+                    OrderTotal = 649.99,
+                    OrderStatus = "Shipped",
+                    PaymentStatus = "Paid",
+                    TrackingNumber = "TRK123456",
+                    Carrier = "UPS",
+                    PaymentDate = new DateTime(2025, 4, 1),
+                    PaymentDueDate = new DateOnly(2025, 4, 30),
+                    ShippingContactPhone = "555-0101",
+                    ShippingContactName = "John Doe"
+                },
+                new OrderHeader
+                {
+                    Id = 2,
+                    ApplicationUserId = null,
+                    CustomerId = 2,
+                    OrderDate = new DateTime(2025, 4, 2),
+                    ShippingDate = new DateTime(2025, 4, 4),
+                    OrderTotal = 129.99,
+                    OrderStatus = "Processing",
+                    PaymentStatus = "Pending",
+                    TrackingNumber = null,
+                    Carrier = null,
+                    PaymentDate = new DateTime(2025, 4, 2),
+                    PaymentDueDate = new DateOnly(2025, 5, 2),
+                    ShippingContactPhone = "555-0102",
+                    ShippingContactName = "Jane Smith"
+                },
+                new OrderHeader
+                {
+                    Id = 3,
+                    CustomerId = 2,
+                    ApplicationUserId = null,
+                    OrderDate = new DateTime(2025, 4, 3),
+                    ShippingDate = new DateTime(2025, 4, 5),
+                    OrderTotal = 799.99,
+                    OrderStatus = "Delivered",
+                    PaymentStatus = "Paid",
+                    TrackingNumber = "TRK789012",
+                    Carrier = "FedEx",
+                    PaymentDate = new DateTime(2025, 4, 3),
+                    PaymentDueDate = new DateOnly(2025, 5, 3),
+                    ShippingContactPhone = "555-0103",
+                    ShippingContactName = "Hiroshi Tanaka"
+                },
+                new OrderHeader
+                {
+                    Id = 4,
+                    ApplicationUserId = null,
+                    CustomerId = 3,
+                    OrderDate = new DateTime(2025, 4, 4),
+                    ShippingDate = new DateTime(2025, 4, 6),
+                    OrderTotal = 109.95,
+                    OrderStatus = "Shipped",
+                    PaymentStatus = "Paid",
+                    TrackingNumber = "TRK345678",
+                    Carrier = "DHL",
+                    PaymentDate = new DateTime(2025, 4, 4),
+                    PaymentDueDate = new DateOnly(2025, 5, 4),
+                    ShippingContactPhone = "555-0104",
+                    ShippingContactName = "Emma Brown"
+                },
+                new OrderHeader
+                {
+                    Id = 5,
+                    ApplicationUserId = null,
+                    CustomerId = 4,
+                    OrderDate = new DateTime(2025, 4, 5),
+                    ShippingDate = new DateTime(2025, 4, 7),
+                    OrderTotal = 75.99,
+                    OrderStatus = "Processing",
+                    PaymentStatus = "Pending",
+                    TrackingNumber = null,
+                    Carrier = null,
+                    PaymentDate = new DateTime(2025, 4, 5),
+                    PaymentDueDate = new DateOnly(2025, 5, 5),
+                    ShippingContactPhone = "555-0105",
+                    ShippingContactName = "Liam Johnson"
+                },
+                new OrderHeader
+                {
+                    Id = 6,
+                    ApplicationUserId = null,
+                    CustomerId = 4,
+                    OrderDate = new DateTime(2025, 4, 6),
+                    ShippingDate = new DateTime(2025, 4, 8),
+                    OrderTotal = 69.99,
+                    OrderStatus = "Shipped",
+                    PaymentStatus = "Paid",
+                    TrackingNumber = "TRK901234",
+                    Carrier = "UPS",
+                    PaymentDate = new DateTime(2025, 4, 6),
+                    PaymentDueDate = new DateOnly(2025, 5, 6),
+                    ShippingContactPhone = "555-0106",
+                    ShippingContactName = "Sophie Martin"
+                },
+                new OrderHeader
+                {
+                    Id = 7,
+                    ApplicationUserId = null,
+                    CustomerId = 4,
+                    OrderDate = new DateTime(2025, 4, 7),
+                    ShippingDate = new DateTime(2025, 4, 9),
+                    OrderTotal = 15.99,
+                    OrderStatus = "Delivered",
+                    PaymentStatus = "Paid",
+                    TrackingNumber = "TRK567890",
+                    Carrier = "FedEx",
+                    PaymentDate = new DateTime(2025, 4, 7),
+                    PaymentDueDate = new DateOnly(2025, 5, 7),
+                    ShippingContactPhone = "555-0107",
+                    ShippingContactName = "Arjun Patel"
+                },
+                new OrderHeader
+                {
+                    Id = 8,
+                    ApplicationUserId = null,
+                    CustomerId = 5,
+                    OrderDate = new DateTime(2025, 4, 8),
+                    ShippingDate = new DateTime(2025, 4, 10),
+                    OrderTotal = 149.99,
+                    OrderStatus = "Processing",
+                    PaymentStatus = "Pending",
+                    TrackingNumber = null,
+                    Carrier = null,
+                    PaymentDate = new DateTime(2025, 4, 8),
+                    PaymentDueDate = new DateOnly(2025, 5, 8),
+                    ShippingContactPhone = "555-0108",
+                    ShippingContactName = "Clara Fischer"
+                },
+                  new OrderHeader
+                  {
+                      Id = 9,
+                      ApplicationUserId = null,
+                      CustomerId = 6,
+                      OrderDate = new DateTime(2025, 4, 8),
+                      ShippingDate = new DateTime(2025, 4, 10),
+                      OrderTotal = 149.99,
+                      OrderStatus = "Processing",
+                      PaymentStatus = "Pending",
+                      TrackingNumber = null,
+                      Carrier = null,
+                      PaymentDate = new DateTime(2025, 4, 8),
+                      PaymentDueDate = new DateOnly(2025, 5, 8),
+                      ShippingContactPhone = "525-0108",
+                      ShippingContactName = "Clara Fischer"
+                  }
+            );
+
+            // Seed Shipping Address for OrderHeaders (owned type)
+            modelBuilder.Entity<OrderHeader>()
+             .OwnsOne(l => l.ShipToAddress)
+             .HasData(
+                 new
+                 {
+                     OrderHeaderId = 1,
+                     ShippingAddress1 = "123 Maple St",
+                     ShippingAddress2 = "Suite 100",
+                     ShippingCity = "Springfield",
+                     ShippingState = "IL",
+                     ShippingCountry = "USA",
+                     ShippingZipCode = "94016"
+                 },
+                 new
+                 {
+                     OrderHeaderId = 2,
+                     ShippingAddress1 = "456 Style Avenue",
+                     ShippingAddress2 = "Oak Ave",
+                     ShippingCity = "London",
+                     ShippingState = "NY",
+                     ShippingCountry = "USA",
+                     ShippingZipCode = "10001"
+                 },
+                 new
+                 {
+                     OrderHeaderId = 3,
+                     ShippingAddress1 = "789 Earth Street",
+                     ShippingAddress2 = "Industrial Zone Ave ",
+                     ShippingCity = "Eco City",
+                     ShippingState = "GA",
+                     ShippingCountry = "USA",
+                     ShippingZipCode = "30303"
+                 },
+                 new
+                 {
+                     OrderHeaderId = 4,
+                     ShippingAddress1 = "101 Literary Lane",
+                     ShippingAddress2 = "Off Charing Cross Rd",
+                     ShippingCity = "London",
+                     ShippingState = "London",
+                     ShippingCountry = "UK",
+                     ShippingZipCode = "WC1B 3PA"
+                 },
+                 new
+                 {
+                     OrderHeaderId = 5,
+                     ShippingAddress1 = "222 Trail Road",
+                     ShippingAddress2 = "Near Blue Mountains Entry",
+                     ShippingCity = "Sydney",
+                     ShippingState = "NSW",
+                     ShippingCountry = "Australia",
+                     ShippingZipCode = "2000"
+                 },
+                 new
+                 {
+                     OrderHeaderId = 6,
+                     ShippingAddress1 = "333 Radiant Road",
+                     ShippingAddress2 = "Galerie Vivienne",
+                     ShippingCity = "Paris",
+                     ShippingState = "Paris",
+                     ShippingCountry = "France",
+                     ShippingZipCode = "75002"
+                 },
+                 new
+                 {
+                     OrderHeaderId = 7,
+                     ShippingAddress1 = "444 Playful Place",
+                     ShippingAddress2 = "Linking Road, Bandra",
+                     ShippingCity = "Mumbai",
+                     ShippingState = "MH",
+                     ShippingCountry = "India",
+                     ShippingZipCode = "400002"
+                 },
+                 new
+                 {
+                     OrderHeaderId = 8,
+                     ShippingAddress1 = "555 Tech Park",
+                     ShippingAddress2 = "Innovation Center, Floor 3",
+                     ShippingCity = "Zurich",
+                     ShippingState = "",
+                     ShippingCountry = "Switzerland",
+                     ShippingZipCode = "8002"
+                 },
+                 new
+                 {
+                     OrderHeaderId = 9,
+                     ShippingAddress1 = "777 Skyline Boulevard",
+                     ShippingAddress2 = "Sky Tower, Apt 905",
+                     ShippingCity = "Toronto",
+                     ShippingState = "ON",
+                     ShippingCountry = "Canada",
+                     ShippingZipCode = "M5V 2T6"
+                 }
+             );
+
+            // Seed OrderDetails (10 seeds)
+            modelBuilder.Entity<OrderDetail>().HasData(
+                new OrderDetail
+                {
+                    Id = 1,
+                    OrderHeaderId = 1, // John Doe's order
+                    ProductId = 1, // Smart TV 55 inch
+                    Count = 1,
+                    Price = 649.99, // DiscountPrice from Product
+                },
+                new OrderDetail
+                {
+                    Id = 2,
+                    OrderHeaderId = 2, // Jane Smith's order
+                    ProductId = 5, // Leather Handbag
+                    Count = 1,
+                    Price = 129.99, // DiscountPrice
+                },
+                new OrderDetail
+                {
+                    Id = 3,
+                    OrderHeaderId = 3, // Hiroshi Tanaka's order
+                    ProductId = 6, // DSLR Camera
+                    Count = 1,
+                    Price = 799.99, // DiscountPrice
+                },
+                new OrderDetail
+                {
+                    Id = 4,
+                    OrderHeaderId = 4, // Emma Brown's order
+                    ProductId = 9, // Hiking Boots
+                    Count = 1,
+                    Price = 109.95, // DiscountPrice
+                },
+                new OrderDetail
+                {
+                    Id = 5,
+                    OrderHeaderId = 5, // Liam Johnson's order
+                    ProductId = 10, // Skincare Set
+                    Count = 1,
+                    Price = 75.99, // DiscountPrice
+                },
+                new OrderDetail
+                {
+                    Id = 6,
+                    OrderHeaderId = 6, // Sophie Martin's order
+                    ProductId = 11, // Learning Robot
+                    Count = 1,
+                    Price = 69.99, // DiscountPrice
+                },
+                new OrderDetail
+                {
+                    Id = 7,
+                    OrderHeaderId = 7, // Arjun Patel's order
+                    ProductId = 8, // Historical Fiction Book
+                    Count = 1,
+                    Price = 15.99, // DiscountPrice
+                },
+                new OrderDetail
+                {
+                    Id = 8,
+                    OrderHeaderId = 8, // Clara Fischer's order
+                    ProductId = 13, // Smart Home Kit
+                    Count = 1,
+                    Price = 149.99, // DiscountPrice
+
+                },
+                new OrderDetail
+                {
+                    Id = 9,
+                    OrderHeaderId = 9, // Clara Fischer's order
+                    ProductId = 13, // Smart Home Kit
+                    Count = 1,
+                    Price = 149.99, // DiscountPrice
+
+                },
+                new OrderDetail
+                {
+                    Id = 10,
+                    OrderHeaderId = 9, // John Doe's order (additional item)
+                    ProductId = 12, // Smartphone Gimbal
+                    Count = 1,
+                    Price = 69.99, // DiscountPrice
+                },
+                new OrderDetail
+                {
+                    Id = 11,
+                    OrderHeaderId = 3, // Hiroshi Tanaka's order (additional item)
+                    ProductId = 4, // Ultra-Slim Laptop
+                    Count = 1,
+                    Price = 899.99, // DiscountPrice
+                }
+            );
+
+            // Seed Invoices
+            modelBuilder.Entity<Invoice>().HasData(
+                new Invoice
+                {
+                    Id = 1,
+                    InvoiceNumber = "INV-2025-001",
+                    PONumber = "PO-001",
+                    IssueDate = new DateTime(2025, 4, 1),
+                    PaymentDue = new DateTime(2025, 4, 30),
+                    Status = InvoiceStatus.Paid,
+                    InvoiceType = InvoiceType.Standard,
+                    Notes = "Thank you for your purchase!",
+                    PaymentTerms = "Net 30",
+                    PaymentMethod = "Credit Card",
+                    CustomerId = 1, // John Doe
+                    CompanyId = 1, // Tech Solutions Inc.
+                    LocationId = 1, // Silicon City Office
+                    OrderId = 1, // Links to OrderHeader
+                    Subtotal = 649.99m,
+                    Discount = 0m,
+                    Tax = 52.00m,
+                    ShippingAmount = 20.00m,
+                    PaidAmount = 721.99m,
+                    TotalAmount = 721.99m,
+                    ExternalReference = "REF-001"
+                },
+                new Invoice
+                {
+                    Id = 2,
+                    InvoiceNumber = "INV-2025-002",
+                    PONumber = "PO-002",
+                    IssueDate = new DateTime(2025, 4, 2),
+                    PaymentDue = new DateTime(2025, 5, 2),
+                    Status = InvoiceStatus.Sent,
+                    InvoiceType = InvoiceType.Standard,
+                    Notes = "Please pay by due date.",
+                    PaymentTerms = "Net 30",
+                    PaymentMethod = "Bank Transfer",
+                    CustomerId = 2, // Jane Smith
+                    CompanyId = 2, // Fashion Forward Ltd.
+                    LocationId = 2, // Fashionville Store
+                    OrderId = 2,
+                    Subtotal = 129.99m,
+                    Discount = 10.00m,
+                    Tax = 10.40m,
+                    ShippingAmount = 15.00m,
+                    PaidAmount = 0m,
+                    TotalAmount = 145.39m,
+                    ExternalReference = "REF-002"
+                },
+                new Invoice
+                {
+                    Id = 3,
+                    InvoiceNumber = "INV-2025-003",
+                    PONumber = "PO-003",
+                    IssueDate = new DateTime(2025, 4, 3),
+                    PaymentDue = new DateTime(2025, 5, 3),
+                    Status = InvoiceStatus.Paid,
+                    InvoiceType = InvoiceType.Proforma,
+                    Notes = "Proforma invoice for approval.",
+                    PaymentTerms = "Net 30",
+                    PaymentMethod = "Credit Card",
+                    CustomerId = 3, // Hiroshi Tanaka
+                    CompanyId = 1, // Tech Solutions Inc.
+                    LocationId = 1, // Silicon City Office
+                    OrderId = 3,
+                    Subtotal = 799.99m,
+                    Discount = 0m,
+                    Tax = 64.00m,
+                    ShippingAmount = 25.00m,
+                    PaidAmount = 888.99m,
+                    TotalAmount = 888.99m,
+                    ExternalReference = "REF-003"
+                },
+                new Invoice
+                {
+                    Id = 4,
+                    InvoiceNumber = "INV-2025-004",
+                    PONumber = "PO-004",
+                    IssueDate = new DateTime(2025, 4, 4),
+                    PaymentDue = new DateTime(2025, 5, 4),
+                    Status = InvoiceStatus.PartiallyPaid,
+                    InvoiceType = InvoiceType.Standard,
+                    Notes = "Partial payment received.",
+                    PaymentTerms = "Net 30",
+                    PaymentMethod = "Bank Transfer",
+                    CustomerId = 4, // Emma Brown
+                    CompanyId = 5, // Adventure Gear Corp.
+                    LocationId = 5, // Sydney Outlet
+                    OrderId = 4,
+                    Subtotal = 109.95m,
+                    Discount = 0m,
+                    Tax = 8.80m,
+                    ShippingAmount = 10.00m,
+                    PaidAmount = 50.00m,
+                    TotalAmount = 128.75m,
+                    ExternalReference = "REF-004"
+                },
+                new Invoice
+                {
+                    Id = 5,
+                    InvoiceNumber = "INV-2025-005",
+                    PONumber = "PO-005",
+                    IssueDate = new DateTime(2025, 4, 5),
+                    PaymentDue = new DateTime(2025, 5, 5),
+                    Status = InvoiceStatus.Draft,
+                    InvoiceType = InvoiceType.Recurring,
+                    Notes = "Recurring invoice for monthly subscription.",
+                    PaymentTerms = "Net 30",
+                    PaymentMethod = "Direct Debit",
+                    CustomerId = 5, // Liam Johnson
+                    CompanyId = 6, // Glow & Glam
+                    LocationId = 6, // Paris Boutique
+                    OrderId = 5,
+                    Subtotal = 75.99m,
+                    Discount = 0m,
+                    Tax = 6.08m,
+                    ShippingAmount = 0m,
+                    PaidAmount = 0m,
+                    TotalAmount = 82.07m,
+                    ExternalReference = "REF-005"
+                },
+                new Invoice
+                {
+                    Id = 6,
+                    InvoiceNumber = "INV-2025-006",
+                    PONumber = "PO-006",
+                    IssueDate = new DateTime(2025, 4, 6),
+                    PaymentDue = new DateTime(2025, 5, 6),
+                    Status = InvoiceStatus.Overdue,
+                    InvoiceType = InvoiceType.Standard,
+                    Notes = "Payment overdue, please settle ASAP.",
+                    PaymentTerms = "Net 30",
+                    PaymentMethod = "Credit Card",
+                    CustomerId = 6, // Sophie Martin
+                    CompanyId = 7, // Fun Time Toys
+                    LocationId = 7, // Mumbai Store
+                    OrderId = 6,
+                    Subtotal = 69.99m,
+                    Discount = 0m,
+                    Tax = 5.60m,
+                    ShippingAmount = 8.00m,
+                    PaidAmount = 0m,
+                    TotalAmount = 83.59m,
+                    ExternalReference = "REF-006"
+                },
+                new Invoice
+                {
+                    Id = 7,
+                    InvoiceNumber = "INV-2025-007",
+                    PONumber = "PO-007",
+                    IssueDate = new DateTime(2025, 4, 7),
+                    PaymentDue = new DateTime(2025, 5, 7),
+                    Status = InvoiceStatus.Paid,
+                    InvoiceType = InvoiceType.CreditNote,
+                    Notes = "Credit note for returned item.",
+                    PaymentTerms = "Immediate",
+                    PaymentMethod = "Refund",
+                    CustomerId = 7, // Arjun Patel
+                    CompanyId = 4, // Global Reads
+                    LocationId = 4, // London Bookstore
+                    OrderId = 7,
+                    Subtotal = -15.99m,
+                    Discount = 0m,
+                    Tax = -1.28m,
+                    ShippingAmount = 0m,
+                    PaidAmount = -17.27m,
+                    TotalAmount = -17.27m,
+                    ExternalReference = "REF-007"
+                },
+                new Invoice
+                {
+                    Id = 8,
+                    InvoiceNumber = "INV-2025-008",
+                    PONumber = "PO-008",
+                    IssueDate = new DateTime(2025, 4, 8),
+                    PaymentDue = new DateTime(2025, 5, 8),
+                    Status = InvoiceStatus.Sent,
+                    InvoiceType = InvoiceType.Standard,
+                    Notes = "Invoice for recent purchase.",
+                    PaymentTerms = "Net 30",
+                    PaymentMethod = "Bank Transfer",
+                    CustomerId = 8, // Clara Fischer
+                    CompanyId = 1, // Tech Solutions Inc.
+                    LocationId = 8, // Zurich Tech Hub
+                    OrderId = 8,
+                    Subtotal = 149.99m,
+                    Discount = 0m,
+                    Tax = 12.00m,
+                    ShippingAmount = 15.00m,
+                    PaidAmount = 0m,
+                    TotalAmount = 176.99m,
+                    ExternalReference = "REF-008"
+                }
+            );
+
+            // Seed InvoiceItems (10 seeds, distributed across Invoices)
+            modelBuilder.Entity<InvoiceItem>().HasData(
+                new InvoiceItem { Id = 1, InvoiceId = 1, Service = "Smart TV 55 inch", Description = "55-inch 4K Smart TV with HDR", Unit = "Unit", Price = 649.99m, Amount = 649.99m },
+                new InvoiceItem { Id = 2, InvoiceId = 2, Service = "Leather Handbag", Description = "Premium black leather handbag", Unit = "Unit", Price = 129.99m, Amount = 129.99m },
+                new InvoiceItem { Id = 3, InvoiceId = 3, Service = "DSLR Camera", Description = "24.1MP DSLR camera with 18-55mm lens", Unit = "Unit", Price = 799.99m, Amount = 799.99m },
+                new InvoiceItem { Id = 4, InvoiceId = 4, Service = "Hiking Boots", Description = "Waterproof hiking boots size US 9", Unit = "Unit", Price = 109.95m, Amount = 109.95m },
+                new InvoiceItem { Id = 5, InvoiceId = 5, Service = "Skincare Set", Description = "Anti-aging skincare collection for normal skin", Unit = "Unit", Price = 75.99m, Amount = 75.99m },
+                new InvoiceItem { Id = 6, InvoiceId = 6, Service = "Learning Robot", Description = "Interactive learning robot for kids", Unit = "Unit", Price = 69.99m, Amount = 69.99m },
+                new InvoiceItem { Id = 7, InvoiceId = 7, Service = "Book Return", Description = "Credit for returned historical fiction book", Unit = "Unit", Price = -15.99m, Amount = -15.99m },
+                new InvoiceItem { Id = 8, InvoiceId = 8, Service = "Smart Home Kit", Description = "Smart home starter kit with hub and bulbs", Unit = "Unit", Price = 149.99m, Amount = 149.99m },
+                new InvoiceItem { Id = 9, InvoiceId = 1, Service = "Extended Warranty", Description = "2-year extended warranty for Smart TV", Unit = "Unit", Price = 49.99m, Amount = 49.99m },
+                new InvoiceItem { Id = 10, InvoiceId = 3, Service = "Camera Tripod", Description = "Tripod accessory for DSLR camera", Unit = "Unit", Price = 29.99m, Amount = 29.99m }
+            );
+
+            // Seed InvoiceAttachments 
+            modelBuilder.Entity<InvoiceAttachments>().HasData(
+                new InvoiceAttachments { Id = 1, InvoiceId = 1, AttachmentName = "Invoice_INV-2025-001.pdf", AttachmentContent = "/files/invoices/INV-2025-001.pdf" },
+                new InvoiceAttachments { Id = 2, InvoiceId = 2, AttachmentName = "Invoice_INV-2025-002.pdf", AttachmentContent = "/files/invoices/INV-2025-002.pdf" },
+                new InvoiceAttachments { Id = 3, InvoiceId = 3, AttachmentName = "Invoice_INV-2025-003.pdf", AttachmentContent = "/files/invoices/INV-2025-003.pdf" },
+                new InvoiceAttachments { Id = 4, InvoiceId = 4, AttachmentName = "Invoice_INV-2025-004.pdf", AttachmentContent = "/files/invoices/INV-2025-004.pdf" },
+                new InvoiceAttachments { Id = 5, InvoiceId = 5, AttachmentName = "Invoice_INV-2025-005.pdf", AttachmentContent = "/files/invoices/INV-2025-005.pdf" },
+                new InvoiceAttachments { Id = 6, InvoiceId = 6, AttachmentName = "Invoice_INV-2025-006.pdf", AttachmentContent = "/files/invoices/INV-2025-006.pdf" },
+                new InvoiceAttachments { Id = 7, InvoiceId = 7, AttachmentName = "CreditNote_INV-2025-007.pdf", AttachmentContent = "/files/invoices/INV-2025-007.pdf" },
+                new InvoiceAttachments { Id = 8, InvoiceId = 8, AttachmentName = "Invoice_INV-2025-008.pdf", AttachmentContent = "/files/invoices/INV-2025-008.pdf" }
+            );
+
+            // Seed TaxDetails 
+            modelBuilder.Entity<TaxDetail>().HasData(
+                new TaxDetail { Id = 1, InvoiceId = 1, TaxType = "VAT", Rate = 8.00m, Amount = 52.00m },
+                new TaxDetail { Id = 2, InvoiceId = 2, TaxType = "GST", Rate = 8.00m, Amount = 10.40m, },
+                new TaxDetail { Id = 3, InvoiceId = 3, TaxType = "Consumption Tax", Rate = 8.00m, Amount = 64.00m },
+                new TaxDetail { Id = 4, InvoiceId = 4, TaxType = "GST", Rate = 8.00m, Amount = 8.80m },
+                new TaxDetail { Id = 5, InvoiceId = 5, TaxType = "VAT", Rate = 8.00m, Amount = 6.08m },
+                new TaxDetail { Id = 6, InvoiceId = 6, TaxType = "GST", Rate = 8.00m, Amount = 5.60m },
+                new TaxDetail { Id = 7, InvoiceId = 7, TaxType = "VAT", Rate = 8.00m, Amount = -1.28m },
+                new TaxDetail { Id = 8, InvoiceId = 8, TaxType = "VAT", Rate = 8.00m, Amount = 12.00m }
+            );
+
+
         }
     }
 }

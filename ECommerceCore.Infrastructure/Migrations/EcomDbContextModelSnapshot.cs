@@ -106,11 +106,8 @@ namespace ECommerceCore.Infrastructure.Migrations
                     b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("CreatedDate")
+                    b.Property<DateTime?>("CreatedDate")
                         .HasColumnType("datetime2");
-
-                    b.Property<bool>("Deleted")
-                        .HasColumnType("bit");
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -120,6 +117,9 @@ namespace ECommerceCore.Infrastructure.Migrations
                         .HasColumnType("int");
 
                     b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<bool?>("IsDeleted")
                         .HasColumnType("bit");
 
                     b.Property<string>("LogoUrl")
@@ -155,11 +155,11 @@ namespace ECommerceCore.Infrastructure.Migrations
                         {
                             Id = 1,
                             Country = "United States",
-                            CreatedDate = new DateTime(2025, 4, 23, 14, 47, 21, 28, DateTimeKind.Utc).AddTicks(4939),
-                            Deleted = false,
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8156),
                             Description = "Innovative technology solutions for everyday life.",
                             EstablishedYear = 2005,
                             IsActive = true,
+                            IsDeleted = false,
                             LogoUrl = "/images/brands/tech-solutions-logo.png",
                             Name = "Tech Solutions",
                             Slug = "tech-solutions",
@@ -169,11 +169,11 @@ namespace ECommerceCore.Infrastructure.Migrations
                         {
                             Id = 2,
                             Country = "France",
-                            CreatedDate = new DateTime(2025, 4, 23, 14, 47, 21, 28, DateTimeKind.Utc).AddTicks(4946),
-                            Deleted = false,
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8164),
                             Description = "Trendy and comfortable clothing for all occasions.",
                             EstablishedYear = 2010,
                             IsActive = true,
+                            IsDeleted = false,
                             LogoUrl = "/images/brands/fashion-forward-logo.png",
                             Name = "Fashion Forward",
                             Slug = "fashion-forward",
@@ -183,11 +183,11 @@ namespace ECommerceCore.Infrastructure.Migrations
                         {
                             Id = 3,
                             Country = "Canada",
-                            CreatedDate = new DateTime(2025, 4, 23, 14, 47, 21, 28, DateTimeKind.Utc).AddTicks(4949),
-                            Deleted = false,
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8166),
                             Description = "Eco-friendly products for sustainable living.",
                             EstablishedYear = 2015,
                             IsActive = true,
+                            IsDeleted = false,
                             LogoUrl = "/images/brands/green-living-logo.png",
                             Name = "Green Living",
                             Slug = "green-living",
@@ -197,11 +197,11 @@ namespace ECommerceCore.Infrastructure.Migrations
                         {
                             Id = 4,
                             Country = "United Kingdom",
-                            CreatedDate = new DateTime(2025, 4, 23, 14, 47, 21, 28, DateTimeKind.Utc).AddTicks(4952),
-                            Deleted = false,
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8167),
                             Description = "Quality books from authors around the world.",
                             EstablishedYear = 1995,
                             IsActive = true,
+                            IsDeleted = false,
                             LogoUrl = "/images/brands/global-reads-logo.png",
                             Name = "Global Reads",
                             Slug = "global-reads",
@@ -211,11 +211,11 @@ namespace ECommerceCore.Infrastructure.Migrations
                         {
                             Id = 5,
                             Country = "Australia",
-                            CreatedDate = new DateTime(2025, 4, 23, 14, 47, 21, 28, DateTimeKind.Utc).AddTicks(4954),
-                            Deleted = false,
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8169),
                             Description = "High-quality equipment for outdoor enthusiasts.",
                             EstablishedYear = 2008,
                             IsActive = true,
+                            IsDeleted = false,
                             LogoUrl = "/images/brands/adventure-gear-logo.png",
                             Name = "Adventure Gear",
                             Slug = "adventure-gear",
@@ -225,11 +225,11 @@ namespace ECommerceCore.Infrastructure.Migrations
                         {
                             Id = 6,
                             Country = "South Korea",
-                            CreatedDate = new DateTime(2025, 4, 23, 14, 47, 21, 28, DateTimeKind.Utc).AddTicks(4956),
-                            Deleted = false,
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8171),
                             Description = "Premium beauty products for radiant skin.",
                             EstablishedYear = 2012,
                             IsActive = true,
+                            IsDeleted = false,
                             LogoUrl = "/images/brands/glow-and-glam-logo.png",
                             Name = "Glow & Glam",
                             Slug = "glow-and-glam",
@@ -239,11 +239,11 @@ namespace ECommerceCore.Infrastructure.Migrations
                         {
                             Id = 7,
                             Country = "Germany",
-                            CreatedDate = new DateTime(2025, 4, 23, 14, 47, 21, 28, DateTimeKind.Utc).AddTicks(4958),
-                            Deleted = false,
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8173),
                             Description = "Creative and educational toys for children of all ages.",
                             EstablishedYear = 2000,
                             IsActive = true,
+                            IsDeleted = false,
                             LogoUrl = "/images/brands/fun-time-toys-logo.png",
                             Name = "Fun Time Toys",
                             Slug = "fun-time-toys",
@@ -262,11 +262,8 @@ namespace ECommerceCore.Infrastructure.Migrations
                     b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("CreatedDate")
+                    b.Property<DateTime?>("CreatedDate")
                         .HasColumnType("datetime2");
-
-                    b.Property<bool>("Deleted")
-                        .HasColumnType("bit");
 
                     b.Property<string>("Description")
                         .HasMaxLength(1000)
@@ -276,6 +273,9 @@ namespace ECommerceCore.Infrastructure.Migrations
                         .HasColumnType("int");
 
                     b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<bool?>("IsDeleted")
                         .HasColumnType("bit");
 
                     b.Property<string>("Name")
@@ -302,191 +302,191 @@ namespace ECommerceCore.Infrastructure.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedDate = new DateTime(2025, 4, 23, 14, 47, 21, 28, DateTimeKind.Utc).AddTicks(5157),
-                            Deleted = false,
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8361),
                             Description = "Explore the latest gadgets and electronic devices.",
                             DisplayOrder = 1,
                             IsActive = true,
+                            IsDeleted = false,
                             Name = "Electronics"
                         },
                         new
                         {
                             Id = 2,
-                            CreatedDate = new DateTime(2025, 4, 23, 14, 47, 21, 28, DateTimeKind.Utc).AddTicks(5161),
-                            Deleted = false,
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8364),
                             Description = "Discover stylish clothing and accessories for all occasions.",
                             DisplayOrder = 2,
                             IsActive = true,
+                            IsDeleted = false,
                             Name = "Apparel"
                         },
                         new
                         {
                             Id = 3,
-                            CreatedDate = new DateTime(2025, 4, 23, 14, 47, 21, 28, DateTimeKind.Utc).AddTicks(5163),
-                            Deleted = false,
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8366),
                             Description = "Find everything you need for your home and outdoor spaces.",
                             DisplayOrder = 3,
                             IsActive = true,
+                            IsDeleted = false,
                             Name = "Home & Garden"
                         },
                         new
                         {
                             Id = 4,
-                            CreatedDate = new DateTime(2025, 4, 23, 14, 47, 21, 28, DateTimeKind.Utc).AddTicks(5164),
-                            Deleted = false,
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8367),
                             Description = "Immerse yourself in captivating stories and knowledge.",
                             DisplayOrder = 4,
                             IsActive = true,
+                            IsDeleted = false,
                             Name = "Books"
                         },
                         new
                         {
                             Id = 5,
-                            CreatedDate = new DateTime(2025, 4, 23, 14, 47, 21, 28, DateTimeKind.Utc).AddTicks(5166),
-                            Deleted = false,
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8369),
                             Description = "Gear up for your active lifestyle and outdoor adventures.",
                             DisplayOrder = 5,
                             IsActive = true,
+                            IsDeleted = false,
                             Name = "Sports & Outdoors"
                         },
                         new
                         {
                             Id = 6,
-                            CreatedDate = new DateTime(2025, 4, 23, 14, 47, 21, 28, DateTimeKind.Utc).AddTicks(5168),
-                            Deleted = false,
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8370),
                             Description = "Enhance your natural beauty and well-being.",
                             DisplayOrder = 6,
                             IsActive = true,
+                            IsDeleted = false,
                             Name = "Beauty & Personal Care"
                         },
                         new
                         {
                             Id = 7,
-                            CreatedDate = new DateTime(2025, 4, 23, 14, 47, 21, 28, DateTimeKind.Utc).AddTicks(5170),
-                            Deleted = false,
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8371),
                             Description = "Unleash fun and creativity for all ages.",
                             DisplayOrder = 7,
                             IsActive = true,
+                            IsDeleted = false,
                             Name = "Toys & Games"
                         },
                         new
                         {
                             Id = 8,
-                            CreatedDate = new DateTime(2025, 4, 23, 14, 47, 21, 28, DateTimeKind.Utc).AddTicks(5171),
-                            Deleted = false,
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8372),
                             Description = "The latest smartphones from top brands.",
                             DisplayOrder = 1,
                             IsActive = true,
+                            IsDeleted = false,
                             Name = "Smartphones",
                             ParentCategoryId = 1
                         },
                         new
                         {
                             Id = 9,
-                            CreatedDate = new DateTime(2025, 4, 23, 14, 47, 21, 28, DateTimeKind.Utc).AddTicks(5173),
-                            Deleted = false,
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8373),
                             Description = "Powerful laptops for work and play.",
                             DisplayOrder = 2,
                             IsActive = true,
+                            IsDeleted = false,
                             Name = "Laptops",
                             ParentCategoryId = 1
                         },
                         new
                         {
                             Id = 10,
-                            CreatedDate = new DateTime(2025, 4, 23, 14, 47, 21, 28, DateTimeKind.Utc).AddTicks(5175),
-                            Deleted = false,
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8375),
                             Description = "High-definition televisions for home entertainment.",
                             DisplayOrder = 3,
                             IsActive = true,
+                            IsDeleted = false,
                             Name = "Televisions",
                             ParentCategoryId = 1
                         },
                         new
                         {
                             Id = 11,
-                            CreatedDate = new DateTime(2025, 4, 23, 14, 47, 21, 28, DateTimeKind.Utc).AddTicks(5177),
-                            Deleted = false,
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8376),
                             Description = "Stylish clothing for men.",
                             DisplayOrder = 1,
                             IsActive = true,
+                            IsDeleted = false,
                             Name = "Menswear",
                             ParentCategoryId = 2
                         },
                         new
                         {
                             Id = 12,
-                            CreatedDate = new DateTime(2025, 4, 23, 14, 47, 21, 28, DateTimeKind.Utc).AddTicks(5179),
-                            Deleted = false,
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8377),
                             Description = "Trendy clothing for women.",
                             DisplayOrder = 2,
                             IsActive = true,
+                            IsDeleted = false,
                             Name = "Womenswear",
                             ParentCategoryId = 2
                         },
                         new
                         {
                             Id = 13,
-                            CreatedDate = new DateTime(2025, 4, 23, 14, 47, 21, 28, DateTimeKind.Utc).AddTicks(5180),
-                            Deleted = false,
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8445),
                             Description = "Essential appliances for your kitchen.",
                             DisplayOrder = 1,
                             IsActive = true,
+                            IsDeleted = false,
                             Name = "Kitchen Appliances",
                             ParentCategoryId = 3
                         },
                         new
                         {
                             Id = 14,
-                            CreatedDate = new DateTime(2025, 4, 23, 14, 47, 21, 28, DateTimeKind.Utc).AddTicks(5182),
-                            Deleted = false,
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8447),
                             Description = "Tools for maintaining your garden.",
                             DisplayOrder = 2,
                             IsActive = true,
+                            IsDeleted = false,
                             Name = "Garden Tools",
                             ParentCategoryId = 3
                         },
                         new
                         {
                             Id = 15,
-                            CreatedDate = new DateTime(2025, 4, 23, 14, 47, 21, 28, DateTimeKind.Utc).AddTicks(5184),
-                            Deleted = false,
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8448),
                             Description = "Imaginative and engaging fictional works.",
                             DisplayOrder = 1,
                             IsActive = true,
+                            IsDeleted = false,
                             Name = "Fiction",
                             ParentCategoryId = 4
                         },
                         new
                         {
                             Id = 16,
-                            CreatedDate = new DateTime(2025, 4, 23, 14, 47, 21, 28, DateTimeKind.Utc).AddTicks(5185),
-                            Deleted = false,
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8449),
                             Description = "Informative and factual books on various topics.",
                             DisplayOrder = 2,
                             IsActive = true,
+                            IsDeleted = false,
                             Name = "Non-Fiction",
                             ParentCategoryId = 4
                         },
                         new
                         {
                             Id = 17,
-                            CreatedDate = new DateTime(2025, 4, 23, 14, 47, 21, 28, DateTimeKind.Utc).AddTicks(5187),
-                            Deleted = false,
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8450),
                             Description = "Gear for your outdoor adventures.",
                             DisplayOrder = 1,
                             IsActive = true,
+                            IsDeleted = false,
                             Name = "Camping & Hiking",
                             ParentCategoryId = 5
                         },
                         new
                         {
                             Id = 18,
-                            CreatedDate = new DateTime(2025, 4, 23, 14, 47, 21, 28, DateTimeKind.Utc).AddTicks(5189),
-                            Deleted = false,
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8452),
                             Description = "Equipment and accessories for your fitness journey.",
                             DisplayOrder = 2,
                             IsActive = true,
+                            IsDeleted = false,
                             Name = "Fitness",
                             ParentCategoryId = 5
                         });
@@ -506,10 +506,10 @@ namespace ECommerceCore.Infrastructure.Migrations
                     b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("CreatedDate")
+                    b.Property<DateTime?>("CreatedDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<bool>("Deleted")
+                    b.Property<bool?>("IsDeleted")
                         .HasColumnType("bit");
 
                     b.Property<string>("Name")
@@ -543,8 +543,8 @@ namespace ECommerceCore.Infrastructure.Migrations
                         {
                             Id = 1,
                             City = "Silicon City",
-                            CreatedDate = new DateTime(2025, 4, 23, 14, 47, 21, 28, DateTimeKind.Utc).AddTicks(5243),
-                            Deleted = false,
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8505),
+                            IsDeleted = false,
                             Name = "Tech Solutions Inc.",
                             PhoneNumber = "555-123-4567",
                             PostalCode = "94016",
@@ -555,8 +555,8 @@ namespace ECommerceCore.Infrastructure.Migrations
                         {
                             Id = 2,
                             City = "Fashionville",
-                            CreatedDate = new DateTime(2025, 4, 23, 14, 47, 21, 28, DateTimeKind.Utc).AddTicks(5248),
-                            Deleted = false,
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8509),
+                            IsDeleted = false,
                             Name = "Fashion Forward Ltd.",
                             PhoneNumber = "212-987-6543",
                             PostalCode = "10001",
@@ -567,8 +567,8 @@ namespace ECommerceCore.Infrastructure.Migrations
                         {
                             Id = 3,
                             City = "Eco City",
-                            CreatedDate = new DateTime(2025, 4, 23, 14, 47, 21, 28, DateTimeKind.Utc).AddTicks(5251),
-                            Deleted = false,
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8511),
+                            IsDeleted = false,
                             Name = "Green Living Co.",
                             PhoneNumber = "404-555-7890",
                             PostalCode = "30303",
@@ -579,8 +579,8 @@ namespace ECommerceCore.Infrastructure.Migrations
                         {
                             Id = 4,
                             City = "Booktown",
-                            CreatedDate = new DateTime(2025, 4, 23, 14, 47, 21, 28, DateTimeKind.Utc).AddTicks(5252),
-                            Deleted = false,
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8512),
+                            IsDeleted = false,
                             Name = "Global Reads",
                             PhoneNumber = "312-555-1122",
                             PostalCode = "60602",
@@ -591,8 +591,8 @@ namespace ECommerceCore.Infrastructure.Migrations
                         {
                             Id = 5,
                             City = "Outdoorsville",
-                            CreatedDate = new DateTime(2025, 4, 23, 14, 47, 21, 28, DateTimeKind.Utc).AddTicks(5254),
-                            Deleted = false,
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8514),
+                            IsDeleted = false,
                             Name = "Adventure Gear Corp.",
                             PhoneNumber = "720-555-3344",
                             PostalCode = "80202",
@@ -603,8 +603,8 @@ namespace ECommerceCore.Infrastructure.Migrations
                         {
                             Id = 6,
                             City = "Cosmetic City",
-                            CreatedDate = new DateTime(2025, 4, 23, 14, 47, 21, 28, DateTimeKind.Utc).AddTicks(5256),
-                            Deleted = false,
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8515),
+                            IsDeleted = false,
                             Name = "Glow & Glam",
                             PhoneNumber = "310-555-0011",
                             PostalCode = "90210",
@@ -615,8 +615,8 @@ namespace ECommerceCore.Infrastructure.Migrations
                         {
                             Id = 7,
                             City = "Toyland",
-                            CreatedDate = new DateTime(2025, 4, 23, 14, 47, 21, 28, DateTimeKind.Utc).AddTicks(5258),
-                            Deleted = false,
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8516),
+                            IsDeleted = false,
                             Name = "Fun Time Toys",
                             PhoneNumber = "718-555-9988",
                             PostalCode = "11201",
@@ -636,15 +636,15 @@ namespace ECommerceCore.Infrastructure.Migrations
                     b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("CreatedDate")
+                    b.Property<DateTime?>("CreatedDate")
                         .HasColumnType("datetime2");
-
-                    b.Property<bool>("Deleted")
-                        .HasColumnType("bit");
 
                     b.Property<string>("Email")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool?>("IsDeleted")
+                        .HasColumnType("bit");
 
                     b.Property<string>("Message")
                         .IsRequired()
@@ -671,6 +671,984 @@ namespace ECommerceCore.Infrastructure.Migrations
                     b.ToTable("ContactUsSubmissions");
                 });
 
+            modelBuilder.Entity("ECommerceCore.Domain.Entities.Currency", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Code")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool?>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Symbol")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("UpdatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Code")
+                        .IsUnique();
+
+                    b.ToTable("Currencies");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Code = "USD",
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(9283),
+                            IsDeleted = false,
+                            Name = "US Dollar",
+                            Symbol = "$"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Code = "EUR",
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(9285),
+                            IsDeleted = false,
+                            Name = "Euro",
+                            Symbol = "€"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Code = "GBP",
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(9286),
+                            IsDeleted = false,
+                            Name = "British Pound",
+                            Symbol = "£"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Code = "CAD",
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(9287),
+                            IsDeleted = false,
+                            Name = "Canadian Dollar",
+                            Symbol = "C$"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Code = "AUD",
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(9288),
+                            IsDeleted = false,
+                            Name = "Australian Dollar",
+                            Symbol = "A$"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Code = "JPY",
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(9289),
+                            IsDeleted = false,
+                            Name = "Japanese Yen",
+                            Symbol = "¥"
+                        },
+                        new
+                        {
+                            Id = 7,
+                            Code = "INR",
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(9290),
+                            IsDeleted = false,
+                            Name = "Indian Rupee",
+                            Symbol = "₹"
+                        },
+                        new
+                        {
+                            Id = 8,
+                            Code = "CHF",
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(9291),
+                            IsDeleted = false,
+                            Name = "Swiss Franc",
+                            Symbol = "Fr"
+                        });
+                });
+
+            modelBuilder.Entity("ECommerceCore.Domain.Entities.Customer", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("CompanyId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<bool?>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("PhoneNumber")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("UpdatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CompanyId");
+
+                    b.ToTable("Customers");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CompanyId = 1,
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(9468),
+                            Email = "john.doe@example.com",
+                            IsDeleted = false,
+                            Name = "John Doe",
+                            PhoneNumber = "555-0101"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            CompanyId = 2,
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(9476),
+                            Email = "jane.smith@example.com",
+                            IsDeleted = false,
+                            Name = "Jane Smith",
+                            PhoneNumber = "555-0102"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            CompanyId = 1,
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(9477),
+                            Email = "hiroshi.tanaka@example.com",
+                            IsDeleted = false,
+                            Name = "Hiroshi Tanaka",
+                            PhoneNumber = "555-0103"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            CompanyId = 5,
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(9478),
+                            Email = "emma.brown@example.com",
+                            IsDeleted = false,
+                            Name = "Emma Brown",
+                            PhoneNumber = "555-0104"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            CompanyId = 6,
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(9480),
+                            Email = "liam.johnson@example.com",
+                            IsDeleted = false,
+                            Name = "Liam Johnson",
+                            PhoneNumber = "555-0105"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            CompanyId = 7,
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(9481),
+                            Email = "sophie.martin@example.com",
+                            IsDeleted = false,
+                            Name = "Sophie Martin",
+                            PhoneNumber = "555-0106"
+                        },
+                        new
+                        {
+                            Id = 7,
+                            CompanyId = 4,
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(9482),
+                            Email = "arjun.patel@example.com",
+                            IsDeleted = false,
+                            Name = "Arjun Patel",
+                            PhoneNumber = "555-0107"
+                        },
+                        new
+                        {
+                            Id = 8,
+                            CompanyId = 1,
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(9483),
+                            Email = "clara.fischer@example.com",
+                            IsDeleted = false,
+                            Name = "Clara Fischer",
+                            PhoneNumber = "555-0108"
+                        });
+                });
+
+            modelBuilder.Entity("ECommerceCore.Domain.Entities.Invoice", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("CompanyId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("CompanyId1")
+                        .HasColumnType("int");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("CustomerId")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("Discount")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("ExternalReference")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("InvoiceNumber")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("InvoiceType")
+                        .HasColumnType("int");
+
+                    b.Property<bool?>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime>("IssueDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("LocationId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Notes")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("OrderId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("PONumber")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal>("PaidAmount")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<DateTime>("PaymentDue")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("PaymentMethod")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PaymentTerms")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("RecurringInvoiceId")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("ShippingAmount")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("Subtotal")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("Tax")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("TotalAmount")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("UpdatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CompanyId");
+
+                    b.HasIndex("CompanyId1");
+
+                    b.HasIndex("CustomerId");
+
+                    b.HasIndex("InvoiceNumber")
+                        .IsUnique();
+
+                    b.HasIndex("LocationId");
+
+                    b.HasIndex("OrderId");
+
+                    b.ToTable("Invoices");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CompanyId = 1,
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 187, DateTimeKind.Utc).AddTicks(466),
+                            CustomerId = 1,
+                            Discount = 0m,
+                            ExternalReference = "REF-001",
+                            InvoiceNumber = "INV-2025-001",
+                            InvoiceType = 0,
+                            IsDeleted = false,
+                            IssueDate = new DateTime(2025, 4, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            LocationId = 1,
+                            Notes = "Thank you for your purchase!",
+                            OrderId = 1,
+                            PONumber = "PO-001",
+                            PaidAmount = 721.99m,
+                            PaymentDue = new DateTime(2025, 4, 30, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            PaymentMethod = "Credit Card",
+                            PaymentTerms = "Net 30",
+                            ShippingAmount = 20.00m,
+                            Status = 3,
+                            Subtotal = 649.99m,
+                            Tax = 52.00m,
+                            TotalAmount = 721.99m
+                        },
+                        new
+                        {
+                            Id = 2,
+                            CompanyId = 2,
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 187, DateTimeKind.Utc).AddTicks(482),
+                            CustomerId = 2,
+                            Discount = 10.00m,
+                            ExternalReference = "REF-002",
+                            InvoiceNumber = "INV-2025-002",
+                            InvoiceType = 0,
+                            IsDeleted = false,
+                            IssueDate = new DateTime(2025, 4, 2, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            LocationId = 2,
+                            Notes = "Please pay by due date.",
+                            OrderId = 2,
+                            PONumber = "PO-002",
+                            PaidAmount = 0m,
+                            PaymentDue = new DateTime(2025, 5, 2, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            PaymentMethod = "Bank Transfer",
+                            PaymentTerms = "Net 30",
+                            ShippingAmount = 15.00m,
+                            Status = 1,
+                            Subtotal = 129.99m,
+                            Tax = 10.40m,
+                            TotalAmount = 145.39m
+                        },
+                        new
+                        {
+                            Id = 3,
+                            CompanyId = 1,
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 187, DateTimeKind.Utc).AddTicks(559),
+                            CustomerId = 3,
+                            Discount = 0m,
+                            ExternalReference = "REF-003",
+                            InvoiceNumber = "INV-2025-003",
+                            InvoiceType = 2,
+                            IsDeleted = false,
+                            IssueDate = new DateTime(2025, 4, 3, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            LocationId = 1,
+                            Notes = "Proforma invoice for approval.",
+                            OrderId = 3,
+                            PONumber = "PO-003",
+                            PaidAmount = 888.99m,
+                            PaymentDue = new DateTime(2025, 5, 3, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            PaymentMethod = "Credit Card",
+                            PaymentTerms = "Net 30",
+                            ShippingAmount = 25.00m,
+                            Status = 3,
+                            Subtotal = 799.99m,
+                            Tax = 64.00m,
+                            TotalAmount = 888.99m
+                        },
+                        new
+                        {
+                            Id = 4,
+                            CompanyId = 5,
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 187, DateTimeKind.Utc).AddTicks(565),
+                            CustomerId = 4,
+                            Discount = 0m,
+                            ExternalReference = "REF-004",
+                            InvoiceNumber = "INV-2025-004",
+                            InvoiceType = 0,
+                            IsDeleted = false,
+                            IssueDate = new DateTime(2025, 4, 4, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            LocationId = 5,
+                            Notes = "Partial payment received.",
+                            OrderId = 4,
+                            PONumber = "PO-004",
+                            PaidAmount = 50.00m,
+                            PaymentDue = new DateTime(2025, 5, 4, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            PaymentMethod = "Bank Transfer",
+                            PaymentTerms = "Net 30",
+                            ShippingAmount = 10.00m,
+                            Status = 2,
+                            Subtotal = 109.95m,
+                            Tax = 8.80m,
+                            TotalAmount = 128.75m
+                        },
+                        new
+                        {
+                            Id = 5,
+                            CompanyId = 6,
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 187, DateTimeKind.Utc).AddTicks(570),
+                            CustomerId = 5,
+                            Discount = 0m,
+                            ExternalReference = "REF-005",
+                            InvoiceNumber = "INV-2025-005",
+                            InvoiceType = 1,
+                            IsDeleted = false,
+                            IssueDate = new DateTime(2025, 4, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            LocationId = 6,
+                            Notes = "Recurring invoice for monthly subscription.",
+                            OrderId = 5,
+                            PONumber = "PO-005",
+                            PaidAmount = 0m,
+                            PaymentDue = new DateTime(2025, 5, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            PaymentMethod = "Direct Debit",
+                            PaymentTerms = "Net 30",
+                            ShippingAmount = 0m,
+                            Status = 0,
+                            Subtotal = 75.99m,
+                            Tax = 6.08m,
+                            TotalAmount = 82.07m
+                        },
+                        new
+                        {
+                            Id = 6,
+                            CompanyId = 7,
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 187, DateTimeKind.Utc).AddTicks(574),
+                            CustomerId = 6,
+                            Discount = 0m,
+                            ExternalReference = "REF-006",
+                            InvoiceNumber = "INV-2025-006",
+                            InvoiceType = 0,
+                            IsDeleted = false,
+                            IssueDate = new DateTime(2025, 4, 6, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            LocationId = 7,
+                            Notes = "Payment overdue, please settle ASAP.",
+                            OrderId = 6,
+                            PONumber = "PO-006",
+                            PaidAmount = 0m,
+                            PaymentDue = new DateTime(2025, 5, 6, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            PaymentMethod = "Credit Card",
+                            PaymentTerms = "Net 30",
+                            ShippingAmount = 8.00m,
+                            Status = 4,
+                            Subtotal = 69.99m,
+                            Tax = 5.60m,
+                            TotalAmount = 83.59m
+                        },
+                        new
+                        {
+                            Id = 7,
+                            CompanyId = 4,
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 187, DateTimeKind.Utc).AddTicks(578),
+                            CustomerId = 7,
+                            Discount = 0m,
+                            ExternalReference = "REF-007",
+                            InvoiceNumber = "INV-2025-007",
+                            InvoiceType = 3,
+                            IsDeleted = false,
+                            IssueDate = new DateTime(2025, 4, 7, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            LocationId = 4,
+                            Notes = "Credit note for returned item.",
+                            OrderId = 7,
+                            PONumber = "PO-007",
+                            PaidAmount = -17.27m,
+                            PaymentDue = new DateTime(2025, 5, 7, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            PaymentMethod = "Refund",
+                            PaymentTerms = "Immediate",
+                            ShippingAmount = 0m,
+                            Status = 3,
+                            Subtotal = -15.99m,
+                            Tax = -1.28m,
+                            TotalAmount = -17.27m
+                        },
+                        new
+                        {
+                            Id = 8,
+                            CompanyId = 1,
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 187, DateTimeKind.Utc).AddTicks(582),
+                            CustomerId = 8,
+                            Discount = 0m,
+                            ExternalReference = "REF-008",
+                            InvoiceNumber = "INV-2025-008",
+                            InvoiceType = 0,
+                            IsDeleted = false,
+                            IssueDate = new DateTime(2025, 4, 8, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            LocationId = 8,
+                            Notes = "Invoice for recent purchase.",
+                            OrderId = 8,
+                            PONumber = "PO-008",
+                            PaidAmount = 0m,
+                            PaymentDue = new DateTime(2025, 5, 8, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            PaymentMethod = "Bank Transfer",
+                            PaymentTerms = "Net 30",
+                            ShippingAmount = 15.00m,
+                            Status = 1,
+                            Subtotal = 149.99m,
+                            Tax = 12.00m,
+                            TotalAmount = 176.99m
+                        });
+                });
+
+            modelBuilder.Entity("ECommerceCore.Domain.Entities.InvoiceAttachments", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("AttachmentContent")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("AttachmentName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("InvoiceId")
+                        .HasColumnType("int");
+
+                    b.Property<bool?>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("UpdatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("InvoiceId");
+
+                    b.ToTable("InvoiceAttachments");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            AttachmentContent = "/files/invoices/INV-2025-001.pdf",
+                            AttachmentName = "Invoice_INV-2025-001.pdf",
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 187, DateTimeKind.Utc).AddTicks(684),
+                            InvoiceId = 1,
+                            IsDeleted = false
+                        },
+                        new
+                        {
+                            Id = 2,
+                            AttachmentContent = "/files/invoices/INV-2025-002.pdf",
+                            AttachmentName = "Invoice_INV-2025-002.pdf",
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 187, DateTimeKind.Utc).AddTicks(686),
+                            InvoiceId = 2,
+                            IsDeleted = false
+                        },
+                        new
+                        {
+                            Id = 3,
+                            AttachmentContent = "/files/invoices/INV-2025-003.pdf",
+                            AttachmentName = "Invoice_INV-2025-003.pdf",
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 187, DateTimeKind.Utc).AddTicks(687),
+                            InvoiceId = 3,
+                            IsDeleted = false
+                        },
+                        new
+                        {
+                            Id = 4,
+                            AttachmentContent = "/files/invoices/INV-2025-004.pdf",
+                            AttachmentName = "Invoice_INV-2025-004.pdf",
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 187, DateTimeKind.Utc).AddTicks(689),
+                            InvoiceId = 4,
+                            IsDeleted = false
+                        },
+                        new
+                        {
+                            Id = 5,
+                            AttachmentContent = "/files/invoices/INV-2025-005.pdf",
+                            AttachmentName = "Invoice_INV-2025-005.pdf",
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 187, DateTimeKind.Utc).AddTicks(690),
+                            InvoiceId = 5,
+                            IsDeleted = false
+                        },
+                        new
+                        {
+                            Id = 6,
+                            AttachmentContent = "/files/invoices/INV-2025-006.pdf",
+                            AttachmentName = "Invoice_INV-2025-006.pdf",
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 187, DateTimeKind.Utc).AddTicks(691),
+                            InvoiceId = 6,
+                            IsDeleted = false
+                        },
+                        new
+                        {
+                            Id = 7,
+                            AttachmentContent = "/files/invoices/INV-2025-007.pdf",
+                            AttachmentName = "CreditNote_INV-2025-007.pdf",
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 187, DateTimeKind.Utc).AddTicks(692),
+                            InvoiceId = 7,
+                            IsDeleted = false
+                        },
+                        new
+                        {
+                            Id = 8,
+                            AttachmentContent = "/files/invoices/INV-2025-008.pdf",
+                            AttachmentName = "Invoice_INV-2025-008.pdf",
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 187, DateTimeKind.Utc).AddTicks(693),
+                            InvoiceId = 8,
+                            IsDeleted = false
+                        });
+                });
+
+            modelBuilder.Entity("ECommerceCore.Domain.Entities.InvoiceItem", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<decimal>("Amount")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("InvoiceId")
+                        .HasColumnType("int");
+
+                    b.Property<bool?>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("Service")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Unit")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("UpdatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("InvoiceId");
+
+                    b.ToTable("InvoiceItems");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Amount = 649.99m,
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 187, DateTimeKind.Utc).AddTicks(626),
+                            Description = "55-inch 4K Smart TV with HDR",
+                            InvoiceId = 1,
+                            IsDeleted = false,
+                            Price = 649.99m,
+                            Service = "Smart TV 55 inch",
+                            Unit = "Unit"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Amount = 129.99m,
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 187, DateTimeKind.Utc).AddTicks(631),
+                            Description = "Premium black leather handbag",
+                            InvoiceId = 2,
+                            IsDeleted = false,
+                            Price = 129.99m,
+                            Service = "Leather Handbag",
+                            Unit = "Unit"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Amount = 799.99m,
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 187, DateTimeKind.Utc).AddTicks(633),
+                            Description = "24.1MP DSLR camera with 18-55mm lens",
+                            InvoiceId = 3,
+                            IsDeleted = false,
+                            Price = 799.99m,
+                            Service = "DSLR Camera",
+                            Unit = "Unit"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Amount = 109.95m,
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 187, DateTimeKind.Utc).AddTicks(634),
+                            Description = "Waterproof hiking boots size US 9",
+                            InvoiceId = 4,
+                            IsDeleted = false,
+                            Price = 109.95m,
+                            Service = "Hiking Boots",
+                            Unit = "Unit"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Amount = 75.99m,
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 187, DateTimeKind.Utc).AddTicks(636),
+                            Description = "Anti-aging skincare collection for normal skin",
+                            InvoiceId = 5,
+                            IsDeleted = false,
+                            Price = 75.99m,
+                            Service = "Skincare Set",
+                            Unit = "Unit"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Amount = 69.99m,
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 187, DateTimeKind.Utc).AddTicks(638),
+                            Description = "Interactive learning robot for kids",
+                            InvoiceId = 6,
+                            IsDeleted = false,
+                            Price = 69.99m,
+                            Service = "Learning Robot",
+                            Unit = "Unit"
+                        },
+                        new
+                        {
+                            Id = 7,
+                            Amount = -15.99m,
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 187, DateTimeKind.Utc).AddTicks(640),
+                            Description = "Credit for returned historical fiction book",
+                            InvoiceId = 7,
+                            IsDeleted = false,
+                            Price = -15.99m,
+                            Service = "Book Return",
+                            Unit = "Unit"
+                        },
+                        new
+                        {
+                            Id = 8,
+                            Amount = 149.99m,
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 187, DateTimeKind.Utc).AddTicks(642),
+                            Description = "Smart home starter kit with hub and bulbs",
+                            InvoiceId = 8,
+                            IsDeleted = false,
+                            Price = 149.99m,
+                            Service = "Smart Home Kit",
+                            Unit = "Unit"
+                        },
+                        new
+                        {
+                            Id = 9,
+                            Amount = 49.99m,
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 187, DateTimeKind.Utc).AddTicks(643),
+                            Description = "2-year extended warranty for Smart TV",
+                            InvoiceId = 1,
+                            IsDeleted = false,
+                            Price = 49.99m,
+                            Service = "Extended Warranty",
+                            Unit = "Unit"
+                        },
+                        new
+                        {
+                            Id = 10,
+                            Amount = 29.99m,
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 187, DateTimeKind.Utc).AddTicks(645),
+                            Description = "Tripod accessory for DSLR camera",
+                            InvoiceId = 3,
+                            IsDeleted = false,
+                            Price = 29.99m,
+                            Service = "Camera Tripod",
+                            Unit = "Unit"
+                        });
+                });
+
+            modelBuilder.Entity("ECommerceCore.Domain.Entities.Location", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("CompanyId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("CurrencyId")
+                        .HasColumnType("int");
+
+                    b.Property<bool?>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("TimezoneId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("UpdatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CompanyId");
+
+                    b.HasIndex("CurrencyId");
+
+                    b.HasIndex("TimezoneId");
+
+                    b.ToTable("Locations");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CompanyId = 1,
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(9833),
+                            CurrencyId = 1,
+                            IsDeleted = false,
+                            Name = "Silicon City Office",
+                            TimezoneId = 1
+                        },
+                        new
+                        {
+                            Id = 2,
+                            CompanyId = 2,
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(9837),
+                            CurrencyId = 1,
+                            IsDeleted = false,
+                            Name = "Fashionville Store",
+                            TimezoneId = 1
+                        },
+                        new
+                        {
+                            Id = 3,
+                            CompanyId = 3,
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(9838),
+                            CurrencyId = 1,
+                            IsDeleted = false,
+                            Name = "Eco City Warehouse",
+                            TimezoneId = 1
+                        },
+                        new
+                        {
+                            Id = 4,
+                            CompanyId = 4,
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(9840),
+                            CurrencyId = 3,
+                            IsDeleted = false,
+                            Name = "London Bookstore",
+                            TimezoneId = 2
+                        },
+                        new
+                        {
+                            Id = 5,
+                            CompanyId = 5,
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(9841),
+                            CurrencyId = 5,
+                            IsDeleted = false,
+                            Name = "Sydney Outlet",
+                            TimezoneId = 4
+                        },
+                        new
+                        {
+                            Id = 6,
+                            CompanyId = 6,
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(9842),
+                            CurrencyId = 2,
+                            IsDeleted = false,
+                            Name = "Paris Boutique",
+                            TimezoneId = 6
+                        },
+                        new
+                        {
+                            Id = 7,
+                            CompanyId = 7,
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(9843),
+                            CurrencyId = 7,
+                            IsDeleted = false,
+                            Name = "Mumbai Store",
+                            TimezoneId = 7
+                        },
+                        new
+                        {
+                            Id = 8,
+                            CompanyId = 1,
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(9845),
+                            CurrencyId = 8,
+                            IsDeleted = false,
+                            Name = "Zurich Tech Hub",
+                            TimezoneId = 8
+                        });
+                });
+
             modelBuilder.Entity("ECommerceCore.Domain.Entities.OrderDetail", b =>
                 {
                     b.Property<int>("Id")
@@ -685,10 +1663,10 @@ namespace ECommerceCore.Infrastructure.Migrations
                     b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("CreatedDate")
+                    b.Property<DateTime?>("CreatedDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<bool>("Deleted")
+                    b.Property<bool?>("IsDeleted")
                         .HasColumnType("bit");
 
                     b.Property<int>("OrderHeaderId")
@@ -713,6 +1691,118 @@ namespace ECommerceCore.Infrastructure.Migrations
                     b.HasIndex("ProductId");
 
                     b.ToTable("OrderDetails");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Count = 1,
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 187, DateTimeKind.Utc).AddTicks(402),
+                            IsDeleted = false,
+                            OrderHeaderId = 1,
+                            Price = 649.99000000000001,
+                            ProductId = 1
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Count = 1,
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 187, DateTimeKind.Utc).AddTicks(405),
+                            IsDeleted = false,
+                            OrderHeaderId = 2,
+                            Price = 129.99000000000001,
+                            ProductId = 5
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Count = 1,
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 187, DateTimeKind.Utc).AddTicks(407),
+                            IsDeleted = false,
+                            OrderHeaderId = 3,
+                            Price = 799.99000000000001,
+                            ProductId = 6
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Count = 1,
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 187, DateTimeKind.Utc).AddTicks(408),
+                            IsDeleted = false,
+                            OrderHeaderId = 4,
+                            Price = 109.95,
+                            ProductId = 9
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Count = 1,
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 187, DateTimeKind.Utc).AddTicks(409),
+                            IsDeleted = false,
+                            OrderHeaderId = 5,
+                            Price = 75.989999999999995,
+                            ProductId = 10
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Count = 1,
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 187, DateTimeKind.Utc).AddTicks(411),
+                            IsDeleted = false,
+                            OrderHeaderId = 6,
+                            Price = 69.989999999999995,
+                            ProductId = 11
+                        },
+                        new
+                        {
+                            Id = 7,
+                            Count = 1,
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 187, DateTimeKind.Utc).AddTicks(412),
+                            IsDeleted = false,
+                            OrderHeaderId = 7,
+                            Price = 15.99,
+                            ProductId = 8
+                        },
+                        new
+                        {
+                            Id = 8,
+                            Count = 1,
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 187, DateTimeKind.Utc).AddTicks(413),
+                            IsDeleted = false,
+                            OrderHeaderId = 8,
+                            Price = 149.99000000000001,
+                            ProductId = 13
+                        },
+                        new
+                        {
+                            Id = 9,
+                            Count = 1,
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 187, DateTimeKind.Utc).AddTicks(414),
+                            IsDeleted = false,
+                            OrderHeaderId = 9,
+                            Price = 149.99000000000001,
+                            ProductId = 13
+                        },
+                        new
+                        {
+                            Id = 10,
+                            Count = 1,
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 187, DateTimeKind.Utc).AddTicks(415),
+                            IsDeleted = false,
+                            OrderHeaderId = 9,
+                            Price = 69.989999999999995,
+                            ProductId = 12
+                        },
+                        new
+                        {
+                            Id = 11,
+                            Count = 1,
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 187, DateTimeKind.Utc).AddTicks(416),
+                            IsDeleted = false,
+                            OrderHeaderId = 3,
+                            Price = 899.99000000000001,
+                            ProductId = 4
+                        });
                 });
 
             modelBuilder.Entity("ECommerceCore.Domain.Entities.OrderHeader", b =>
@@ -724,37 +1814,32 @@ namespace ECommerceCore.Infrastructure.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("ApplicationUserId")
-                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Carrier")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("City")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("CreatedDate")
+                    b.Property<DateTime?>("CreatedDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<bool>("Deleted")
-                        .HasColumnType("bit");
+                    b.Property<int?>("CustomerId")
+                        .HasColumnType("int");
 
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<bool?>("IsDeleted")
+                        .HasColumnType("bit");
 
                     b.Property<DateTime>("OrderDate")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("OrderStatus")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
-                    b.Property<double>("OrderTotal")
-                        .HasColumnType("float");
+                    b.Property<decimal>("OrderTotal")
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<DateTime>("PaymentDate")
                         .HasColumnType("datetime2");
@@ -762,33 +1847,26 @@ namespace ECommerceCore.Infrastructure.Migrations
                     b.Property<DateOnly>("PaymentDueDate")
                         .HasColumnType("date");
 
-                    b.Property<string>("PaymentIntenId")
+                    b.Property<string>("PaymentIntentId")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PaymentStatus")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("PhoneNumber")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("PostalCode")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("SessionId")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("ShippingContactName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ShippingContactPhone")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<DateTime>("ShippingDate")
                         .HasColumnType("datetime2");
-
-                    b.Property<string>("State")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("StreetAddress")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("TrackingNumber")
                         .HasColumnType("nvarchar(max)");
@@ -803,7 +1881,165 @@ namespace ECommerceCore.Infrastructure.Migrations
 
                     b.HasIndex("ApplicationUserId");
 
+                    b.HasIndex("CustomerId");
+
                     b.ToTable("OrderHeaders");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Carrier = "UPS",
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 187, DateTimeKind.Utc).AddTicks(119),
+                            CustomerId = 1,
+                            IsDeleted = false,
+                            OrderDate = new DateTime(2025, 4, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            OrderStatus = "Shipped",
+                            OrderTotal = 649.99m,
+                            PaymentDate = new DateTime(2025, 4, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            PaymentDueDate = new DateOnly(2025, 4, 30),
+                            PaymentStatus = "Paid",
+                            ShippingContactName = "John Doe",
+                            ShippingContactPhone = "555-0101",
+                            ShippingDate = new DateTime(2025, 4, 3, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            TrackingNumber = "TRK123456"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 187, DateTimeKind.Utc).AddTicks(132),
+                            CustomerId = 2,
+                            IsDeleted = false,
+                            OrderDate = new DateTime(2025, 4, 2, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            OrderStatus = "Processing",
+                            OrderTotal = 129.99m,
+                            PaymentDate = new DateTime(2025, 4, 2, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            PaymentDueDate = new DateOnly(2025, 5, 2),
+                            PaymentStatus = "Pending",
+                            ShippingContactName = "Jane Smith",
+                            ShippingContactPhone = "555-0102",
+                            ShippingDate = new DateTime(2025, 4, 4, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Carrier = "FedEx",
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 187, DateTimeKind.Utc).AddTicks(136),
+                            CustomerId = 2,
+                            IsDeleted = false,
+                            OrderDate = new DateTime(2025, 4, 3, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            OrderStatus = "Delivered",
+                            OrderTotal = 799.99m,
+                            PaymentDate = new DateTime(2025, 4, 3, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            PaymentDueDate = new DateOnly(2025, 5, 3),
+                            PaymentStatus = "Paid",
+                            ShippingContactName = "Hiroshi Tanaka",
+                            ShippingContactPhone = "555-0103",
+                            ShippingDate = new DateTime(2025, 4, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            TrackingNumber = "TRK789012"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Carrier = "DHL",
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 187, DateTimeKind.Utc).AddTicks(139),
+                            CustomerId = 3,
+                            IsDeleted = false,
+                            OrderDate = new DateTime(2025, 4, 4, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            OrderStatus = "Shipped",
+                            OrderTotal = 109.95m,
+                            PaymentDate = new DateTime(2025, 4, 4, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            PaymentDueDate = new DateOnly(2025, 5, 4),
+                            PaymentStatus = "Paid",
+                            ShippingContactName = "Emma Brown",
+                            ShippingContactPhone = "555-0104",
+                            ShippingDate = new DateTime(2025, 4, 6, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            TrackingNumber = "TRK345678"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 187, DateTimeKind.Utc).AddTicks(142),
+                            CustomerId = 4,
+                            IsDeleted = false,
+                            OrderDate = new DateTime(2025, 4, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            OrderStatus = "Processing",
+                            OrderTotal = 75.99m,
+                            PaymentDate = new DateTime(2025, 4, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            PaymentDueDate = new DateOnly(2025, 5, 5),
+                            PaymentStatus = "Pending",
+                            ShippingContactName = "Liam Johnson",
+                            ShippingContactPhone = "555-0105",
+                            ShippingDate = new DateTime(2025, 4, 7, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Carrier = "UPS",
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 187, DateTimeKind.Utc).AddTicks(145),
+                            CustomerId = 4,
+                            IsDeleted = false,
+                            OrderDate = new DateTime(2025, 4, 6, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            OrderStatus = "Shipped",
+                            OrderTotal = 69.99m,
+                            PaymentDate = new DateTime(2025, 4, 6, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            PaymentDueDate = new DateOnly(2025, 5, 6),
+                            PaymentStatus = "Paid",
+                            ShippingContactName = "Sophie Martin",
+                            ShippingContactPhone = "555-0106",
+                            ShippingDate = new DateTime(2025, 4, 8, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            TrackingNumber = "TRK901234"
+                        },
+                        new
+                        {
+                            Id = 7,
+                            Carrier = "FedEx",
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 187, DateTimeKind.Utc).AddTicks(147),
+                            CustomerId = 4,
+                            IsDeleted = false,
+                            OrderDate = new DateTime(2025, 4, 7, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            OrderStatus = "Delivered",
+                            OrderTotal = 15.99m,
+                            PaymentDate = new DateTime(2025, 4, 7, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            PaymentDueDate = new DateOnly(2025, 5, 7),
+                            PaymentStatus = "Paid",
+                            ShippingContactName = "Arjun Patel",
+                            ShippingContactPhone = "555-0107",
+                            ShippingDate = new DateTime(2025, 4, 9, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            TrackingNumber = "TRK567890"
+                        },
+                        new
+                        {
+                            Id = 8,
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 187, DateTimeKind.Utc).AddTicks(151),
+                            CustomerId = 5,
+                            IsDeleted = false,
+                            OrderDate = new DateTime(2025, 4, 8, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            OrderStatus = "Processing",
+                            OrderTotal = 149.99m,
+                            PaymentDate = new DateTime(2025, 4, 8, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            PaymentDueDate = new DateOnly(2025, 5, 8),
+                            PaymentStatus = "Pending",
+                            ShippingContactName = "Clara Fischer",
+                            ShippingContactPhone = "555-0108",
+                            ShippingDate = new DateTime(2025, 4, 10, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 9,
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 187, DateTimeKind.Utc).AddTicks(154),
+                            CustomerId = 6,
+                            IsDeleted = false,
+                            OrderDate = new DateTime(2025, 4, 8, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            OrderStatus = "Processing",
+                            OrderTotal = 149.99m,
+                            PaymentDate = new DateTime(2025, 4, 8, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            PaymentDueDate = new DateOnly(2025, 5, 8),
+                            PaymentStatus = "Pending",
+                            ShippingContactName = "Clara Fischer",
+                            ShippingContactPhone = "525-0108",
+                            ShippingDate = new DateTime(2025, 4, 10, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        });
                 });
 
             modelBuilder.Entity("ECommerceCore.Domain.Entities.Product", b =>
@@ -833,11 +2069,8 @@ namespace ECommerceCore.Infrastructure.Migrations
                     b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("CreatedDate")
+                    b.Property<DateTime?>("CreatedDate")
                         .HasColumnType("datetime2");
-
-                    b.Property<bool>("Deleted")
-                        .HasColumnType("bit");
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -856,6 +2089,9 @@ namespace ECommerceCore.Infrastructure.Migrations
                         .HasColumnType("float");
 
                     b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<bool?>("IsDeleted")
                         .HasColumnType("bit");
 
                     b.Property<bool>("IsDiscounted")
@@ -937,14 +2173,14 @@ namespace ECommerceCore.Infrastructure.Migrations
                             Barcode = "789012345678",
                             BrandId = 1,
                             CategoryId = 10,
-                            CreatedDate = new DateTime(2025, 4, 23, 14, 47, 21, 28, DateTimeKind.Utc).AddTicks(5308),
-                            Deleted = false,
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8554),
                             Description = "Immerse yourself in stunning visuals with this 55-inch 4K Ultra HD Smart TV. Featuring High Dynamic Range (HDR) for vibrant colors and deep contrast, built-in Wi-Fi, and access to all your favorite streaming apps. Enjoy a cinematic experience in the comfort of your living room.",
                             DiscountEndDate = new DateTime(2025, 5, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DiscountPrice = 649.99000000000001,
                             DiscountStartDate = new DateTime(2025, 4, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             HeightInCm = 71.200000000000003,
                             IsActive = true,
+                            IsDeleted = false,
                             IsDiscounted = true,
                             IsFeatured = true,
                             IsNewArrival = false,
@@ -971,14 +2207,14 @@ namespace ECommerceCore.Infrastructure.Migrations
                             Barcode = "456789012345",
                             BrandId = 2,
                             CategoryId = 11,
-                            CreatedDate = new DateTime(2025, 4, 23, 14, 47, 21, 28, DateTimeKind.Utc).AddTicks(5330),
-                            Deleted = false,
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8571),
                             Description = "Experience ultimate comfort with our premium 100% combed cotton men's t-shirt. Designed for a classic fit and exceptional softness, this navy blue tee is a versatile wardrobe staple perfect for everyday wear. Available in various sizes.",
                             DiscountEndDate = new DateTime(2025, 4, 30, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DiscountPrice = 16.989999999999998,
                             DiscountStartDate = new DateTime(2025, 4, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             HeightInCm = 70.0,
                             IsActive = true,
+                            IsDeleted = false,
                             IsDiscounted = true,
                             IsFeatured = false,
                             IsNewArrival = false,
@@ -1005,12 +2241,12 @@ namespace ECommerceCore.Infrastructure.Migrations
                             Barcode = "123456789012",
                             BrandId = 3,
                             CategoryId = 14,
-                            CreatedDate = new DateTime(2025, 4, 23, 14, 47, 21, 28, DateTimeKind.Utc).AddTicks(5337),
-                            Deleted = false,
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8577),
                             Description = "Get your gardening tasks done with ease using our durable 3-piece garden tool set. Includes a sturdy trowel, hand fork, and cultivator, all featuring comfortable wooden handles for a secure grip. Perfect for both novice and experienced gardeners.",
                             DiscountPrice = 40.0,
                             HeightInCm = 30.0,
                             IsActive = true,
+                            IsDeleted = false,
                             IsDiscounted = false,
                             IsFeatured = false,
                             IsNewArrival = true,
@@ -1037,14 +2273,14 @@ namespace ECommerceCore.Infrastructure.Migrations
                             Barcode = "567890123456",
                             BrandId = 1,
                             CategoryId = 9,
-                            CreatedDate = new DateTime(2025, 4, 23, 14, 47, 21, 28, DateTimeKind.Utc).AddTicks(5342),
-                            Deleted = false,
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8580),
                             Description = "Experience lightning-fast performance with our ultra-slim 15.6-inch laptop. Featuring a powerful processor, 512GB SSD storage, and 16GB RAM for seamless multitasking. The vibrant Full HD display and long-lasting battery make it perfect for work and entertainment on the go.",
                             DiscountEndDate = new DateTime(2025, 5, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DiscountPrice = 899.99000000000001,
                             DiscountStartDate = new DateTime(2025, 4, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             HeightInCm = 1.8,
                             IsActive = true,
+                            IsDeleted = false,
                             IsDiscounted = true,
                             IsFeatured = true,
                             IsNewArrival = true,
@@ -1071,14 +2307,14 @@ namespace ECommerceCore.Infrastructure.Migrations
                             Barcode = "345678901234",
                             BrandId = 2,
                             CategoryId = 12,
-                            CreatedDate = new DateTime(2025, 4, 23, 14, 47, 21, 28, DateTimeKind.Utc).AddTicks(5348),
-                            Deleted = false,
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8585),
                             Description = "Add a touch of elegance to any outfit with our designer leather handbag. Crafted from premium genuine leather with a stylish gold-tone hardware and multiple interior compartments for organization. The adjustable shoulder strap and handle offer versatile carrying options.",
                             DiscountEndDate = new DateTime(2025, 5, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DiscountPrice = 129.99000000000001,
                             DiscountStartDate = new DateTime(2025, 4, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             HeightInCm = 25.0,
                             IsActive = true,
+                            IsDeleted = false,
                             IsDiscounted = true,
                             IsFeatured = true,
                             IsNewArrival = false,
@@ -1105,14 +2341,14 @@ namespace ECommerceCore.Infrastructure.Migrations
                             Barcode = "234567890123",
                             BrandId = 1,
                             CategoryId = 1,
-                            CreatedDate = new DateTime(2025, 4, 23, 14, 47, 21, 28, DateTimeKind.Utc).AddTicks(5354),
-                            Deleted = false,
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8589),
                             Description = "Capture life's special moments with exceptional clarity using our premium DSLR camera. Features a 24.1 megapixel CMOS sensor, 4K video recording, and includes a versatile 18-55mm lens. Perfect for both photography enthusiasts and those looking to elevate their photography skills.",
                             DiscountEndDate = new DateTime(2025, 4, 30, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DiscountPrice = 799.99000000000001,
                             DiscountStartDate = new DateTime(2025, 3, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             HeightInCm = 10.0,
                             IsActive = true,
+                            IsDeleted = false,
                             IsDiscounted = true,
                             IsFeatured = true,
                             IsNewArrival = false,
@@ -1139,12 +2375,12 @@ namespace ECommerceCore.Infrastructure.Migrations
                             Barcode = "890123456789",
                             BrandId = 3,
                             CategoryId = 3,
-                            CreatedDate = new DateTime(2025, 4, 23, 14, 47, 21, 28, DateTimeKind.Utc).AddTicks(5360),
-                            Deleted = false,
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8593),
                             Description = "Indulge in the refreshing taste of premium organic green tea with our curated gift set. Includes 6 distinct varieties of hand-picked green tea leaves packaged in elegant tins. Perfect for tea enthusiasts or as a thoughtful gift for special occasions.",
                             DiscountPrice = 45.0,
                             HeightInCm = 8.0,
                             IsActive = true,
+                            IsDeleted = false,
                             IsDiscounted = false,
                             IsFeatured = false,
                             IsNewArrival = true,
@@ -1171,14 +2407,14 @@ namespace ECommerceCore.Infrastructure.Migrations
                             Barcode = "901234567890",
                             BrandId = 4,
                             CategoryId = 15,
-                            CreatedDate = new DateTime(2025, 4, 23, 14, 47, 21, 28, DateTimeKind.Utc).AddTicks(5366),
-                            Deleted = false,
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8597),
                             Description = "Journey back in time with this captivating historical fiction novel that uncovers the story of a lost dynasty. Set in the 16th century, the narrative weaves together adventure, romance, and political intrigue as a young scholar uncovers ancient secrets that could change the course of history.",
                             DiscountEndDate = new DateTime(2025, 4, 30, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DiscountPrice = 15.99,
                             DiscountStartDate = new DateTime(2025, 4, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             HeightInCm = 2.5,
                             IsActive = true,
+                            IsDeleted = false,
                             IsDiscounted = true,
                             IsFeatured = false,
                             IsNewArrival = true,
@@ -1205,14 +2441,14 @@ namespace ECommerceCore.Infrastructure.Migrations
                             Barcode = "012345678901",
                             BrandId = 5,
                             CategoryId = 17,
-                            CreatedDate = new DateTime(2025, 4, 23, 14, 47, 21, 28, DateTimeKind.Utc).AddTicks(5372),
-                            Deleted = false,
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8602),
                             Description = "Conquer any trail with confidence in our all-weather hiking boots. Featuring waterproof construction, superior grip rubber soles, and cushioned insoles for all-day comfort. The breathable membrane keeps feet dry while allowing moisture to escape, making these perfect for year-round outdoor adventures.",
                             DiscountEndDate = new DateTime(2025, 5, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DiscountPrice = 109.95,
                             DiscountStartDate = new DateTime(2025, 3, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             HeightInCm = 15.0,
                             IsActive = true,
+                            IsDeleted = false,
                             IsDiscounted = true,
                             IsFeatured = false,
                             IsNewArrival = false,
@@ -1239,14 +2475,14 @@ namespace ECommerceCore.Infrastructure.Migrations
                             Barcode = "678901234567",
                             BrandId = 6,
                             CategoryId = 6,
-                            CreatedDate = new DateTime(2025, 4, 23, 14, 47, 21, 28, DateTimeKind.Utc).AddTicks(5377),
-                            Deleted = false,
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8606),
                             Description = "Turn back the clock with our comprehensive anti-aging skincare collection. This five-piece set includes cleanser, toner, day cream with SPF 30, night serum, and eye cream, all formulated with powerful peptides, antioxidants, and hyaluronic acid to reduce fine lines and restore youthful radiance.",
                             DiscountEndDate = new DateTime(2025, 5, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DiscountPrice = 75.989999999999995,
                             DiscountStartDate = new DateTime(2025, 4, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             HeightInCm = 15.0,
                             IsActive = true,
+                            IsDeleted = false,
                             IsDiscounted = true,
                             IsFeatured = true,
                             IsNewArrival = true,
@@ -1273,14 +2509,14 @@ namespace ECommerceCore.Infrastructure.Migrations
                             Barcode = "789012345670",
                             BrandId = 7,
                             CategoryId = 7,
-                            CreatedDate = new DateTime(2025, 4, 23, 14, 47, 21, 28, DateTimeKind.Utc).AddTicks(5384),
-                            Deleted = false,
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8610),
                             Description = "Spark your child's interest in STEM with our interactive learning robot. Programmable through an easy-to-use app, this friendly robot teaches coding concepts, plays educational games, and responds to voice commands. With multiple sensors and expandable capabilities, it grows with your child's skills.",
                             DiscountEndDate = new DateTime(2025, 5, 31, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DiscountPrice = 69.989999999999995,
                             DiscountStartDate = new DateTime(2025, 3, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             HeightInCm = 22.0,
                             IsActive = true,
+                            IsDeleted = false,
                             IsDiscounted = true,
                             IsFeatured = true,
                             IsNewArrival = true,
@@ -1307,14 +2543,14 @@ namespace ECommerceCore.Infrastructure.Migrations
                             Barcode = "123456789013",
                             BrandId = 1,
                             CategoryId = 8,
-                            CreatedDate = new DateTime(2025, 4, 23, 14, 47, 21, 28, DateTimeKind.Utc).AddTicks(5389),
-                            Deleted = false,
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8614),
                             Description = "Take your mobile videography to the next level with our 3-axis smartphone stabilizer gimbal. Featuring intelligent tracking, multiple shooting modes, and foldable design for easy portability. The rechargeable battery provides up to 12 hours of operation, perfect for content creators and travelers.",
                             DiscountEndDate = new DateTime(2025, 5, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DiscountPrice = 69.989999999999995,
                             DiscountStartDate = new DateTime(2025, 4, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             HeightInCm = 19.0,
                             IsActive = true,
+                            IsDeleted = false,
                             IsDiscounted = true,
                             IsFeatured = false,
                             IsNewArrival = true,
@@ -1341,14 +2577,14 @@ namespace ECommerceCore.Infrastructure.Migrations
                             Barcode = "234567890124",
                             BrandId = 1,
                             CategoryId = 1,
-                            CreatedDate = new DateTime(2025, 4, 23, 14, 47, 21, 28, DateTimeKind.Utc).AddTicks(5395),
-                            Deleted = false,
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8618),
                             Description = "Transform your house into a smart home with our comprehensive starter kit. Includes a smart hub, two smart plugs, two motion sensors, and three smart light bulbs that can all be controlled via app or voice commands. Compatible with major voice assistants for seamless integration with your existing devices.",
                             DiscountEndDate = new DateTime(2025, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DiscountPrice = 149.99000000000001,
                             DiscountStartDate = new DateTime(2025, 4, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             HeightInCm = 25.0,
                             IsActive = true,
+                            IsDeleted = false,
                             IsDiscounted = true,
                             IsFeatured = true,
                             IsNewArrival = true,
@@ -1380,15 +2616,15 @@ namespace ECommerceCore.Infrastructure.Migrations
                     b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("CreatedDate")
+                    b.Property<DateTime?>("CreatedDate")
                         .HasColumnType("datetime2");
-
-                    b.Property<bool>("Deleted")
-                        .HasColumnType("bit");
 
                     b.Property<string>("ImageUrl")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool?>("IsDeleted")
+                        .HasColumnType("bit");
 
                     b.Property<int>("ProductId")
                         .HasColumnType("int");
@@ -1409,265 +2645,265 @@ namespace ECommerceCore.Infrastructure.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedDate = new DateTime(2025, 4, 23, 14, 47, 21, 28, DateTimeKind.Utc).AddTicks(5625),
-                            Deleted = false,
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8663),
                             ImageUrl = "/images/products/smarttv_main.jpg",
+                            IsDeleted = false,
                             ProductId = 1
                         },
                         new
                         {
                             Id = 2,
-                            CreatedDate = new DateTime(2025, 4, 23, 14, 47, 21, 28, DateTimeKind.Utc).AddTicks(5628),
-                            Deleted = false,
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8666),
                             ImageUrl = "/images/products/smarttv_side.jpg",
+                            IsDeleted = false,
                             ProductId = 1
                         },
                         new
                         {
                             Id = 3,
-                            CreatedDate = new DateTime(2025, 4, 23, 14, 47, 21, 28, DateTimeKind.Utc).AddTicks(5629),
-                            Deleted = false,
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8667),
                             ImageUrl = "/images/products/smarttv_ports.jpg",
+                            IsDeleted = false,
                             ProductId = 1
                         },
                         new
                         {
                             Id = 4,
-                            CreatedDate = new DateTime(2025, 4, 23, 14, 47, 21, 28, DateTimeKind.Utc).AddTicks(5630),
-                            Deleted = false,
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8668),
                             ImageUrl = "/images/products/tshirt_navy_front.jpg",
+                            IsDeleted = false,
                             ProductId = 2
                         },
                         new
                         {
                             Id = 5,
-                            CreatedDate = new DateTime(2025, 4, 23, 14, 47, 21, 28, DateTimeKind.Utc).AddTicks(5632),
-                            Deleted = false,
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8731),
                             ImageUrl = "/images/products/tshirt_navy_back.jpg",
+                            IsDeleted = false,
                             ProductId = 2
                         },
                         new
                         {
                             Id = 6,
-                            CreatedDate = new DateTime(2025, 4, 23, 14, 47, 21, 28, DateTimeKind.Utc).AddTicks(5633),
-                            Deleted = false,
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8733),
                             ImageUrl = "/images/products/garden_tool_set.jpg",
+                            IsDeleted = false,
                             ProductId = 3
                         },
                         new
                         {
                             Id = 7,
-                            CreatedDate = new DateTime(2025, 4, 23, 14, 47, 21, 28, DateTimeKind.Utc).AddTicks(5634),
-                            Deleted = false,
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8734),
                             ImageUrl = "/images/products/gardentool_trowel.jpg",
+                            IsDeleted = false,
                             ProductId = 3
                         },
                         new
                         {
                             Id = 8,
-                            CreatedDate = new DateTime(2025, 4, 23, 14, 47, 21, 28, DateTimeKind.Utc).AddTicks(5635),
-                            Deleted = false,
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8735),
                             ImageUrl = "/images/products/gardentool_fork.jpg",
+                            IsDeleted = false,
                             ProductId = 3
                         },
                         new
                         {
                             Id = 9,
-                            CreatedDate = new DateTime(2025, 4, 23, 14, 47, 21, 28, DateTimeKind.Utc).AddTicks(5636),
-                            Deleted = false,
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8736),
                             ImageUrl = "/images/products/laptop_main.jpg",
+                            IsDeleted = false,
                             ProductId = 4
                         },
                         new
                         {
                             Id = 10,
-                            CreatedDate = new DateTime(2025, 4, 23, 14, 47, 21, 28, DateTimeKind.Utc).AddTicks(5637),
-                            Deleted = false,
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8736),
                             ImageUrl = "/images/products/laptop_open.jpg",
+                            IsDeleted = false,
                             ProductId = 4
                         },
                         new
                         {
                             Id = 11,
-                            CreatedDate = new DateTime(2025, 4, 23, 14, 47, 21, 28, DateTimeKind.Utc).AddTicks(5638),
-                            Deleted = false,
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8738),
                             ImageUrl = "/images/products/laptop_side.jpg",
+                            IsDeleted = false,
                             ProductId = 4
                         },
                         new
                         {
                             Id = 12,
-                            CreatedDate = new DateTime(2025, 4, 23, 14, 47, 21, 28, DateTimeKind.Utc).AddTicks(5639),
-                            Deleted = false,
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8739),
                             ImageUrl = "/images/products/handbag_black_main.jpg",
+                            IsDeleted = false,
                             ProductId = 5
                         },
                         new
                         {
                             Id = 13,
-                            CreatedDate = new DateTime(2025, 4, 23, 14, 47, 21, 28, DateTimeKind.Utc).AddTicks(5640),
-                            Deleted = false,
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8740),
                             ImageUrl = "/images/products/handbag_black_open.jpg",
+                            IsDeleted = false,
                             ProductId = 5
                         },
                         new
                         {
                             Id = 14,
-                            CreatedDate = new DateTime(2025, 4, 23, 14, 47, 21, 28, DateTimeKind.Utc).AddTicks(5641),
-                            Deleted = false,
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8741),
                             ImageUrl = "/images/products/camera_main.jpg",
+                            IsDeleted = false,
                             ProductId = 6
                         },
                         new
                         {
                             Id = 15,
-                            CreatedDate = new DateTime(2025, 4, 23, 14, 47, 21, 28, DateTimeKind.Utc).AddTicks(5642),
-                            Deleted = false,
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8742),
                             ImageUrl = "/images/products/camera_top.jpg",
+                            IsDeleted = false,
                             ProductId = 6
                         },
                         new
                         {
                             Id = 16,
-                            CreatedDate = new DateTime(2025, 4, 23, 14, 47, 21, 28, DateTimeKind.Utc).AddTicks(5644),
-                            Deleted = false,
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8743),
                             ImageUrl = "/images/products/camera_lens.jpg",
+                            IsDeleted = false,
                             ProductId = 6
                         },
                         new
                         {
                             Id = 17,
-                            CreatedDate = new DateTime(2025, 4, 23, 14, 47, 21, 28, DateTimeKind.Utc).AddTicks(5645),
-                            Deleted = false,
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8743),
                             ImageUrl = "/images/products/tea_set_complete.jpg",
+                            IsDeleted = false,
                             ProductId = 7
                         },
                         new
                         {
                             Id = 18,
-                            CreatedDate = new DateTime(2025, 4, 23, 14, 47, 21, 28, DateTimeKind.Utc).AddTicks(5646),
-                            Deleted = false,
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8744),
                             ImageUrl = "/images/products/tea_tin_open.jpg",
+                            IsDeleted = false,
                             ProductId = 7
                         },
                         new
                         {
                             Id = 19,
-                            CreatedDate = new DateTime(2025, 4, 23, 14, 47, 21, 28, DateTimeKind.Utc).AddTicks(5647),
-                            Deleted = false,
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8745),
                             ImageUrl = "/images/products/book_cover.jpg",
+                            IsDeleted = false,
                             ProductId = 8
                         },
                         new
                         {
                             Id = 20,
-                            CreatedDate = new DateTime(2025, 4, 23, 14, 47, 21, 28, DateTimeKind.Utc).AddTicks(5648),
-                            Deleted = false,
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8746),
                             ImageUrl = "/images/products/book_back.jpg",
+                            IsDeleted = false,
                             ProductId = 8
                         },
                         new
                         {
                             Id = 21,
-                            CreatedDate = new DateTime(2025, 4, 23, 14, 47, 21, 28, DateTimeKind.Utc).AddTicks(5649),
-                            Deleted = false,
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8747),
                             ImageUrl = "/images/products/hikingboots_pair.jpg",
+                            IsDeleted = false,
                             ProductId = 9
                         },
                         new
                         {
                             Id = 22,
-                            CreatedDate = new DateTime(2025, 4, 23, 14, 47, 21, 28, DateTimeKind.Utc).AddTicks(5650),
-                            Deleted = false,
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8748),
                             ImageUrl = "/images/products/hikingboots_sole.jpg",
+                            IsDeleted = false,
                             ProductId = 9
                         },
                         new
                         {
                             Id = 23,
-                            CreatedDate = new DateTime(2025, 4, 23, 14, 47, 21, 28, DateTimeKind.Utc).AddTicks(5651),
-                            Deleted = false,
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8750),
                             ImageUrl = "/images/products/hikingboots_side.jpg",
+                            IsDeleted = false,
                             ProductId = 9
                         },
                         new
                         {
                             Id = 24,
-                            CreatedDate = new DateTime(2025, 4, 23, 14, 47, 21, 28, DateTimeKind.Utc).AddTicks(5652),
-                            Deleted = false,
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8751),
                             ImageUrl = "/images/products/skincare_set.jpg",
+                            IsDeleted = false,
                             ProductId = 10
                         },
                         new
                         {
                             Id = 25,
-                            CreatedDate = new DateTime(2025, 4, 23, 14, 47, 21, 28, DateTimeKind.Utc).AddTicks(5653),
-                            Deleted = false,
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8752),
                             ImageUrl = "/images/products/skincare_serum.jpg",
+                            IsDeleted = false,
                             ProductId = 10
                         },
                         new
                         {
                             Id = 26,
-                            CreatedDate = new DateTime(2025, 4, 23, 14, 47, 21, 28, DateTimeKind.Utc).AddTicks(5655),
-                            Deleted = false,
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8753),
                             ImageUrl = "/images/products/skincare_cream.jpg",
+                            IsDeleted = false,
                             ProductId = 10
                         },
                         new
                         {
                             Id = 27,
-                            CreatedDate = new DateTime(2025, 4, 23, 14, 47, 21, 28, DateTimeKind.Utc).AddTicks(5656),
-                            Deleted = false,
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8754),
                             ImageUrl = "/images/products/robot_front.jpg",
+                            IsDeleted = false,
                             ProductId = 11
                         },
                         new
                         {
                             Id = 28,
-                            CreatedDate = new DateTime(2025, 4, 23, 14, 47, 21, 28, DateTimeKind.Utc).AddTicks(5657),
-                            Deleted = false,
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8755),
                             ImageUrl = "/images/products/robot_side.jpg",
+                            IsDeleted = false,
                             ProductId = 11
                         },
                         new
                         {
                             Id = 29,
-                            CreatedDate = new DateTime(2025, 4, 23, 14, 47, 21, 28, DateTimeKind.Utc).AddTicks(5658),
-                            Deleted = false,
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8755),
                             ImageUrl = "/images/products/gimbal_main.jpg",
+                            IsDeleted = false,
                             ProductId = 12
                         },
                         new
                         {
                             Id = 30,
-                            CreatedDate = new DateTime(2025, 4, 23, 14, 47, 21, 28, DateTimeKind.Utc).AddTicks(5660),
-                            Deleted = false,
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8756),
                             ImageUrl = "/images/products/gimbal_folded.jpg",
+                            IsDeleted = false,
                             ProductId = 12
                         },
                         new
                         {
                             Id = 31,
-                            CreatedDate = new DateTime(2025, 4, 23, 14, 47, 21, 28, DateTimeKind.Utc).AddTicks(5661),
-                            Deleted = false,
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8757),
                             ImageUrl = "/images/products/smarthome_kit.jpg",
+                            IsDeleted = false,
                             ProductId = 13
                         },
                         new
                         {
                             Id = 32,
-                            CreatedDate = new DateTime(2025, 4, 23, 14, 47, 21, 28, DateTimeKind.Utc).AddTicks(5662),
-                            Deleted = false,
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8758),
                             ImageUrl = "/images/products/smarthome_hub.jpg",
+                            IsDeleted = false,
                             ProductId = 13
                         },
                         new
                         {
                             Id = 33,
-                            CreatedDate = new DateTime(2025, 4, 23, 14, 47, 21, 28, DateTimeKind.Utc).AddTicks(5663),
-                            Deleted = false,
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8759),
                             ImageUrl = "/images/products/smarthome_bulb.jpg",
+                            IsDeleted = false,
                             ProductId = 13
                         });
                 });
@@ -1683,10 +2919,10 @@ namespace ECommerceCore.Infrastructure.Migrations
                     b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("CreatedDate")
+                    b.Property<DateTime?>("CreatedDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<bool>("Deleted")
+                    b.Property<bool?>("IsDeleted")
                         .HasColumnType("bit");
 
                     b.Property<string>("Key")
@@ -1716,8 +2952,8 @@ namespace ECommerceCore.Infrastructure.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedDate = new DateTime(2025, 4, 23, 14, 47, 21, 28, DateTimeKind.Utc).AddTicks(5740),
-                            Deleted = false,
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8822),
+                            IsDeleted = false,
                             Key = "Screen Size",
                             ProductId = 1,
                             Value = "55 inches"
@@ -1725,8 +2961,8 @@ namespace ECommerceCore.Infrastructure.Migrations
                         new
                         {
                             Id = 2,
-                            CreatedDate = new DateTime(2025, 4, 23, 14, 47, 21, 28, DateTimeKind.Utc).AddTicks(5742),
-                            Deleted = false,
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8824),
+                            IsDeleted = false,
                             Key = "Resolution",
                             ProductId = 1,
                             Value = "4K Ultra HD (3840 x 2160)"
@@ -1734,8 +2970,8 @@ namespace ECommerceCore.Infrastructure.Migrations
                         new
                         {
                             Id = 3,
-                            CreatedDate = new DateTime(2025, 4, 23, 14, 47, 21, 28, DateTimeKind.Utc).AddTicks(5743),
-                            Deleted = false,
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8825),
+                            IsDeleted = false,
                             Key = "Display Technology",
                             ProductId = 1,
                             Value = "LED"
@@ -1743,8 +2979,8 @@ namespace ECommerceCore.Infrastructure.Migrations
                         new
                         {
                             Id = 4,
-                            CreatedDate = new DateTime(2025, 4, 23, 14, 47, 21, 28, DateTimeKind.Utc).AddTicks(5744),
-                            Deleted = false,
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8826),
+                            IsDeleted = false,
                             Key = "HDR",
                             ProductId = 1,
                             Value = "Yes"
@@ -1752,8 +2988,8 @@ namespace ECommerceCore.Infrastructure.Migrations
                         new
                         {
                             Id = 5,
-                            CreatedDate = new DateTime(2025, 4, 23, 14, 47, 21, 28, DateTimeKind.Utc).AddTicks(5746),
-                            Deleted = false,
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8828),
+                            IsDeleted = false,
                             Key = "Smart TV",
                             ProductId = 1,
                             Value = "Yes"
@@ -1761,8 +2997,8 @@ namespace ECommerceCore.Infrastructure.Migrations
                         new
                         {
                             Id = 6,
-                            CreatedDate = new DateTime(2025, 4, 23, 14, 47, 21, 28, DateTimeKind.Utc).AddTicks(5747),
-                            Deleted = false,
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8829),
+                            IsDeleted = false,
                             Key = "Connectivity",
                             ProductId = 1,
                             Value = "Wi-Fi, Bluetooth, HDMI, USB"
@@ -1770,8 +3006,8 @@ namespace ECommerceCore.Infrastructure.Migrations
                         new
                         {
                             Id = 7,
-                            CreatedDate = new DateTime(2025, 4, 23, 14, 47, 21, 28, DateTimeKind.Utc).AddTicks(5748),
-                            Deleted = false,
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8830),
+                            IsDeleted = false,
                             Key = "Material",
                             ProductId = 2,
                             Value = "100% Combed Cotton"
@@ -1779,8 +3015,8 @@ namespace ECommerceCore.Infrastructure.Migrations
                         new
                         {
                             Id = 8,
-                            CreatedDate = new DateTime(2025, 4, 23, 14, 47, 21, 28, DateTimeKind.Utc).AddTicks(5750),
-                            Deleted = false,
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8831),
+                            IsDeleted = false,
                             Key = "Color",
                             ProductId = 2,
                             Value = "Navy Blue"
@@ -1788,8 +3024,8 @@ namespace ECommerceCore.Infrastructure.Migrations
                         new
                         {
                             Id = 9,
-                            CreatedDate = new DateTime(2025, 4, 23, 14, 47, 21, 28, DateTimeKind.Utc).AddTicks(5751),
-                            Deleted = false,
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8832),
+                            IsDeleted = false,
                             Key = "Care Instructions",
                             ProductId = 2,
                             Value = "Machine wash cold, tumble dry low"
@@ -1797,8 +3033,8 @@ namespace ECommerceCore.Infrastructure.Migrations
                         new
                         {
                             Id = 10,
-                            CreatedDate = new DateTime(2025, 4, 23, 14, 47, 21, 28, DateTimeKind.Utc).AddTicks(5752),
-                            Deleted = false,
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8833),
+                            IsDeleted = false,
                             Key = "Material",
                             ProductId = 3,
                             Value = "Stainless Steel with Wooden Handles"
@@ -1806,8 +3042,8 @@ namespace ECommerceCore.Infrastructure.Migrations
                         new
                         {
                             Id = 11,
-                            CreatedDate = new DateTime(2025, 4, 23, 14, 47, 21, 28, DateTimeKind.Utc).AddTicks(5753),
-                            Deleted = false,
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8834),
+                            IsDeleted = false,
                             Key = "Pieces",
                             ProductId = 3,
                             Value = "3"
@@ -1815,8 +3051,8 @@ namespace ECommerceCore.Infrastructure.Migrations
                         new
                         {
                             Id = 12,
-                            CreatedDate = new DateTime(2025, 4, 23, 14, 47, 21, 28, DateTimeKind.Utc).AddTicks(5755),
-                            Deleted = false,
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8835),
+                            IsDeleted = false,
                             Key = "Tool Length",
                             ProductId = 3,
                             Value = "30 cm"
@@ -1824,8 +3060,8 @@ namespace ECommerceCore.Infrastructure.Migrations
                         new
                         {
                             Id = 13,
-                            CreatedDate = new DateTime(2025, 4, 23, 14, 47, 21, 28, DateTimeKind.Utc).AddTicks(5756),
-                            Deleted = false,
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8836),
+                            IsDeleted = false,
                             Key = "Processor",
                             ProductId = 4,
                             Value = "Intel Core i7"
@@ -1833,8 +3069,8 @@ namespace ECommerceCore.Infrastructure.Migrations
                         new
                         {
                             Id = 14,
-                            CreatedDate = new DateTime(2025, 4, 23, 14, 47, 21, 28, DateTimeKind.Utc).AddTicks(5757),
-                            Deleted = false,
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8837),
+                            IsDeleted = false,
                             Key = "RAM",
                             ProductId = 4,
                             Value = "16 GB"
@@ -1842,8 +3078,8 @@ namespace ECommerceCore.Infrastructure.Migrations
                         new
                         {
                             Id = 15,
-                            CreatedDate = new DateTime(2025, 4, 23, 14, 47, 21, 28, DateTimeKind.Utc).AddTicks(5758),
-                            Deleted = false,
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8838),
+                            IsDeleted = false,
                             Key = "Storage",
                             ProductId = 4,
                             Value = "512 GB SSD"
@@ -1851,8 +3087,8 @@ namespace ECommerceCore.Infrastructure.Migrations
                         new
                         {
                             Id = 16,
-                            CreatedDate = new DateTime(2025, 4, 23, 14, 47, 21, 28, DateTimeKind.Utc).AddTicks(5760),
-                            Deleted = false,
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8840),
+                            IsDeleted = false,
                             Key = "Display",
                             ProductId = 4,
                             Value = "15.6-inch Full HD (1920 x 1080)"
@@ -1860,8 +3096,8 @@ namespace ECommerceCore.Infrastructure.Migrations
                         new
                         {
                             Id = 17,
-                            CreatedDate = new DateTime(2025, 4, 23, 14, 47, 21, 28, DateTimeKind.Utc).AddTicks(5761),
-                            Deleted = false,
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8841),
+                            IsDeleted = false,
                             Key = "Battery Life",
                             ProductId = 4,
                             Value = "Up to 10 hours"
@@ -1869,8 +3105,8 @@ namespace ECommerceCore.Infrastructure.Migrations
                         new
                         {
                             Id = 18,
-                            CreatedDate = new DateTime(2025, 4, 23, 14, 47, 21, 28, DateTimeKind.Utc).AddTicks(5763),
-                            Deleted = false,
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8842),
+                            IsDeleted = false,
                             Key = "Operating System",
                             ProductId = 4,
                             Value = "Windows 11"
@@ -1878,8 +3114,8 @@ namespace ECommerceCore.Infrastructure.Migrations
                         new
                         {
                             Id = 19,
-                            CreatedDate = new DateTime(2025, 4, 23, 14, 47, 21, 28, DateTimeKind.Utc).AddTicks(5764),
-                            Deleted = false,
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8843),
+                            IsDeleted = false,
                             Key = "Material",
                             ProductId = 5,
                             Value = "Genuine Leather"
@@ -1887,8 +3123,8 @@ namespace ECommerceCore.Infrastructure.Migrations
                         new
                         {
                             Id = 20,
-                            CreatedDate = new DateTime(2025, 4, 23, 14, 47, 21, 28, DateTimeKind.Utc).AddTicks(5765),
-                            Deleted = false,
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8844),
+                            IsDeleted = false,
                             Key = "Color",
                             ProductId = 5,
                             Value = "Black"
@@ -1896,8 +3132,8 @@ namespace ECommerceCore.Infrastructure.Migrations
                         new
                         {
                             Id = 21,
-                            CreatedDate = new DateTime(2025, 4, 23, 14, 47, 21, 28, DateTimeKind.Utc).AddTicks(5767),
-                            Deleted = false,
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8845),
+                            IsDeleted = false,
                             Key = "Dimensions",
                             ProductId = 5,
                             Value = "35 x 25 x 12 cm"
@@ -1905,8 +3141,8 @@ namespace ECommerceCore.Infrastructure.Migrations
                         new
                         {
                             Id = 22,
-                            CreatedDate = new DateTime(2025, 4, 23, 14, 47, 21, 28, DateTimeKind.Utc).AddTicks(5768),
-                            Deleted = false,
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8846),
+                            IsDeleted = false,
                             Key = "Hardware",
                             ProductId = 5,
                             Value = "Gold-tone"
@@ -1914,8 +3150,8 @@ namespace ECommerceCore.Infrastructure.Migrations
                         new
                         {
                             Id = 23,
-                            CreatedDate = new DateTime(2025, 4, 23, 14, 47, 21, 28, DateTimeKind.Utc).AddTicks(5769),
-                            Deleted = false,
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8847),
+                            IsDeleted = false,
                             Key = "Megapixels",
                             ProductId = 6,
                             Value = "24.1 MP"
@@ -1923,8 +3159,8 @@ namespace ECommerceCore.Infrastructure.Migrations
                         new
                         {
                             Id = 24,
-                            CreatedDate = new DateTime(2025, 4, 23, 14, 47, 21, 28, DateTimeKind.Utc).AddTicks(5770),
-                            Deleted = false,
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8848),
+                            IsDeleted = false,
                             Key = "Sensor Type",
                             ProductId = 6,
                             Value = "CMOS"
@@ -1932,8 +3168,8 @@ namespace ECommerceCore.Infrastructure.Migrations
                         new
                         {
                             Id = 25,
-                            CreatedDate = new DateTime(2025, 4, 23, 14, 47, 21, 28, DateTimeKind.Utc).AddTicks(5772),
-                            Deleted = false,
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8849),
+                            IsDeleted = false,
                             Key = "Video Resolution",
                             ProductId = 6,
                             Value = "4K"
@@ -1941,8 +3177,8 @@ namespace ECommerceCore.Infrastructure.Migrations
                         new
                         {
                             Id = 26,
-                            CreatedDate = new DateTime(2025, 4, 23, 14, 47, 21, 28, DateTimeKind.Utc).AddTicks(5773),
-                            Deleted = false,
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8850),
+                            IsDeleted = false,
                             Key = "Lens",
                             ProductId = 6,
                             Value = "18-55mm"
@@ -1950,8 +3186,8 @@ namespace ECommerceCore.Infrastructure.Migrations
                         new
                         {
                             Id = 27,
-                            CreatedDate = new DateTime(2025, 4, 23, 14, 47, 21, 28, DateTimeKind.Utc).AddTicks(5774),
-                            Deleted = false,
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8851),
+                            IsDeleted = false,
                             Key = "ISO Range",
                             ProductId = 6,
                             Value = "100-25600"
@@ -1959,8 +3195,8 @@ namespace ECommerceCore.Infrastructure.Migrations
                         new
                         {
                             Id = 28,
-                            CreatedDate = new DateTime(2025, 4, 23, 14, 47, 21, 28, DateTimeKind.Utc).AddTicks(5775),
-                            Deleted = false,
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8852),
+                            IsDeleted = false,
                             Key = "Varieties",
                             ProductId = 7,
                             Value = "6"
@@ -1968,8 +3204,8 @@ namespace ECommerceCore.Infrastructure.Migrations
                         new
                         {
                             Id = 29,
-                            CreatedDate = new DateTime(2025, 4, 23, 14, 47, 21, 28, DateTimeKind.Utc).AddTicks(5776),
-                            Deleted = false,
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8853),
+                            IsDeleted = false,
                             Key = "Organic",
                             ProductId = 7,
                             Value = "Yes"
@@ -1977,8 +3213,8 @@ namespace ECommerceCore.Infrastructure.Migrations
                         new
                         {
                             Id = 30,
-                            CreatedDate = new DateTime(2025, 4, 23, 14, 47, 21, 28, DateTimeKind.Utc).AddTicks(5778),
-                            Deleted = false,
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8854),
+                            IsDeleted = false,
                             Key = "Weight",
                             ProductId = 7,
                             Value = "300g total (50g each)"
@@ -1986,8 +3222,8 @@ namespace ECommerceCore.Infrastructure.Migrations
                         new
                         {
                             Id = 31,
-                            CreatedDate = new DateTime(2025, 4, 23, 14, 47, 21, 28, DateTimeKind.Utc).AddTicks(5779),
-                            Deleted = false,
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8892),
+                            IsDeleted = false,
                             Key = "Packaging",
                             ProductId = 7,
                             Value = "Metal tins in gift box"
@@ -1995,8 +3231,8 @@ namespace ECommerceCore.Infrastructure.Migrations
                         new
                         {
                             Id = 32,
-                            CreatedDate = new DateTime(2025, 4, 23, 14, 47, 21, 28, DateTimeKind.Utc).AddTicks(5780),
-                            Deleted = false,
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8893),
+                            IsDeleted = false,
                             Key = "Format",
                             ProductId = 8,
                             Value = "Hardcover"
@@ -2004,8 +3240,8 @@ namespace ECommerceCore.Infrastructure.Migrations
                         new
                         {
                             Id = 33,
-                            CreatedDate = new DateTime(2025, 4, 23, 14, 47, 21, 28, DateTimeKind.Utc).AddTicks(5781),
-                            Deleted = false,
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8894),
+                            IsDeleted = false,
                             Key = "Pages",
                             ProductId = 8,
                             Value = "384"
@@ -2013,8 +3249,8 @@ namespace ECommerceCore.Infrastructure.Migrations
                         new
                         {
                             Id = 34,
-                            CreatedDate = new DateTime(2025, 4, 23, 14, 47, 21, 28, DateTimeKind.Utc).AddTicks(5782),
-                            Deleted = false,
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8895),
+                            IsDeleted = false,
                             Key = "Genre",
                             ProductId = 8,
                             Value = "Historical Fiction"
@@ -2022,8 +3258,8 @@ namespace ECommerceCore.Infrastructure.Migrations
                         new
                         {
                             Id = 35,
-                            CreatedDate = new DateTime(2025, 4, 23, 14, 47, 21, 28, DateTimeKind.Utc).AddTicks(5784),
-                            Deleted = false,
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8897),
+                            IsDeleted = false,
                             Key = "Language",
                             ProductId = 8,
                             Value = "English"
@@ -2031,8 +3267,8 @@ namespace ECommerceCore.Infrastructure.Migrations
                         new
                         {
                             Id = 36,
-                            CreatedDate = new DateTime(2025, 4, 23, 14, 47, 21, 28, DateTimeKind.Utc).AddTicks(5785),
-                            Deleted = false,
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8898),
+                            IsDeleted = false,
                             Key = "Material",
                             ProductId = 9,
                             Value = "Waterproof Leather and Mesh"
@@ -2040,8 +3276,8 @@ namespace ECommerceCore.Infrastructure.Migrations
                         new
                         {
                             Id = 37,
-                            CreatedDate = new DateTime(2025, 4, 23, 14, 47, 21, 28, DateTimeKind.Utc).AddTicks(5787),
-                            Deleted = false,
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8899),
+                            IsDeleted = false,
                             Key = "Sole",
                             ProductId = 9,
                             Value = "Rubber with Multi-directional Traction"
@@ -2049,8 +3285,8 @@ namespace ECommerceCore.Infrastructure.Migrations
                         new
                         {
                             Id = 38,
-                            CreatedDate = new DateTime(2025, 4, 23, 14, 47, 21, 28, DateTimeKind.Utc).AddTicks(5788),
-                            Deleted = false,
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8900),
+                            IsDeleted = false,
                             Key = "Closure",
                             ProductId = 9,
                             Value = "Lace-up"
@@ -2058,8 +3294,8 @@ namespace ECommerceCore.Infrastructure.Migrations
                         new
                         {
                             Id = 39,
-                            CreatedDate = new DateTime(2025, 4, 23, 14, 47, 21, 28, DateTimeKind.Utc).AddTicks(5790),
-                            Deleted = false,
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8901),
+                            IsDeleted = false,
                             Key = "Gender",
                             ProductId = 9,
                             Value = "Unisex"
@@ -2067,8 +3303,8 @@ namespace ECommerceCore.Infrastructure.Migrations
                         new
                         {
                             Id = 40,
-                            CreatedDate = new DateTime(2025, 4, 23, 14, 47, 21, 28, DateTimeKind.Utc).AddTicks(5792),
-                            Deleted = false,
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8903),
+                            IsDeleted = false,
                             Key = "Pieces",
                             ProductId = 10,
                             Value = "5"
@@ -2076,8 +3312,8 @@ namespace ECommerceCore.Infrastructure.Migrations
                         new
                         {
                             Id = 41,
-                            CreatedDate = new DateTime(2025, 4, 23, 14, 47, 21, 28, DateTimeKind.Utc).AddTicks(5794),
-                            Deleted = false,
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8904),
+                            IsDeleted = false,
                             Key = "Skin Type",
                             ProductId = 10,
                             Value = "All"
@@ -2085,8 +3321,8 @@ namespace ECommerceCore.Infrastructure.Migrations
                         new
                         {
                             Id = 42,
-                            CreatedDate = new DateTime(2025, 4, 23, 14, 47, 21, 28, DateTimeKind.Utc).AddTicks(5795),
-                            Deleted = false,
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8905),
+                            IsDeleted = false,
                             Key = "Key Ingredients",
                             ProductId = 10,
                             Value = "Peptides, Hyaluronic Acid, Antioxidants"
@@ -2094,8 +3330,8 @@ namespace ECommerceCore.Infrastructure.Migrations
                         new
                         {
                             Id = 43,
-                            CreatedDate = new DateTime(2025, 4, 23, 14, 47, 21, 28, DateTimeKind.Utc).AddTicks(5800),
-                            Deleted = false,
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8906),
+                            IsDeleted = false,
                             Key = "SPF",
                             ProductId = 10,
                             Value = "30 (Day Cream)"
@@ -2103,8 +3339,8 @@ namespace ECommerceCore.Infrastructure.Migrations
                         new
                         {
                             Id = 44,
-                            CreatedDate = new DateTime(2025, 4, 23, 14, 47, 21, 28, DateTimeKind.Utc).AddTicks(5801),
-                            Deleted = false,
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8907),
+                            IsDeleted = false,
                             Key = "Age Range",
                             ProductId = 11,
                             Value = "6-12 years"
@@ -2112,8 +3348,8 @@ namespace ECommerceCore.Infrastructure.Migrations
                         new
                         {
                             Id = 45,
-                            CreatedDate = new DateTime(2025, 4, 23, 14, 47, 21, 28, DateTimeKind.Utc).AddTicks(5802),
-                            Deleted = false,
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8908),
+                            IsDeleted = false,
                             Key = "Programmable",
                             ProductId = 11,
                             Value = "Yes"
@@ -2121,8 +3357,8 @@ namespace ECommerceCore.Infrastructure.Migrations
                         new
                         {
                             Id = 46,
-                            CreatedDate = new DateTime(2025, 4, 23, 14, 47, 21, 28, DateTimeKind.Utc).AddTicks(5804),
-                            Deleted = false,
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8909),
+                            IsDeleted = false,
                             Key = "Battery Life",
                             ProductId = 11,
                             Value = "4 hours"
@@ -2130,8 +3366,8 @@ namespace ECommerceCore.Infrastructure.Migrations
                         new
                         {
                             Id = 47,
-                            CreatedDate = new DateTime(2025, 4, 23, 14, 47, 21, 28, DateTimeKind.Utc).AddTicks(5805),
-                            Deleted = false,
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8910),
+                            IsDeleted = false,
                             Key = "Connectivity",
                             ProductId = 11,
                             Value = "Bluetooth"
@@ -2139,8 +3375,8 @@ namespace ECommerceCore.Infrastructure.Migrations
                         new
                         {
                             Id = 48,
-                            CreatedDate = new DateTime(2025, 4, 23, 14, 47, 21, 28, DateTimeKind.Utc).AddTicks(5806),
-                            Deleted = false,
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8911),
+                            IsDeleted = false,
                             Key = "App Compatibility",
                             ProductId = 11,
                             Value = "iOS and Android"
@@ -2148,8 +3384,8 @@ namespace ECommerceCore.Infrastructure.Migrations
                         new
                         {
                             Id = 49,
-                            CreatedDate = new DateTime(2025, 4, 23, 14, 47, 21, 28, DateTimeKind.Utc).AddTicks(5807),
-                            Deleted = false,
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8913),
+                            IsDeleted = false,
                             Key = "Axes",
                             ProductId = 12,
                             Value = "3-axis"
@@ -2157,8 +3393,8 @@ namespace ECommerceCore.Infrastructure.Migrations
                         new
                         {
                             Id = 50,
-                            CreatedDate = new DateTime(2025, 4, 23, 14, 47, 21, 28, DateTimeKind.Utc).AddTicks(5808),
-                            Deleted = false,
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8914),
+                            IsDeleted = false,
                             Key = "Battery Life",
                             ProductId = 12,
                             Value = "12 hours"
@@ -2166,8 +3402,8 @@ namespace ECommerceCore.Infrastructure.Migrations
                         new
                         {
                             Id = 51,
-                            CreatedDate = new DateTime(2025, 4, 23, 14, 47, 21, 28, DateTimeKind.Utc).AddTicks(5810),
-                            Deleted = false,
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8915),
+                            IsDeleted = false,
                             Key = "Compatibility",
                             ProductId = 12,
                             Value = "Most smartphones up to 6.7 inches"
@@ -2175,8 +3411,8 @@ namespace ECommerceCore.Infrastructure.Migrations
                         new
                         {
                             Id = 52,
-                            CreatedDate = new DateTime(2025, 4, 23, 14, 47, 21, 28, DateTimeKind.Utc).AddTicks(5811),
-                            Deleted = false,
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8916),
+                            IsDeleted = false,
                             Key = "Weight",
                             ProductId = 12,
                             Value = "400g"
@@ -2184,8 +3420,8 @@ namespace ECommerceCore.Infrastructure.Migrations
                         new
                         {
                             Id = 53,
-                            CreatedDate = new DateTime(2025, 4, 23, 14, 47, 21, 28, DateTimeKind.Utc).AddTicks(5812),
-                            Deleted = false,
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8917),
+                            IsDeleted = false,
                             Key = "Components",
                             ProductId = 13,
                             Value = "1 Hub, 2 Plugs, 2 Sensors, 3 Bulbs"
@@ -2193,8 +3429,8 @@ namespace ECommerceCore.Infrastructure.Migrations
                         new
                         {
                             Id = 54,
-                            CreatedDate = new DateTime(2025, 4, 23, 14, 47, 21, 28, DateTimeKind.Utc).AddTicks(5814),
-                            Deleted = false,
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8918),
+                            IsDeleted = false,
                             Key = "Connectivity",
                             ProductId = 13,
                             Value = "Wi-Fi, Bluetooth"
@@ -2202,8 +3438,8 @@ namespace ECommerceCore.Infrastructure.Migrations
                         new
                         {
                             Id = 55,
-                            CreatedDate = new DateTime(2025, 4, 23, 14, 47, 21, 28, DateTimeKind.Utc).AddTicks(5815),
-                            Deleted = false,
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8919),
+                            IsDeleted = false,
                             Key = "Voice Assistant Compatibility",
                             ProductId = 13,
                             Value = "Alexa, Google Assistant, Siri"
@@ -2211,8 +3447,8 @@ namespace ECommerceCore.Infrastructure.Migrations
                         new
                         {
                             Id = 56,
-                            CreatedDate = new DateTime(2025, 4, 23, 14, 47, 21, 28, DateTimeKind.Utc).AddTicks(5816),
-                            Deleted = false,
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8920),
+                            IsDeleted = false,
                             Key = "App Control",
                             ProductId = 13,
                             Value = "Yes"
@@ -2230,10 +3466,10 @@ namespace ECommerceCore.Infrastructure.Migrations
                     b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("CreatedDate")
+                    b.Property<DateTime?>("CreatedDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<bool>("Deleted")
+                    b.Property<bool?>("IsDeleted")
                         .HasColumnType("bit");
 
                     b.Property<int>("ProductId")
@@ -2259,368 +3495,368 @@ namespace ECommerceCore.Infrastructure.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedDate = new DateTime(2025, 4, 23, 14, 47, 21, 28, DateTimeKind.Utc).AddTicks(5901),
-                            Deleted = false,
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8986),
+                            IsDeleted = false,
                             ProductId = 1,
                             TagName = "4K"
                         },
                         new
                         {
                             Id = 2,
-                            CreatedDate = new DateTime(2025, 4, 23, 14, 47, 21, 28, DateTimeKind.Utc).AddTicks(5904),
-                            Deleted = false,
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8988),
+                            IsDeleted = false,
                             ProductId = 1,
                             TagName = "Smart TV"
                         },
                         new
                         {
                             Id = 3,
-                            CreatedDate = new DateTime(2025, 4, 23, 14, 47, 21, 28, DateTimeKind.Utc).AddTicks(5905),
-                            Deleted = false,
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8989),
+                            IsDeleted = false,
                             ProductId = 1,
                             TagName = "HDR"
                         },
                         new
                         {
                             Id = 4,
-                            CreatedDate = new DateTime(2025, 4, 23, 14, 47, 21, 28, DateTimeKind.Utc).AddTicks(5907),
-                            Deleted = false,
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8990),
+                            IsDeleted = false,
                             ProductId = 1,
                             TagName = "Home Entertainment"
                         },
                         new
                         {
                             Id = 5,
-                            CreatedDate = new DateTime(2025, 4, 23, 14, 47, 21, 28, DateTimeKind.Utc).AddTicks(5908),
-                            Deleted = false,
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8991),
+                            IsDeleted = false,
                             ProductId = 2,
                             TagName = "Men's Fashion"
                         },
                         new
                         {
                             Id = 6,
-                            CreatedDate = new DateTime(2025, 4, 23, 14, 47, 21, 28, DateTimeKind.Utc).AddTicks(5909),
-                            Deleted = false,
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8991),
+                            IsDeleted = false,
                             ProductId = 2,
                             TagName = "Casual Wear"
                         },
                         new
                         {
                             Id = 7,
-                            CreatedDate = new DateTime(2025, 4, 23, 14, 47, 21, 28, DateTimeKind.Utc).AddTicks(5910),
-                            Deleted = false,
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8992),
+                            IsDeleted = false,
                             ProductId = 2,
                             TagName = "Cotton"
                         },
                         new
                         {
                             Id = 8,
-                            CreatedDate = new DateTime(2025, 4, 23, 14, 47, 21, 28, DateTimeKind.Utc).AddTicks(5912),
-                            Deleted = false,
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8993),
+                            IsDeleted = false,
                             ProductId = 3,
                             TagName = "Gardening"
                         },
                         new
                         {
                             Id = 9,
-                            CreatedDate = new DateTime(2025, 4, 23, 14, 47, 21, 28, DateTimeKind.Utc).AddTicks(5914),
-                            Deleted = false,
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8995),
+                            IsDeleted = false,
                             ProductId = 3,
                             TagName = "Tools"
                         },
                         new
                         {
                             Id = 10,
-                            CreatedDate = new DateTime(2025, 4, 23, 14, 47, 21, 28, DateTimeKind.Utc).AddTicks(5915),
-                            Deleted = false,
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8996),
+                            IsDeleted = false,
                             ProductId = 3,
                             TagName = "New Arrival"
                         },
                         new
                         {
                             Id = 11,
-                            CreatedDate = new DateTime(2025, 4, 23, 14, 47, 21, 28, DateTimeKind.Utc).AddTicks(5916),
-                            Deleted = false,
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8997),
+                            IsDeleted = false,
                             ProductId = 4,
                             TagName = "Computing"
                         },
                         new
                         {
                             Id = 12,
-                            CreatedDate = new DateTime(2025, 4, 23, 14, 47, 21, 28, DateTimeKind.Utc).AddTicks(5919),
-                            Deleted = false,
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8997),
+                            IsDeleted = false,
                             ProductId = 4,
                             TagName = "SSD"
                         },
                         new
                         {
                             Id = 13,
-                            CreatedDate = new DateTime(2025, 4, 23, 14, 47, 21, 28, DateTimeKind.Utc).AddTicks(5920),
-                            Deleted = false,
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8998),
+                            IsDeleted = false,
                             ProductId = 4,
                             TagName = "Lightweight"
                         },
                         new
                         {
                             Id = 14,
-                            CreatedDate = new DateTime(2025, 4, 23, 14, 47, 21, 28, DateTimeKind.Utc).AddTicks(5921),
-                            Deleted = false,
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8999),
+                            IsDeleted = false,
                             ProductId = 4,
                             TagName = "New Arrival"
                         },
                         new
                         {
                             Id = 15,
-                            CreatedDate = new DateTime(2025, 4, 23, 14, 47, 21, 28, DateTimeKind.Utc).AddTicks(5922),
-                            Deleted = false,
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(9000),
+                            IsDeleted = false,
                             ProductId = 5,
                             TagName = "Women's Fashion"
                         },
                         new
                         {
                             Id = 16,
-                            CreatedDate = new DateTime(2025, 4, 23, 14, 47, 21, 28, DateTimeKind.Utc).AddTicks(5923),
-                            Deleted = false,
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(9001),
+                            IsDeleted = false,
                             ProductId = 5,
                             TagName = "Leather"
                         },
                         new
                         {
                             Id = 17,
-                            CreatedDate = new DateTime(2025, 4, 23, 14, 47, 21, 28, DateTimeKind.Utc).AddTicks(5924),
-                            Deleted = false,
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(9002),
+                            IsDeleted = false,
                             ProductId = 5,
                             TagName = "Designer"
                         },
                         new
                         {
                             Id = 18,
-                            CreatedDate = new DateTime(2025, 4, 23, 14, 47, 21, 28, DateTimeKind.Utc).AddTicks(5925),
-                            Deleted = false,
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(9002),
+                            IsDeleted = false,
                             ProductId = 5,
                             TagName = "Trending"
                         },
                         new
                         {
                             Id = 19,
-                            CreatedDate = new DateTime(2025, 4, 23, 14, 47, 21, 28, DateTimeKind.Utc).AddTicks(5926),
-                            Deleted = false,
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(9003),
+                            IsDeleted = false,
                             ProductId = 6,
                             TagName = "Photography"
                         },
                         new
                         {
                             Id = 20,
-                            CreatedDate = new DateTime(2025, 4, 23, 14, 47, 21, 28, DateTimeKind.Utc).AddTicks(5927),
-                            Deleted = false,
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(9004),
+                            IsDeleted = false,
                             ProductId = 6,
                             TagName = "4K Video"
                         },
                         new
                         {
                             Id = 21,
-                            CreatedDate = new DateTime(2025, 4, 23, 14, 47, 21, 28, DateTimeKind.Utc).AddTicks(5928),
-                            Deleted = false,
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(9005),
+                            IsDeleted = false,
                             ProductId = 6,
                             TagName = "Featured"
                         },
                         new
                         {
                             Id = 22,
-                            CreatedDate = new DateTime(2025, 4, 23, 14, 47, 21, 28, DateTimeKind.Utc).AddTicks(5929),
-                            Deleted = false,
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(9006),
+                            IsDeleted = false,
                             ProductId = 7,
                             TagName = "Organic"
                         },
                         new
                         {
                             Id = 23,
-                            CreatedDate = new DateTime(2025, 4, 23, 14, 47, 21, 28, DateTimeKind.Utc).AddTicks(5931),
-                            Deleted = false,
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(9007),
+                            IsDeleted = false,
                             ProductId = 7,
                             TagName = "Gift Set"
                         },
                         new
                         {
                             Id = 24,
-                            CreatedDate = new DateTime(2025, 4, 23, 14, 47, 21, 28, DateTimeKind.Utc).AddTicks(5932),
-                            Deleted = false,
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(9008),
+                            IsDeleted = false,
                             ProductId = 7,
                             TagName = "New Arrival"
                         },
                         new
                         {
                             Id = 25,
-                            CreatedDate = new DateTime(2025, 4, 23, 14, 47, 21, 28, DateTimeKind.Utc).AddTicks(5933),
-                            Deleted = false,
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(9009),
+                            IsDeleted = false,
                             ProductId = 8,
                             TagName = "Historical Fiction"
                         },
                         new
                         {
                             Id = 26,
-                            CreatedDate = new DateTime(2025, 4, 23, 14, 47, 21, 28, DateTimeKind.Utc).AddTicks(5934),
-                            Deleted = false,
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(9009),
+                            IsDeleted = false,
                             ProductId = 8,
                             TagName = "Bestseller"
                         },
                         new
                         {
                             Id = 27,
-                            CreatedDate = new DateTime(2025, 4, 23, 14, 47, 21, 28, DateTimeKind.Utc).AddTicks(5935),
-                            Deleted = false,
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(9010),
+                            IsDeleted = false,
                             ProductId = 8,
                             TagName = "New Arrival"
                         },
                         new
                         {
                             Id = 28,
-                            CreatedDate = new DateTime(2025, 4, 23, 14, 47, 21, 28, DateTimeKind.Utc).AddTicks(5936),
-                            Deleted = false,
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(9011),
+                            IsDeleted = false,
                             ProductId = 9,
                             TagName = "Outdoor"
                         },
                         new
                         {
                             Id = 29,
-                            CreatedDate = new DateTime(2025, 4, 23, 14, 47, 21, 28, DateTimeKind.Utc).AddTicks(5937),
-                            Deleted = false,
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(9012),
+                            IsDeleted = false,
                             ProductId = 9,
                             TagName = "Waterproof"
                         },
                         new
                         {
                             Id = 30,
-                            CreatedDate = new DateTime(2025, 4, 23, 14, 47, 21, 28, DateTimeKind.Utc).AddTicks(5938),
-                            Deleted = false,
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(9013),
+                            IsDeleted = false,
                             ProductId = 9,
                             TagName = "Unisex"
                         },
                         new
                         {
                             Id = 31,
-                            CreatedDate = new DateTime(2025, 4, 23, 14, 47, 21, 28, DateTimeKind.Utc).AddTicks(5939),
-                            Deleted = false,
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(9014),
+                            IsDeleted = false,
                             ProductId = 9,
                             TagName = "Trending"
                         },
                         new
                         {
                             Id = 32,
-                            CreatedDate = new DateTime(2025, 4, 23, 14, 47, 21, 28, DateTimeKind.Utc).AddTicks(5940),
-                            Deleted = false,
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(9014),
+                            IsDeleted = false,
                             ProductId = 10,
                             TagName = "Anti-Aging"
                         },
                         new
                         {
                             Id = 33,
-                            CreatedDate = new DateTime(2025, 4, 23, 14, 47, 21, 28, DateTimeKind.Utc).AddTicks(5941),
-                            Deleted = false,
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(9120),
+                            IsDeleted = false,
                             ProductId = 10,
                             TagName = "Beauty"
                         },
                         new
                         {
                             Id = 34,
-                            CreatedDate = new DateTime(2025, 4, 23, 14, 47, 21, 28, DateTimeKind.Utc).AddTicks(5942),
-                            Deleted = false,
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(9122),
+                            IsDeleted = false,
                             ProductId = 10,
                             TagName = "New Arrival"
                         },
                         new
                         {
                             Id = 35,
-                            CreatedDate = new DateTime(2025, 4, 23, 14, 47, 21, 28, DateTimeKind.Utc).AddTicks(5943),
-                            Deleted = false,
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(9122),
+                            IsDeleted = false,
                             ProductId = 10,
                             TagName = "Trending"
                         },
                         new
                         {
                             Id = 36,
-                            CreatedDate = new DateTime(2025, 4, 23, 14, 47, 21, 28, DateTimeKind.Utc).AddTicks(5945),
-                            Deleted = false,
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(9123),
+                            IsDeleted = false,
                             ProductId = 11,
                             TagName = "Educational"
                         },
                         new
                         {
                             Id = 37,
-                            CreatedDate = new DateTime(2025, 4, 23, 14, 47, 21, 28, DateTimeKind.Utc).AddTicks(5946),
-                            Deleted = false,
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(9124),
+                            IsDeleted = false,
                             ProductId = 11,
                             TagName = "STEM"
                         },
                         new
                         {
                             Id = 38,
-                            CreatedDate = new DateTime(2025, 4, 23, 14, 47, 21, 28, DateTimeKind.Utc).AddTicks(5947),
-                            Deleted = false,
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(9127),
+                            IsDeleted = false,
                             ProductId = 11,
                             TagName = "Kids"
                         },
                         new
                         {
                             Id = 39,
-                            CreatedDate = new DateTime(2025, 4, 23, 14, 47, 21, 28, DateTimeKind.Utc).AddTicks(5948),
-                            Deleted = false,
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(9128),
+                            IsDeleted = false,
                             ProductId = 11,
                             TagName = "New Arrival"
                         },
                         new
                         {
                             Id = 40,
-                            CreatedDate = new DateTime(2025, 4, 23, 14, 47, 21, 28, DateTimeKind.Utc).AddTicks(5949),
-                            Deleted = false,
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(9129),
+                            IsDeleted = false,
                             ProductId = 12,
                             TagName = "Photography"
                         },
                         new
                         {
                             Id = 41,
-                            CreatedDate = new DateTime(2025, 4, 23, 14, 47, 21, 28, DateTimeKind.Utc).AddTicks(5951),
-                            Deleted = false,
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(9130),
+                            IsDeleted = false,
                             ProductId = 12,
                             TagName = "Accessories"
                         },
                         new
                         {
                             Id = 42,
-                            CreatedDate = new DateTime(2025, 4, 23, 14, 47, 21, 28, DateTimeKind.Utc).AddTicks(5952),
-                            Deleted = false,
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(9130),
+                            IsDeleted = false,
                             ProductId = 12,
                             TagName = "New Arrival"
                         },
                         new
                         {
                             Id = 43,
-                            CreatedDate = new DateTime(2025, 4, 23, 14, 47, 21, 28, DateTimeKind.Utc).AddTicks(5953),
-                            Deleted = false,
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(9131),
+                            IsDeleted = false,
                             ProductId = 13,
                             TagName = "Smart Home"
                         },
                         new
                         {
                             Id = 44,
-                            CreatedDate = new DateTime(2025, 4, 23, 14, 47, 21, 28, DateTimeKind.Utc).AddTicks(5954),
-                            Deleted = false,
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(9132),
+                            IsDeleted = false,
                             ProductId = 13,
                             TagName = "IoT"
                         },
                         new
                         {
                             Id = 45,
-                            CreatedDate = new DateTime(2025, 4, 23, 14, 47, 21, 28, DateTimeKind.Utc).AddTicks(5956),
-                            Deleted = false,
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(9133),
+                            IsDeleted = false,
                             ProductId = 13,
                             TagName = "New Arrival"
                         },
                         new
                         {
                             Id = 46,
-                            CreatedDate = new DateTime(2025, 4, 23, 14, 47, 21, 28, DateTimeKind.Utc).AddTicks(5957),
-                            Deleted = false,
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(9134),
+                            IsDeleted = false,
                             ProductId = 13,
                             TagName = "Trending"
                         });
@@ -2637,14 +3873,14 @@ namespace ECommerceCore.Infrastructure.Migrations
                     b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("CreatedDate")
+                    b.Property<DateTime?>("CreatedDate")
                         .HasColumnType("datetime2");
-
-                    b.Property<bool>("Deleted")
-                        .HasColumnType("bit");
 
                     b.Property<double?>("DiscountPrice")
                         .HasColumnType("float");
+
+                    b.Property<bool?>("IsDeleted")
+                        .HasColumnType("bit");
 
                     b.Property<double>("Price")
                         .HasColumnType("float");
@@ -2679,9 +3915,9 @@ namespace ECommerceCore.Infrastructure.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedDate = new DateTime(2025, 4, 23, 14, 47, 21, 28, DateTimeKind.Utc).AddTicks(6033),
-                            Deleted = false,
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(9204),
                             DiscountPrice = 16.989999999999998,
+                            IsDeleted = false,
                             Price = 20.0,
                             ProductId = 2,
                             SKU = "APP-MTSRT-002-NVY-S",
@@ -2691,9 +3927,9 @@ namespace ECommerceCore.Infrastructure.Migrations
                         new
                         {
                             Id = 2,
-                            CreatedDate = new DateTime(2025, 4, 23, 14, 47, 21, 28, DateTimeKind.Utc).AddTicks(6040),
-                            Deleted = false,
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(9210),
                             DiscountPrice = 16.989999999999998,
+                            IsDeleted = false,
                             Price = 20.0,
                             ProductId = 2,
                             SKU = "APP-MTSRT-002-NVY-M",
@@ -2703,9 +3939,9 @@ namespace ECommerceCore.Infrastructure.Migrations
                         new
                         {
                             Id = 3,
-                            CreatedDate = new DateTime(2025, 4, 23, 14, 47, 21, 28, DateTimeKind.Utc).AddTicks(6042),
-                            Deleted = false,
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(9212),
                             DiscountPrice = 16.989999999999998,
+                            IsDeleted = false,
                             Price = 20.0,
                             ProductId = 2,
                             SKU = "APP-MTSRT-002-NVY-L",
@@ -2715,9 +3951,9 @@ namespace ECommerceCore.Infrastructure.Migrations
                         new
                         {
                             Id = 4,
-                            CreatedDate = new DateTime(2025, 4, 23, 14, 47, 21, 28, DateTimeKind.Utc).AddTicks(6044),
-                            Deleted = false,
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(9214),
                             DiscountPrice = 18.989999999999998,
+                            IsDeleted = false,
                             Price = 22.0,
                             ProductId = 2,
                             SKU = "APP-MTSRT-002-NVY-XL",
@@ -2727,9 +3963,9 @@ namespace ECommerceCore.Infrastructure.Migrations
                         new
                         {
                             Id = 5,
-                            CreatedDate = new DateTime(2025, 4, 23, 14, 47, 21, 28, DateTimeKind.Utc).AddTicks(6046),
-                            Deleted = false,
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(9215),
                             DiscountPrice = 129.99000000000001,
+                            IsDeleted = false,
                             Price = 149.99000000000001,
                             ProductId = 5,
                             SKU = "APP-HBAG-005-BLK",
@@ -2739,9 +3975,9 @@ namespace ECommerceCore.Infrastructure.Migrations
                         new
                         {
                             Id = 6,
-                            CreatedDate = new DateTime(2025, 4, 23, 14, 47, 21, 28, DateTimeKind.Utc).AddTicks(6047),
-                            Deleted = false,
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(9217),
                             DiscountPrice = 129.99000000000001,
+                            IsDeleted = false,
                             Price = 149.99000000000001,
                             ProductId = 5,
                             SKU = "APP-HBAG-005-BRN",
@@ -2751,9 +3987,9 @@ namespace ECommerceCore.Infrastructure.Migrations
                         new
                         {
                             Id = 7,
-                            CreatedDate = new DateTime(2025, 4, 23, 14, 47, 21, 28, DateTimeKind.Utc).AddTicks(6049),
-                            Deleted = false,
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(9218),
                             DiscountPrice = 109.95,
+                            IsDeleted = false,
                             Price = 129.94999999999999,
                             ProductId = 9,
                             SKU = "SPT-HBOOT-009-07",
@@ -2763,9 +3999,9 @@ namespace ECommerceCore.Infrastructure.Migrations
                         new
                         {
                             Id = 8,
-                            CreatedDate = new DateTime(2025, 4, 23, 14, 47, 21, 28, DateTimeKind.Utc).AddTicks(6051),
-                            Deleted = false,
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(9220),
                             DiscountPrice = 109.95,
+                            IsDeleted = false,
                             Price = 129.94999999999999,
                             ProductId = 9,
                             SKU = "SPT-HBOOT-009-08",
@@ -2775,9 +4011,9 @@ namespace ECommerceCore.Infrastructure.Migrations
                         new
                         {
                             Id = 9,
-                            CreatedDate = new DateTime(2025, 4, 23, 14, 47, 21, 28, DateTimeKind.Utc).AddTicks(6053),
-                            Deleted = false,
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(9222),
                             DiscountPrice = 109.95,
+                            IsDeleted = false,
                             Price = 129.94999999999999,
                             ProductId = 9,
                             SKU = "SPT-HBOOT-009-09",
@@ -2787,9 +4023,9 @@ namespace ECommerceCore.Infrastructure.Migrations
                         new
                         {
                             Id = 10,
-                            CreatedDate = new DateTime(2025, 4, 23, 14, 47, 21, 28, DateTimeKind.Utc).AddTicks(6055),
-                            Deleted = false,
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(9223),
                             DiscountPrice = 109.95,
+                            IsDeleted = false,
                             Price = 129.94999999999999,
                             ProductId = 9,
                             SKU = "SPT-HBOOT-009-10",
@@ -2799,9 +4035,9 @@ namespace ECommerceCore.Infrastructure.Migrations
                         new
                         {
                             Id = 11,
-                            CreatedDate = new DateTime(2025, 4, 23, 14, 47, 21, 28, DateTimeKind.Utc).AddTicks(6056),
-                            Deleted = false,
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(9225),
                             DiscountPrice = 109.95,
+                            IsDeleted = false,
                             Price = 129.94999999999999,
                             ProductId = 9,
                             SKU = "SPT-HBOOT-009-11",
@@ -2811,9 +4047,9 @@ namespace ECommerceCore.Infrastructure.Migrations
                         new
                         {
                             Id = 12,
-                            CreatedDate = new DateTime(2025, 4, 23, 14, 47, 21, 28, DateTimeKind.Utc).AddTicks(6058),
-                            Deleted = false,
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(9227),
                             DiscountPrice = 649.99000000000001,
+                            IsDeleted = false,
                             Price = 699.99000000000001,
                             ProductId = 1,
                             SKU = "ELC-SMTV-001-55",
@@ -2823,9 +4059,9 @@ namespace ECommerceCore.Infrastructure.Migrations
                         new
                         {
                             Id = 13,
-                            CreatedDate = new DateTime(2025, 4, 23, 14, 47, 21, 28, DateTimeKind.Utc).AddTicks(6061),
-                            Deleted = false,
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(9228),
                             DiscountPrice = 849.99000000000001,
+                            IsDeleted = false,
                             Price = 899.99000000000001,
                             ProductId = 1,
                             SKU = "ELC-SMTV-001-65",
@@ -2835,9 +4071,9 @@ namespace ECommerceCore.Infrastructure.Migrations
                         new
                         {
                             Id = 14,
-                            CreatedDate = new DateTime(2025, 4, 23, 14, 47, 21, 28, DateTimeKind.Utc).AddTicks(6063),
-                            Deleted = false,
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(9230),
                             DiscountPrice = 899.99000000000001,
+                            IsDeleted = false,
                             Price = 999.99000000000001,
                             ProductId = 4,
                             SKU = "ELC-LPTOP-004-16-512",
@@ -2847,9 +4083,9 @@ namespace ECommerceCore.Infrastructure.Migrations
                         new
                         {
                             Id = 15,
-                            CreatedDate = new DateTime(2025, 4, 23, 14, 47, 21, 28, DateTimeKind.Utc).AddTicks(6065),
-                            Deleted = false,
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(9231),
                             DiscountPrice = 1199.99,
+                            IsDeleted = false,
                             Price = 1299.99,
                             ProductId = 4,
                             SKU = "ELC-LPTOP-004-32-1TB",
@@ -2859,9 +4095,9 @@ namespace ECommerceCore.Infrastructure.Migrations
                         new
                         {
                             Id = 16,
-                            CreatedDate = new DateTime(2025, 4, 23, 14, 47, 21, 28, DateTimeKind.Utc).AddTicks(6066),
-                            Deleted = false,
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(9233),
                             DiscountPrice = 75.989999999999995,
+                            IsDeleted = false,
                             Price = 89.989999999999995,
                             ProductId = 10,
                             SKU = "BPC-AAGE-010-NORM",
@@ -2871,9 +4107,9 @@ namespace ECommerceCore.Infrastructure.Migrations
                         new
                         {
                             Id = 17,
-                            CreatedDate = new DateTime(2025, 4, 23, 14, 47, 21, 28, DateTimeKind.Utc).AddTicks(6068),
-                            Deleted = false,
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(9234),
                             DiscountPrice = 75.989999999999995,
+                            IsDeleted = false,
                             Price = 89.989999999999995,
                             ProductId = 10,
                             SKU = "BPC-AAGE-010-DRY",
@@ -2883,9 +4119,9 @@ namespace ECommerceCore.Infrastructure.Migrations
                         new
                         {
                             Id = 18,
-                            CreatedDate = new DateTime(2025, 4, 23, 14, 47, 21, 28, DateTimeKind.Utc).AddTicks(6070),
-                            Deleted = false,
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(9236),
                             DiscountPrice = 79.989999999999995,
+                            IsDeleted = false,
                             Price = 94.989999999999995,
                             ProductId = 10,
                             SKU = "BPC-AAGE-010-SENS",
@@ -2911,10 +4147,10 @@ namespace ECommerceCore.Infrastructure.Migrations
                     b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("CreatedDate")
+                    b.Property<DateTime?>("CreatedDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<bool>("Deleted")
+                    b.Property<bool?>("IsDeleted")
                         .HasColumnType("bit");
 
                     b.Property<int>("ProductId")
@@ -2935,6 +4171,261 @@ namespace ECommerceCore.Infrastructure.Migrations
                     b.ToTable("ShoppingCarts");
                 });
 
+            modelBuilder.Entity("ECommerceCore.Domain.Entities.TaxDetail", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<decimal>("Amount")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("InvoiceId")
+                        .HasColumnType("int");
+
+                    b.Property<bool?>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<decimal>("Rate")
+                        .HasColumnType("decimal(5,2)");
+
+                    b.Property<string>("TaxType")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("UpdatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("InvoiceId");
+
+                    b.ToTable("TaxDetails");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Amount = 52.00m,
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 187, DateTimeKind.Utc).AddTicks(729),
+                            InvoiceId = 1,
+                            IsDeleted = false,
+                            Rate = 8.00m,
+                            TaxType = "VAT"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Amount = 10.40m,
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 187, DateTimeKind.Utc).AddTicks(732),
+                            InvoiceId = 2,
+                            IsDeleted = false,
+                            Rate = 8.00m,
+                            TaxType = "GST"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Amount = 64.00m,
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 187, DateTimeKind.Utc).AddTicks(733),
+                            InvoiceId = 3,
+                            IsDeleted = false,
+                            Rate = 8.00m,
+                            TaxType = "Consumption Tax"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Amount = 8.80m,
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 187, DateTimeKind.Utc).AddTicks(735),
+                            InvoiceId = 4,
+                            IsDeleted = false,
+                            Rate = 8.00m,
+                            TaxType = "GST"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Amount = 6.08m,
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 187, DateTimeKind.Utc).AddTicks(736),
+                            InvoiceId = 5,
+                            IsDeleted = false,
+                            Rate = 8.00m,
+                            TaxType = "VAT"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Amount = 5.60m,
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 187, DateTimeKind.Utc).AddTicks(738),
+                            InvoiceId = 6,
+                            IsDeleted = false,
+                            Rate = 8.00m,
+                            TaxType = "GST"
+                        },
+                        new
+                        {
+                            Id = 7,
+                            Amount = -1.28m,
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 187, DateTimeKind.Utc).AddTicks(739),
+                            InvoiceId = 7,
+                            IsDeleted = false,
+                            Rate = 8.00m,
+                            TaxType = "VAT"
+                        },
+                        new
+                        {
+                            Id = 8,
+                            Amount = 12.00m,
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 187, DateTimeKind.Utc).AddTicks(740),
+                            InvoiceId = 8,
+                            IsDeleted = false,
+                            Rate = 8.00m,
+                            TaxType = "VAT"
+                        });
+                });
+
+            modelBuilder.Entity("ECommerceCore.Domain.Entities.Timezone", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Abbreviation")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool?>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("UpdatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("UtcOffset")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UtcOffsetString")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Name")
+                        .IsUnique();
+
+                    b.ToTable("Timezones");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Abbreviation = "EST",
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(9327),
+                            IsDeleted = false,
+                            Name = "America/New_York",
+                            UtcOffset = "-05:00",
+                            UtcOffsetString = "EST"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Abbreviation = "GMT",
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(9330),
+                            IsDeleted = false,
+                            Name = "Europe/London",
+                            UtcOffset = "+00:00",
+                            UtcOffsetString = "GMT"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Abbreviation = "JST",
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(9331),
+                            IsDeleted = false,
+                            Name = "Asia/Tokyo",
+                            UtcOffset = "+09:00",
+                            UtcOffsetString = "JST"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Abbreviation = "AEDT",
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(9332),
+                            IsDeleted = false,
+                            Name = "Australia/Sydney",
+                            UtcOffset = "+10:00",
+                            UtcOffsetString = "AEDT"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Abbreviation = "EST",
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(9334),
+                            IsDeleted = false,
+                            Name = "America/Toronto",
+                            UtcOffset = "-05:00",
+                            UtcOffsetString = "EST"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Abbreviation = "CET",
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(9426),
+                            IsDeleted = false,
+                            Name = "Europe/Paris",
+                            UtcOffset = "+01:00",
+                            UtcOffsetString = "CET"
+                        },
+                        new
+                        {
+                            Id = 7,
+                            Abbreviation = "IST",
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(9428),
+                            IsDeleted = false,
+                            Name = "Asia/Mumbai",
+                            UtcOffset = "+05:30",
+                            UtcOffsetString = "IST"
+                        },
+                        new
+                        {
+                            Id = 8,
+                            Abbreviation = "CET",
+                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(9429),
+                            IsDeleted = false,
+                            Name = "Europe/Zurich",
+                            UtcOffset = "+01:00",
+                            UtcOffsetString = "CET"
+                        });
+                });
+
             modelBuilder.Entity("ECommerceCore.Domain.Entities.WishlistItem", b =>
                 {
                     b.Property<int>("Id")
@@ -2949,10 +4440,10 @@ namespace ECommerceCore.Infrastructure.Migrations
                     b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("CreatedDate")
+                    b.Property<DateTime?>("CreatedDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<bool>("Deleted")
+                    b.Property<bool?>("IsDeleted")
                         .HasColumnType("bit");
 
                     b.Property<int>("ProductId")
@@ -3188,6 +4679,12 @@ namespace ECommerceCore.Infrastructure.Migrations
                 {
                     b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUser");
 
+                    b.Property<string>("Address1")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Address2")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("City")
                         .HasColumnType("nvarchar(max)");
 
@@ -3204,9 +4701,6 @@ namespace ECommerceCore.Infrastructure.Migrations
                     b.Property<string>("State")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("StreetAddress")
-                        .HasColumnType("nvarchar(max)");
-
                     b.HasIndex("CompanyId");
 
                     b.HasDiscriminator().HasValue("ApplicationUser");
@@ -3220,6 +4714,356 @@ namespace ECommerceCore.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Restrict);
 
                     b.Navigation("ParentCategory");
+                });
+
+            modelBuilder.Entity("ECommerceCore.Domain.Entities.Customer", b =>
+                {
+                    b.HasOne("ECommerceCore.Domain.Entities.Company", "Company")
+                        .WithMany()
+                        .HasForeignKey("CompanyId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.OwnsOne("ECommerceCore.Domain.Entities.Address", "Address", b1 =>
+                        {
+                            b1.Property<int>("CustomerId")
+                                .HasColumnType("int");
+
+                            b1.Property<string>("Address1")
+                                .IsRequired()
+                                .HasColumnType("nvarchar(max)")
+                                .HasColumnName("Address1");
+
+                            b1.Property<string>("Address2")
+                                .HasColumnType("nvarchar(max)")
+                                .HasColumnName("Address2");
+
+                            b1.Property<string>("City")
+                                .IsRequired()
+                                .HasColumnType("nvarchar(max)")
+                                .HasColumnName("City");
+
+                            b1.Property<string>("Country")
+                                .IsRequired()
+                                .HasColumnType("nvarchar(max)")
+                                .HasColumnName("Country");
+
+                            b1.Property<string>("State")
+                                .HasColumnType("nvarchar(max)")
+                                .HasColumnName("State");
+
+                            b1.Property<string>("ZipCode")
+                                .IsRequired()
+                                .HasColumnType("nvarchar(max)")
+                                .HasColumnName("ZipCode");
+
+                            b1.HasKey("CustomerId");
+
+                            b1.ToTable("Customers");
+
+                            b1.WithOwner()
+                                .HasForeignKey("CustomerId");
+
+                            b1.HasData(
+                                new
+                                {
+                                    CustomerId = 1,
+                                    Address1 = "123 Maple St",
+                                    Address2 = "Apt 4B",
+                                    City = "Springfield",
+                                    Country = "USA",
+                                    State = "IL",
+                                    ZipCode = "62701"
+                                },
+                                new
+                                {
+                                    CustomerId = 2,
+                                    Address1 = "456 Oak Ave",
+                                    Address2 = "Suite 201",
+                                    City = "London",
+                                    Country = "UK",
+                                    State = "Greater London",
+                                    ZipCode = "SW1A 1AA"
+                                },
+                                new
+                                {
+                                    CustomerId = 3,
+                                    Address1 = "789 Sakura St",
+                                    Address2 = "2 Chome-1-1",
+                                    City = "Tokyo",
+                                    Country = "Japan",
+                                    State = "Tokyo",
+                                    ZipCode = "100-0001"
+                                },
+                                new
+                                {
+                                    CustomerId = 4,
+                                    Address1 = "101 Pine Rd",
+                                    Address2 = "Level 5",
+                                    City = "Sydney",
+                                    Country = "Australia",
+                                    State = "NSW",
+                                    ZipCode = "2000"
+                                },
+                                new
+                                {
+                                    CustomerId = 5,
+                                    Address1 = "202 Birch Ln",
+                                    Address2 = "Unit 12",
+                                    City = "Toronto",
+                                    Country = "Canada",
+                                    State = "ON",
+                                    ZipCode = "M5V 2T7"
+                                },
+                                new
+                                {
+                                    CustomerId = 6,
+                                    Address1 = "303 Cedar St",
+                                    Address2 = "Batiment C",
+                                    City = "Paris",
+                                    Country = "France",
+                                    State = "Île-de-France",
+                                    ZipCode = "75001"
+                                },
+                                new
+                                {
+                                    CustomerId = 7,
+                                    Address1 = "404 Elm Dr",
+                                    Address2 = "Near Main Gate",
+                                    City = "Mumbai",
+                                    Country = "India",
+                                    State = "MH",
+                                    ZipCode = "400001"
+                                },
+                                new
+                                {
+                                    CustomerId = 8,
+                                    Address1 = "505 Spruce Ct",
+                                    Address2 = "Block A",
+                                    City = "Zurich",
+                                    Country = "Switzerland",
+                                    State = "Zurich",
+                                    ZipCode = "8001"
+                                });
+                        });
+
+                    b.Navigation("Address")
+                        .IsRequired();
+
+                    b.Navigation("Company");
+                });
+
+            modelBuilder.Entity("ECommerceCore.Domain.Entities.Invoice", b =>
+                {
+                    b.HasOne("ECommerceCore.Domain.Entities.Company", "Company")
+                        .WithMany()
+                        .HasForeignKey("CompanyId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("ECommerceCore.Domain.Entities.Company", null)
+                        .WithMany("Invoices")
+                        .HasForeignKey("CompanyId1");
+
+                    b.HasOne("ECommerceCore.Domain.Entities.Customer", "Customer")
+                        .WithMany("Invoices")
+                        .HasForeignKey("CustomerId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("ECommerceCore.Domain.Entities.Location", "Location")
+                        .WithMany("Invoices")
+                        .HasForeignKey("LocationId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("ECommerceCore.Domain.Entities.OrderHeader", "Order")
+                        .WithMany("Invoices")
+                        .HasForeignKey("OrderId")
+                        .OnDelete(DeleteBehavior.NoAction);
+
+                    b.Navigation("Company");
+
+                    b.Navigation("Customer");
+
+                    b.Navigation("Location");
+
+                    b.Navigation("Order");
+                });
+
+            modelBuilder.Entity("ECommerceCore.Domain.Entities.InvoiceAttachments", b =>
+                {
+                    b.HasOne("ECommerceCore.Domain.Entities.Invoice", "Invoice")
+                        .WithMany("InvoiceAttachments")
+                        .HasForeignKey("InvoiceId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Invoice");
+                });
+
+            modelBuilder.Entity("ECommerceCore.Domain.Entities.InvoiceItem", b =>
+                {
+                    b.HasOne("ECommerceCore.Domain.Entities.Invoice", "Invoice")
+                        .WithMany("InvoiceItems")
+                        .HasForeignKey("InvoiceId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Invoice");
+                });
+
+            modelBuilder.Entity("ECommerceCore.Domain.Entities.Location", b =>
+                {
+                    b.HasOne("ECommerceCore.Domain.Entities.Company", "Company")
+                        .WithMany("Locations")
+                        .HasForeignKey("CompanyId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("ECommerceCore.Domain.Entities.Currency", "Currency")
+                        .WithMany()
+                        .HasForeignKey("CurrencyId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("ECommerceCore.Domain.Entities.Timezone", "Timezone")
+                        .WithMany()
+                        .HasForeignKey("TimezoneId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.OwnsOne("ECommerceCore.Domain.Entities.Address", "Address", b1 =>
+                        {
+                            b1.Property<int>("LocationId")
+                                .HasColumnType("int");
+
+                            b1.Property<string>("Address1")
+                                .IsRequired()
+                                .HasColumnType("nvarchar(max)")
+                                .HasColumnName("Address1");
+
+                            b1.Property<string>("Address2")
+                                .HasColumnType("nvarchar(max)")
+                                .HasColumnName("Address2");
+
+                            b1.Property<string>("City")
+                                .IsRequired()
+                                .HasColumnType("nvarchar(max)")
+                                .HasColumnName("City");
+
+                            b1.Property<string>("Country")
+                                .IsRequired()
+                                .HasColumnType("nvarchar(max)")
+                                .HasColumnName("Country");
+
+                            b1.Property<string>("State")
+                                .HasColumnType("nvarchar(max)")
+                                .HasColumnName("State");
+
+                            b1.Property<string>("ZipCode")
+                                .IsRequired()
+                                .HasColumnType("nvarchar(max)")
+                                .HasColumnName("ZipCode");
+
+                            b1.HasKey("LocationId");
+
+                            b1.ToTable("Locations");
+
+                            b1.WithOwner()
+                                .HasForeignKey("LocationId");
+
+                            b1.HasData(
+                                new
+                                {
+                                    LocationId = 1,
+                                    Address1 = "123 Innovation Way",
+                                    Address2 = "Tech Park, Suite 100",
+                                    City = "Silicon City",
+                                    Country = "USA",
+                                    State = "CA",
+                                    ZipCode = "94016"
+                                },
+                                new
+                                {
+                                    LocationId = 2,
+                                    Address1 = "456 Style Avenue",
+                                    Address2 = "Fashion Mall, Unit 22",
+                                    City = "Fashionville",
+                                    Country = "USA",
+                                    State = "NY",
+                                    ZipCode = "10001"
+                                },
+                                new
+                                {
+                                    LocationId = 3,
+                                    Address1 = "789 Earth Street",
+                                    Address2 = "Industrial Zone, Gate 5",
+                                    City = "Eco City",
+                                    Country = "USA",
+                                    State = "GA",
+                                    ZipCode = "30303"
+                                },
+                                new
+                                {
+                                    LocationId = 4,
+                                    Address1 = "101 Literary Lane",
+                                    Address2 = "Off Charing Cross Rd",
+                                    City = "London",
+                                    Country = "UK",
+                                    State = "London",
+                                    ZipCode = "WC1B 3PA"
+                                },
+                                new
+                                {
+                                    LocationId = 5,
+                                    Address1 = "222 Trail Road",
+                                    Address2 = "Near Blue Mountains Entry",
+                                    City = "Sydney",
+                                    Country = "Australia",
+                                    State = "NSW",
+                                    ZipCode = "2000"
+                                },
+                                new
+                                {
+                                    LocationId = 6,
+                                    Address1 = "333 Radiant Road",
+                                    Address2 = "Galerie Vivienne",
+                                    City = "Paris",
+                                    Country = "France",
+                                    State = "Paris",
+                                    ZipCode = "75002"
+                                },
+                                new
+                                {
+                                    LocationId = 7,
+                                    Address1 = "444 Playful Place",
+                                    Address2 = "Linking Road, Bandra",
+                                    City = "Mumbai",
+                                    Country = "India",
+                                    State = "MH",
+                                    ZipCode = "400002"
+                                },
+                                new
+                                {
+                                    LocationId = 8,
+                                    Address1 = "555 Tech Park",
+                                    Address2 = "Innovation Center, Floor 3",
+                                    City = "Zurich",
+                                    Country = "Switzerland",
+                                    State = "",
+                                    ZipCode = "8002"
+                                });
+                        });
+
+                    b.Navigation("Address")
+                        .IsRequired();
+
+                    b.Navigation("Company");
+
+                    b.Navigation("Currency");
+
+                    b.Navigation("Timezone");
                 });
 
             modelBuilder.Entity("ECommerceCore.Domain.Entities.OrderDetail", b =>
@@ -3246,10 +5090,152 @@ namespace ECommerceCore.Infrastructure.Migrations
                     b.HasOne("ECommerceCore.Domain.Entities.ApplicationUser", "ApplicationUser")
                         .WithMany()
                         .HasForeignKey("ApplicationUserId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.NoAction);
+
+                    b.HasOne("ECommerceCore.Domain.Entities.Customer", "Customer")
+                        .WithMany("Orders")
+                        .HasForeignKey("CustomerId")
+                        .OnDelete(DeleteBehavior.NoAction);
+
+                    b.OwnsOne("ECommerceCore.Domain.Entities.ShippingAddress", "ShipToAddress", b1 =>
+                        {
+                            b1.Property<int>("OrderHeaderId")
+                                .HasColumnType("int");
+
+                            b1.Property<string>("ShippingAddress1")
+                                .IsRequired()
+                                .HasColumnType("nvarchar(max)")
+                                .HasColumnName("ShippingAddress1");
+
+                            b1.Property<string>("ShippingAddress2")
+                                .HasColumnType("nvarchar(max)")
+                                .HasColumnName("ShippingAddress2");
+
+                            b1.Property<string>("ShippingCity")
+                                .IsRequired()
+                                .HasColumnType("nvarchar(max)")
+                                .HasColumnName("ShippingCity");
+
+                            b1.Property<string>("ShippingCountry")
+                                .IsRequired()
+                                .HasColumnType("nvarchar(max)")
+                                .HasColumnName("ShippingCountry");
+
+                            b1.Property<string>("ShippingState")
+                                .HasColumnType("nvarchar(max)")
+                                .HasColumnName("ShippingState");
+
+                            b1.Property<string>("ShippingZipCode")
+                                .IsRequired()
+                                .HasColumnType("nvarchar(max)")
+                                .HasColumnName("ShippingZipCode");
+
+                            b1.HasKey("OrderHeaderId");
+
+                            b1.ToTable("OrderHeaders");
+
+                            b1.WithOwner()
+                                .HasForeignKey("OrderHeaderId");
+
+                            b1.HasData(
+                                new
+                                {
+                                    OrderHeaderId = 1,
+                                    ShippingAddress1 = "123 Maple St",
+                                    ShippingAddress2 = "Suite 100",
+                                    ShippingCity = "Springfield",
+                                    ShippingCountry = "USA",
+                                    ShippingState = "IL",
+                                    ShippingZipCode = "94016"
+                                },
+                                new
+                                {
+                                    OrderHeaderId = 2,
+                                    ShippingAddress1 = "456 Style Avenue",
+                                    ShippingAddress2 = "Oak Ave",
+                                    ShippingCity = "London",
+                                    ShippingCountry = "USA",
+                                    ShippingState = "NY",
+                                    ShippingZipCode = "10001"
+                                },
+                                new
+                                {
+                                    OrderHeaderId = 3,
+                                    ShippingAddress1 = "789 Earth Street",
+                                    ShippingAddress2 = "Industrial Zone Ave ",
+                                    ShippingCity = "Eco City",
+                                    ShippingCountry = "USA",
+                                    ShippingState = "GA",
+                                    ShippingZipCode = "30303"
+                                },
+                                new
+                                {
+                                    OrderHeaderId = 4,
+                                    ShippingAddress1 = "101 Literary Lane",
+                                    ShippingAddress2 = "Off Charing Cross Rd",
+                                    ShippingCity = "London",
+                                    ShippingCountry = "UK",
+                                    ShippingState = "London",
+                                    ShippingZipCode = "WC1B 3PA"
+                                },
+                                new
+                                {
+                                    OrderHeaderId = 5,
+                                    ShippingAddress1 = "222 Trail Road",
+                                    ShippingAddress2 = "Near Blue Mountains Entry",
+                                    ShippingCity = "Sydney",
+                                    ShippingCountry = "Australia",
+                                    ShippingState = "NSW",
+                                    ShippingZipCode = "2000"
+                                },
+                                new
+                                {
+                                    OrderHeaderId = 6,
+                                    ShippingAddress1 = "333 Radiant Road",
+                                    ShippingAddress2 = "Galerie Vivienne",
+                                    ShippingCity = "Paris",
+                                    ShippingCountry = "France",
+                                    ShippingState = "Paris",
+                                    ShippingZipCode = "75002"
+                                },
+                                new
+                                {
+                                    OrderHeaderId = 7,
+                                    ShippingAddress1 = "444 Playful Place",
+                                    ShippingAddress2 = "Linking Road, Bandra",
+                                    ShippingCity = "Mumbai",
+                                    ShippingCountry = "India",
+                                    ShippingState = "MH",
+                                    ShippingZipCode = "400002"
+                                },
+                                new
+                                {
+                                    OrderHeaderId = 8,
+                                    ShippingAddress1 = "555 Tech Park",
+                                    ShippingAddress2 = "Innovation Center, Floor 3",
+                                    ShippingCity = "Zurich",
+                                    ShippingCountry = "Switzerland",
+                                    ShippingState = "",
+                                    ShippingZipCode = "8002"
+                                },
+                                new
+                                {
+                                    OrderHeaderId = 9,
+                                    ShippingAddress1 = "777 Skyline Boulevard",
+                                    ShippingAddress2 = "Sky Tower, Apt 905",
+                                    ShippingCity = "Toronto",
+                                    ShippingCountry = "Canada",
+                                    ShippingState = "ON",
+                                    ShippingZipCode = "M5V 2T6"
+                                });
+                        });
 
                     b.Navigation("ApplicationUser");
+
+                    b.Navigation("Customer");
+
+                    b.Navigation("ShipToAddress")
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("ECommerceCore.Domain.Entities.Product", b =>
@@ -3331,6 +5317,17 @@ namespace ECommerceCore.Infrastructure.Migrations
                     b.Navigation("ApplicationUser");
 
                     b.Navigation("Product");
+                });
+
+            modelBuilder.Entity("ECommerceCore.Domain.Entities.TaxDetail", b =>
+                {
+                    b.HasOne("ECommerceCore.Domain.Entities.Invoice", "Invoice")
+                        .WithMany("TaxDetails")
+                        .HasForeignKey("InvoiceId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Invoice");
                 });
 
             modelBuilder.Entity("ECommerceCore.Domain.Entities.WishlistItem", b =>
@@ -3417,8 +5414,38 @@ namespace ECommerceCore.Infrastructure.Migrations
                     b.Navigation("Products");
                 });
 
+            modelBuilder.Entity("ECommerceCore.Domain.Entities.Company", b =>
+                {
+                    b.Navigation("Invoices");
+
+                    b.Navigation("Locations");
+                });
+
+            modelBuilder.Entity("ECommerceCore.Domain.Entities.Customer", b =>
+                {
+                    b.Navigation("Invoices");
+
+                    b.Navigation("Orders");
+                });
+
+            modelBuilder.Entity("ECommerceCore.Domain.Entities.Invoice", b =>
+                {
+                    b.Navigation("InvoiceAttachments");
+
+                    b.Navigation("InvoiceItems");
+
+                    b.Navigation("TaxDetails");
+                });
+
+            modelBuilder.Entity("ECommerceCore.Domain.Entities.Location", b =>
+                {
+                    b.Navigation("Invoices");
+                });
+
             modelBuilder.Entity("ECommerceCore.Domain.Entities.OrderHeader", b =>
                 {
+                    b.Navigation("Invoices");
+
                     b.Navigation("OrderDetails");
                 });
 

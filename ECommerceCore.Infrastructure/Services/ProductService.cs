@@ -3,6 +3,7 @@ using ECommerceCore.Application.Common.Results;
 using ECommerceCore.Application.Contract.Persistence;
 using ECommerceCore.Application.Contract.Service;
 using ECommerceCore.Application.Contract.ViewModels;
+using ECommerceCore.Application.Contracts.DTOs;
 using ECommerceCore.Domain.Entities;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
@@ -16,7 +17,7 @@ namespace ECommerceCore.Infrastructure.Services
         {
             return await _unitOfWork.Products.GetAllAsync(includeProperties: "Category,ProductImages");
         }
-        public async Task<PaginatedResult<Product>> GetProductsPaginatedAsync(ProductQueryParameters parameters)
+        public async Task<PaginatedResult<ProductDto>> GetProductsPaginatedAsync(ProductQueryParameters parameters)
         {
             try
             {
@@ -95,9 +96,32 @@ namespace ECommerceCore.Infrastructure.Services
                 var items = await query
                     .Skip((parameters.PageNumber - 1) * parameters.PageSize)
                     .Take(parameters.PageSize)
+                    .Select(p => new ProductDto
+                    {
+                          Id = p.Id,
+                          Title = p.Title,
+                          ShortDescription = p.ShortDescription,
+                          SKU = p.SKU,
+                          Price = p.Price,
+                          StockQuantity = p.StockQuantity,
+                          CategoryName = p.Category.Name,
+                          BrandName = p.Brand.Name,
+                          IsFeatured = p.IsFeatured,
+                          IsNewArrival = p.IsNewArrival,
+                          IsTrending = p.IsTrending,
+                          Views = p.Views,
+                          SoldCount = p.SoldCount,
+                          AverageRating = p.AverageRating,
+                          ProductImages = p.ProductImages.Select(img => new ProductImage
+                          {
+                            Id = img.Id,
+                            ImageUrl = img.ImageUrl,
+                            ProductId = img.ProductId
+                          }).ToList()
+                    })
                     .ToListAsync();
 
-                return new PaginatedResult<Product>
+                return new PaginatedResult<ProductDto>
                 {
                     Items = items,
                     TotalCount = totalCount,

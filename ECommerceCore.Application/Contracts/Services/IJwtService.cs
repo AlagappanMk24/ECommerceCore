@@ -7,7 +7,7 @@ namespace ECommerceCore.Application.Contracts.Services
     public interface IJwtService
     {
         string GenerateSecretKey(int length = 32);
-        string GenerateJwtToken(IdentityUser user);
+        string GenerateJwtToken(ApplicationUser user);
         Task StoreTokenAsync(string userId, string token);
         Task<bool> ValidateTokenAsync(string token);
         Task CleanupExpiredTokensAsync();

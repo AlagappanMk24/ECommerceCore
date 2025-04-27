@@ -1,33 +1,24 @@
 using ECommerceCore.Application.DependencyInjection;
 using ECommerceCore.Infrastructure.Data.Context;
 using ECommerceCore.Infrastructure.Data.DbInitializer;
-using ECommerceCore.Infrastructure.External.SMS;
 using ECommerceCore.Infrastructure.Shared;
 using ECommerceCore.Infrastructure.Shared.Security;
 using ECommerceCore.Infrastructure.Utilities;
 using ECommerceCore.Web.Filters;
 using ECommerceCore.Web.Logger;
-using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Google;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
-using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json;
 using Stripe;
 using System.Text;
+using Newtonsoft.Json.Converters;
+using ECommerceCore.Domain.Entities;
 
 var builder = WebApplication.CreateBuilder(args);
 
-//builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<EcomDbContext>();
-
-builder.Services.AddRazorPages();
-
-/// <summary>
-/// Configures all required services for the application.
-/// </summary>
 ConfigureServices(builder.Services, builder.Configuration);
 
 var app = builder.Build();
@@ -44,9 +35,23 @@ void ConfigureServices(IServiceCollection services, IConfiguration configuration
         options.Filters.Add<ValidateModelFilter>();
     });
 
+    services.AddControllers()
+    .AddNewtonsoftJson(options =>
+    {
+        options.SerializerSettings.Converters.Add(new StringEnumConverter());
+    });
+
     services.AddControllersWithViews();
 
     services.AddHttpContextAccessor();
+
+    services.AddRouting(options =>
+    {
+        options.LowercaseUrls = true;
+        //options.LowercaseQueryStrings = true; // optional
+    });
+
+    services.AddRazorPages();
 
     ConfigureDatabase(services, configuration);
 
@@ -74,10 +79,6 @@ void ConfigureServices(IServiceCollection services, IConfiguration configuration
 
     ConfigureStripe(configuration);
 }
-
-/// <summary>
-/// Configures the database context using SQL Server.
-/// </summary>
 void ConfigureDatabase(IServiceCollection services, IConfiguration configuration)
 {
     var connectionString = configuration.GetConnectionString("EcomDbConnection");
@@ -86,12 +87,10 @@ void ConfigureDatabase(IServiceCollection services, IConfiguration configuration
     services.AddDbContext<EcomDbContext>(options =>
         options.UseSqlServer(connectionString));
 }
-
 void ConfigureJwtSettings(IServiceCollection services, IConfiguration configuration)
 {
     services.Configure<JwtSettings>(configuration.GetSection("JwtSettings"));
 }
-
 void GenerateSecretKey(IConfiguration configuration)
 {
     var jwtSettings = configuration.GetSection("JwtSettings").Get<JwtSettings>();
@@ -113,10 +112,6 @@ void GenerateSecretKey(IConfiguration configuration)
         System.IO.File.WriteAllText(appSettingsFile, output);
     }
 }
-
-/// <summary>
-/// Configures jwt authentication
-/// </summary>
 void ConfigureJwtAuthentication(IServiceCollection services, IConfiguration configuration)
 {
     var jwtSettings = configuration.GetSection("JwtSettings").Get<JwtSettings>();
@@ -141,43 +136,24 @@ void ConfigureJwtAuthentication(IServiceCollection services, IConfiguration conf
           };
       });
 }
-/// <summary>
-/// Configures Email settings from app configuration.
-/// </summary>
 void ConfigureEmailSettings(IServiceCollection services, IConfiguration configuration)
 {
     services.Configure<EmailSettings>(configuration.GetSection("EmailSettings"));
 }
-
-/// <summary>
-/// Configures SMS settings from app configuration.
-/// </summary>
 void ConfigureSmsSettings(IServiceCollection services, IConfiguration configuration)
 {
     services.Configure<SMSSettings>(configuration.GetSection("SMSSettings"));
 }
-
-/// <summary>
-/// Configures Stripe settings from app configuration.
-/// </summary>
 void ConfigureStripeSettings(IServiceCollection services, IConfiguration configuration)
 {
     services.Configure<StripeSettings>(configuration.GetSection("Stripe"));
 }
-
-/// <summary>
-/// Configures Identity services for authentication and token providers.
-/// </summary>
 void ConfigureIdentity(IServiceCollection services)
 {
-    services.AddIdentity<IdentityUser, IdentityRole>()
+    services.AddIdentity<ApplicationUser, IdentityRole>()
             .AddEntityFrameworkStores<EcomDbContext>()
             .AddDefaultTokenProviders();
 }
-
-/// <summary>
-/// Configures Application Cookie settings to handle login/logout and access denied paths.
-/// </summary>
 void ConfigureApplicationCookie(IServiceCollection services)
 {
     services.ConfigureApplicationCookie(options =>
@@ -199,10 +175,6 @@ void ConfigureApplicationCookie(IServiceCollection services)
         options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
     });
 }
-
-/// <summary>
-/// Configures external login providers, such as Facebook.
-/// </summary>
 void ConfigureExternalLogins(IServiceCollection services, IConfiguration configuration)
 {
     services.AddAuthentication()
@@ -223,10 +195,6 @@ void ConfigureExternalLogins(IServiceCollection services, IConfiguration configu
         //microsoftOptions.CallbackPath = configuration.GetSection("MicrosoftKeys:CallbackPath").Value;
     });
 }
-
-/// <summary>
-/// Configures session settings.
-/// </summary>
 void ConfigureSession(IServiceCollection services)
 {
     services.AddDistributedMemoryCache();
@@ -238,27 +206,15 @@ void ConfigureSession(IServiceCollection services)
         Options.Cookie.IsEssential = true;
     });
 }
-
-/// <summary>
-/// Registers application and infrastructure dependencies.
-/// </summary>
 void RegisterApplicationServices(IServiceCollection services)
 {
     services.AddApplicationDependencies()
             .AddInfrastructureDependencies();
 }
-
-/// <summary>
-/// Configures Stripe API key.
-/// </summary>
 void ConfigureStripe(IConfiguration configuration)
 {
     StripeConfiguration.ApiKey = configuration.GetSection("Stripe:SecretKey").Get<string>();
 }
-
-/// <summary>
-/// Configures the middleware pipeline for the application.
-/// </summary>
 void ConfigureMiddleware(WebApplication app)
 {
     // Configure the HTTP request pipeline.
@@ -293,10 +249,6 @@ void ConfigureMiddleware(WebApplication app)
     // Configure Logging
     ConfigureCustomLogging(app);
 }
-
-/// <summary>
-/// Seeds the database with initial roles and admin user.
-/// </summary>
 void SeedDatabase()
 {
     using (var scope = app.Services.CreateScope())
@@ -305,10 +257,6 @@ void SeedDatabase()
         dbInitializer.Initialize();
     }
 }
-
-/// <summary>
-/// Configures custom file logging using a dynamic log file path.
-/// </summary>
 void ConfigureCustomLogging(WebApplication app)
 {
     string formattedDate = DateTime.Now.ToString("MM-dd-yyyy");

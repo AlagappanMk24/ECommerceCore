@@ -125,7 +125,7 @@
         });
 
         // Make AJAX request
-        fetch('/admin/product/getproducts', {
+        fetch('/admin/product/get-products', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -176,29 +176,36 @@
             const tr = document.createElement('tr');
             tr.className = 'product-row';
 
-            const sku = product.sku;
+            // Safely get SKU
+            const sku = product.sku || 'N/A';
+
+            // Safely get category name
+            const categoryName = product.categoryName || 'Uncategorized';
+
+            // Safely get stock quantity
+            const stockQuantity = product.stockQuantity ?? 0;
 
             // Get first product image or use default
             const productImage = product.productImages && product.productImages.length > 0 ?
                 product.productImages[0].imageUrl : '/images/default-product.png';
 
             tr.innerHTML = `
-                        <td class="product-info">
-                            <div class="product-image">
+                        <td class="item-info">
+                            <div class="item-image">
                                 <img src="${productImage}" alt="${product.title}">
                             </div>
-                            <div class="product-details">
+                            <div class="item-details">
                                 <h4>${product.title}</h4>
                                 <small>SKU: ${sku}</small>
                             </div>
                         </td>
                         <td>${product.sku}</td>
                            <td>
-                            <span class="category-badge">${product.category.name}</span>
+                            <span class="category-badge">${categoryName}</span>
                         </td>
                         <td class="price">$${product.price}</td>
                          <td>
-                           ${product.stockQuantity}
+                           ${stockQuantity}
                         </td>
                         <td class="actions">
                             <div class="action-buttons">

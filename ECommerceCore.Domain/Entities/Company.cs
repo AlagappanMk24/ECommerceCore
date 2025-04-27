@@ -12,5 +12,7 @@ namespace ECommerceCore.Domain.Entities
         public string? State { get; set; }
         public string? PostalCode { get; set; }
         public string? PhoneNumber { get; set; }
+        public ICollection<Invoice>? Invoices { get; set; }
+        public ICollection<Location>? Locations { get; set; } 
     }
 }

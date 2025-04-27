@@ -178,12 +178,13 @@ namespace ECommerceCore.Infrastructure.Services
         /// </summary>
         private void MapUserDetails(OrderHeader orderHeader, ApplicationUser user)
         {
-            orderHeader.Name = user.Name;
-            orderHeader.PhoneNumber = user.PhoneNumber;
-            orderHeader.StreetAddress = user.StreetAddress;
-            orderHeader.City = user.City;
-            orderHeader.State = user.State;
-            orderHeader.PostalCode = user.PostalCode;
+            orderHeader.ShippingContactName = user.Name;
+            orderHeader.ShippingContactPhone = user.PhoneNumber;
+            orderHeader.ShipToAddress.ShippingAddress1 = user.Address1;
+            orderHeader.ShipToAddress.ShippingAddress2 = user.Address2;
+            orderHeader.ShipToAddress.ShippingCity = user.City;
+            orderHeader.ShipToAddress.ShippingState = user.State;
+            orderHeader.ShipToAddress.ShippingZipCode = user.PostalCode;
         }
 
         /// <summary>

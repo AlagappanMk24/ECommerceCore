@@ -1,0 +1,146 @@
+﻿/* Base badge styling */
+/*.badge {
+    display: inline-block;
+    padding: 0.35em 0.65em;
+    font-size: 0.75em;
+    font-weight: 600;
+    line-height: 1;
+    color: white;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: baseline;
+    border-radius: 0.375rem;
+    text-transform: capitalize;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+}*/
+
+/* Status-specific colors */
+/*.badge-draft {
+    background-color: #6c757d;*/ /* Gray */
+    /*border: 1px solid #5c636a;
+}
+
+.badge-sent {
+    background-color: #0d6efd;*/ /* Blue */
+    /*border: 1px solid #0b5ed7;
+}
+
+.badge-partially-paid {
+    background-color: #fd7e14;*/ /* Orange */
+    /*border: 1px solid #f76707;
+}
+
+.badge-paid {
+    background-color: #198754;*/ /* Green */
+    /*border: 1px solid #157347;
+}
+
+.badge-overdue {
+    background-color: #dc3545;*/ /* Red */
+    /*border: 1px solid #bb2d3b;
+}
+
+.badge-void {
+    background-color: #6f42c1;*/ /* Purple */
+    /*border: 1px solid #5d38a9;
+}
+
+.badge-default {
+    background-color: #adb5bd;*/ /* Light gray */
+    /*border: 1px solid #9fa5ab;
+    color: #212529;
+}*/
+
+/* Optional: Add subtle animation on hover */
+/*.badge:hover {
+    transform: translateY(-1px);
+    transition: transform 0.2s ease;
+}*/
+
+/* For dark mode support */
+/*@media (prefers-color-scheme: dark) {
+    .badge-draft {
+        background-color: #5c636a;
+        border-color: #4e555b;
+    }
+
+    .badge-default {
+        background-color: #495057;
+        color: #f8f9fa;
+    }
+}*/
+
+/* Base Badge Style */
+.badge {
+    display: inline-block;
+    padding: 5px 12px;
+    border-radius: 16px;
+    font-size: 12px;
+    font-weight: 600;
+/*    text-transform: uppercase;*/
+    letter-spacing: 0.5px;
+    text-align: center;
+    min-width: 80px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    position: relative;
+    overflow: hidden;
+}
+
+    /* Glass Effect Pseudo-element */
+    .badge::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: linear-gradient(135deg, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0) 60%);
+        z-index: -1;
+    }
+
+/* Status-Specific Colors with Glass Effect */
+.badge-draft {
+    background: rgba(107, 114, 128, 0.7); /* Gray with transparency */
+    color: white;
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+}
+
+.badge-sent {
+    background: rgba(59, 130, 246, 0.7); /* Blue with transparency */
+    color: white;
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+}
+
+.badge-partially-paid {
+    background: rgba(234, 179, 8, 0.7); /* Amber with transparency */
+    color: #1a1a1a;
+    text-shadow: 0 1px 1px rgba(255, 255, 255, 0.2);
+}
+
+.badge-paid {
+    background: rgba(16, 185, 129, 0.7); /* Emerald with transparency */
+    color: white;
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+}
+
+.badge-overdue {
+    background: rgba(239, 68, 68, 0.7); /* Red with transparency */
+    color: white;
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+}
+
+.badge-void {
+    background: rgba(156, 163, 175, 0.7); /* Cool gray with transparency */
+    color: white;
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+}
+
+/* Hover Effect */
+.badge:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    transition: all 0.2s ease;
+}

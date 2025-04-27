@@ -296,12 +296,13 @@ namespace ECommerceCore.Web.Controllers
         ///</summary>
         private void MapUserDetails(OrderHeader orderHeader, ApplicationUser user)
         {
-            orderHeader.Name = user.Name;
-            orderHeader.City = user.City;
-            orderHeader.PhoneNumber = user.PhoneNumber;
-            orderHeader.State = user.State;
-            orderHeader.PostalCode = user.PostalCode;
-            orderHeader.StreetAddress = user.StreetAddress;
+            orderHeader.ShippingContactName = user.Name;
+            orderHeader.ShipToAddress.ShippingCity = user.City;
+            orderHeader.ShippingContactPhone = user.PhoneNumber;
+            orderHeader.ShipToAddress.ShippingState = user.State;
+            orderHeader.ShipToAddress.ShippingZipCode = user.PostalCode;
+            orderHeader.ShipToAddress.ShippingAddress1 = user.Address1;
+            orderHeader.ShipToAddress.ShippingAddress2 = user.Address2;
         }
     }
 }

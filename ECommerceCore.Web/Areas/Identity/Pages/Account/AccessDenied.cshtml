@@ -4,7 +4,146 @@
     ViewData["Title"] = "Access denied";
 }
 
-<header>
-    <h1 class="text-danger">@ViewData["Title"]</h1>
-    <p class="text-danger">You do not have access to this resource.</p>
-</header>
+<style>
+    .access-denied-container {
+        --primary-color: #6366f1;
+        --primary-dark: #4f46e5;
+        --accent-color: #8b5cf6;
+        --danger-color: #ef4444;
+        --light-color: #f9fafb;
+        --dark-color: #1f2937;
+        --secondary-color: #6b7280;
+        background: white;
+        border-radius: 24px;
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1), 0 10px 10px rgba(0, 0, 0, 0.04);
+        padding: 2rem 3rem;
+        text-align: center;
+        max-width: 550px;
+        width: 90%;
+        margin: 2rem auto;
+        transform-style: preserve-3d;
+        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        position: relative;
+        overflow: hidden;
+    }
+
+        .access-denied-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 8px;
+            background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+        }
+
+        .access-denied-container:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15), 0 15px 15px rgba(0, 0, 0, 0.1);
+        }
+
+    .error-icon {
+        font-size: 5rem;
+        color: var(--danger-color);
+        margin-bottom: 1rem;
+        animation: pulse 1.5s infinite;
+        display: inline-block;
+    }
+
+    .access-denied-container h1 {
+        color: var(--dark-color);
+        font-weight: 800;
+        font-size: 1.5rem;
+        margin-bottom: 1.5rem;
+        letter-spacing: -0.5px;
+        background: var(--danger-color);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+    }
+
+    .access-denied-container p {
+        color: var(--secondary-color);
+        font-size: 1.15rem;
+        line-height: 1.7;
+        margin-bottom: 2.5rem;
+    }
+
+    .action-buttons {
+        display: flex;
+        justify-content: center;
+        gap: 1.5rem;
+    }
+
+    .btn {
+        padding: 1rem 1.2rem;
+        border-radius: 12px;
+        font-weight: 600;
+        text-decoration: none;
+        transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        border: none;
+        cursor: pointer;
+        font-size: 1rem;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    }
+
+    .btn-primary {
+        background-color: var(--primary-color);
+        color: white;
+    }
+
+        .btn-primary:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 15px rgba(99, 102, 241, 0.3);
+        }
+
+    .btn-secondary {
+        background-color: white;
+        color: var(--dark-color);
+        border: 1px solid #e5e7eb;
+    }
+
+        .btn-secondary:hover {
+            background-color: var(--secondary-color);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.05);
+            border-color: #d1d5db;
+        }
+
+    .btn-icon {
+        width: 20px;
+        height: 20px;
+    }
+</style>
+
+<div class="access-denied-container">
+    <div class="error-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"></circle>
+            <line x1="12" y1="8" x2="12" y2="12"></line>
+            <line x1="12" y1="16" x2="12.01" y2="16"></line>
+        </svg>
+    </div>
+    <h1>@ViewData["Title"]</h1>
+    <p>You do not have permission to access this resource. Please contact your administrator if you believe this is an error.</p>
+    <div class="action-buttons">
+        <a href="/" class="btn btn-primary">
+            <svg class="btn-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                <path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z" />
+            </svg>
+            Return Home
+        </a>
+        <a href="mailto:admin@example.com" class="btn btn-secondary">
+            <svg class="btn-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z" />
+                <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z" />
+            </svg>
+            Contact Support
+        </a>
+    </div>
+</div>

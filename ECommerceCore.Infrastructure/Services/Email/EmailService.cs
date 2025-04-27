@@ -370,7 +370,7 @@ namespace ECommerceCore.Infrastructure.Services.Email
                             <p><strong>Order Number:</strong> #{orderHeader.Id}</p>
                             <p><strong>Order Date:</strong> {orderHeader.OrderDate:MMMM dd, yyyy}</p>
                             <p><strong>Total Amount:</strong> {orderHeader.OrderTotal:C}</p>
-                            <p><strong>Shipping Address:</strong> {orderHeader.ApplicationUser.StreetAddress}</p>
+                            <p><strong>Shipping Address:</strong> {orderHeader.ShipToAddress.ShippingAddress1}, {orderHeader.ShipToAddress.ShippingAddress2 ?? ""}</p>
                         </div>
                         <table class='order-summary'>
                             <thead>

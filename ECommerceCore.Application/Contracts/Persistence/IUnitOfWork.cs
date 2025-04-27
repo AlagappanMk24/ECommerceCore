@@ -13,6 +13,8 @@ namespace ECommerceCore.Application.Contract.Persistence
         IOrderDetailRepository OrderDetails { get; }
         IOrderHeaderRepository OrderHeaders { get; }
         IProductImageRepository ProductImages { get; }
+        IInvoiceRepository Invoices { get; }
+        ICustomerRepository Customers { get; }
         IContactUsRepository ContactUs { get; }
         Task SaveAsync();
     }

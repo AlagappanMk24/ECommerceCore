@@ -13,6 +13,7 @@ namespace ECommerceCore.Web.Areas.Admin.Controllers
 {
     [Area("Admin")]
     [Authorize(Roles = AppConstants.Role_Admin)]
+    [Route("Admin/Product")]
     public class ProductController(IWebHostEnvironment webHostEnvironment, IProductService productService, ICategoryService categoryService, IBrandService brandService, ILogger<ProductController> logger) : Controller
     {
         private readonly IWebHostEnvironment _webHostEnvironment = webHostEnvironment;
@@ -21,10 +22,7 @@ namespace ECommerceCore.Web.Areas.Admin.Controllers
         private readonly IBrandService _brandService = brandService;
         private readonly ILogger<ProductController> _logger = logger;
 
-        /// <summary>
-        /// Retrieves and displays a list of all products for the index page.
-        /// </summary>
-        /// <returns>A view containing a list of products.</returns>
+        [HttpGet("")]
         public async Task<IActionResult> Index()
         {
             try
@@ -56,7 +54,7 @@ namespace ECommerceCore.Web.Areas.Admin.Controllers
             }
         }
 
-        [HttpPost]
+        [HttpPost("get-products")]
         public async Task<IActionResult> GetProducts([FromBody] ProductQueryParameters queryParams)
         {
             try
@@ -76,6 +74,8 @@ namespace ECommerceCore.Web.Areas.Admin.Controllers
         /// </summary>
         /// <param name="id">The ID of the product to be updated; if null, prepares for creating a new product.</param>
         /// <returns>A view for creating or updating a product.</returns>
+
+        [HttpGet("upsert/{id?}")]
         public async Task<IActionResult> Upsert(int? id)
         {
             try
@@ -118,7 +118,7 @@ namespace ECommerceCore.Web.Areas.Admin.Controllers
         /// <param name="productVM">The product view model containing the product data and category list.</param>
         /// <param name="files">A list of image files associated with the product.</param>
         /// <returns>Redirects to the Index action upon success; returns an error view if unsuccessful.</returns>
-        [HttpPost]
+        [HttpPost("upsert")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Upsert(ProductVM productVM, List<IFormFile> files)
         {
@@ -142,7 +142,7 @@ namespace ECommerceCore.Web.Areas.Admin.Controllers
             }
         }
 
-        [HttpGet]
+        [HttpGet("details/{id?}")]
         public async Task<IActionResult> Details(int id)
         {
             try
@@ -162,6 +162,8 @@ namespace ECommerceCore.Web.Areas.Admin.Controllers
         /// </summary>
         /// <param name="imageId">The ID of the image to be deleted.</param>
         /// <returns>Redirects to the Upsert action with the image ID.</returns>
+
+        [HttpGet("delete-image/{imageId}")]
         public async Task<IActionResult> DeleteImage(int imageId)
         {
             try
@@ -186,7 +188,7 @@ namespace ECommerceCore.Web.Areas.Admin.Controllers
         /// </summary>
         /// <returns>JSON containing the list of products.</returns>
 
-        [HttpGet]
+        [HttpGet("get-all")]
         public async Task<IActionResult> GetAll()
         {
             try
@@ -209,7 +211,7 @@ namespace ECommerceCore.Web.Areas.Admin.Controllers
         /// </summary>
         /// <param name="id">The ID of the product to be deleted.</param>
         /// <returns>A JSON response indicating the success or failure of the deletion.</returns>
-        [HttpDelete]
+        [HttpDelete("delete/{id}")]
         public async Task<IActionResult> Delete(int id)
         {
             try

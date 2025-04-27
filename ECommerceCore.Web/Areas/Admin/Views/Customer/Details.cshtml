@@ -1,0 +1,226 @@
+﻿@using ECommerceCore.Application.Contracts.ViewModels.Customers
+@model CustomerDetailsVM
+@{
+    ViewData["Title"] = "Customer Details";
+}
+
+<link href="~/css/common/shared.css" rel="stylesheet" />
+<link href="~/css/customer/customer-details.css" rel="stylesheet" />
+
+<div class="management-container">
+    <div class="card-header glass-header">
+        <div class="header-content">
+            <div class="title-section">
+                <i class="bi bi-person-badge"></i>
+                <h2>Customer Details</h2>
+            </div>
+            <div class="action-section">
+                <a asp-action="Index" class="btn btn-outline-secondary">
+                    <i class="bi bi-arrow-left"></i> Back to List
+                </a>
+                <a asp-action="Upsert" asp-route-id="@Model.Id" class="btn btn-primary">
+                    <i class="bi bi-pencil-square"></i> Edit
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="content-container">
+        <div class="row">
+            <!-- Customer Information -->
+            <div class="col-md-4">
+                <div class="details-card">
+                    <div class="card-header">
+                        <h3>Customer Information</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="customer-avatar">
+                            <i class="bi bi-person-circle"></i>
+                        </div>
+                        <h2 class="customer-name">@Model.Name</h2>
+                        <div class="info-group">
+                            <i class="bi bi-envelope"></i>
+                            <p>@Model.Email</p>
+                        </div>
+                        <div class="info-group">
+                            <i class="bi bi-telephone"></i>
+                            <p>@(string.IsNullOrEmpty(Model.PhoneNumber) ? "N/A" : Model.PhoneNumber)</p>
+                        </div>
+                        <div class="info-group">
+                            <i class="bi bi-building"></i>
+                            <p>@Model.CompanyName</p>
+                        </div>
+                        <div class="info-group">
+                            <i class="bi bi-geo-alt"></i>
+                            <div>
+                                @if (Model.Address != null)
+                                {
+                                    <p>@(Model.Address.Address1 ?? ""),>@(Model.Address.Address2 ?? "")</p>
+                                    <p>@(Model.Address.City ?? ""), @(Model.Address.State ?? "") @(Model.Address.ZipCode ?? "")</p>
+                                }
+                                else
+                                {
+                                    <p>No address provided</p>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Customer Stats -->
+                <div class="details-card mt-4">
+                    <div class="card-header">
+                        <h3>Customer Stats</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="stats-container">
+                            <div class="stat-item">
+                                <div class="stat-value">@Model.OrderCount</div>
+                                <div class="stat-label">Orders</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-value">@Model.InvoiceCount</div>
+                                <div class="stat-label">Invoices</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-value">@Model.TotalSpent.ToString("C")</div>
+                                <div class="stat-label">Total Spent</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Orders and Invoices -->
+            <div class="col-md-8">
+                <!-- Recent Orders -->
+                <div class="details-card">
+                    <div class="card-header">
+                        <h3>Recent Orders</h3>
+                        <a asp-controller="Order" asp-action="Index" asp-route-customerId="@Model.Id" class="btn btn-sm btn-outline-primary">
+                            View All
+                        </a>
+                    </div>
+                    <div class="card-body">
+                        @if (Model.RecentOrders.Any())
+                        {
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>Order #</th>
+                                        <th>Date</th>
+                                        <th>Status</th>
+                                        <th>Amount</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var order in Model.RecentOrders)
+                                    {
+                                        <tr>
+                                            <td>@order.Id</td>
+                                            <td>@order.OrderDate.ToString("MM/dd/yyyy")</td>
+                                            <td>
+                                                <span class="status-badge @GetOrderStatusClass(order.Status)">
+                                                    @order.Status
+                                                </span>
+                                            </td>
+                                            <td>@order.TotalAmount.ToString("C")</td>
+                                            <td>
+                                                <a asp-controller="Order" asp-action="Details" asp-route-id="@order.Id" class="btn btn-sm btn-outline-info">
+                                                    <i class="bi bi-eye"></i>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        }
+                        else
+                        {
+                            <div class="empty-list-message">
+                                <i class="bi bi-cart-x"></i>
+                                <p>No orders found for this customer.</p>
+                            </div>
+                        }
+                    </div>
+                </div>
+
+                <!-- Recent Invoices -->
+                <div class="details-card mt-4">
+                    <div class="card-header">
+                        <h3>Recent Invoices</h3>
+                        <a asp-controller="Invoice" asp-action="Index" asp-route-customerId="@Model.Id" class="btn btn-sm btn-outline-primary">
+                            View All
+                        </a>
+                    </div>
+                    <div class="card-body">
+                        @if (Model.RecentInvoices.Any())
+                        {
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>Invoice #</th>
+                                        <th>Due Date</th>
+                                        <th>Amount</th>
+                                        <th>Status</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var invoice in Model.RecentInvoices)
+                                    {
+                                        <tr>
+                                            <td>@invoice.InvoiceNumber</td>
+                                            <td>@invoice.DueDate.ToString("MM/dd/yyyy")</td>
+                                            <td>@invoice.Amount.ToString("C")</td>
+                                            <td>
+                                                <span class="status-badge @(invoice.IsPaid ? "badge-success" : "badge-warning")">
+                                                    @(invoice.IsPaid ? "Paid" : "Outstanding")
+                                                </span>
+                                            </td>
+                                            <td>
+                                                <a asp-controller="Invoice" asp-action="Details" asp-route-id="@invoice.Id" class="btn btn-sm btn-outline-info">
+                                                    <i class="bi bi-eye"></i>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        }
+                        else
+                        {
+                            <div class="empty-list-message">
+                                <i class="bi bi-file-earmark-x"></i>
+                                <p>No invoices found for this customer.</p>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@functions {
+    string GetOrderStatusClass(string status)
+    {
+        return status.ToLower() switch
+        {
+            "pending" => "badge-warning",
+            "processing" => "badge-info",
+            "shipped" => "badge-primary",
+            "delivered" => "badge-success",
+            "cancelled" => "badge-danger",
+            _ => "badge-secondary"
+        };
+    }
+}
+
+<script>
+    // Any additional client-side scripts for the details page
+    document.addEventListener('DOMContentLoaded', function () {
+        // Potential initialization code for charts or interactive elements
+    });
+</script>

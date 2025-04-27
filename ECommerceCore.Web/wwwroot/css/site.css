@@ -653,11 +653,6 @@ body {
             text-align: center;
         }
 
-        .sidebar-nav a:hover {
-            background-color: rgba(255, 255, 255, 0.1);
-            color: white;
-        }
-
     .sidebar-nav .active a {
         background-color: var(--primary-color);
         color: white;
@@ -665,6 +660,11 @@ body {
 
     .sidebar-nav .logout a {
         color: var(--danger-color);
+    }
+
+    .sidebar-nav a:hover {
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        transform: scale(1.05);
     }
 
 .main-content {

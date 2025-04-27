@@ -1,0 +1,153 @@
+﻿@using ECommerceCore.Application.Contracts.ViewModels.Customers
+@model CustomerIndexVM
+@{
+    ViewData["Title"] = "Customer Management";
+}
+
+<link href="~/css/common/shared.css" rel="stylesheet" />
+<link href="~/css/customer/customer.css" rel="stylesheet" />
+
+<form id="antiForgeryForm" method="post" style="display: none;">
+    @Html.AntiForgeryToken()
+</form>
+
+<div class="management-container">
+    <div class="card-header glass-header">
+        <div class="header-content">
+            <div class="title-section">
+                <i class="bi bi-people"></i>
+                <h2>Customer Management</h2>
+                <span class="badge count-badge" id="totalCount">0 items</span>
+            </div>
+            <div class="action-section">
+                <div class="search-box">
+                    <i class="fas fa-search"></i>
+                    <input type="text" id="customerSearch" placeholder="Search customers...">
+                </div>
+                <a asp-controller="Customer" asp-action="Upsert" class="btn btn-primary btn-add">
+                    <i class="bi bi-plus-circle-dotted"></i> Add Customer
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Filters Section -->
+    <div class="filters-section">
+        <div class="filter-group">
+            <label>Company</label>
+            <select class="form-select" id="companyFilter">
+                <option value="">All Companies</option>
+                @foreach (var company in Model.Companies)
+                {
+                    <option value="@company.Id">@company.Name</option>
+                }
+            </select>
+        </div>
+        <div class="filter-group">
+            <label>Sort By</label>
+            <select class="form-select" id="sortBy">
+                <option value="name-asc">Name (A-Z)</option>
+                <option value="name-desc">Name (Z-A)</option>
+                <option value="company-asc">Company (A-Z)</option>
+                <option value="company-desc">Company (Z-A)</option>
+                <option value="email-asc">Email (A-Z)</option>
+                <option value="email-desc">Email (Z-A)</option>
+            </select>
+        </div>
+        <button id="resetFilters" class="btn btn-outline-secondary">
+            <i class="fas fa-sync-alt"></i> Reset
+        </button>
+    </div>
+
+    <div class="table-responsive">
+        <table class="data-table">
+            <thead>
+                <tr>
+                    <th class="sortable" data-sort="name">
+                        <span>Customer</span>
+                        <i class="fas fa-sort"></i>
+                    </th>
+                    <th class="sortable" data-sort="phonenumber">
+                        <span>Phone Number</span>
+                        <i class="fas fa-sort"></i>
+                    </th>
+                    <th class="sortable" data-sort="company">
+                        <span>Company</span>
+                        <i class="fas fa-sort"></i>
+                    </th>
+                    <th>
+                        <span>Address</span>
+                    </th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody id="customersTableBody">
+                <!-- Will be populated by JavaScript -->
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Loading Indicator -->
+    <div id="loadingIndicator" class="text-center py-4">
+        <div class="spinner-border text-primary" role="status">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+    </div>
+
+    <div id="emptyState" class="empty-state" style="display: none;">
+        <div class="empty-icon">
+            <i class="bi bi-people"></i>
+        </div>
+        <h3>No Customers Found</h3>
+        <p>No customers match your search criteria.</p>
+        <button id="resetEmptyState" class="btn btn-primary">
+            <i class="fas fa-sync-alt"></i> Reset Filters
+        </button>
+    </div>
+
+    <!-- Pagination -->
+    <div class="pagination-container">
+        <div class="pagination-info">
+            Showing <span id="showingFrom">0</span> to <span id="showingTo">0</span> of <span id="totalItems">0</span> customers
+        </div>
+        <div class="pagination-controls">
+            <button class="btn-pagination" id="prevPage" disabled>
+                <i class="fas fa-chevron-left"></i>
+            </button>
+            <div class="page-numbers" id="pageNumbers">
+                <!-- Will be filled by JavaScript -->
+            </div>
+            <button class="btn-pagination" id="nextPage" disabled>
+                <i class="fas fa-chevron-right"></i>
+            </button>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content border-0 shadow">
+            <div class="modal-header border-0">
+                <h5 class="modal-title text-danger">
+                    <i class="bi bi-exclamation-triangle-fill me-2"></i> Confirm Deletion
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure you want to delete customer <strong id="customerToDelete">this customer</strong>?</p>
+                <p class="small text-muted">This action cannot be undone and will permanently remove the customer.</p>
+            </div>
+            <div class="modal-footer border-0">
+                <button type="button" class="btn btn-outline-secondary rounded-pill px-4"
+                        data-bs-dismiss="modal">
+                    Cancel
+                </button>
+                <button id="confirmDeleteBtn" type="button" class="btn btn-danger rounded-pill px-4">
+                    <i class="bi bi-trash-fill me-2"></i> Delete
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript" src="~/js/customer/customer.js"></script>

@@ -1,4 +1,5 @@
 ﻿using ECommerceCore.Application.Contracts.Services;
+using ECommerceCore.Domain.Entities;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -6,10 +7,10 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace ECommerceCore.Web.Areas.Identity.Pages.Account
 {
-    public class LogoutModel(SignInManager<IdentityUser> signInManager, UserManager<IdentityUser> userManager, ILogger<LogoutModel> logger, IJwtService jwtService) : PageModel
+    public class LogoutModel(SignInManager<ApplicationUser> signInManager, UserManager<ApplicationUser> userManager, ILogger<LogoutModel> logger, IJwtService jwtService) : PageModel
     {
-        private readonly SignInManager<IdentityUser> _signInManager = signInManager;
-        private readonly UserManager<IdentityUser> _userManager = userManager;
+        private readonly SignInManager<ApplicationUser> _signInManager = signInManager;
+        private readonly UserManager<ApplicationUser> _userManager = userManager;
         private readonly ILogger<LogoutModel> _logger = logger;
         private readonly IJwtService _jwtService = jwtService;
 

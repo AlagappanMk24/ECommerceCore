@@ -1,0 +1,1824 @@
+﻿@* @{
+    ViewData["Title"] = "New Invoice";
+}
+
+<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+<style>
+    body {
+        font-family: 'Inter', sans-serif;
+    }
+
+    .glassmorphism {
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .hover-scale {
+        transition: transform 0.3s ease;
+    }
+
+        .hover-scale:hover {
+            transform: scale(1.02);
+        }
+
+    .fade-in {
+        animation: fadeIn 0.5s ease-in;
+    }
+</style>
+
+<div class="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 p-6">
+    <div class="max-w-4xl mx-auto bg-white rounded-xl shadow-2xl p-8 glassmorphism">
+        <!-- Header -->
+        <h2 class="text-2xl font-bold text-indigo-700 mb-6 flex items-center">
+            <i class="fas fa-file-invoice mr-2 text-indigo-500"></i> New Invoice
+        </h2>
+
+        <!-- Customer and Invoice Details Split -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+            <!-- Left Side: Customer Section -->
+            <div>
+                <button type="button" onclick="openCustomerModal()" class="bg-indigo-600 text-white rounded-lg px-4 py-2 flex items-center space-x-2 hover:bg-indigo-700 hover-scale">
+                    <i class="fas fa-user-plus"></i>
+                    <span>Add Customer</span>
+                </button>
+                <div id="customerInfo" class="mt-4 p-4 bg-indigo-50 rounded-lg fade-in hidden">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <h3 id="customerName" class="text-lg font-semibold text-indigo-700"></h3>
+                            <p id="customerEmail" class="text-sm text-gray-600"></p>
+                            <p id="customerPhone" class="text-sm text-gray-600"></p>
+                            <p id="customerAddress" class="text-sm text-gray-600"></p>
+                        </div>
+                        <div class="space-x-2">
+                            <button type="button" onclick="openCustomerModal()" class="text-indigo-600 hover:underline text-sm">Choose Different Customer</button>
+                            <button type="button" class="text-green-600 hover:underline text-sm">Edit</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Side: Invoice Details -->
+            <div class="space-y-4">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">Location</label>
+                    <select class="mt-1 block w-full border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                        <option>Select location</option>
+                        <option value="loc1">Location 1</option>
+                        <option value="loc2">Location 2</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">Invoice Number:</label>
+                    <div class="mt-1 relative">
+                        <input type="text" id="invoiceNumber" value="Auto-generated" class="block w-full border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm bg-gray-100" readonly />
+                        <button type="button" onclick="switchToManual()" class="absolute right-2 top-1 text-indigo-600 text-sm hover:underline">Switch to Manual</button>
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">P.O/S.O. Number</label>
+                    <input type="text" placeholder="Enter P.O/S.O. number" class="mt-1 block w-full border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" />
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">Invoice Due</label>
+                    <input type="date" class="mt-1 block w-full border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" />
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">Payment Due</label>
+                    <select class="mt-1 block w-full border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                        <option>Select payer</option>
+                        <option value="payer1">Payer 1</option>
+                        <option value="payer2">Payer 2</option>
+                    </select>
+                    <input type="date" class="mt-1 block w-full border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" />
+                </div>
+            </div>
+        </div>
+
+        <!-- Items Section -->
+        <div class="mb-6">
+            <button type="button" onclick="addItem()" class="bg-indigo-600 text-white px-4 py-2 rounded-lg flex items-center space-x-2 hover:bg-indigo-700 hover-scale">
+                <i class="fas fa-plus"></i>
+                <span>Add an Item</span>
+            </button>
+            <div id="itemsContainer" class="mt-4 space-y-4">
+                <!-- Initial Item Row -->
+                <div class="item-row grid grid-cols-1 sm:grid-cols-4 gap-4 p-4 bg-indigo-50 rounded-lg fade-in">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700">Service</label>
+                        <input type="text" placeholder="Enter service" class="mt-1 block w-full border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" />
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700">Description</label>
+                        <input type="text" placeholder="Enter description" class="mt-1 block w-full border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" />
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700">Unit</label>
+                        <input type="number" value="0" class="mt-1 block w-full border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" oninput="updateSummary()" />
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700">Price</label>
+                        <input type="number" value="0.00" step="0.01" class="mt-1 block w-full border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" oninput="updateSummary()" />
+                    </div>
+                    <div class="sm:col-span-4 flex justify-end">
+                        <button type="button" onclick="removeItem(this)" class="text-red-600 hover:text-red-800"><i class="fas fa-trash"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Summary -->
+        <div class="mb-6 p-4 bg-indigo-50 rounded-lg">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">Sub Total</label>
+                    <input type="text" id="subtotal" value="0.00" class="mt-1 block w-full border-gray-300 rounded-lg shadow-sm bg-gray-100 sm:text-sm" readonly />
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">Discount (%)</label>
+                    <input type="number" id="discount" value="0.00" step="0.01" class="mt-1 block w-full border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" oninput="updateSummary()" />
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">Tax (%)</label>
+                    <input type="number" id="taxRate" value="0.00" step="0.01" class="mt-1 block w-full border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" oninput="updateSummary()" />
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">Total Amount</label>
+                    <input type="text" id="total" value="0.00" class="mt-1 block w-full border-gray-300 rounded-lg shadow-sm bg-gray-100 sm:text-sm" readonly />
+                </div>
+            </div>
+        </div>
+
+        <!-- Notes and Attachments -->
+        <div class="mb-6 p-4 bg-indigo-50 rounded-lg">
+            <div class="flex items-center space-x-2 mb-2">
+                <input type="checkbox" id="richText" class="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded" />
+                <label for="richText" class="text-sm font-medium text-gray-700">Use Rich Text Editor</label>
+            </div>
+            <textarea placeholder="Enter notes or terms of service" class="mt-1 block w-full border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm h-24"></textarea>
+        </div>
+
+        <div class="mb-6 p-4 bg-indigo-50 rounded-lg">
+            <label class="block text-sm font-medium text-gray-700">Attach Files</label>
+            <div class="mt-1 flex items-center space-x-2">
+                <button type="button" class="bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700">Choose Files</button>
+                <span class="text-sm text-gray-500">No file chosen</span>
+            </div>
+        </div>
+
+        <!-- Submit Button -->
+        <div class="flex justify-end">
+            <button type="submit" class="bg-indigo-600 text-white px-6 py-2 rounded-lg hover:bg-indigo-700 hover-scale">Save and Confirm</button>
+        </div>
+    </div>
+
+    <!-- Customer Modal -->
+    <div id="customerModal" class="fixed inset-0 bg-gray-600 bg-opacity-50 hidden flex items-center justify-center">
+        <div class="bg-white rounded-xl p-6 w-full max-w-md shadow-lg">
+            <div class="flex justify-between items-center mb-4">
+                <h3 class="text-lg font-semibold text-indigo-700">Select or Create Customer</h3>
+                <button type="button" onclick="closeCustomerModal()" class="text-gray-500 hover:text-gray-700"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="mb-4">
+                <p class="font-medium mb-2 text-gray-700">Choose Option</p>
+                <label class="flex items-center space-x-2 mb-2">
+                    <input type="radio" name="customerOption" value="existing" checked class="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300" />
+                    <span class="text-gray-700">Choose Existing Customer</span>
+                </label>
+                <label class="flex items-center space-x-2">
+                    <input type="radio" name="customerOption" value="new" class="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300" />
+                    <span class="text-gray-700">Create New Customer</span>
+                </label>
+            </div>
+            <div id="existingCustomer" class="mb-4">
+                <label class="block text-sm font-medium text-gray-700">Select Existing Customer</label>
+                <select id="customerSelect" class="mt-1 block w-full border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                    <option value="">Choose a customer</option>
+                    <option value="1" data-name="John Doe" data-email="john.doe@example.com" data-phone="555-0201" data-address="321 Elm St, Apt 5B, New York, NY - 10002, USA">John Doe</option>
+                    <option value="2" data-name="Jane Smith" data-email="jane.smith@example.com" data-phone="555-0202" data-address="456 Oak St, Boston, MA - 02108, USA">Jane Smith</option>
+                    <option value="3" data-name="Acme Corp" data-email="contact@acmecorp.com" data-phone="555-0203" data-address="789 Pine St, San Francisco, CA - 94105, USA">Acme Corp</option>
+                </select>
+            </div>
+            <div id="newCustomer" class="hidden mb-4">
+                <label class="block text-sm font-medium text-gray-700">Name</label>
+                <input type="text" id="newCustomerName" placeholder="Enter the name" class="mt-1 block w-full border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" />
+                <label class="block text-sm font-medium text-gray-700 mt-2">Email</label>
+                <input type="email" id="newCustomerEmail" placeholder="Enter the email" class="mt-1 block w-full border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" />
+                <label class="block text-sm font-medium text-gray-700 mt-2">Phone Number</label>
+                <input type="text" id="newCustomerPhone" placeholder="Enter the phone number" class="mt-1 block w-full border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" />
+                <label class="block text-sm font-medium text-gray-700 mt-2">Address 1</label>
+                <input type="text" id="newCustomerAddress1" placeholder="Enter the address 1" class="mt-1 block w-full border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" />
+                <label class="block text-sm font-medium text-gray-700 mt-2">Address 2</label>
+                <input type="text" id="newCustomerAddress2" placeholder="Enter the address 2" class="mt-1 block w-full border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" />
+                <label class="block text-sm font-medium text-gray-700 mt-2">City</label>
+                <input type="text" id="newCustomerCity" placeholder="Enter the city" class="mt-1 block w-full border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" />
+                <label class="block text-sm font-medium text-gray-700 mt-2">State</label>
+                <input type="text" id="newCustomerState" placeholder="Enter the state" class="mt-1 block w-full border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" />
+                <label class="block text-sm font-medium text-gray-700 mt-2">Country</label>
+                <input type="text" id="newCustomerCountry" placeholder="Enter the country" class="mt-1 block w-full border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" />
+                <label class="block text-sm font-medium text-gray-700 mt-2">Zip Code</label>
+                <input type="text" id="newCustomerZip" placeholder="Enter the zip code" class="mt-1 block w-full border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" />
+            </div>
+            <div class="flex justify-end space-x-2">
+                <button type="button" onclick="selectCustomer()" class="bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700">OK</button>
+                <button type="button" onclick="closeCustomerModal()" class="bg-gray-300 px-4 py-2 rounded-lg hover:bg-gray-400">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function openCustomerModal() {
+        document.getElementById('customerModal').classList.remove('hidden');
+        document.getElementById('existingCustomer').classList.remove('hidden');
+        document.getElementById('newCustomer').classList.add('hidden');
+    }
+
+    function closeCustomerModal() {
+        document.getElementById('customerModal').classList.add('hidden');
+    }
+
+    document.querySelectorAll('input[name="customerOption"]').forEach(radio => {
+        radio.addEventListener('change', function() {
+            const value = this.value;
+            if (value === 'existing') {
+                document.getElementById('existingCustomer').classList.remove('hidden');
+                document.getElementById('newCustomer').classList.add('hidden');
+            } else {
+                document.getElementById('existingCustomer').classList.add('hidden');
+                document.getElementById('newCustomer').classList.remove('hidden');
+            }
+        });
+    });
+
+    function selectCustomer() {
+        const customerOption = document.querySelector('input[name="customerOption"]:checked').value;
+        const customerInfo = document.getElementById('customerInfo');
+        const customerName = document.getElementById('customerName');
+        const customerEmail = document.getElementById('customerEmail');
+        const customerPhone = document.getElementById('customerPhone');
+        const customerAddress = document.getElementById('customerAddress');
+
+        if (customerOption === 'existing') {
+            const select = document.getElementById('customerSelect');
+            const selectedOption = select.options[select.selectedIndex];
+            if (selectedOption.value) {
+                customerName.textContent = selectedOption.dataset.name;
+                customerEmail.textContent = selectedOption.dataset.email;
+                customerPhone.textContent = selectedOption.dataset.phone;
+                customerAddress.textContent = selectedOption.dataset.address;
+                customerInfo.classList.remove('hidden');
+            }
+        } else {
+            const name = document.getElementById('newCustomerName').value;
+            const email = document.getElementById('newCustomerEmail').value;
+            const phone = document.getElementById('newCustomerPhone').value;
+            const address1 = document.getElementById('newCustomerAddress1').value;
+            const address2 = document.getElementById('newCustomerAddress2').value;
+            const city = document.getElementById('newCustomerCity').value;
+            const state = document.getElementById('newCustomerState').value;
+            const country = document.getElementById('newCustomerCountry').value;
+            const zip = document.getElementById('newCustomerZip').value;
+
+            if (name && email) {
+                const fullAddress = [address1, address2, city, state, country, zip].filter(Boolean).join(', ');
+                customerName.textContent = name;
+                customerEmail.textContent = email;
+                customerPhone.textContent = phone || 'N/A';
+                customerAddress.textContent = fullAddress || 'N/A';
+                customerInfo.classList.remove('hidden');
+            }
+        }
+        closeCustomerModal();
+    }
+
+    function switchToManual() {
+        const input = document.getElementById('invoiceNumber');
+        input.removeAttribute('readonly');
+        input.classList.remove('bg-gray-100');
+        input.value = '';
+        input.focus();
+    }
+
+    function addItem() {
+        const container = document.getElementById('itemsContainer');
+        const index = container.children.length;
+        const itemHtml = `
+            <div class="item-row grid grid-cols-1 sm:grid-cols-4 gap-4 p-4 bg-indigo-50 rounded-lg fade-in">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">Service</label>
+                    <input type="text" placeholder="Enter service" class="mt-1 block w-full border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" />
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">Description</label>
+                    <input type="text" placeholder="Enter description" class="mt-1 block w-full border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" />
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">Unit</label>
+                    <input type="number" value="0" class="mt-1 block w-full border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" oninput="updateSummary()" />
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700">Price</label>
+                    <input type="number" value="0.00" step="0.01" class="mt-1 block w-full border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" oninput="updateSummary()" />
+                </div>
+                <div class="sm:col-span-4 flex justify-end">
+                    <button type="button" onclick="removeItem(this)" class="text-red-600 hover:text-red-800"><i class="fas fa-trash"></i></button>
+                </div>
+            </div>`;
+        container.insertAdjacentHTML('beforeend', itemHtml);
+        updateSummary();
+    }
+
+    function removeItem(button) {
+        button.closest('.item-row').remove();
+        updateSummary();
+    }
+
+    function updateSummary() {
+        let subtotal = 0;
+        document.querySelectorAll('.item-row').forEach(row => {
+            const quantity = parseFloat(row.querySelector('input[type="number"][placeholder="Enter unit"]').value) || 0;
+            const price = parseFloat(row.querySelector('input[type="number"][placeholder="Enter price"]').value) || 0;
+            subtotal += quantity * price;
+        });
+        const discount = parseFloat(document.getElementById('discount').value) || 0;
+        const taxRate = parseFloat(document.getElementById('taxRate').value) || 0;
+        const tax = (subtotal * taxRate) / 100;
+        const total = subtotal - (subtotal * discount / 100) + tax;
+
+        document.getElementById('subtotal').value = subtotal.toFixed(2);
+        document.getElementById('total').value = total.toFixed(2);
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        updateSummary();
+    });
+</script> *@
+
+@* @{
+    ViewData["Title"] = "New Invoice";
+}
+
+<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+    :root {
+        --primary: #4f46e5;
+        --primary-light: #6366f1;
+        --primary-dark: #4338ca;
+        --accent: #10b981;
+        --accent-dark: #059669;
+        --danger: #ef4444;
+        --danger-dark: #dc2626;
+        --text-primary: #111827;
+        --text-secondary: #6b7280;
+        --bg-light: #f9fafb;
+        --bg-card: #ffffff;
+        --border-light: #e5e7eb;
+    }
+
+    body {
+        font-family: 'Inter', sans-serif;
+        color: var(--text-primary);
+        background-color: var(--bg-light);
+    }
+
+    .glassmorphism {
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(12px);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        box-shadow: 0 8px 32px rgba(31, 38, 135, 0.1);
+        border-radius: 12px;
+    }
+
+    .hover-scale {
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+        .hover-scale:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
+
+    .fade-in {
+        animation: fadeIn 0.3s ease-in-out;
+    }
+
+  
+
+    .btn-primary {
+        background-color: var(--primary);
+        color: white;
+        transition: all 0.2s ease;
+    }
+
+        .btn-primary:hover {
+            background-color: var(--primary-dark);
+        }
+
+    .btn-accent {
+        background-color: var(--accent);
+        color: white;
+        transition: all 0.2s ease;
+    }
+
+        .btn-accent:hover {
+            background-color: var(--accent-dark);
+        }
+
+    .btn-outline {
+        background-color: transparent;
+        border: 1px solid var(--primary);
+        color: var(--primary);
+        transition: all 0.2s ease;
+    }
+
+        .btn-outline:hover {
+            background-color: var(--primary);
+            color: white;
+        }
+
+    .input-field {
+        border: 1px solid var(--border-light);
+        border-radius: 8px;
+        padding: 10px 12px;
+        font-size: 14px;
+        transition: all 0.2s;
+        width: 100%;
+    }
+
+        .input-field:focus {
+            border-color: var(--primary-light);
+            box-shadow: 0 0 0 2px rgba(79, 70, 229, 0.1);
+            outline: none;
+        }
+
+    .input-field-readonly {
+        background-color: #f8fafc;
+        color: #64748b;
+    }
+
+    .badge {
+        display: inline-flex;
+        align-items: center;
+        padding: 4px 10px;
+        border-radius: 9999px;
+        font-size: 12px;
+        font-weight: 500;
+        background-color: var(--primary-light);
+        color: white;
+    }
+
+    .custom-checkbox {
+        width: 16px;
+        height: 16px;
+        border-radius: 4px;
+        border: 1px solid var(--border-light);
+        appearance: none;
+        -webkit-appearance: none;
+        outline: none;
+        cursor: pointer;
+        position: relative;
+        transition: all 0.2s ease;
+    }
+
+        .custom-checkbox:checked {
+            background-color: var(--primary);
+            border-color: var(--primary);
+        }
+
+            .custom-checkbox:checked::after {
+                content: "✓";
+                position: absolute;
+                color: white;
+                font-size: 12px;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+            }
+
+    .modal-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: rgba(0, 0, 0, 0.5);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 1000;
+    }
+
+    .modal-container {
+        background-color: white;
+        border-radius: 12px;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        width: 95%;
+        max-width: 500px;
+        max-height: 90vh;
+        overflow-y: auto;
+    }
+
+
+    .invoice-item {
+        background-color: white;
+        border-radius: 8px;
+        padding: 12px;
+        margin-bottom: 8px;
+        border: 1px solid #e2e8f0;
+    }
+
+    .delete-btn {
+        color: var(--danger);
+        transition: all 0.2s;
+        cursor: pointer;
+    }
+
+        .delete-btn:hover {
+            color: var(--danger-dark);
+            transform: scale(1.1);
+        }
+
+    .divider {
+        border: 0;
+        height: 1px;
+        background-color: #e2e8f0;
+        margin: 16px 0;
+    }
+</style>
+
+<div class="min-h-screen bg-gray-50 p-4 md:p-6">
+    <div class="max-w-6xl mx-auto">
+        <!-- Header -->
+        <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-6">
+            <div class="mb-4 md:mb-0">
+                <h1 class="text-2xl font-bold text-gray-800">Create New Invoice</h1>
+                <p class="text-gray-600">Fill in the details below to create a new invoice</p>
+            </div>
+            <div class="flex space-x-2">
+                <button class="btn-outline px-4 py-2 rounded-lg text-sm">
+                    <i class="fas fa-save mr-2"></i>
+                    Save Draft
+                </button>
+                <button class="btn-primary px-4 py-2 rounded-lg text-sm">
+                    <i class="fas fa-eye mr-2"></i>
+                    Preview
+                </button>
+            </div>
+        </div>
+
+        <!-- Main Card -->
+        <div class="bg-white rounded-xl shadow-sm overflow-hidden">
+            <!-- Invoice Header -->
+            <div class="bg-indigo-600 p-4 md:p-6 text-white">
+                <div class="flex flex-col md:flex-row md:items-center md:justify-between">
+                    <div class="mb-3 md:mb-0">
+                        <h2 class="text-xl font-bold flex items-center">
+                            <i class="fas fa-file-invoice mr-3"></i>
+                            <span>INVOICE #<span id="invoiceNumberDisplay">AUTO-GEN</span></span>
+                        </h2>
+                        <p class="text-indigo-100 text-sm mt-1">Status: <span class="badge">Draft</span></p>
+                    </div>
+                    <div>
+                        <button class="bg-white text-indigo-600 px-3 py-1 rounded-lg text-sm hover:bg-indigo-50">
+                            <i class="fas fa-cog mr-1"></i>
+                            Settings
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Main Content -->
+            <div class="p-4 md:p-6">
+                <!-- Customer and Invoice Details -->
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
+                    <!-- Customer Section -->
+                    <div class="lg:col-span-2">
+                        <div class="bg-gray-50 p-4 rounded-lg">
+                            <div class="flex items-center justify-between mb-3">
+                                <h3 class="font-medium text-gray-800">
+                                    <i class="fas fa-user-circle text-indigo-500 mr-2"></i>
+                                    Customer Information
+                                </h3>
+                                <button type="button" onclick="openCustomerModal()" class="btn-primary text-sm px-3 py-1 rounded-lg">
+                                    <i class="fas fa-plus mr-1"></i>
+                                    Add
+                                </button>
+                            </div>
+
+                            <div id="customerInfo" class="hidden">
+                                <div class="bg-white p-3 rounded-lg border border-gray-200">
+                                    <div class="flex justify-between items-start">
+                                        <div>
+                                            <h4 id="customerName" class="font-medium text-gray-800"></h4>
+                                            <p id="customerEmail" class="text-sm text-gray-600 mt-1"></p>
+                                            <p id="customerPhone" class="text-sm text-gray-600 mt-1"></p>
+                                            <p id="customerAddress" class="text-sm text-gray-600 mt-1"></p>
+                                        </div>
+                                        <div class="flex space-x-2">
+                                            <button type="button" onclick="openCustomerModal()" class="text-indigo-600 hover:text-indigo-800 text-sm">
+                                                <i class="fas fa-exchange-alt"></i>
+                                            </button>
+                                            <button type="button" class="text-gray-600 hover:text-gray-800 text-sm">
+                                                <i class="fas fa-pencil-alt"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div id="noCustomer" class="text-center py-4">
+                                <i class="fas fa-user-slash text-3xl text-gray-300 mb-2"></i>
+                                <p class="text-gray-500 text-sm">No customer selected</p>
+                                <button type="button" onclick="openCustomerModal()" class="btn-primary mt-3 px-3 py-1 rounded-lg text-sm">
+                                    <i class="fas fa-user-plus mr-1"></i>
+                                    Add Customer
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Invoice Details -->
+                    <div class="space-y-4">
+                        <div class="bg-gray-50 p-4 rounded-lg">
+                            <h3 class="font-medium text-gray-800 mb-3">
+                                <i class="fas fa-file-alt text-indigo-500 mr-2"></i>
+                                Invoice Details
+                            </h3>
+
+                            <div class="space-y-3">
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-1">Location</label>
+                                    <select class="input-field">
+                                        <option value="">Select location</option>
+                                        <option value="loc1">Main Office</option>
+                                        <option value="loc2">Branch Office</option>
+                                    </select>
+                                </div>
+
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-1">Invoice Number</label>
+                                    <div class="relative">
+                                        <input type="text" id="invoiceNumber" class="input-field input-field-readonly" readonly />
+                                        <button type="button" onclick="switchToManual()" class="absolute right-2 top-2 text-indigo-600 text-xs hover:underline">Manual</button>
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-1">P.O./S.O. Number</label>
+                                    <input type="text" class="input-field" placeholder="Optional" />
+                                </div>
+
+                                <div class="grid grid-cols-2 gap-3">
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700 mb-1">Invoice Date</label>
+                                        <input type="date" class="input-field" />
+                                    </div>
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700 mb-1">Due Date</label>
+                                        <input type="date" class="input-field" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Items Section -->
+                <div class="mb-6">
+                    <div class="flex items-center justify-between mb-3">
+                        <h3 class="font-medium text-gray-800">
+                            <i class="fas fa-list-ul text-indigo-500 mr-2"></i>
+                            Invoice Items
+                        </h3>
+                        <button type="button" onclick="addItem()" class="btn-primary px-3 py-1 rounded-lg text-sm">
+                            <i class="fas fa-plus mr-1"></i>
+                            Add Item
+                        </button>
+                    </div>
+
+                    <div id="itemsContainer" class="space-y-2">
+                        <!-- Initial Item Row -->
+                        <div class="invoice-item fade-in">
+                            <div class="grid grid-cols-12 gap-2 items-center">
+                                <div class="col-span-5">
+                                    <input type="text" placeholder="Service/Product" class="input-field" />
+                                </div>
+                                <div class="col-span-4">
+                                    <input type="text" placeholder="Description" class="input-field" />
+                                </div>
+                                <div class="col-span-2">
+                                    <input type="number" value="1" class="input-field" oninput="updateSummary()" />
+                                </div>
+                                <div class="col-span-1">
+                                    <input type="number" value="0.00" step="0.01" class="input-field" oninput="updateSummary()" />
+                                </div>
+                                <div class="col-span-1 text-center">
+                                    <i class="fas fa-trash delete-btn" onclick="removeItem(this)"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Summary Section -->
+                <div class="mb-6">
+                    <div class="bg-gray-50 p-4 rounded-lg">
+                        <h3 class="font-medium text-gray-800 mb-3">
+                            <i class="fas fa-calculator text-indigo-500 mr-2"></i>
+                            Summary
+                        </h3>
+
+                        <div class="grid grid-cols-1 md:grid-cols-4 gap-3">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Subtotal</label>
+                                <input type="text" id="subtotal" value="0.00" class="input-field input-field-readonly" readonly />
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Discount (%)</label>
+                                <input type="number" id="discount" value="0.00" step="0.01" class="input-field" oninput="updateSummary()" />
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Tax (%)</label>
+                                <input type="number" id="taxRate" value="0.00" step="0.01" class="input-field" oninput="updateSummary()" />
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Total</label>
+                                <input type="text" id="total" value="0.00" class="input-field input-field-readonly font-medium" readonly />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Notes and Attachments -->
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+                    <div class="bg-gray-50 p-4 rounded-lg">
+                        <h3 class="font-medium text-gray-800 mb-3">
+                            <i class="fas fa-sticky-note text-indigo-500 mr-2"></i>
+                            Notes
+                        </h3>
+
+                        <div class="flex items-center space-x-2 mb-2">
+                            <input type="checkbox" id="richText" class="custom-checkbox" />
+                            <label for="richText" class="text-sm text-gray-700">Use Rich Text Editor</label>
+                        </div>
+
+                        <textarea placeholder="Enter notes or terms..." class="input-field h-24"></textarea>
+                    </div>
+
+                    <div class="bg-gray-50 p-4 rounded-lg">
+                        <h3 class="font-medium text-gray-800 mb-3">
+                            <i class="fas fa-paperclip text-indigo-500 mr-2"></i>
+                            Attachments
+                        </h3>
+
+                        <div class="border-2 border-dashed border-gray-300 rounded-lg p-4 text-center cursor-pointer hover:border-indigo-300">
+                            <i class="fas fa-cloud-upload-alt text-2xl text-gray-400 mb-2"></i>
+                            <p class="text-gray-600 text-sm">Click to upload or drag and drop</p>
+                            <p class="text-gray-400 text-xs mt-1">PDF, JPG, PNG (Max 5MB)</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="flex flex-col sm:flex-row justify-end space-y-2 sm:space-y-0 sm:space-x-3">
+                    <button type="button" class="btn-outline px-4 py-2 rounded-lg text-sm">
+                        <i class="fas fa-times mr-1"></i>
+                        Cancel
+                    </button>
+                    <button type="button" class="btn-primary px-4 py-2 rounded-lg text-sm">
+                        <i class="fas fa-save mr-1"></i>
+                        Save Draft
+                    </button>
+                    <button type="submit" class="btn-accent px-4 py-2 rounded-lg text-sm">
+                        <i class="fas fa-check-circle mr-1"></i>
+                        Save & Send
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Customer Modal -->
+    <div id="customerModal" class="modal-overlay hidden">
+        <div class="modal-container">
+            <div class="p-4 border-b sticky top-0 bg-white z-10">
+                <div class="flex justify-between items-center">
+                    <h3 class="font-medium text-lg text-gray-800">
+                        <i class="fas fa-users text-indigo-500 mr-2"></i>
+                        Select Customer
+                    </h3>
+                    <button type="button" onclick="closeCustomerModal()" class="text-gray-500 hover:text-gray-700">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+            </div>
+
+            <div class="p-4">
+                <div class="mb-4">
+                    <div class="flex items-center space-x-4 mb-3">
+                        <label class="flex items-center space-x-2 cursor-pointer">
+                            <input type="radio" name="customerOption" value="existing" checked class="h-4 w-4 text-indigo-600" />
+                            <span class="text-gray-700">Existing Customer</span>
+                        </label>
+                        <label class="flex items-center space-x-2 cursor-pointer">
+                            <input type="radio" name="customerOption" value="new" class="h-4 w-4 text-indigo-600" />
+                            <span class="text-gray-700">New Customer</span>
+                        </label>
+                    </div>
+
+                    <div id="existingCustomer">
+                        <div class="mb-3">
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Search</label>
+                            <input type="text" id="customerSearch" placeholder="Search customers..." class="input-field" />
+                        </div>
+
+                        <div class="border rounded-lg overflow-hidden">
+                            <table class="min-w-full divide-y divide-gray-200">
+                                <thead class="bg-gray-50">
+                                    <tr>
+                                        <th class="px-4 py-2 text-left text-xs font-medium text-gray-500">Name</th>
+                                        <th class="px-4 py-2 text-left text-xs font-medium text-gray-500">Email</th>
+                                        <th class="px-4 py-2 text-left text-xs font-medium text-gray-500">Phone</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="bg-white divide-y divide-gray-200">
+                                    <tr class="hover:bg-gray-50 cursor-pointer" onclick="selectCustomerRow(this)"
+                                        data-id="1" data-name="John Doe" data-email="john@example.com"
+                                        data-phone="(555) 123-4567" data-address="123 Main St, New York">
+                                        <td class="px-4 py-2 whitespace-nowrap text-sm font-medium text-gray-800">John Doe</td>
+                                        <td class="px-4 py-2 whitespace-nowrap text-sm text-gray-600">john@example.com</td>
+                                        <td class="px-4 py-2 whitespace-nowrap text-sm text-gray-600">(555) 123-4567</td>
+                                    </tr>
+                                    <tr class="hover:bg-gray-50 cursor-pointer" onclick="selectCustomerRow(this)"
+                                        data-id="2" data-name="Jane Smith" data-email="jane@example.com"
+                                        data-phone="(555) 987-6543" data-address="456 Oak Ave, Boston">
+                                        <td class="px-4 py-2 whitespace-nowrap text-sm font-medium text-gray-800">Jane Smith</td>
+                                        <td class="px-4 py-2 whitespace-nowrap text-sm text-gray-600">jane@example.com</td>
+                                        <td class="px-4 py-2 whitespace-nowrap text-sm text-gray-600">(555) 987-6543</td>
+                                    </tr>
+                                    <tr class="hover:bg-gray-50 cursor-pointer" onclick="selectCustomerRow(this)"
+                                        data-id="3" data-name="Acme Corp" data-email="contact@acme.com"
+                                        data-phone="(555) 555-5555" data-address="789 Pine Rd, Chicago">
+                                        <td class="px-4 py-2 whitespace-nowrap text-sm font-medium text-gray-800">Acme Corp</td>
+                                        <td class="px-4 py-2 whitespace-nowrap text-sm text-gray-600">contact@acme.com</td>
+                                        <td class="px-4 py-2 whitespace-nowrap text-sm text-gray-600">(555) 555-5555</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div id="newCustomer" class="hidden">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Name</label>
+                                <input type="text" id="newCustomerName" class="input-field" />
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Email</label>
+                                <input type="email" id="newCustomerEmail" class="input-field" />
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Phone</label>
+                                <input type="text" id="newCustomerPhone" class="input-field" />
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Company</label>
+                                <input type="text" id="newCustomerCompany" class="input-field" />
+                            </div>
+                            <div class="md:col-span-2">
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Address</label>
+                                <input type="text" id="newCustomerAddress" class="input-field" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex justify-end space-x-3 pt-3 border-t">
+                    <button type="button" onclick="closeCustomerModal()" class="btn-outline px-4 py-2 rounded-lg text-sm">
+                        Cancel
+                    </button>
+                    <button type="button" onclick="selectCustomer()" class="btn-primary px-4 py-2 rounded-lg text-sm">
+                        Select
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Generate a random invoice number on page load
+    document.addEventListener('DOMContentLoaded', function() {
+        const invoiceNumber = 'INV-' + Math.floor(100000 + Math.random() * 900000);
+        document.getElementById('invoiceNumber').value = invoiceNumber;
+        document.getElementById('invoiceNumberDisplay').textContent = invoiceNumber;
+        updateSummary();
+
+        // Show no customer message initially
+        document.getElementById('noCustomer').classList.remove('hidden');
+    });
+
+    function openCustomerModal() {
+        document.getElementById('customerModal').classList.remove('hidden');
+        document.body.classList.add('overflow-hidden');
+    }
+
+    function closeCustomerModal() {
+        document.getElementById('customerModal').classList.add('hidden');
+        document.body.classList.remove('overflow-hidden');
+    }
+
+    // Handle radio button changes
+    document.querySelectorAll('input[name="customerOption"]').forEach(radio => {
+        radio.addEventListener('change', function() {
+            if (this.value === 'existing') {
+                document.getElementById('existingCustomer').classList.remove('hidden');
+                document.getElementById('newCustomer').classList.add('hidden');
+            } else {
+                document.getElementById('existingCustomer').classList.add('hidden');
+                document.getElementById('newCustomer').classList.remove('hidden');
+            }
+        });
+    });
+
+    // Select customer from table row
+    function selectCustomerRow(row) {
+        const rows = document.querySelectorAll('#existingCustomer tbody tr');
+        rows.forEach(r => r.classList.remove('bg-indigo-50'));
+        row.classList.add('bg-indigo-50');
+    }
+
+    function selectCustomer() {
+        const customerOption = document.querySelector('input[name="customerOption"]:checked').value;
+        const customerInfo = document.getElementById('customerInfo');
+        const noCustomer = document.getElementById('noCustomer');
+        const customerName = document.getElementById('customerName');
+        const customerEmail = document.getElementById('customerEmail');
+        const customerPhone = document.getElementById('customerPhone');
+        const customerAddress = document.getElementById('customerAddress');
+
+        if (customerOption === 'existing') {
+            const selectedRow = document.querySelector('#existingCustomer tbody tr.bg-indigo-50');
+            if (selectedRow) {
+                customerName.textContent = selectedRow.dataset.name;
+                customerEmail.textContent = selectedRow.dataset.email;
+                customerPhone.textContent = selectedRow.dataset.phone;
+                customerAddress.textContent = selectedRow.dataset.address;
+                customerInfo.classList.remove('hidden');
+                noCustomer.classList.add('hidden');
+            } else {
+                alert('Please select a customer from the list');
+                return;
+            }
+        } else {
+            const name = document.getElementById('newCustomerName').value;
+            const email = document.getElementById('newCustomerEmail').value;
+            const phone = document.getElementById('newCustomerPhone').value;
+            const address = document.getElementById('newCustomerAddress').value;
+
+            if (name && email) {
+                customerName.textContent = name;
+                customerEmail.textContent = email;
+                customerPhone.textContent = phone || 'Not provided';
+                customerAddress.textContent = address || 'Not provided';
+                customerInfo.classList.remove('hidden');
+                noCustomer.classList.add('hidden');
+            } else {
+                alert('Please provide at least name and email for the new customer');
+                return;
+            }
+        }
+        closeCustomerModal();
+    }
+
+    function switchToManual() {
+        const input = document.getElementById('invoiceNumber');
+        input.removeAttribute('readonly');
+        input.classList.remove('input-field-readonly');
+        input.focus();
+    }
+
+    function addItem() {
+        const container = document.getElementById('itemsContainer');
+        const itemHtml = `
+            <div class="invoice-item fade-in">
+                <div class="grid grid-cols-12 gap-2 items-center">
+                    <div class="col-span-5">
+                        <input type="text" placeholder="Service/Product" class="input-field" />
+                    </div>
+                    <div class="col-span-4">
+                        <input type="text" placeholder="Description" class="input-field" />
+                    </div>
+                    <div class="col-span-2">
+                        <input type="number" value="1" class="input-field" oninput="updateSummary()" />
+                    </div>
+                    <div class="col-span-1">
+                        <input type="number" value="0.00" step="0.01" class="input-field" oninput="updateSummary()" />
+                    </div>
+                    <div class="col-span-1 text-center">
+                        <i class="fas fa-trash delete-btn" onclick="removeItem(this)"></i>
+                    </div>
+                </div>
+            </div>`;
+        container.insertAdjacentHTML('beforeend', itemHtml);
+        updateSummary();
+    }
+
+    function removeItem(button) {
+        if (document.querySelectorAll('.invoice-item').length > 1) {
+            button.closest('.invoice-item').remove();
+            updateSummary();
+        } else {
+            alert('You must have at least one item in the invoice');
+        }
+    }
+
+    function updateSummary() {
+        let subtotal = 0;
+        document.querySelectorAll('.invoice-item').forEach(item => {
+            const quantityInput = item.querySelector('div.col-span-2 input');
+            const priceInput = item.querySelector('div.col-span-1 input');
+
+            const quantity = parseFloat(quantityInput.value) || 0;
+            const price = parseFloat(priceInput.value) || 0;
+            subtotal += quantity * price;
+        });
+
+        const discount = parseFloat(document.getElementById('discount').value) || 0;
+        const taxRate = parseFloat(document.getElementById('taxRate').value) || 0;
+
+        const discountAmount = subtotal * discount / 100;
+        const subtotalAfterDiscount = subtotal - discountAmount;
+        const taxAmount = subtotalAfterDiscount * taxRate / 100;
+        const total = subtotalAfterDiscount + taxAmount;
+
+        document.getElementById('subtotal').value = subtotal.toFixed(2);
+        document.getElementById('total').value = total.toFixed(2);
+    }
+</script> *@
+
+
+@{
+    ViewData["Title"] = "New Invoice";
+}
+
+<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+<style>
+    :root {
+        --primary: #4f46e5;
+        --primary-light: #6366f1;
+        --primary-dark: #4338ca;
+        --accent: #10b981;
+        --accent-dark: #059669;
+        --danger: #ef4444;
+        --danger-dark: #dc2626;
+        --text-primary: #111827;
+        --text-secondary: #6b7280;
+        --bg-light: #f9fafb;
+        --bg-card: #ffffff;
+        --border-light: #e5e7eb;
+    }
+
+    body {
+        font-family: 'Inter', sans-serif;
+        color: var(--text-primary);
+        background-color: var(--bg-light);
+    }
+
+    .glassmorphism {
+        background: rgba(255, 255, 255, 0.98);
+        backdrop-filter: blur(12px);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        box-shadow: 0 8px 32px rgba(31, 38, 135, 0.05);
+        border-radius: 12px;
+    }
+
+    .hover-scale {
+        transition: all 0.2s ease;
+    }
+
+        .hover-scale:hover {
+            transform: translateY(-1px);
+        }
+
+    .fade-in {
+        animation: fadeIn 0.3s ease-in-out;
+    }
+
+    .btn-primary {
+        background-color: var(--primary);
+        color: white;
+        transition: all 0.2s ease;
+    }
+
+        .btn-primary:hover {
+            background-color: var(--primary-dark);
+        }
+
+    .btn-accent {
+        background-color: var(--accent);
+        color: white;
+        transition: all 0.2s ease;
+    }
+
+        .btn-accent:hover {
+            background-color: var(--accent-dark);
+        }
+
+    .btn-outline {
+        background-color: transparent;
+        border: 1px solid var(--primary);
+        color: var(--primary);
+        transition: all 0.2s ease;
+    }
+
+        .btn-outline:hover {
+            background-color: var(--primary);
+            color: white;
+        }
+
+    .input-style {
+        border: 1px solid var(--border-light);
+        border-radius: 8px;
+        padding: 0.5rem 0.75rem;
+        font-size: 0.875rem;
+        transition: all 0.2s ease;
+        background-color: white;
+    }
+
+        .input-style:focus {
+            border-color: var(--primary-light);
+            box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+            outline: none;
+        }
+
+    .input-readonly {
+        background-color: #f8fafc;
+    }
+
+    .card-hover {
+        transition: all 0.2s ease;
+        border: 1px solid var(--border-light);
+    }
+
+        .card-hover:hover {
+            border-color: var(--primary-light);
+        }
+
+    .badge {
+        display: inline-flex;
+        align-items: center;
+        padding: 0.25rem 0.75rem;
+        border-radius: 9999px;
+        font-size: 0.75rem;
+        font-weight: 500;
+        background-color: var(--primary-light);
+        color: white;
+    }
+
+    .badge-accent {
+        background-color: var(--accent);
+    }
+
+    .badge-danger {
+        background-color: var(--danger);
+    }
+
+    /* Compact item rows */
+    .item-row {
+        border: 1px solid var(--border-light);
+        border-radius: 8px;
+        padding: 0.75rem;
+        margin-bottom: 0.5rem;
+        background-color: white;
+        transition: all 0.2s ease;
+    }
+
+        .item-row:hover {
+            border-color: var(--primary-light);
+        }
+
+    .delete-btn {
+        color: var(--danger);
+        transition: all 0.2s ease;
+        padding: 0.25rem;
+        border-radius: 4px;
+    }
+
+        .delete-btn:hover {
+            color: var(--danger-dark);
+            background-color: rgba(239, 68, 68, 0.1);
+        }
+
+    /* Modal styles */
+    .modal-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: rgba(0, 0, 0, 0.5);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 50;
+        padding: 1rem;
+    }
+
+    .modal-content {
+        background-color: white;
+        border-radius: 12px;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        width: 100%;
+        max-width: 32rem;
+        max-height: 90vh;
+        overflow-y: auto;
+    }
+
+    /* Responsive table in modal */
+    .customer-table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+        .customer-table th, .customer-table td {
+            padding: 0.75rem;
+            text-align: left;
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        .customer-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .customer-table tr:hover {
+            background-color: #f8fafc;
+        }
+
+    .selected-customer {
+        background-color: #f0f5ff !important;
+    }
+</style>
+
+<div class="min-h-screen bg-gray-50 p-4 md:p-6">
+    <div class="max-w-6xl mx-auto">
+        <!-- Header -->
+        <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-6">
+            <div class="mb-4 md:mb-0">
+                <h1 class="text-2xl font-bold text-gray-800">Create New Invoice</h1>
+                <p class="text-gray-600">Fill in the details below to create a new invoice</p>
+            </div>
+            <div class="flex space-x-2">
+                <button class="btn-outline px-4 py-2 rounded-lg text-sm">
+                    <i class="fas fa-save mr-2"></i>
+                    Save Draft
+                </button>
+                <button class="btn-primary px-4 py-2 rounded-lg text-sm">
+                    <i class="fas fa-file-export mr-2"></i>
+                    Preview
+                </button>
+            </div>
+        </div>
+
+        <!-- Main Card -->
+        <div class="glassmorphism overflow-hidden">
+            <!-- Invoice Header -->
+            <div class="bg-indigo-600 p-5 text-white rounded-t-lg">
+                <div class="flex flex-col md:flex-row md:items-center md:justify-between">
+                    <div class="mb-3 md:mb-0">
+                        <h2 class="text-xl font-bold flex items-center">
+                            <i class="fas fa-file-invoice mr-3"></i>
+                            <span>INVOICE #<span id="invoiceNumberDisplay">AUTO-GEN</span></span>
+                        </h2>
+                        <p class="text-indigo-100 text-sm mt-1">Status: <span class="badge">Draft</span></p>
+                    </div>
+                    <div class="flex items-center space-x-2">
+                        <button class="bg-white text-indigo-600 px-3 py-1 rounded-lg text-sm hover:bg-indigo-50">
+                            <i class="fas fa-cog mr-1"></i>
+                            Settings
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Main Content -->
+            <div class="p-5">
+                <!-- Customer and Invoice Details -->
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+                    <!-- Customer Section -->
+                    <div class="bg-white p-4 rounded-lg card-hover">
+                        <h3 class="text-lg font-semibold text-gray-800 mb-4 flex items-center">
+                            <i class="fas fa-user-circle text-indigo-500 mr-2"></i>
+                            Customer
+                        </h3>
+
+                        <div id="customerInfo" class="hidden">
+                            <div class="flex flex-col md:flex-row md:items-start md:justify-between">
+                                <div class="mb-3 md:mb-0">
+                                    <h3 id="customerName" class="font-semibold text-gray-800"></h3>
+                                    <p id="customerEmail" class="text-sm text-gray-600 mt-1"></p>
+                                    <p id="customerPhone" class="text-sm text-gray-600 mt-1"></p>
+                                    <p id="customerAddress" class="text-sm text-gray-600 mt-1"></p>
+                                </div>
+                                <div class="flex space-x-2">
+                                    <button type="button" onclick="openCustomerModal()" class="text-indigo-600 hover:text-indigo-800 text-sm flex items-center">
+                                        <i class="fas fa-exchange-alt mr-1"></i>
+                                        Change
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="noCustomer" class="text-center py-4">
+                            <i class="fas fa-user-slash text-3xl text-gray-300 mb-2"></i>
+                            <h4 class="text-gray-600 font-medium">No customer selected</h4>
+                            <button type="button" onclick="openCustomerModal()" class="btn-primary mt-3 px-4 py-2 rounded-lg text-sm">
+                                <i class="fas fa-user-plus mr-2"></i>
+                                Add Customer
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Invoice Details -->
+                    <div class="bg-white p-4 rounded-lg card-hover">
+                        <h3 class="text-lg font-semibold text-gray-800 mb-4 flex items-center">
+                            <i class="fas fa-file-alt text-indigo-500 mr-2"></i>
+                            Invoice Details
+                        </h3>
+
+                        <div class="space-y-3">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Location</label>
+                                <select class="input-style w-full">
+                                    <option value="">Select location</option>
+                                    <option value="loc1">Main Office</option>
+                                    <option value="loc2">Branch Office</option>
+                                </select>
+                            </div>
+
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Invoice Number</label>
+                                <div class="relative">
+                                    <input type="text" id="invoiceNumber" class="input-style input-readonly w-full" readonly />
+                                    <button type="button" onclick="switchToManual()" class="absolute right-2 top-1/2 transform -translate-y-1/2 text-indigo-600 text-xs hover:underline">Manual</button>
+                                </div>
+                            </div>
+
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">P.O./S.O. Number</label>
+                                <input type="text" class="input-style w-full" />
+                            </div>
+
+                            <div class="grid grid-cols-2 gap-3">
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-1">Invoice Date</label>
+                                    <input type="date" class="input-style w-full" />
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-1">Due Date</label>
+                                    <input type="date" class="input-style w-full" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Items Section -->
+                <div class="mb-6">
+                    <div class="flex items-center justify-between mb-3">
+                        <h3 class="text-lg font-semibold text-gray-800 flex items-center">
+                            <i class="fas fa-list-ul text-indigo-500 mr-2"></i>
+                            Items
+                        </h3>
+                        <button type="button" onclick="addItem()" class="btn-primary px-3 py-1.5 rounded-lg text-sm">
+                            <i class="fas fa-plus mr-1"></i>
+                            Add Item
+                        </button>
+                    </div>
+
+                    <!-- Items Header -->
+                    <div class="grid grid-cols-12 gap-2 mb-2 px-2 text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        <div class="col-span-5">Service/Product</div>
+                        <div class="col-span-4">Description</div>
+                        <div class="col-span-2 text-right">Qty</div>
+                        <div class="col-span-1 text-right">Price</div>
+                    </div>
+
+                    <!-- Items Container -->
+                    <div id="itemsContainer" class="space-y-2">
+                        <!-- Initial Item Row -->
+                        <div class="item-row fade-in">
+                            <div class="grid item-grid grid-cols-12 gap-2 items-center">
+                                <div class="col-span-5">
+                                    <input type="text" class="input-style w-full text-sm" placeholder="Service name" />
+                                </div>
+                                <div class="col-span-4">
+                                    <input type="text" class="input-style w-full text-sm" placeholder="Description" />
+                                </div>
+                                <div class="col-span-2">
+                                    <input type="number" value="1" class="input-style w-full text-sm text-right" oninput="updateSummary()" />
+                                </div>
+                                <div class="col-span-1">
+                                    <input type="number" value="0.00" step="0.01" class="input-style w-full text-sm text-right" oninput="updateSummary()" />
+                                </div>
+                                <div class="col-span-1 flex justify-center">
+                                    <button type="button" onclick="removeItem(this)" class="delete-btn">
+                                        <i class="fas fa-trash-alt text-sm"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Summary Section -->
+                <div class="mb-6 bg-white p-4 rounded-lg card-hover">
+                    <h3 class="text-lg font-semibold text-gray-800 mb-4 flex items-center">
+                        <i class="fas fa-calculator text-indigo-500 mr-2"></i>
+                        Summary
+                    </h3>
+
+                    <div class="grid summary-grid grid-cols-1 md:grid-cols-4 gap-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Subtotal</label>
+                            <input type="text" id="subtotal" value="0.00" class="input-style input-readonly w-full text-right" readonly />
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Discount (%)</label>
+                            <input type="number" id="discount" value="0.00" step="0.01" class="input-style w-full text-right" oninput="updateSummary()" />
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Tax (%)</label>
+                            <input type="number" id="taxRate" value="0.00" step="0.01" class="input-style w-full text-right" oninput="updateSummary()" />
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Total</label>
+                            <input type="text" id="total" value="0.00" class="input-style input-readonly w-full text-right font-semibold" readonly />
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Notes and Attachments -->
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+                    <div class="bg-white p-4 rounded-lg card-hover">
+                        <h3 class="text-lg font-semibold text-gray-800 mb-3 flex items-center">
+                            <i class="fas fa-sticky-note text-indigo-500 mr-2"></i>
+                            Notes
+                        </h3>
+
+                        <div class="flex items-center space-x-3 mb-3">
+                            <input type="checkbox" id="richText" class="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded" />
+                            <label for="richText" class="text-sm text-gray-700">Use Rich Text Editor</label>
+                        </div>
+
+                        <textarea class="input-style w-full h-24" placeholder="Enter notes or terms..."></textarea>
+                    </div>
+
+                    <div class="bg-white p-4 rounded-lg card-hover">
+                        <h3 class="text-lg font-semibold text-gray-800 mb-3 flex items-center">
+                            <i class="fas fa-paperclip text-indigo-500 mr-2"></i>
+                            Attachments
+                        </h3>
+
+                        <div class="border-2 border-dashed border-gray-300 rounded-lg p-4 text-center hover:border-indigo-300 transition-colors cursor-pointer">
+                            <i class="fas fa-cloud-upload-alt text-3xl text-gray-400 mb-2"></i>
+                            <p class="text-gray-600 text-sm">Drag & drop files here or click to browse</p>
+                            <p class="text-gray-400 text-xs mt-1">Supports: PDF, JPG, PNG (Max 10MB)</p>
+                            <button type="button" class="btn-outline mt-3 px-3 py-1.5 rounded-lg text-sm">
+                                <i class="fas fa-folder-open mr-1"></i>
+                                Browse Files
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="flex flex-col sm:flex-row justify-end space-y-2 sm:space-y-0 sm:space-x-3">
+                    <button type="button" class="btn-outline px-4 py-2 rounded-lg text-sm">
+                        <i class="fas fa-times mr-1"></i>
+                        Cancel
+                    </button>
+                    <button type="button" class="btn-primary px-4 py-2 rounded-lg text-sm">
+                        <i class="fas fa-save mr-1"></i>
+                        Save Draft
+                    </button>
+                    <button type="submit" class="btn-accent px-4 py-2 rounded-lg text-sm hover-scale">
+                        <i class="fas fa-check-circle mr-1"></i>
+                        Save & Send
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Customer Modal -->
+    <div id="customerModal" class="modal-overlay hidden">
+        <div class="modal-content">
+            <div class="sticky top-0 bg-white p-4 border-b flex justify-between items-center">
+                <h3 class="text-lg font-semibold text-gray-800 flex items-center">
+                    <i class="fas fa-users mr-2 text-indigo-500"></i>
+                    Select Customer
+                </h3>
+                <button type="button" onclick="closeCustomerModal()" class="text-gray-500 hover:text-gray-700 p-1 rounded-full hover:bg-gray-100">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+
+            <div class="p-4">
+                <div class="mb-4">
+                    <div class="flex items-center space-x-4 mb-4">
+                        <label class="flex items-center space-x-2 cursor-pointer">
+                            <input type="radio" name="customerOption" value="existing" checked class="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300" />
+                            <span class="text-gray-700">Existing Customer</span>
+                        </label>
+                        <label class="flex items-center space-x-2 cursor-pointer">
+                            <input type="radio" name="customerOption" value="new" class="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300" />
+                            <span class="text-gray-700">New Customer</span>
+                        </label>
+                    </div>
+
+                    <div id="existingCustomer">
+                        <div class="mb-3">
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Search</label>
+                            <input type="text" id="customerSearch" class="input-style w-full" placeholder="Search customers..." />
+                        </div>
+
+                        <div class="border rounded-lg overflow-hidden">
+                            <table class="customer-table">
+                                <thead class="bg-gray-50">
+                                    <tr>
+                                        <th class="text-xs font-medium text-gray-500 uppercase p-2">Name</th>
+                                        <th class="text-xs font-medium text-gray-500 uppercase p-2">Email</th>
+                                        <th class="text-xs font-medium text-gray-500 uppercase p-2">Phone</th>
+                                        <th class="w-8"></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr onclick="selectCustomerRow(this)" data-id="1" data-name="John Doe" data-email="john.doe@example.com" data-phone="(555) 0201" data-address="321 Elm St, Apt 5B, New York, NY - 10002, USA">
+                                        <td class="p-2 text-sm">John Doe</td>
+                                        <td class="p-2 text-sm text-gray-600">john.doe@example.com</td>
+                                        <td class="p-2 text-sm text-gray-600">(555) 0201</td>
+                                        <td class="p-2 text-right">
+                                            <button class="text-indigo-600 hover:text-indigo-800 text-sm">
+                                                <i class="fas fa-check"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                    <tr onclick="selectCustomerRow(this)" data-id="2" data-name="Jane Smith" data-email="jane.smith@example.com" data-phone="(555) 0202" data-address="456 Oak St, Boston, MA - 02108, USA">
+                                        <td class="p-2 text-sm">Jane Smith</td>
+                                        <td class="p-2 text-sm text-gray-600">jane.smith@example.com</td>
+                                        <td class="p-2 text-sm text-gray-600">(555) 0202</td>
+                                        <td class="p-2 text-right">
+                                            <button class="text-indigo-600 hover:text-indigo-800 text-sm">
+                                                <i class="fas fa-check"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                    <tr onclick="selectCustomerRow(this)" data-id="3" data-name="Acme Corp" data-email="contact@acmecorp.com" data-phone="(555) 0203" data-address="789 Pine St, San Francisco, CA - 94105, USA">
+                                        <td class="p-2 text-sm">Acme Corp</td>
+                                        <td class="p-2 text-sm text-gray-600">contact@acmecorp.com</td>
+                                        <td class="p-2 text-sm text-gray-600">(555) 0203</td>
+                                        <td class="p-2 text-right">
+                                            <button class="text-indigo-600 hover:text-indigo-800 text-sm">
+                                                <i class="fas fa-check"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div id="newCustomer" class="hidden">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Full Name</label>
+                                <input type="text" id="newCustomerName" class="input-style w-full" />
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Email</label>
+                                <input type="email" id="newCustomerEmail" class="input-style w-full" />
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Phone</label>
+                                <input type="text" id="newCustomerPhone" class="input-style w-full" />
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Company</label>
+                                <input type="text" id="newCustomerCompany" class="input-style w-full" />
+                            </div>
+                            <div class="md:col-span-2">
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Address</label>
+                                <input type="text" id="newCustomerAddress1" class="input-style w-full" />
+                            </div>
+                            <div class="md:col-span-2">
+                                <input type="text" id="newCustomerAddress2" class="input-style w-full" placeholder="Address line 2 (optional)" />
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">City</label>
+                                <input type="text" id="newCustomerCity" class="input-style w-full" />
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">State</label>
+                                <input type="text" id="newCustomerState" class="input-style w-full" />
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Country</label>
+                                <select id="newCustomerCountry" class="input-style w-full">
+                                    <option value="">Select country</option>
+                                    <option value="US">United States</option>
+                                    <option value="CA">Canada</option>
+                                    <option value="UK">United Kingdom</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">ZIP Code</label>
+                                <input type="text" id="newCustomerZip" class="input-style w-full" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex justify-end space-x-3 border-t pt-4">
+                    <button type="button" onclick="closeCustomerModal()" class="btn-outline px-4 py-2 rounded-lg text-sm">
+                        Cancel
+                    </button>
+                    <button type="button" onclick="selectCustomer()" class="btn-primary px-4 py-2 rounded-lg text-sm">
+                        Select Customer
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Generate a random invoice number on page load
+    document.addEventListener('DOMContentLoaded', function() {
+        const invoiceNumber = 'INV-' + Math.floor(100000 + Math.random() * 900000);
+        document.getElementById('invoiceNumber').value = invoiceNumber;
+        document.getElementById('invoiceNumberDisplay').textContent = invoiceNumber;
+        updateSummary();
+
+        // Show no customer message initially
+        document.getElementById('noCustomer').classList.remove('hidden');
+    });
+
+    function openCustomerModal() {
+        document.getElementById('customerModal').classList.remove('hidden');
+        document.body.classList.add('overflow-hidden');
+    }
+
+    function closeCustomerModal() {
+        document.getElementById('customerModal').classList.add('hidden');
+        document.body.classList.remove('overflow-hidden');
+    }
+
+    // Handle radio button changes
+    document.querySelectorAll('input[name="customerOption"]').forEach(radio => {
+        radio.addEventListener('change', function() {
+            if (this.value === 'existing') {
+                document.getElementById('existingCustomer').classList.remove('hidden');
+                document.getElementById('newCustomer').classList.add('hidden');
+            } else {
+                document.getElementById('existingCustomer').classList.add('hidden');
+                document.getElementById('newCustomer').classList.remove('hidden');
+            }
+        });
+    });
+
+    // Select customer from table row
+    function selectCustomerRow(row) {
+        const rows = document.querySelectorAll('#existingCustomer tbody tr');
+        rows.forEach(r => r.classList.remove('selected-customer'));
+        row.classList.add('selected-customer');
+    }
+
+    function selectCustomer() {
+        const customerOption = document.querySelector('input[name="customerOption"]:checked').value;
+        const customerInfo = document.getElementById('customerInfo');
+        const noCustomer = document.getElementById('noCustomer');
+        const customerName = document.getElementById('customerName');
+        const customerEmail = document.getElementById('customerEmail');
+        const customerPhone = document.getElementById('customerPhone');
+        const customerAddress = document.getElementById('customerAddress');
+
+        if (customerOption === 'existing') {
+            const selectedRow = document.querySelector('#existingCustomer tbody tr.selected-customer');
+            if (selectedRow) {
+                customerName.textContent = selectedRow.dataset.name;
+                customerEmail.textContent = selectedRow.dataset.email;
+                customerPhone.textContent = selectedRow.dataset.phone;
+                customerAddress.textContent = selectedRow.dataset.address;
+                customerInfo.classList.remove('hidden');
+                noCustomer.classList.add('hidden');
+            } else {
+                alert('Please select a customer from the list');
+                return;
+            }
+        } else {
+            const name = document.getElementById('newCustomerName').value;
+            const email = document.getElementById('newCustomerEmail').value;
+            const phone = document.getElementById('newCustomerPhone').value;
+            const address1 = document.getElementById('newCustomerAddress1').value;
+            const address2 = document.getElementById('newCustomerAddress2').value;
+            const city = document.getElementById('newCustomerCity').value;
+            const state = document.getElementById('newCustomerState').value;
+            const country = document.getElementById('newCustomerCountry').value;
+            const zip = document.getElementById('newCustomerZip').value;
+
+            if (name && email) {
+                const fullAddress = [address1, address2, city, state, zip, country].filter(Boolean).join(', ');
+                customerName.textContent = name;
+                customerEmail.textContent = email;
+                customerPhone.textContent = phone || 'Not provided';
+                customerAddress.textContent = fullAddress || 'Not provided';
+                customerInfo.classList.remove('hidden');
+                noCustomer.classList.add('hidden');
+            } else {
+                alert('Please provide at least name and email for the new customer');
+                return;
+            }
+        }
+        closeCustomerModal();
+    }
+
+    function switchToManual() {
+        const input = document.getElementById('invoiceNumber');
+        input.removeAttribute('readonly');
+        input.classList.remove('input-readonly');
+        input.focus();
+    }
+
+    function addItem() {
+        const container = document.getElementById('itemsContainer');
+        const itemHtml = `
+            <div class="item-row fade-in">
+                <div class="grid item-grid grid-cols-12 gap-2 items-center">
+                    <div class="col-span-5">
+                        <input type="text" class="input-style w-full text-sm" placeholder="Service name" />
+                    </div>
+                    <div class="col-span-4">
+                        <input type="text" class="input-style w-full text-sm" placeholder="Description" />
+                    </div>
+                    <div class="col-span-2">
+                        <input type="number" value="1" class="input-style w-full text-sm text-right" oninput="updateSummary()" />
+                    </div>
+                    <div class="col-span-1">
+                        <input type="number" value="0.00" step="0.01" class="input-style w-full text-sm text-right" oninput="updateSummary()" />
+                    </div>
+                    <div class="col-span-1 flex justify-center">
+                        <button type="button" onclick="removeItem(this)" class="delete-btn">
+                            <i class="fas fa-trash-alt text-sm"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>`;
+        container.insertAdjacentHTML('beforeend', itemHtml);
+        updateSummary();
+    }
+
+    function removeItem(button) {
+        if (document.querySelectorAll('.item-row').length > 1) {
+            button.closest('.item-row').remove();
+            updateSummary();
+        } else {
+            alert('You must have at least one item in the invoice');
+        }
+    }
+
+    function updateSummary() {
+        let subtotal = 0;
+        document.querySelectorAll('.item-row').forEach(row => {
+            const quantityInput = row.querySelector('div.col-span-2 input');
+            const priceInput = row.querySelector('div.col-span-1 input');
+
+            const quantity = parseFloat(quantityInput.value) || 0;
+            const price = parseFloat(priceInput.value) || 0;
+            subtotal += quantity * price;
+        });
+
+        const discount = parseFloat(document.getElementById('discount').value) || 0;
+        const taxRate = parseFloat(document.getElementById('taxRate').value) || 0;
+
+        const discountAmount = subtotal * discount / 100;
+        const subtotalAfterDiscount = subtotal - discountAmount;
+        const taxAmount = subtotalAfterDiscount * taxRate / 100;
+        const total = subtotalAfterDiscount + taxAmount;
+
+        document.getElementById('subtotal').value = subtotal.toFixed(2);
+        document.getElementById('total').value = total.toFixed(2);
+    }
+</script>

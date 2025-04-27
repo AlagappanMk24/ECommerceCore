@@ -5,14 +5,13 @@ namespace ECommerceCore.Application.Contracts.DTOs
 {
     public class CategoryDto
     {
-        [Required]
-        [DisplayName("Category Name")]
-        [MaxLength(30)]
+        public int Id { get; set; }
         public string Name { get; set; } = string.Empty;
-
-        [DisplayName("Display Order")]
-        [Range(1, 100, ErrorMessage = "Display order must be between 1-100")]
+        public string? Description { get; set; }
         public int DisplayOrder { get; set; }
+        public bool IsActive { get; set; }
+        public int? ParentCategoryId { get; set; }
+        public string? ParentCategoryName { get; set; }
     }
     public class CreateCategoryRequest
     {

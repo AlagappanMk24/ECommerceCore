@@ -1,9 +1,11 @@
 ﻿@using ECommerceCore.Application.Constants
+@using ECommerceCore.Domain.Entities
+@using ECommerceCore.Web.Helpers
 @using Microsoft.AspNetCore.Http
 @using Microsoft.AspNetCore.Identity
 @inject IHttpContextAccessor HttpContextAccessor
-@inject SignInManager<IdentityUser> SignInManager
-@inject UserManager<IdentityUser> UserManager
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
 
 <!DOCTYPE html>
 <html lang="en">
@@ -133,18 +135,66 @@
                 </div>
                 <nav class="sidebar-nav">
                     <ul>
-                        <li class="active"><a href="#"><i class="fas fa-tachometer-alt me-2"></i> Dashboard</a></li>
-                        <li><a href="#"><i class="fas fa-users me-2"></i> Users</a></li>
-                        <li><a href="#"><i class="fas fa-book me-2"></i> Catalog</a></li>
-                        <li><a class="dropdown-item hover-effect" asp-area="Admin" asp-controller="Product" asp-action="Index"><i class="bi bi-box-seam-fill me-2"></i>Products</a></li>
-                        <li><a href="#"><i class="fas fa-box me-2"></i> Products</a></li>
-                        <li><a href="#"><i class="fas fa-chart-line me-2"></i> Sales</a></li>
-                        <li><a href="#"><i class="fas fa-shopping-cart me-2"></i> Orders</a></li>
-                        <li><a href="#"><i class="fas fa-file-alt me-2"></i> Reports</a></li>
-                        <li><a href="#"><i class="fas fa-tags me-2"></i> Coupons</a></li>
-                        <li><a href="#"><i class="fas fa-mobile-alt me-2"></i> App</a></li>
-                        <li><a href="#"><i class="fas fa-money-bill-wave me-2"></i> Currency</a></li>
-                        <li><a href="#"><i class="fas fa-sign-out-alt me-2"></i> Logout</a></li>
+                        <li class="@Html.IsActive("Dashboard", area: "Admin")">
+                            <a asp-area="Admin" asp-controller="Dashboard" asp-action="Index">
+                                <i class="fas fa-tachometer-alt me-2"></i> Dashboard
+                            </a>
+                        </li>
+                        <li class="@Html.IsActive("User", area: "Admin")">
+                            <a asp-area="Admin" asp-controller="User" asp-action="Index">
+                                <i class="fas fa-users me-2"></i> Users
+                            </a>
+                        </li>
+                        <li class="@Html.IsActive("Catalog", area: "Admin")">
+                            <a asp-area="Admin" asp-controller="Category" asp-action="Index">
+                                <i class="bi bi-tags-fill me-2"></i> Categories
+                            </a>
+                        </li>
+                        <li class="@Html.IsActive("Product", area: "Admin")">
+                            <a asp-area="Admin" asp-controller="Product" asp-action="Index">
+                                <i class="bi bi-box-seam-fill me-2"></i> Products
+                            </a>
+                        </li>
+                        <li class="@Html.IsActive("Order", area: "Admin")">
+                            <a asp-area="Admin" asp-controller="Order" asp-action="Index">
+                                <i class="fas fa-shopping-cart me-2"></i> Orders
+                            </a>
+                        </li>
+                        <li class="@Html.IsActive("Invoice", area: "Admin")">
+                            <a asp-area="Admin" asp-controller="Invoice" asp-action="Index">
+                                <i class="fas fa-file-invoice me-2"></i>Invoices
+                            </a>
+                        </li>
+                        <li class="@Html.IsActive("Customer", area: "Admin")">
+                            <a asp-area="Admin" asp-controller="Customer" asp-action="Index">
+                                <i class="fas fa-user me-2"></i>Customers
+                            </a>
+                        </li>
+                        <li class="@Html.IsActive("Company", area: "Admin")">
+                            <a asp-area="Admin" asp-controller="Company" asp-action="Index">
+                                <i class="fas fa-building me-2"></i>Companies
+                            </a>
+                        </li>
+                        <li class="@Html.IsActive("Sales", area: "Admin")">
+                            <a asp-area="Admin" asp-controller="Sales" asp-action="Index">
+                                <i class="fas fa-chart-line me-2"></i> Sales
+                            </a>
+                        </li>
+                        <li class="@Html.IsActive("Report", area: "Admin")">
+                            <a asp-area="Admin" asp-controller="Report" asp-action="Index">
+                                <i class="fas fa-file-alt me-2"></i> Reports
+                            </a>
+                        </li>
+                        <li class="@Html.IsActive("Coupons", area: "Admin")">
+                            <a asp-area="Admin" asp-controller="Coupons" asp-action="Index">
+                                <i class="fas fa-tags me-2"></i> Coupons
+                            </a>
+                        </li>
+                        <li class="@Html.IsActive("App", area: "Admin")">
+                            <a asp-area="Admin" asp-controller="App" asp-action="Index">
+                                <i class="fas fa-mobile-alt me-2"></i> App
+                            </a>
+                        </li>
                     </ul>
                 </nav>
             </aside>
@@ -246,7 +296,7 @@
     <!-- Custom Scripts -->
     <script src="~/js/site.js" asp-append-version="true"></script>
 
-   @*  <!-- Smooth Scrolling -->
+    @*  <!-- Smooth Scrolling -->
     <script>
         // Back to top button
         window.addEventListener('scroll', function() {

@@ -8,7 +8,6 @@ namespace ECommerceCore.Infrastructure.Persistence
     public class UnitOfWork(EcomDbContext dbContext) : IUnitOfWork
     {
         private EcomDbContext _dbContext = dbContext ?? throw new ArgumentNullException(nameof(dbContext));
-        //public ICategoryRepository Categories { get; private set; }
         public ICategoryRepository Categories => new CategoryRepository(_dbContext);
         public IBrandRepository Brands => new BrandRepository(_dbContext);
         public IProductRepository Products => new ProductRepository(_dbContext);
@@ -18,19 +17,9 @@ namespace ECommerceCore.Infrastructure.Persistence
         public IOrderHeaderRepository OrderHeaders => new OrderHeaderRepository(_dbContext);
         public IOrderDetailRepository OrderDetails => new OrderDetailRepository(_dbContext);
         public IProductImageRepository ProductImages => new ProductImageRepository(_dbContext);
+        public IInvoiceRepository Invoices => new InvoiceRepository(_dbContext);
+        public ICustomerRepository Customers => new CustomerRepository(_dbContext);
         public IContactUsRepository ContactUs => new ContactUsRepository(_dbContext);
-        //public UnitOfWork(EcomDbContext dbContext)
-        //{
-        //    _dbContext = dbContext ?? throw new ArgumentNullException(nameof(dbContext));
-        //    //Categories = new CategoryRepository(_dbContext);
-        //    //Products = new ProductRepository(_dbContext);
-        //    //Companies = new CompanyRepository(_dbContext);
-        //    //ShoppingCarts = new ShoppingCartRepository(_dbContext);
-        //    //ApplicationUsers = new UserRepository(_dbContext);
-        //    //OrderHeaders = new OrderHeaderRepository(_dbContext);
-        //    //OrderDetails = new OrderDetailRepository(_dbContext);
-        //    //ProductImages = new ProductImageRepository(_dbContext);
-        //}
         public async Task SaveAsync()
         {
             await _dbContext.SaveChangesAsync();

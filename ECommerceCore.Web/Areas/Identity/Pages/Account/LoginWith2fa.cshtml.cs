@@ -8,20 +8,21 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Identity;
 using ECommerceCore.Application.Contract.Service;
 using ECommerceCore.Infrastructure.Services.Email;
+using ECommerceCore.Domain.Entities;
 
 namespace ECommerceCore.Web.Areas.Identity.Pages.Account
 {
     public class LoginWith2faModel : PageModel
     {
-        private readonly SignInManager<IdentityUser> _signInManager;
-        private readonly UserManager<IdentityUser> _userManager;
+        private readonly SignInManager<ApplicationUser> _signInManager;
+        private readonly UserManager<ApplicationUser> _userManager;
         private readonly IEmailService _emailService;
         private readonly ILogger<LoginWith2faModel> _logger;
 
 
         public LoginWith2faModel(
-            SignInManager<IdentityUser> signInManager,
-            UserManager<IdentityUser> userManager,
+            SignInManager<ApplicationUser> signInManager,
+            UserManager<ApplicationUser> userManager,
             IEmailService emailService,
             ILogger<LoginWith2faModel> logger)
         {
@@ -84,11 +85,11 @@ namespace ECommerceCore.Web.Areas.Identity.Pages.Account
                 throw new InvalidOperationException($"Unable to load two-factor authentication user.");
             }
 
-            var providers = await _userManager.GetValidTwoFactorProvidersAsync(user);
+            var providers = await _userManager.GetValidTwoFactorProvidersAsync((ApplicationUser)user);
 
             if (providers.Any(_ => _ == "Email"))
             {
-                var token = await _userManager.GenerateTwoFactorTokenAsync(user, "Email");
+                var token = await _userManager.GenerateTwoFactorTokenAsync((ApplicationUser)user, "Email");
 
                 await _emailService.Send2FACodeToEmailAsync(user.Email, token);
             }
@@ -118,7 +119,7 @@ namespace ECommerceCore.Web.Areas.Identity.Pages.Account
             //var result = await _signInManager.TwoFactorAuthenticatorSignInAsync(authenticatorCode, rememberMe, Input.RememberMachine);
             var result = await _signInManager.TwoFactorSignInAsync("Email", authenticatorCode, rememberMe, Input.RememberMachine);
 
-            var userId = await _userManager.GetUserIdAsync(user);
+            var userId = await _userManager.GetUserIdAsync((ApplicationUser)user);
 
             if (result.Succeeded)
             {

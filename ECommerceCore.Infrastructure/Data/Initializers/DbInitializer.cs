@@ -8,9 +8,9 @@ using Microsoft.Extensions.Logging;
 namespace ECommerceCore.Infrastructure.Data.DbInitializer
 {
     // The DbInitializer is then responsible for broader database initialization tasks like migrations and initial user/role setup.
-    public class DbInitializer(UserManager<IdentityUser> userManager, RoleManager<IdentityRole> roleManager, EcomDbContext dbContext, ILogger<DbInitializer> logger) : IDbInitializer
+    public class DbInitializer(UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager, EcomDbContext dbContext, ILogger<DbInitializer> logger) : IDbInitializer
     {
-        private readonly UserManager<IdentityUser> _userManger = userManager;
+        private readonly UserManager<ApplicationUser> _userManger = userManager;
         private readonly RoleManager<IdentityRole> _roleManger = roleManager;
         private readonly EcomDbContext _dbContext = dbContext;
         private readonly ILogger<DbInitializer> _logger = logger;
@@ -54,7 +54,8 @@ namespace ECommerceCore.Infrastructure.Data.DbInitializer
                     Email = "alagappanmk98@gmail.com",
                     Name = "Alagappan",
                     PhoneNumber = "8668453402",
-                    StreetAddress = "123 St, Besant Nagar",
+                    Address1 = "123 St, Besant Nagar",
+                    Address2 = "Bt Town",
                     State = "TamilNadu",
                     PostalCode = "600001",
                     City = "Chennai"

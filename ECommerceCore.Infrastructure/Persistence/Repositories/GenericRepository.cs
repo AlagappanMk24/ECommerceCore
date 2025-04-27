@@ -124,5 +124,15 @@ namespace ECommerceCore.Infrastructure.Persistence.Repositories
         {
             return dbset.AsQueryable();
         }
+        public void Update(T entity)
+        {
+            dbset.Update(entity);
+        }
+
+        public void Delete(T entity)
+        {
+            dbset.Remove(entity);
+        }
+
     }
 }
