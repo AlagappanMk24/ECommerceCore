@@ -1,27 +1,44 @@
-﻿using ECommerceCore.Application.Constants;
+﻿using ECommerceCore.Application.Common.Results;
+using ECommerceCore.Application.Constants;
 using ECommerceCore.Application.Contract.Service;
+using ECommerceCore.Application.Contracts.DTOs;
 using ECommerceCore.Application.Contracts.ViewModels.Users;
+using ECommerceCore.Domain.Entities;
+using ECommerceCore.Infrastructure.Services;
+using ECommerceCore.Web.Extensions;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 
 namespace ECommerceCore.Web.Areas.Admin.Controllers
 {
-
     [Area("Admin")]
     [Authorize(Roles = AppConstants.Role_Admin)]
     [Route("Admin/User")]
-    public class UserController(IUserService userService, ILogger<UserController> logger) : Controller
+    public class UserController(IUserService userService, ILogger<UserController> logger, RoleManager<IdentityRole> roleManager, IWebHostEnvironment webHostEnvironment, IHttpContextAccessor httpContextAccessor) : Controller
     {
         private readonly IUserService _userService = userService;
+        private readonly RoleManager<IdentityRole> _roleManager = roleManager;
         private readonly ILogger<UserController> _logger = logger;
+        private readonly IWebHostEnvironment _webHostEnvironment = webHostEnvironment;
+        private readonly IHttpContextAccessor _httpContextAccessor = httpContextAccessor;
 
+        // VIEW LIST OF USERS
         [HttpGet("")]
+        [Authorize(Roles = AppConstants.Role_Admin + "," + AppConstants.Role_Manager)]
         public async Task<IActionResult> Index()
         {
             try
             {
                 _logger.LogInformation("Fetching data for the user management index page.");
-                var companies = await _userService.GetAllCompanies();
+
+                var companies = await _userService.GetAllCompaniesAsync();
+
+                var roles = await _roleManager.Roles.Select(r => r.Name).ToListAsync();
+
                 // Create default query parameters for initial state
                 var viewModel = new UserIndexVM
                 {
@@ -32,7 +49,8 @@ namespace ECommerceCore.Web.Areas.Admin.Controllers
                         SortColumn = "name",
                         SortDirection = "asc"
                     },
-                    Companies = companies.ToList()
+                    Companies = companies.ToList(),
+                    Roles = roles
                 };
                 _logger.LogInformation("Successfully retrieved data for the user management index page.");
                 return View(viewModel);
@@ -45,7 +63,9 @@ namespace ECommerceCore.Web.Areas.Admin.Controllers
             }
         }
 
+        // FETCH PAGINATED USERS (AJAX or API call)
         [HttpPost("get-users")]
+        [Authorize(Roles = AppConstants.Role_Admin + "," + AppConstants.Role_Manager)]
         public async Task<IActionResult> GetUsers([FromBody] UserQueryParameters queryParams)
         {
             try
@@ -58,6 +78,239 @@ namespace ECommerceCore.Web.Areas.Admin.Controllers
                 _logger.LogError(ex, "Error fetching users");
                 return StatusCode(500, new { error = "Error fetching users" });
             }
+        }
+
+        // SHOW USER CREATE OR EDIT FORM
+        [HttpGet("upsert/{id?}")]
+        [Authorize(Roles = AppConstants.Role_Admin)]
+        public async Task<IActionResult> Upsert(string? id)
+        {
+            try
+            {
+                UserDto userDto;
+
+                if (string.IsNullOrEmpty(id))
+                {
+                    // Create mode
+                    _logger.LogInformation("Loading create user form");
+                    userDto = new UserDto(); // Empty DTO for create mode
+                }
+                else
+                {
+                    // Edit mode
+                    _logger.LogInformation("Loading edit user form for user ID: {UserId}", id);
+                    userDto = await _userService.GetUserByIdAsync(id);
+
+                    if (userDto == null)
+                    {
+                        _logger.LogWarning("User with ID {UserId} not found", id);
+                        TempData["Error"] = "User not found.";
+                        return RedirectToAction(nameof(Index));
+                    }
+                }
+
+                // Use UserService to create view model
+                var viewModel = await _userService.CreateUserUpsertVMAsync(userDto);
+                return View(viewModel);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error loading user upsert form");
+                TempData["Error"] = "Unable to load user form.";
+                return RedirectToAction(nameof(Index));
+            }
+        }
+
+        // HANDLE CREATE OR UPDATE USER POST
+        [HttpPost("upsert")]
+        [ValidateAntiForgeryToken]
+        [Authorize(Roles = AppConstants.Role_Admin)]
+        public async Task<IActionResult> Upsert(UserDto userDto, IFormFile? file)
+        {
+            string newImagePath = null; // Track new image path for cleanup
+            try
+            {
+                string webRootPath = _webHostEnvironment.WebRootPath;
+
+                // Handle profile image
+                if (file != null && file.Length > 0)
+                {
+                    // Get the original extension
+                    string originalExtension = Path.GetExtension(file.FileName).ToLower();
+
+                    // Normalize all JPEG variants to .jpg
+                    string normalizedExtension = originalExtension switch
+                    {
+                        ".jpeg" or ".jpe" or ".jfif" or ".jif" or ".jfi" or ".avif" => ".jpg",
+                        _ => originalExtension
+                    };
+
+                    string fileName = Guid.NewGuid().ToString() + normalizedExtension;
+                    string userPath = Path.Combine(webRootPath, "images", "users");
+
+                    // Create directory if it doesn't exist
+                    if (!Directory.Exists(userPath))
+                    {
+                        Directory.CreateDirectory(userPath);
+                    }
+
+                    // Save new image
+                    newImagePath = Path.Combine(userPath, fileName);
+                    using (var fileStream = new FileStream(Path.Combine(userPath, fileName), FileMode.Create))
+                    {
+                        await file.CopyToAsync(fileStream);
+                    }
+
+                    userDto.ProfileImageUrl = $"/images/users/{fileName}";
+                }
+
+                var currentUserId = _httpContextAccessor.GetCurrentUserId();
+                if (string.IsNullOrEmpty(currentUserId))
+                {
+                    _logger.LogWarning("Could not determine the current user ID in Upsert action.");
+                    TempData["Error"] = "Unable to determine the current user.";
+                    if (newImagePath != null && System.IO.File.Exists(newImagePath))
+                    {
+                        System.IO.File.Delete(newImagePath); // Clean up new image
+                    }
+                    return View(await _userService.CreateUserUpsertVMAsync(userDto));
+                }
+
+                // Store old image path for potential rollback in update mode
+                string oldImagePath = string.IsNullOrEmpty(userDto.Id) || string.IsNullOrEmpty(userDto.ProfileImageUrl)
+                    ? null
+                    : Path.Combine(webRootPath, userDto.ProfileImageUrl.TrimStart('/'));
+
+                // Create or update user
+                OperationResult<string> result;
+
+                // Create or update user
+                if (string.IsNullOrEmpty(userDto.Id))
+                {
+                    // Create new user
+                    result = await _userService.CreateUserAsync(userDto, currentUserId);  
+                }
+                else
+                {
+                    // Update existing user
+                    result = await _userService.UpdateUserAsync(userDto, currentUserId);
+                }
+                if (result.IsSuccess)
+                {
+                    // Delete old image only after successful update
+                    if (oldImagePath != null && System.IO.File.Exists(oldImagePath))
+                    {
+                        System.IO.File.Delete(oldImagePath);
+                    }
+                    _logger.LogInformation("{Action} user succeeded: {Id}", string.IsNullOrEmpty(userDto.Id) ? "Created" : "Updated", userDto.Id);
+                    TempData["Success"] = string.IsNullOrEmpty(userDto.Id) ? "User created successfully." : "User updated successfully.";
+                    return RedirectToAction(nameof(Index));
+                }
+                else
+                {
+                    // Clean up new image on failure
+                    if (newImagePath != null && System.IO.File.Exists(newImagePath))
+                    {
+                        System.IO.File.Delete(newImagePath);
+                    }
+                    // Handle email-in-use error
+                    if (result.ErrorMessage != null && result.ErrorMessage.Contains("Email is already in use"))
+                    {
+                        ModelState.AddModelError("Email", "This email address is already in use.");
+                    }
+                    else if (result.Errors.Any(e => e.Code == "DuplicateUserName" || e.Code == "DuplicateEmail"))
+                    {
+                        ModelState.AddModelError("Email", "This email address is already in use.");
+                    }
+                    else
+                    {
+                        foreach (var error in result.Errors)
+                        {
+                            ModelState.AddModelError("", error.Description);
+                        }
+                        if (!string.IsNullOrEmpty(result.ErrorMessage) && !result.Errors.Any())
+                        {
+                            ModelState.AddModelError("", result.ErrorMessage);
+                        }
+                    }
+                    _logger.LogWarning("User upsert failed with error: {Error}", result.ErrorMessage);
+                    return View(await _userService.CreateUserUpsertVMAsync(userDto));
+                }
+            }
+            catch (Exception ex)
+            {
+                // Clean up new image on exception
+                if (newImagePath != null && System.IO.File.Exists(newImagePath))
+                {
+                    System.IO.File.Delete(newImagePath);
+                }
+                _logger.LogError(ex, "Error occurred during user upsert operation");
+                TempData["Error"] = "An error occurred while saving the user.";
+                return View(await _userService.CreateUserUpsertVMAsync(userDto));
+            }
+        }
+
+        // DELETE USER
+        [HttpPatch("{id}")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Delete(string id)
+        {
+            try
+            {
+                var user = await _userService.GetUserByIdAsync(id);
+                if (user == null)
+                {
+                    _logger.LogWarning($"User with ID {id} not found for deletion.");
+                    return NotFound(new { error = "User not found" });
+                }
+
+                // Delete profile image if it exists
+                if (!string.IsNullOrEmpty(user.ProfileImageUrl))
+                {
+                    var webRootPath = _webHostEnvironment.WebRootPath;
+                    var imagePath = Path.Combine(webRootPath, user.ProfileImageUrl.TrimStart('/'));
+                    if (System.IO.File.Exists(imagePath))
+                    {
+                        System.IO.File.Delete(imagePath);
+                    }
+                }
+
+                var currentUserId = _httpContextAccessor.GetCurrentUserId();
+                if (string.IsNullOrEmpty(currentUserId))
+                {
+                    _logger.LogWarning("Could not determine the current user ID in Upsert action.");
+                    TempData["Error"] = "Unable to determine the current user.";
+                }
+
+                var result = await _userService.DeleteUserAsync(id, currentUserId);
+                if (result.IsSuccess)
+                {
+                    _logger.LogInformation($"User with ID {id} soft-deleted successfully.");
+                    return Ok(new { success = true, message = "User deleted successfully" });
+                }
+
+                _logger.LogWarning($"Failed to soft-delete user with ID {id}.");
+                return BadRequest(new { error = "Failed to delete user" });
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, $"Error soft-deleting user with ID {id}");
+                return StatusCode(500, new { error = "An error occurred while soft-deleting the user" });
+            }
+        }
+
+        [HttpPost("release-email/{userId}")]
+        [Authorize(Roles = AppConstants.Role_Admin)]
+        public async Task<IActionResult> ReleaseEmail(string userId)
+        {
+            var result = await _userService.ReleaseEmailAsync(userId);
+            if (result.IsSuccess)
+            {
+                TempData["Success"] = "Email released successfully.";
+                return RedirectToAction(nameof(Index));
+            }
+            TempData["Error"] = result.ErrorMessage;
+            return RedirectToAction(nameof(Index));
         }
     }
     //public class UserController(UserManager<ApplicationUser> userManager, IUnitOfWork unitOfWork, RoleManager<IdentityRole> roleManager) : Controller

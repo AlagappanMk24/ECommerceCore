@@ -158,6 +158,7 @@ namespace ECommerceCore.Infrastructure.Data.Seeders
                     Barcode = "789012345678",
                     CategoryId = 10, // Televisions subcategory
                     BrandId = 1, // Tech Solutions
+                    VendorId = "1", // Tech Solutions Inc.
                     WeightInKg = 15.5,
                     WidthInCm = 123.5,
                     HeightInCm = 71.2,
@@ -189,7 +190,8 @@ namespace ECommerceCore.Infrastructure.Data.Seeders
                     SKU = "APP-MTSRT-002-NVY",
                     Barcode = "456789012345",
                     CategoryId = 11, // Menswear subcategory
-                    BrandId = 2, // Fashion Forward
+                    BrandId = 2, // Fashion Forward,
+                    VendorId = "2", // Fashion Forward Ltd. 
                     WeightInKg = 0.2,
                     WidthInCm = 50.0,
                     HeightInCm = 70.0,
@@ -220,6 +222,7 @@ namespace ECommerceCore.Infrastructure.Data.Seeders
                     Barcode = "123456789012",
                     CategoryId = 14, // Garden Tools subcategory
                     BrandId = 3, // Green Living
+                    VendorId = "3", // Green Living Co.
                     WeightInKg = 0.9,
                     WidthInCm = 12.0,
                     HeightInCm = 30.0,
@@ -252,6 +255,7 @@ namespace ECommerceCore.Infrastructure.Data.Seeders
                     Barcode = "567890123456",
                     CategoryId = 9, // Laptops subcategory
                     BrandId = 1, // Tech Solutions
+                    VendorId = "1",
                     WeightInKg = 1.8,
                     WidthInCm = 35.6,
                     HeightInCm = 1.8,
@@ -284,6 +288,7 @@ namespace ECommerceCore.Infrastructure.Data.Seeders
                     Barcode = "345678901234",
                     CategoryId = 12, // Womenswear subcategory
                     BrandId = 2, // Fashion Forward
+                    VendorId = "2", // Fashion Forward Ltd.
                     WeightInKg = 0.8,
                     WidthInCm = 35.0,
                     HeightInCm = 25.0,
@@ -316,6 +321,7 @@ namespace ECommerceCore.Infrastructure.Data.Seeders
                     Barcode = "234567890123",
                     CategoryId = 1, // Electronics category
                     BrandId = 1, // Tech Solutions
+                    VendorId = "1", // Tech Solutions Inc.
                     WeightInKg = 0.7,
                     WidthInCm = 12.9,
                     HeightInCm = 10.0,
@@ -346,6 +352,7 @@ namespace ECommerceCore.Infrastructure.Data.Seeders
                     Barcode = "890123456789",
                     CategoryId = 3, // Home & Garden category
                     BrandId = 3, // Green Living
+                    VendorId = "3", // Green Living Co.
                     WeightInKg = 0.5,
                     WidthInCm = 25.0,
                     HeightInCm = 8.0,
@@ -378,6 +385,7 @@ namespace ECommerceCore.Infrastructure.Data.Seeders
                     Barcode = "901234567890",
                     CategoryId = 15, // Fiction subcategory
                     BrandId = 4, // Global Reads
+                    VendorId = "4", // Global Reads 
                     WeightInKg = 0.4,
                     WidthInCm = 15.2,
                     HeightInCm = 2.5,
@@ -410,6 +418,7 @@ namespace ECommerceCore.Infrastructure.Data.Seeders
                     Barcode = "012345678901",
                     CategoryId = 17, // Camping & Hiking subcategory
                     BrandId = 5, // Adventure Gear
+                    VendorId = "5", // Adventure Gear Corp. 
                     WeightInKg = 1.2,
                     WidthInCm = 30.0,
                     HeightInCm = 15.0,
@@ -442,6 +451,7 @@ namespace ECommerceCore.Infrastructure.Data.Seeders
                     Barcode = "678901234567",
                     CategoryId = 6, // Beauty & Personal Care category
                     BrandId = 6, // Glow & Glam
+                    VendorId = "6",
                     WeightInKg = 0.6,
                     WidthInCm = 20.0,
                     HeightInCm = 15.0,
@@ -474,6 +484,7 @@ namespace ECommerceCore.Infrastructure.Data.Seeders
                     Barcode = "789012345670",
                     CategoryId = 7, // Toys & Games category
                     BrandId = 7, // Fun Time Toys
+                    VendorId = "7",
                     WeightInKg = 0.5,
                     WidthInCm = 15.0,
                     HeightInCm = 22.0,
@@ -506,6 +517,7 @@ namespace ECommerceCore.Infrastructure.Data.Seeders
                     Barcode = "123456789013",
                     CategoryId = 8, // Smartphones subcategory
                     BrandId = 1, // Tech Solutions
+                    VendorId = "1",
                     WeightInKg = 0.4,
                     WidthInCm = 12.0,
                     HeightInCm = 19.0,
@@ -538,6 +550,7 @@ namespace ECommerceCore.Infrastructure.Data.Seeders
                      Barcode = "234567890124",
                      CategoryId = 1, // Electronics category
                      BrandId = 1, // Tech Solutions
+                     VendorId = "1", // Tech Solutions Inc.
                      WeightInKg = 1.2,
                      WidthInCm = 30.0,
                      HeightInCm = 25.0,
@@ -1151,15 +1164,27 @@ namespace ECommerceCore.Infrastructure.Data.Seeders
                     CustomerId = 1,
                     OrderDate = new DateTime(2025, 4, 1),
                     ShippingDate = new DateTime(2025, 4, 3),
-                    OrderTotal = 649.99,
+                    EstimatedDelivery = new DateTime(2025, 4, 5),
+                    Subtotal = 599.99m,
+                    Tax = 48.00m,
+                    Discount = 13.00m,
+                    OrderTotal = 649.99m,
+                    AmountPaid = 649.99m,
+                    AmountDue = 0.00m,
+                    ShippingCharges = 15.00m,
                     OrderStatus = "Shipped",
                     PaymentStatus = "Paid",
+                    DeliveryStatus = "InTransit",
+                    ShippingMethod = "Standard",
+                    DeliveryMethod = "Ground",
                     TrackingNumber = "TRK123456",
                     Carrier = "UPS",
                     PaymentDate = new DateTime(2025, 4, 1),
                     PaymentDueDate = new DateOnly(2025, 4, 30),
                     ShippingContactPhone = "555-0101",
-                    ShippingContactName = "John Doe"
+                    ShippingContactName = "John Doe",
+                    PaymentMethod = "CreditCard",
+                    CustomerNotes = "Deliver to front porch",
                 },
                 new OrderHeader
                 {
@@ -1167,33 +1192,57 @@ namespace ECommerceCore.Infrastructure.Data.Seeders
                     ApplicationUserId = null,
                     CustomerId = 2,
                     OrderDate = new DateTime(2025, 4, 2),
-                    ShippingDate = new DateTime(2025, 4, 4),
-                    OrderTotal = 129.99,
+                    ShippingDate = null,
+                    EstimatedDelivery = new DateTime(2025, 4, 7),
+                    Subtotal = 119.99m,
+                    Tax = 9.60m,
+                    Discount = 0.00m,
+                    OrderTotal = 129.59m,
+                    AmountPaid = 0.00m,
+                    AmountDue = 129.59m,
+                    ShippingCharges = 0.00m,
                     OrderStatus = "Processing",
                     PaymentStatus = "Pending",
+                    DeliveryStatus = "Pending",
+                    ShippingMethod = "Express",
+                    DeliveryMethod = "Air",
                     TrackingNumber = null,
                     Carrier = null,
-                    PaymentDate = new DateTime(2025, 4, 2),
+                    PaymentDate = null,
                     PaymentDueDate = new DateOnly(2025, 5, 2),
                     ShippingContactPhone = "555-0102",
-                    ShippingContactName = "Jane Smith"
+                    ShippingContactName = "Jane Smith",
+                    PaymentMethod = "PayPal",
+                    CustomerNotes = null,
                 },
                 new OrderHeader
                 {
                     Id = 3,
-                    CustomerId = 2,
                     ApplicationUserId = null,
+                    CustomerId = 2,
                     OrderDate = new DateTime(2025, 4, 3),
                     ShippingDate = new DateTime(2025, 4, 5),
-                    OrderTotal = 799.99,
+                    EstimatedDelivery = new DateTime(2025, 4, 7),
+                    Subtotal = 735.99m,
+                    Tax = 58.88m,
+                    Discount = 14.88m,
+                    OrderTotal = 799.99m,
+                    AmountPaid = 799.99m,
+                    AmountDue = 0.00m,
+                    ShippingCharges = 20.00m,
                     OrderStatus = "Delivered",
                     PaymentStatus = "Paid",
+                    DeliveryStatus = "Delivered",
+                    ShippingMethod = "Standard",
+                    DeliveryMethod = "Ground",
                     TrackingNumber = "TRK789012",
                     Carrier = "FedEx",
                     PaymentDate = new DateTime(2025, 4, 3),
                     PaymentDueDate = new DateOnly(2025, 5, 3),
                     ShippingContactPhone = "555-0103",
-                    ShippingContactName = "Hiroshi Tanaka"
+                    ShippingContactName = "Hiroshi Tanaka",
+                    PaymentMethod = "CreditCard",
+                    CustomerNotes = "Leave at reception",
                 },
                 new OrderHeader
                 {
@@ -1202,15 +1251,27 @@ namespace ECommerceCore.Infrastructure.Data.Seeders
                     CustomerId = 3,
                     OrderDate = new DateTime(2025, 4, 4),
                     ShippingDate = new DateTime(2025, 4, 6),
-                    OrderTotal = 109.95,
+                    EstimatedDelivery = new DateTime(2025, 4, 8),
+                    Subtotal = 100.00m,
+                    Tax = 8.00m,
+                    Discount = 0.00m,
+                    OrderTotal = 108.00m,
+                    AmountPaid = 108.00m,
+                    AmountDue = 0.00m,
+                    ShippingCharges = 0.00m,
                     OrderStatus = "Shipped",
                     PaymentStatus = "Paid",
+                    DeliveryStatus = "InTransit",
+                    ShippingMethod = "Express",
+                    DeliveryMethod = "Air",
                     TrackingNumber = "TRK345678",
                     Carrier = "DHL",
                     PaymentDate = new DateTime(2025, 4, 4),
                     PaymentDueDate = new DateOnly(2025, 5, 4),
                     ShippingContactPhone = "555-0104",
-                    ShippingContactName = "Emma Brown"
+                    ShippingContactName = "Emma Brown",
+                    PaymentMethod = "DebitCard",
+                    CustomerNotes = null,
                 },
                 new OrderHeader
                 {
@@ -1218,16 +1279,28 @@ namespace ECommerceCore.Infrastructure.Data.Seeders
                     ApplicationUserId = null,
                     CustomerId = 4,
                     OrderDate = new DateTime(2025, 4, 5),
-                    ShippingDate = new DateTime(2025, 4, 7),
-                    OrderTotal = 75.99,
+                    ShippingDate = null,
+                    EstimatedDelivery = new DateTime(2025, 4, 10),
+                    Subtotal = 70.00m,
+                    Tax = 5.60m,
+                    Discount = 0.00m,
+                    OrderTotal = 75.60m,
+                    AmountPaid = 0.00m,
+                    AmountDue = 75.60m,
+                    ShippingCharges = 0.00m,
                     OrderStatus = "Processing",
                     PaymentStatus = "Pending",
+                    DeliveryStatus = "Pending",
+                    ShippingMethod = "Standard",
+                    DeliveryMethod = "Ground",
                     TrackingNumber = null,
                     Carrier = null,
-                    PaymentDate = new DateTime(2025, 4, 5),
+                    PaymentDate = null,
                     PaymentDueDate = new DateOnly(2025, 5, 5),
                     ShippingContactPhone = "555-0105",
-                    ShippingContactName = "Liam Johnson"
+                    ShippingContactName = "Liam Johnson",
+                    PaymentMethod = "PayPal",
+                    CustomerNotes = "Fragile items",
                 },
                 new OrderHeader
                 {
@@ -1236,15 +1309,27 @@ namespace ECommerceCore.Infrastructure.Data.Seeders
                     CustomerId = 4,
                     OrderDate = new DateTime(2025, 4, 6),
                     ShippingDate = new DateTime(2025, 4, 8),
-                    OrderTotal = 69.99,
+                    EstimatedDelivery = new DateTime(2025, 4, 10),
+                    Subtotal = 64.99m,
+                    Tax = 5.20m,
+                    Discount = 0.00m,
+                    OrderTotal = 70.19m,
+                    AmountPaid = 70.19m,
+                    AmountDue = 0.00m,
+                    ShippingCharges = 0.00m,
                     OrderStatus = "Shipped",
                     PaymentStatus = "Paid",
+                    DeliveryStatus = "InTransit",
+                    ShippingMethod = "Standard",
+                    DeliveryMethod = "Ground",
                     TrackingNumber = "TRK901234",
                     Carrier = "UPS",
                     PaymentDate = new DateTime(2025, 4, 6),
                     PaymentDueDate = new DateOnly(2025, 5, 6),
                     ShippingContactPhone = "555-0106",
-                    ShippingContactName = "Sophie Martin"
+                    ShippingContactName = "Sophie Martin",
+                    PaymentMethod = "CreditCard",
+                    CustomerNotes = null,
                 },
                 new OrderHeader
                 {
@@ -1253,15 +1338,27 @@ namespace ECommerceCore.Infrastructure.Data.Seeders
                     CustomerId = 4,
                     OrderDate = new DateTime(2025, 4, 7),
                     ShippingDate = new DateTime(2025, 4, 9),
-                    OrderTotal = 15.99,
+                    EstimatedDelivery = new DateTime(2025, 4, 11),
+                    Subtotal = 14.99m,
+                    Tax = 1.20m,
+                    Discount = 0.00m,
+                    OrderTotal = 16.19m,
+                    AmountPaid = 16.19m,
+                    AmountDue = 0.00m,
+                    ShippingCharges = 0.00m,
                     OrderStatus = "Delivered",
                     PaymentStatus = "Paid",
+                    DeliveryStatus = "Delivered",
+                    ShippingMethod = "Express",
+                    DeliveryMethod = "Air",
                     TrackingNumber = "TRK567890",
                     Carrier = "FedEx",
                     PaymentDate = new DateTime(2025, 4, 7),
                     PaymentDueDate = new DateOnly(2025, 5, 7),
                     ShippingContactPhone = "555-0107",
-                    ShippingContactName = "Arjun Patel"
+                    ShippingContactName = "Arjun Patel",
+                    PaymentMethod = "DebitCard",
+                    CustomerNotes = "Urgent delivery",
                 },
                 new OrderHeader
                 {
@@ -1269,16 +1366,28 @@ namespace ECommerceCore.Infrastructure.Data.Seeders
                     ApplicationUserId = null,
                     CustomerId = 5,
                     OrderDate = new DateTime(2025, 4, 8),
-                    ShippingDate = new DateTime(2025, 4, 10),
-                    OrderTotal = 149.99,
+                    ShippingDate = null,
+                    EstimatedDelivery = new DateTime(2025, 4, 13),
+                    Subtotal = 139.99m,
+                    Tax = 11.20m,
+                    Discount = 0.00m,
+                    OrderTotal = 151.19m,
+                    AmountPaid = 0.00m,
+                    AmountDue = 151.19m,
+                    ShippingCharges = 0.00m,
                     OrderStatus = "Processing",
                     PaymentStatus = "Pending",
+                    DeliveryStatus = "Pending",
+                    ShippingMethod = "Standard",
+                    DeliveryMethod = "Ground",
                     TrackingNumber = null,
                     Carrier = null,
-                    PaymentDate = new DateTime(2025, 4, 8),
+                    PaymentDate = null,
                     PaymentDueDate = new DateOnly(2025, 5, 8),
                     ShippingContactPhone = "555-0108",
-                    ShippingContactName = "Clara Fischer"
+                    ShippingContactName = "Clara Fischer",
+                    PaymentMethod = "CreditCard",
+                    CustomerNotes = null,
                 },
                   new OrderHeader
                   {
@@ -1286,16 +1395,28 @@ namespace ECommerceCore.Infrastructure.Data.Seeders
                       ApplicationUserId = null,
                       CustomerId = 6,
                       OrderDate = new DateTime(2025, 4, 8),
-                      ShippingDate = new DateTime(2025, 4, 10),
-                      OrderTotal = 149.99,
+                      ShippingDate = null,
+                      EstimatedDelivery = new DateTime(2025, 4, 13),
+                      Subtotal = 139.99m,
+                      Tax = 11.20m,
+                      Discount = 0.00m,
+                      OrderTotal = 151.19m,
+                      AmountPaid = 0.00m,
+                      AmountDue = 151.19m,
+                      ShippingCharges = 0.00m,
                       OrderStatus = "Processing",
                       PaymentStatus = "Pending",
+                      DeliveryStatus = "Pending",
+                      ShippingMethod = "Standard",
+                      DeliveryMethod = "Ground",
                       TrackingNumber = null,
                       Carrier = null,
-                      PaymentDate = new DateTime(2025, 4, 8),
+                      PaymentDate = null,
                       PaymentDueDate = new DateOnly(2025, 5, 8),
-                      ShippingContactPhone = "525-0108",
-                      ShippingContactName = "Clara Fischer"
+                      ShippingContactPhone = "555-0109",
+                      ShippingContactName = "Clara Fischer",
+                      PaymentMethod = "PayPal",
+                      CustomerNotes = "Gift wrap required",
                   }
             );
 
@@ -1395,6 +1516,102 @@ namespace ECommerceCore.Infrastructure.Data.Seeders
                  }
              );
 
+            // Seed Billing Address for OrderHeaders (owned type)
+            modelBuilder.Entity<OrderHeader>()
+             .OwnsOne(l => l.BillToAddress)
+             .HasData(
+                 new
+                 {
+                     OrderHeaderId = 1,
+                     BillingAddress1 = "123 Maple St",
+                     BillingAddress2 = "Suite 100",
+                     BillingCity = "Springfield",
+                     BillingState = "IL",
+                     BillingCountry = "USA",
+                     BillingZipCode = "94016"
+                 },
+                 new
+                 {
+                     OrderHeaderId = 2,
+                     BillingAddress1 = "456 Style Avenue",
+                     BillingAddress2 = "Oak Ave",
+                     BillingCity = "London",
+                     BillingState = "NY",
+                     BillingCountry = "USA",
+                     BillingZipCode = "10001"
+                 },
+                 new
+                 {
+                     OrderHeaderId = 3,
+                     BillingAddress1 = "789 Earth Street",
+                     BillingAddress2 = "Industrial Zone Ave ",
+                     BillingCity = "Eco City",
+                     BillingState = "GA",
+                     BillingCountry = "USA",
+                     BillingZipCode = "30303"
+                 },
+                 new
+                 {
+                     OrderHeaderId = 4,
+                     BillingAddress1 = "101 Literary Lane",
+                     BillingAddress2 = "Off Charing Cross Rd",
+                     BillingCity = "London",
+                     BillingState = "London",
+                     BillingCountry = "UK",
+                     BillingZipCode = "WC1B 3PA"
+                 },
+                 new
+                 {
+                     OrderHeaderId = 5,
+                     BillingAddress1 = "222 Trail Road",
+                     BillingAddress2 = "Near Blue Mountains Entry",
+                     BillingCity = "Sydney",
+                     BillingState = "NSW",
+                     BillingCountry = "Australia",
+                     BillingZipCode = "2000"
+                 },
+                 new
+                 {
+                     OrderHeaderId = 6,
+                     BillingAddress1 = "333 Radiant Road",
+                     BillingAddress2 = "Galerie Vivienne",
+                     BillingCity = "Paris",
+                     BillingState = "Paris",
+                     BillingCountry = "France",
+                     BillingZipCode = "75002"
+                 },
+                 new
+                 {
+                     OrderHeaderId = 7,
+                     BillingAddress1 = "444 Playful Place",
+                     BillingAddress2 = "Linking Road, Bandra",
+                     BillingCity = "Mumbai",
+                     BillingState = "MH",
+                     BillingCountry = "India",
+                     BillingZipCode = "400002"
+                 },
+                 new
+                 {
+                     OrderHeaderId = 8,
+                     BillingAddress1 = "555 Tech Park",
+                     BillingAddress2 = "Innovation Center, Floor 3",
+                     BillingCity = "Zurich",
+                     BillingState = "",
+                     BillingCountry = "Switzerland",
+                     BillingZipCode = "8002"
+                 },
+                 new
+                 {
+                     OrderHeaderId = 9,
+                     BillingAddress1 = "777 Skyline Boulevard",
+                     BillingAddress2 = "Sky Tower, Apt 905",
+                     BillingCity = "Toronto",
+                     BillingState = "ON",
+                     BillingCountry = "Canada",
+                     BillingZipCode = "M5V 2T6"
+                 }
+             );
+
             // Seed OrderDetails (10 seeds)
             modelBuilder.Entity<OrderDetail>().HasData(
                 new OrderDetail
@@ -1486,6 +1703,200 @@ namespace ECommerceCore.Infrastructure.Data.Seeders
                     ProductId = 4, // Ultra-Slim Laptop
                     Count = 1,
                     Price = 899.99, // DiscountPrice
+                }
+            );
+
+            // Seed OrderActivityLogs
+            modelBuilder.Entity<OrderActivityLog>().HasData(
+                new OrderActivityLog
+                {
+                    Id = 1,
+                    OrderHeaderId = 1,
+                    Timestamp = new DateTime(2025, 4, 1, 10, 0, 0),
+                    User = "john.doe",
+                    ActivityType = ActivityType.OrderCreated,
+                    Description = "Order placed by customer",
+                    Details = "{\"CustomerId\": 1}"
+                },
+                new OrderActivityLog
+                {
+                    Id = 2,
+                    OrderHeaderId = 1,
+                    Timestamp = new DateTime(2025, 4, 1, 10, 5, 0),
+                    User = "john.doe",
+                    ActivityType = ActivityType.PaymentProcessed,
+                    Description = "Payment completed via CreditCard",
+                    Details = "{\"Amount\": 649.99}"
+                },
+                new OrderActivityLog
+                {
+                    Id = 3,
+                    OrderHeaderId = 1,
+                    Timestamp = new DateTime(2025, 4, 3, 9, 0, 0),
+                    User = "system",
+                    ActivityType = ActivityType.ShippingUpdated,
+                    Description = "Order shipped via UPS",
+                    Details = "{\"TrackingNumber\": \"TRK123456\"}"
+                },
+                new OrderActivityLog
+                {
+                    Id = 4,
+                    OrderHeaderId = 2,
+                    Timestamp = new DateTime(2025, 4, 2, 11, 0, 0),
+                    User = "jane.smith",
+                    ActivityType = ActivityType.OrderCreated,
+                    Description = "Order placed by customer",
+                    Details = "{\"CustomerId\": 2}"
+                },
+                new OrderActivityLog
+                {
+                    Id = 5,
+                    OrderHeaderId = 3,
+                    Timestamp = new DateTime(2025, 4, 3, 12, 0, 0),
+                    User = "hiroshi.tanaka",
+                    ActivityType = ActivityType.OrderCreated,
+                    Description = "Order placed by customer",
+                    Details = "{\"CustomerId\": 2}"
+                },
+                new OrderActivityLog
+                {
+                    Id = 6,
+                    OrderHeaderId = 3,
+                    Timestamp = new DateTime(2025, 4, 3, 12, 10, 0),
+                    User = "hiroshi.tanaka",
+                    ActivityType = ActivityType.PaymentProcessed,
+                    Description = "Payment completed via CreditCard",
+                    Details = "{\"Amount\": 799.99}"
+                },
+                new OrderActivityLog
+                {
+                    Id = 7,
+                    OrderHeaderId = 3,
+                    Timestamp = new DateTime(2025, 4, 5, 8, 0, 0),
+                    User = "system",
+                    ActivityType = ActivityType.ShippingUpdated,
+                    Description = "Order shipped via FedEx",
+                    Details = "{\"TrackingNumber\": \"TRK789012\"}"
+                },
+                new OrderActivityLog
+                {
+                    Id = 8,
+                    OrderHeaderId = 4,
+                    Timestamp = new DateTime(2025, 4, 4, 14, 0, 0),
+                    User = "emma.brown",
+                    ActivityType = ActivityType.OrderCreated,
+                    Description = "Order placed by customer",
+                    Details = "{\"CustomerId\": 3}"
+                },
+                new OrderActivityLog
+                {
+                    Id = 9,
+                    OrderHeaderId = 4,
+                    Timestamp = new DateTime(2025, 4, 4, 14, 5, 0),
+                    User = "emma.brown",
+                    ActivityType = ActivityType.PaymentProcessed,
+                    Description = "Payment completed via DebitCard",
+                    Details = "{\"Amount\": 109.95}"
+                },
+                new OrderActivityLog
+                {
+                    Id = 10,
+                    OrderHeaderId = 4,
+                    Timestamp = new DateTime(2025, 4, 6, 10, 0, 0),
+                    User = "system",
+                    ActivityType = ActivityType.ShippingUpdated,
+                    Description = "Order shipped via DHL",
+                    Details = "{\"TrackingNumber\": \"TRK345678\"}"
+                },
+                new OrderActivityLog
+                {
+                    Id = 11,
+                    OrderHeaderId = 5,
+                    Timestamp = new DateTime(2025, 4, 5, 15, 0, 0),
+                    User = "liam.johnson",
+                    ActivityType = ActivityType.OrderCreated,
+                    Description = "Order placed by customer",
+                    Details = "{\"CustomerId\": 4}"
+                },
+                new OrderActivityLog
+                {
+                    Id = 12,
+                    OrderHeaderId = 6,
+                    Timestamp = new DateTime(2025, 4, 6, 16, 0, 0),
+                    User = "sophie.martin",
+                    ActivityType = ActivityType.OrderCreated,
+                    Description = "Order placed by customer",
+                    Details = "{\"CustomerId\": 4}"
+                },
+                new OrderActivityLog
+                {
+                    Id = 13,
+                    OrderHeaderId = 6,
+                    Timestamp = new DateTime(2025, 4, 6, 16, 5, 0),
+                    User = "sophie.martin",
+                    ActivityType = ActivityType.PaymentProcessed,
+                    Description = "Payment completed via CreditCard",
+                    Details = "{\"Amount\": 69.99}"
+                },
+                new OrderActivityLog
+                {
+                    Id = 14,
+                    OrderHeaderId = 6,
+                    Timestamp = new DateTime(2025, 4, 8, 11, 0, 0),
+                    User = "system",
+                    ActivityType = ActivityType.ShippingUpdated,
+                    Description = "Order shipped via UPS",
+                    Details = "{\"TrackingNumber\": \"TRK901234\"}"
+                },
+                new OrderActivityLog
+                {
+                    Id = 15,
+                    OrderHeaderId = 7,
+                    Timestamp = new DateTime(2025, 4, 7, 17, 0, 0),
+                    User = "arjun.patel",
+                    ActivityType = ActivityType.OrderCreated,
+                    Description = "Order placed by customer",
+                    Details = "{\"CustomerId\": 4}"
+                },
+                new OrderActivityLog
+                {
+                    Id = 16,
+                    OrderHeaderId = 7,
+                    Timestamp = new DateTime(2025, 4, 7, 17, 5, 0),
+                    User = "arjun.patel",
+                    ActivityType = ActivityType.PaymentProcessed,
+                    Description = "Payment completed via DebitCard",
+                    Details = "{\"Amount\": 15.99}"
+                },
+                new OrderActivityLog
+                {
+                    Id = 17,
+                    OrderHeaderId = 7,
+                    Timestamp = new DateTime(2025, 4, 9, 9, 0, 0),
+                    User = "system",
+                    ActivityType = ActivityType.ShippingUpdated,
+                    Description = "Order shipped via FedEx",
+                    Details = "{\"TrackingNumber\": \"TRK567890\"}"
+                },
+                new OrderActivityLog
+                {
+                    Id = 18,
+                    OrderHeaderId = 8,
+                    Timestamp = new DateTime(2025, 4, 8, 18, 0, 0),
+                    User = "clara.fischer",
+                    ActivityType = ActivityType.OrderCreated,
+                    Description = "Order placed by customer",
+                    Details = "{\"CustomerId\": 5}"
+                },
+                new OrderActivityLog
+                {
+                    Id = 19,
+                    OrderHeaderId = 9,
+                    Timestamp = new DateTime(2025, 4, 8, 19, 0, 0),
+                    User = "clara.fischer",
+                    ActivityType = ActivityType.OrderCreated,
+                    Description = "Order placed by customer",
+                    Details = "{\"CustomerId\": 6}"
                 }
             );
 
@@ -1722,8 +2133,6 @@ namespace ECommerceCore.Infrastructure.Data.Seeders
                 new TaxDetail { Id = 7, InvoiceId = 7, TaxType = "VAT", Rate = 8.00m, Amount = -1.28m },
                 new TaxDetail { Id = 8, InvoiceId = 8, TaxType = "VAT", Rate = 8.00m, Amount = 12.00m }
             );
-
-
         }
     }
 }

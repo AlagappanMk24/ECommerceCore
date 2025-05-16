@@ -1,7 +1,6 @@
 ﻿using ECommerceCore.Application.Common.Results;
 using ECommerceCore.Application.Contracts.DTOs;
-using ECommerceCore.Application.Contracts.ViewModels;
-using ECommerceCore.Domain.Entities;
+using ECommerceCore.Application.Contracts.ViewModels.Invoices;
 
 namespace ECommerceCore.Application.Contracts.Services
 {

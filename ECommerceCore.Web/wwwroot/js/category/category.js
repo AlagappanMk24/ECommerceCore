@@ -177,7 +177,7 @@
             tr.innerHTML = `
                 <td class="name-cell">
                     <div class="category-name">
-                        <h4>${category.name}</h4>
+                        <h6>${category.name}</h6>
                     </div>
                 </td>
                 <td>${category.description || 'No description'}</td>

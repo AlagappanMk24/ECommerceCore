@@ -1,13 +1,9 @@
 ﻿using ECommerceCore.Application.Constants;
-using ECommerceCore.Application.Contract.Persistence;
 using ECommerceCore.Application.Contract.Service;
 using ECommerceCore.Application.Contract.ViewModels;
-using ECommerceCore.Application.Contracts.DTOs;
-using ECommerceCore.Domain.Entities;
+using ECommerceCore.Application.Contract.ViewModels.Categories;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Data.SqlClient;
-using Microsoft.EntityFrameworkCore;
 using System.Data;
 
 namespace ECommerceCore.Web.Areas.Admin.Controllers

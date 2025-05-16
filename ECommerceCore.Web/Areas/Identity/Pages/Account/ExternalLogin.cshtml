@@ -146,11 +146,20 @@
                         </div>
                     </div>
                     <div class="mb-3">
-                        <div class="form-floating">
+                        <div class="input-group">
+                            <select asp-for="Input.CountryCode" class="form-control" style="max-width:200px;" required>
+                                <option value="" disabled selected>Select Country Code</option>
+                                <option value="US">+1 (US)</option>
+                                <option value="IN">+91 (India)</option>
+                                <option value="AU">+61 (Australia)</option>
+                                <option value="UK">+44 (UK)</option>
+                                <option value="CA">+1 (Canada)</option>
+                                <option value="RU">+7 (Russia)</option>
+                                <option value="CN">+86 (China)</option>
+                            </select>
                             <input asp-for="Input.PhoneNumber" class="form-control" autocomplete="tel" placeholder="Please enter your phone number." />
-                            <label asp-for="Input.PhoneNumber" class="form-label">Phone Number</label>
-                            <span asp-validation-for="Input.PhoneNumber" class="text-danger"></span>
                         </div>
+                        <span asp-validation-for="Input.PhoneNumber" class="text-danger"></span>
                     </div>
                     <div class="mb-3">
                         <div class="form-floating">

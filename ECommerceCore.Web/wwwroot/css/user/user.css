@@ -1,0 +1,350 @@
+﻿/* User Specific Styles - user.css */
+
+/* Form Container */
+.form-container {
+    padding: 2rem;
+}
+
+/* Form Sections */
+.form-section {
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+    transition: all 0.3s ease;
+}
+
+    .form-section:hover {
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        transform: translateY(-2px);
+    }
+
+.section-title {
+    color: #1e293b;
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.section-description {
+    color: #64748b;
+    font-size: 0.9rem;
+    margin-bottom: 1.25rem;
+}
+
+/* Form Row & Groups */
+.form-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.form-group {
+    flex: 1;
+    min-width: 200px;
+    margin-bottom: 1rem;
+}
+
+    .form-group label {
+        display: block;
+        font-weight: 500;
+        color: #475569;
+        margin-bottom: 0.5rem;
+        font-size: 0.9rem;
+    }
+
+.form-control {
+    width: 100%;
+    padding: 0.6rem 1rem;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    transition: all 0.2s ease;
+}
+
+    .form-control:focus {
+        border-color: #2980b9;
+        box-shadow: 0 0 0 3px rgba(41, 128, 185, 0.1);
+        outline: none;
+    }
+
+    .form-control::placeholder {
+        color: #94a3b8;
+    }
+
+/* Password Input */
+.password-input {
+    position: relative;
+}
+
+.password-toggle {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: #64748b;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+    .password-toggle:hover {
+        color: #1e293b;
+    }
+
+/* Profile Image */
+.profile-image-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    align-items: center;
+}
+
+.current-image {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 2px solid #e2e8f0;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+    .current-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+.upload-controls {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.custom-file-upload {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
+    padding: 0.6rem 1.2rem;
+    border-radius: 8px;
+    background: #2980b9;
+    color: white;
+    font-weight: 500;
+    transition: all 0.2s ease;
+}
+
+    .custom-file-upload:hover {
+        background: #1a5276;
+        transform: translateY(-2px);
+    }
+
+    .custom-file-upload input[type="file"] {
+        display: none;
+    }
+
+/* Form Actions */
+.form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+    margin-top: 2rem;
+}
+
+    .form-actions .btn {
+        padding: 0.6rem 1.5rem;
+        border-radius: 8px;
+        font-weight: 500;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    .form-actions .btn-primary {
+        background-color: #2980b9;
+        border-color: #2980b9;
+    }
+
+        .form-actions .btn-primary:hover {
+            background-color: #1a5276;
+            border-color: #1a5276;
+            transform: translateY(-2px);
+        }
+
+    .form-actions .btn-outline-secondary:hover {
+        transform: translateY(-2px);
+    }
+
+/* Validation */
+.text-danger {
+    color: #e74c3c;
+    font-size: 0.85rem;
+    margin-top: 0.25rem;
+    display: block;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .form-row {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    .profile-image-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .upload-controls {
+        align-items: center;
+    }
+
+    .form-actions {
+        flex-direction: column-reverse;
+    }
+
+        .form-actions .btn {
+            width: 100%;
+            justify-content: center;
+        }
+}
+
+.status-badge {
+    display: inline-block;
+    padding: 0.35em 0.65em;
+    font-size: 0.75em;
+    font-weight: 700;
+    line-height: 1;
+    color: #fff;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: baseline;
+    border-radius: 0.25rem;
+    margin-right: 0.5em;
+}
+
+.badge-super-admin {
+    background-color: #1e3a8a; /* Deep Blue */
+}
+
+.badge-admin {
+    background-color: #3b82f6; /* Blue */
+}
+
+.badge-customer {
+    background-color: #22c55e; /* Green */
+}
+
+.badge-company {
+    background-color: #06b6d4; /* Cyan */
+}
+
+.badge-vendor {
+    background-color: #8b5cf6; /* Purple */
+}
+
+.badge-supplier {
+    background-color: #4f46e5; /* Indigo */
+}
+
+.badge-customer-support {
+    background-color: #14b8a6; /* Teal */
+}
+
+.badge-delivery-agent {
+    background-color: #f97316; /* Orange */
+}
+
+.badge-manager {
+    background-color: #ef4444; /* Red */
+}
+
+.badge-employee {
+    background-color: #6b7280; /* Gray */
+}
+
+.badge-secondary {
+    background-color: #9ca3af; /* Fallback Gray */
+}
+
+/* Ensure invalid-feedback is visible when is-invalid is present */
+.input-group.is-invalid .invalid-feedback {
+    display: block;
+    color: #dc3545; /* Bootstrap's danger color */
+}
+
+/* Add red border to input-group elements */
+.input-group.is-invalid .form-control,
+.input-group.is-invalid .form-select {
+    border-color: #dc3545;
+}
+
+/* Password input container */
+.password-input {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+    /* Style the password input */
+    .password-input .form-control {
+        padding-right: 40px; /* Space for the toggle button */
+        width: 100%;
+    }
+
+/* Style the password toggle button */
+.password-toggle {
+    position: absolute;
+    right: 30px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+}
+
+    /* Ensure the icon is visible and centered */
+    .password-toggle i {
+        font-size: 16px;
+        color: #6c757d; /* Bootstrap secondary color */
+    }
+/* Ensure invalid-feedback is visible */
+.form-group .is-invalid ~ .invalid-feedback {
+    display: block;
+    color: #dc3545; /* Bootstrap danger color */
+}
+
+/* Red border for invalid input */
+.form-group .is-invalid {
+    border-color: #dc3545;
+}
+
+/* in your site CSS */
+.user-info {
+    display: flex;
+    align-items: center;
+}
+
+.avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 8px;
+}
+
+.user-name {
+    font-weight: 500;
+}
+

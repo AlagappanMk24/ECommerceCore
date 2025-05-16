@@ -1,6 +1,6 @@
-﻿using ECommerceCore.Domain.Entities;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
+﻿using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Microsoft.EntityFrameworkCore;
+using ECommerceCore.Domain.Entities.Identity;
 
 namespace ECommerceCore.Infrastructure.Data.Configurations
 {
@@ -13,6 +13,11 @@ namespace ECommerceCore.Infrastructure.Data.Configurations
                 .WithMany()
                 .HasForeignKey(au => au.CompanyId)
                 .IsRequired(false);
+
+            // Optimize the query with an index on IsDeleted and DeletedDate
+            builder.HasIndex(u => new { u.IsDeleted, u.DeletedDate })
+            .HasFilter("IsDeleted = 1")
+            .HasDatabaseName("IX_AspNetUsers_IsDeleted_DeletedDate");
         }
     }
 }

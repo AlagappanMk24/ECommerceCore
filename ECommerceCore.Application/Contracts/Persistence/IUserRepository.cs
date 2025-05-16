@@ -1,4 +1,4 @@
-﻿using ECommerceCore.Domain.Entities;
+﻿using ECommerceCore.Domain.Entities.Identity;
 
 namespace ECommerceCore.Application.Contract.Persistence
 {
@@ -6,5 +6,6 @@ namespace ECommerceCore.Application.Contract.Persistence
     {
         public void Update(ApplicationUser applicationUser);
         Task<bool> UpdateUserAsync(ApplicationUser user);
+        Task<ApplicationUser> GetUserByIdAsync(string id);
     }
 }

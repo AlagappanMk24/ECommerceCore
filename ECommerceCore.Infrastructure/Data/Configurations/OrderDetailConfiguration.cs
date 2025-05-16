@@ -19,7 +19,6 @@ namespace ECommerceCore.Infrastructure.Data.Configurations
                     .WithMany()
                     .HasForeignKey(od => od.ProductId)
                     .OnDelete(DeleteBehavior.Restrict);
-
         }
     }
 }

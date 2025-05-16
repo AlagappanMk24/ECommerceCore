@@ -23,5 +23,7 @@ namespace ECommerceCore.Domain.Entities
 
         public int Count { get; set; }
         public double Price { get; set; }
+
+        //public decimal Discount { get; set; }
     }
 }

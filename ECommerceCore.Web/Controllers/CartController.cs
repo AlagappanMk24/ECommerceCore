@@ -1,7 +1,9 @@
-﻿using ECommerceCore.Application.Contract.Persistence;
+﻿using ECommerceCore.Application.Constants;
+using ECommerceCore.Application.Contract.Persistence;
 using ECommerceCore.Application.Contract.Service;
 using ECommerceCore.Application.Contract.ViewModels;
 using ECommerceCore.Domain.Entities;
+using ECommerceCore.Domain.Entities.Identity;
 using ECommerceCore.Infrastructure.External.Payments;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -10,7 +12,8 @@ using System.Text.Json;
 
 namespace ECommerceCore.Web.Controllers
 {
-    //[Area("Customer")]
+    [Authorize(Roles = AppConstants.Role_Customer)]
+    [Area("Customer")]
     public class CartController(IUserService userService, ICartService cartService, IOrderService orderService, IPaymentService paymentService, IUnitOfWork unitOfWork, IHttpContextAccessor httpContextAccessor, ILogger<CartController> logger) : Controller
     {
         private readonly IUserService _userService = userService;
@@ -21,29 +24,10 @@ namespace ECommerceCore.Web.Controllers
         private readonly IHttpContextAccessor _httpContextAccessor = httpContextAccessor;
         private readonly ILogger<CartController> _logger = logger;
 
-        ///<summary>
-        /// Displays the shopping cart details for the current user.
-        ///</summary>
-        //public async Task<IActionResult> Index()
-        //{
-        //    try
-        //    {
-        //        var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-        //        _logger.LogInformation("Fetching cart details for user ID {UserId}.", userId);
-
-        //        var shoppingCartVM = await _cartService.GetCartDetails(userId);
-        //        return View(shoppingCartVM);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        _logger.LogError(ex, "Error occurred while fetching cart details.");
-        //        return View("Error");
-        //    }
-        //}
-
-        ///<summary>
-        /// Displays the shopping cart details for the current user or anonymous user.
-        ///</summary>
+        /// <summary>
+        /// Displays the shopping cart page for authenticated or anonymous users.
+        /// </summary>
+        [AllowAnonymous] // Allow both anonymous and authenticated users
         public async Task<IActionResult> Index()
         {
             try
@@ -74,60 +58,10 @@ namespace ECommerceCore.Web.Controllers
                 return View("Error");
             }
         }
-        private async Task<ShoppingCartVM> GetAnonymousCartDetails()
-        {
-            var tempCart = GetCartFromCookie();
-
-            var shoppingCartVM = new ShoppingCartVM
-            {
-                ShoppingCartList = tempCart,
-                OrderHeader = new OrderHeader
-                {
-                    OrderTotal = 0 // Initialize total price
-                }
-            };
-
-            // Populate Product details for each cart item and calculate prices
-            foreach (var cartItem in shoppingCartVM.ShoppingCartList)
-            {
-                if (cartItem.ProductId != 0)
-                {
-                    // Get product details
-                    cartItem.Product = await _unitOfWork.Products.GetAsync(p => p.Id == cartItem.ProductId);
-
-                    // Calculate price based on quantity
-                    cartItem.Price = _cartService.GetPriceBasedOnQuantity(cartItem);
-
-                    // Update the order total
-                    shoppingCartVM.OrderHeader.OrderTotal += (cartItem.Price * cartItem.Count);
-                }
-            }
-
-            return shoppingCartVM;
-        }
 
         /// <summary>
-        /// Helper method to retrieve the cart for anonymous users from cookies.
+        /// Increments the quantity of a cart item.
         /// </summary>
-        private List<ShoppingCart> GetCartFromCookie()
-        {
-            try
-            {
-                var cartJson = Request.Cookies["TempCart"];
-                return string.IsNullOrEmpty(cartJson)
-                    ? new List<ShoppingCart>()
-                    : JsonSerializer.Deserialize<List<ShoppingCart>>(cartJson);
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "Error occurred while retrieving the cart from cookies.");
-                return new List<ShoppingCart>();
-            }
-        }
-
-        ///<summary>
-        /// Increments the quantity of the specified cart item.
-        ///</summary>
         public async Task<IActionResult> Plus(int cartId, int productId)
         {
             try
@@ -144,9 +78,9 @@ namespace ECommerceCore.Web.Controllers
             }
         }
 
-        ///<summary>
-        /// Decrements the quantity of the specified cart item.
-        ///</summary>
+        /// <summary>
+        /// Decrements the quantity of a cart item.
+        /// </summary>
         public async Task<IActionResult> Minus(int cartId, int productId)
         {
             try
@@ -163,9 +97,9 @@ namespace ECommerceCore.Web.Controllers
             }
         }
 
-        ///<summary>
-        /// Removes the specified item from the shopping cart.
-        ///</summary>
+        /// <summary>
+        /// Removes an item from the shopping cart.
+        /// </summary>
         public async Task<IActionResult> Remove(int cartId, int productId)
         {
             try
@@ -182,10 +116,10 @@ namespace ECommerceCore.Web.Controllers
             }
         }
 
-        ///<summary>
-        /// Displays the summary of the shopping cart for the current user.
-        ///</summary>
-        [Authorize]        
+        /// <summary>
+        /// Displays the order summary page for authenticated users.
+        /// </summary>
+        [Authorize(Roles = AppConstants.Role_Customer)]
         public async Task<IActionResult> Summary()
         {
             try
@@ -203,11 +137,12 @@ namespace ECommerceCore.Web.Controllers
             }
         }
 
-        ///<summary>
-        /// Handles the submission of the shopping cart summary to create an order.
-        ///</summary>
+        /// <summary>
+        /// Submits the order and handles payment.
+        /// </summary>
         [HttpPost]
         [ActionName("Summary")]
+        [Authorize(Roles = AppConstants.Role_Customer)]
         public async Task<IActionResult> SummaryPost()
         {
             try
@@ -273,9 +208,10 @@ namespace ECommerceCore.Web.Controllers
             }
         }
 
-        ///<summary>
-        /// Displays the order confirmation page for the specified order ID.
-        ///</summary>
+        /// <summary>
+        /// Displays the order confirmation page.
+        /// </summary>
+        [Authorize(Roles = AppConstants.Role_Customer)]
         public async Task<IActionResult> OrderConfirmation(int id)
         {
             try
@@ -291,9 +227,9 @@ namespace ECommerceCore.Web.Controllers
             }
         }
 
-        ///<summary>
-        /// Maps the user details to the order header.
-        ///</summary>
+        /// <summary>
+        /// Maps user details to the order header.
+        /// </summary>
         private void MapUserDetails(OrderHeader orderHeader, ApplicationUser user)
         {
             orderHeader.ShippingContactName = user.Name;
@@ -303,6 +239,60 @@ namespace ECommerceCore.Web.Controllers
             orderHeader.ShipToAddress.ShippingZipCode = user.PostalCode;
             orderHeader.ShipToAddress.ShippingAddress1 = user.Address1;
             orderHeader.ShipToAddress.ShippingAddress2 = user.Address2;
+        }
+
+        /// <summary>
+        /// Retrieves shopping cart details for anonymous users (from cookies).
+        /// </summary>
+        private async Task<ShoppingCartVM> GetAnonymousCartDetails()
+        {
+            var tempCart = GetCartFromCookie();
+
+            var shoppingCartVM = new ShoppingCartVM
+            {
+                ShoppingCartList = tempCart,
+                OrderHeader = new OrderHeader
+                {
+                    OrderTotal = 0 // Initialize total price
+                }
+            };
+
+            // Populate Product details for each cart item and calculate prices
+            foreach (var cartItem in shoppingCartVM.ShoppingCartList)
+            {
+                if (cartItem.ProductId != 0)
+                {
+                    // Get product details
+                    cartItem.Product = await _unitOfWork.Products.GetAsync(p => p.Id == cartItem.ProductId);
+
+                    // Calculate price based on quantity
+                    cartItem.Price = _cartService.GetPriceBasedOnQuantity(cartItem);
+
+                    // Update the order total
+                    shoppingCartVM.OrderHeader.OrderTotal += (decimal)(cartItem.Price * cartItem.Count);
+                }
+            }
+
+            return shoppingCartVM;
+        }
+
+        /// <summary>
+        /// Retrieves cart data from browser cookies.
+        /// </summary>
+        private List<ShoppingCart> GetCartFromCookie()
+        {
+            try
+            {
+                var cartJson = Request.Cookies["TempCart"];
+                return string.IsNullOrEmpty(cartJson)
+                    ? new List<ShoppingCart>()
+                    : JsonSerializer.Deserialize<List<ShoppingCart>>(cartJson);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error occurred while retrieving the cart from cookies.");
+                return new List<ShoppingCart>();
+            }
         }
     }
 }

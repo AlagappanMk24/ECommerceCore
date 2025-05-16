@@ -3,7 +3,7 @@ using ECommerceCore.Application.Common.Results;
 using ECommerceCore.Application.Contract.Persistence;
 using ECommerceCore.Application.Contracts.DTOs;
 using ECommerceCore.Application.Contracts.Services;
-using ECommerceCore.Application.Contracts.ViewModels;
+using ECommerceCore.Application.Contracts.ViewModels.Invoices;
 using ECommerceCore.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 

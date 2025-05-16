@@ -173,7 +173,7 @@
             tr.innerHTML = `
                 <td class="name-cell">
                     <div class="customer-name">
-                        <h4>${customer.name}</h4>
+                        <h6>${customer.name}</h6>
                         <small>${customer.email}</small>
                     </div>
                 </td>

@@ -1,21 +1,19 @@
-﻿using ECommerceCore.Domain.Entities;
+﻿using ECommerceCore.Application.Common.QueryParams;
+using ECommerceCore.Application.Contracts.DTOs;
+using ECommerceCore.Domain.Entities;
 
 namespace ECommerceCore.Application.Contracts.ViewModels.Users
 {
     public class UserIndexVM
     {
         public UserQueryParameters QueryParameters { get; set; }
-        public List<Company> Companies { get; set; }
+        public List<CompanyDto> Companies { get; set; }
+        public List<string> Roles { get; set; }
     }
 
-    public class UserQueryParameters
+    public class UserQueryParameters : QueryParameters
     {
-        public int PageNumber { get; set; } = 1;
-        public int PageSize { get; set; } = 10;
-        public string? SearchTerm { get; set; }
         public int? CompanyId { get; set; }
         public string? Role { get; set; }
-        public string? SortColumn { get; set; }
-        public string? SortDirection { get; set; }
     }
 }

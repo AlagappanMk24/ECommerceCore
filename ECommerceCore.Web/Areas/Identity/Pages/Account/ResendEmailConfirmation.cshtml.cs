@@ -8,7 +8,7 @@ using System.Text;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
 using ECommerceCore.Application.Contract.Service;
-using ECommerceCore.Domain.Entities;
+using ECommerceCore.Domain.Entities.Identity;
 using ECommerceCore.Infrastructure.Services.Email;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;

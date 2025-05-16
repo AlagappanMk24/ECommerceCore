@@ -2,6 +2,7 @@
 using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
 using ECommerceCore.Domain.Entities.Common;
+using ECommerceCore.Domain.Entities.Identity;
 
 namespace ECommerceCore.Domain.Entities
 {

@@ -12,8 +12,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
 using ECommerceCore.Application.Constants;
-using ECommerceCore.Domain.Entities;
 using ECommerceCore.Infrastructure.Services.Email;
+using ECommerceCore.Domain.Entities.Identity;
 
 namespace ECommerceCore.Web.Areas.Identity.Pages.Account
 {
@@ -94,6 +94,7 @@ namespace ECommerceCore.Web.Areas.Identity.Pages.Account
             public string? State { get; set; }
             public string? PostalCode { get; set; }
             public string? PhoneNumber { get; set; }
+            public string CountryCode { get; set; }
         }
 
         public IActionResult OnGet() => RedirectToPage("./Login");
@@ -180,6 +181,7 @@ namespace ECommerceCore.Web.Areas.Identity.Pages.Account
                 user.State = Input.State;
                 user.Name = Input.Name;
                 user.PhoneNumber = Input.PhoneNumber;
+                user.CountryCode = Input.CountryCode;
 
                 var result = await _userManager.CreateAsync(user);
                 if (result.Succeeded)

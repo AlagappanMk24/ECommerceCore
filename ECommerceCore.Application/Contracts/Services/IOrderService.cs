@@ -1,5 +1,9 @@
-﻿using ECommerceCore.Application.Contract.ViewModels;
+﻿using ECommerceCore.Application.Common.Results;
+using ECommerceCore.Application.Contract.ViewModels;
+using ECommerceCore.Application.Contracts.DTOs;
+using ECommerceCore.Application.Contracts.ViewModels.Orders;
 using ECommerceCore.Domain.Entities;
+using ECommerceCore.Domain.Entities.Identity;
 using Microsoft.AspNetCore.Http;
 using System.Security.Claims;
 
@@ -19,5 +23,6 @@ namespace ECommerceCore.Application.Contract.Service
         Task CreateOrder(ShoppingCartVM cartVM);
         Task UpdateStripePaymentDetails(int orderId, string sessionId, string paymentIntentId);
         Task HandleOrderConfirmation(int id, HttpContext httpContext);
+        Task<PaginatedResult<OrderDto>> GetOrdersPaginatedAsync(OrderQueryParameters parameters);
     }
 }

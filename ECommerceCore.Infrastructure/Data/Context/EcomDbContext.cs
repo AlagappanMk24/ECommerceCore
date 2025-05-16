@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using ECommerceCore.Domain.Entities;
 using ECommerceCore.Infrastructure.Data.Seeders;
+using ECommerceCore.Domain.Entities.Identity;
 
 namespace ECommerceCore.Infrastructure.Data.Context
 {
@@ -29,6 +30,9 @@ namespace ECommerceCore.Infrastructure.Data.Context
         public DbSet<ContactUs> ContactUsSubmissions { get; set; } 
         public DbSet<AuthState> AuthStates { get; set; }
         public DbSet<AuthToken> AuthTokens { get; set; }
+        public DbSet<OrderActivityLog> OrderActivityLogs { get; set; }
+        public DbSet<Permission> Permissions { get; set; }
+        public DbSet<RolePermission> RolePermissions { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
@@ -39,7 +43,6 @@ namespace ECommerceCore.Infrastructure.Data.Context
 
             // Call the seeder
             DatabaseSeeder.SeedData(modelBuilder);
-
         }
     }
 }

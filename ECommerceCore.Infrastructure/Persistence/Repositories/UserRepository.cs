@@ -1,6 +1,7 @@
 ﻿using ECommerceCore.Application.Contract.Persistence;
-using ECommerceCore.Domain.Entities;
+using ECommerceCore.Domain.Entities.Identity;
 using ECommerceCore.Infrastructure.Data.Context;
+using Microsoft.EntityFrameworkCore;
 
 namespace ECommerceCore.Infrastructure.Persistence.Repositories
 {
@@ -24,6 +25,13 @@ namespace ECommerceCore.Infrastructure.Persistence.Repositories
             {
                 return false;
             }
+        }
+
+        public async Task<ApplicationUser> GetUserByIdAsync(string id)
+        {
+            return await _dbContext.ApplicationUsers
+             .Include(u => u.Company)
+             .FirstOrDefaultAsync(u => u.Id == id);
         }
     }
 }

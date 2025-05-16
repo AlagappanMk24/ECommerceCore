@@ -1,11 +1,16 @@
-﻿using ECommerceCore.Application.Constants;
+﻿using ECommerceCore.Application.Common.Results;
+using ECommerceCore.Application.Constants;
 using ECommerceCore.Application.Contract.Persistence;
 using ECommerceCore.Application.Contract.Service;
 using ECommerceCore.Application.Contract.ViewModels;
+using ECommerceCore.Application.Contracts.DTOs;
+using ECommerceCore.Application.Contracts.ViewModels.Orders;
 using ECommerceCore.Domain.Entities;
+using ECommerceCore.Domain.Entities.Identity;
 using ECommerceCore.Domain.Enums;
 using ECommerceCore.Infrastructure.Services.Email;
 using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 using Stripe;
 using Stripe.Checkout;
 using System.Security.Claims;
@@ -16,12 +21,6 @@ namespace ECommerceCore.Infrastructure.Services
     {
         private readonly IUnitOfWork _unitOfWork = unitOfWork;
         private readonly IEmailService _emailService = emailService;
-
-        /// <summary>
-        /// Retrieves the details of an order, including the order header and its associated details.
-        /// </summary>
-        /// <param name="orderId">The ID of the order to retrieve.</param>
-        /// <returns>An instance of <see cref="OrderVM"/> containing order details.</returns>
         public async Task<OrderVM> GetOrderDetailsAsync(int orderId)
         {
             return new OrderVM
@@ -30,12 +29,131 @@ namespace ECommerceCore.Infrastructure.Services
                 OrderDetail = await _unitOfWork.OrderDetails.GetAllAsync(d => d.OrderHeaderId == orderId, includeProperties: "Product")
             };
         }
+        public async Task<PaginatedResult<OrderDto>> GetOrdersPaginatedAsync(OrderQueryParameters parameters)
+        {
+            try
+            {
+                // Base query
+                var query = _unitOfWork.OrderHeaders.Query()
+                    .Include(o => o.ApplicationUser)
+                    .Include(o => o.Customer)
+                    .AsQueryable();
 
-        /// <summary>
-        /// Updates the details of an existing order header with the provided information.
-        /// </summary>
-        /// <param name="orderHeader">An instance of <see cref="OrderHeader"/> containing updated information.</param>
-        /// <returns>A task representing the asynchronous operation.</returns>
+                // Apply filters
+                // Order status filter
+                if (!string.IsNullOrEmpty(parameters.OrderStatus))
+                {
+                    query = query.Where(o => o.OrderStatus == parameters.OrderStatus);
+                }
+
+                // Payment status filter
+                if (!string.IsNullOrEmpty(parameters.PaymentStatus))
+                {
+                    query = query.Where(o => o.PaymentStatus == parameters.PaymentStatus);
+                }
+
+                // Date range filter
+                if (parameters.StartDate.HasValue)
+                {
+                    query = query.Where(o => o.OrderDate >= parameters.StartDate.Value);
+                }
+
+                if (parameters.EndDate.HasValue)
+                {
+                    var endDate = parameters.EndDate.Value.AddDays(1).AddSeconds(-1); // End of the selected day
+                    query = query.Where(o => o.OrderDate <= endDate);
+                }
+
+                // Customer name search
+                if (!string.IsNullOrEmpty(parameters.CustomerName))
+                {
+                    string searchTerm = parameters.CustomerName.ToLower().Trim();
+                    query = query.Where(o =>
+                        (o.ApplicationUser != null && o.ApplicationUser.Name.ToLower().Contains(searchTerm)) ||
+                        (o.Customer != null && o.Customer.Name.ToLower().Contains(searchTerm))
+                    );
+                }
+
+                // Search term (general search)
+                if (!string.IsNullOrEmpty(parameters.SearchTerm))
+                {
+                    string searchTerm = parameters.SearchTerm.ToLower().Trim();
+                    query = query.Where(o =>
+                        (o.ApplicationUser != null && (
+                            o.ApplicationUser.Name.ToLower().Contains(searchTerm) ||
+                            o.ApplicationUser.Email.ToLower().Contains(searchTerm) ||
+                            o.ApplicationUser.PhoneNumber.Contains(searchTerm)
+                        )) ||
+                        (o.Customer != null && (
+                            o.Customer.Name.ToLower().Contains(searchTerm) ||
+                            o.Customer.Email.ToLower().Contains(searchTerm) ||
+                            o.Customer.PhoneNumber.Contains(searchTerm)
+                        )) ||
+                        o.TrackingNumber.Contains(searchTerm) ||
+                        o.OrderStatus.ToLower().Contains(searchTerm) ||
+                        o.PaymentStatus.ToLower().Contains(searchTerm)
+                    );
+                }
+
+                // Apply sorting
+                if (!string.IsNullOrEmpty(parameters.SortColumn))
+                {
+                    query = parameters.SortColumn.ToLower() switch
+                    {
+                        "orderdate" => parameters.SortDirection == "asc" ?
+                            query.OrderBy(o => o.OrderDate) : query.OrderByDescending(o => o.OrderDate),
+                        "ordertotal" => parameters.SortDirection == "asc" ?
+                            query.OrderBy(o => o.OrderTotal) : query.OrderByDescending(o => o.OrderTotal),
+                        "customername" => parameters.SortDirection == "asc" ?
+                            query.OrderBy(o => o.Customer != null ? o.Customer.Name : o.ApplicationUser.Name) :
+                            query.OrderByDescending(o => o.Customer != null ? o.Customer.Name : o.ApplicationUser.Name),
+                        "orderstatus" => parameters.SortDirection == "asc" ?
+                            query.OrderBy(o => o.OrderStatus) : query.OrderByDescending(o => o.OrderStatus),
+                        "paymentstatus" => parameters.SortDirection == "asc" ?
+                            query.OrderBy(o => o.PaymentStatus) : query.OrderByDescending(o => o.PaymentStatus),
+                        _ => query.OrderByDescending(o => o.OrderDate)
+                    };
+                }
+                else
+                {
+                    // Default sort by order date (newest first)
+                    query = query.OrderByDescending(o => o.OrderDate);
+                }
+
+                // Get total count before pagination
+                var totalCount = await query.CountAsync();
+
+                // Apply pagination
+                var items = await query
+                    .Skip((parameters.PageNumber - 1) * parameters.PageSize)
+                    .Take(parameters.PageSize)
+                    .Select(o => new OrderDto
+                    {
+                        Id = o.Id,
+                        CustomerName = o.Customer != null ? o.Customer.Name : (o.ApplicationUser != null ? o.ApplicationUser.Name : "Guest"),
+                        CustomerEmail = o.Customer != null ? o.Customer.Email : (o.ApplicationUser != null ? o.ApplicationUser.Email : ""),
+                        PhoneNumber = o.Customer != null ? o.Customer.PhoneNumber : (o.ApplicationUser != null ? o.ApplicationUser.PhoneNumber : ""),
+                        OrderDate = o.OrderDate,
+                        OrderTotal = o.OrderTotal,
+                        OrderStatus = o.OrderStatus,
+                        PaymentStatus = o.PaymentStatus,
+                        TrackingNumber = o.TrackingNumber ?? "Not Available"
+                    })
+                    .ToListAsync();
+
+                return new PaginatedResult<OrderDto>
+                {
+                    Items = items,
+                    TotalCount = totalCount,
+                    PageNumber = parameters.PageNumber,
+                    PageSize = parameters.PageSize
+                };
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
         public async Task UpdateOrderDetailsAsync(OrderHeader orderHeader)
         {
             var orderFromDb = await _unitOfWork.OrderHeaders.GetAsync(o => o.Id == orderHeader.Id);
@@ -53,26 +171,11 @@ namespace ECommerceCore.Infrastructure.Services
             _unitOfWork.OrderHeaders.Update(orderFromDb);
             await _unitOfWork.SaveAsync();
         }
-
-        /// <summary>
-        /// Updates the status of an order identified by the specified order ID.
-        /// </summary>
-        /// <param name="orderId">The ID of the order whose status is to be updated.</param>
-        /// <param name="status">The new status to set for the order.</param>
-        /// <returns>A task representing the asynchronous operation.</returns>
         public async Task UpdateOrderStatusAsync(int orderId, string status)
         {
             await _unitOfWork.OrderHeaders.UpdateStatusAsync(orderId, status);
             await _unitOfWork.SaveAsync();
         }
-
-        /// <summary>
-        /// Ships the specified order by updating the carrier and tracking information, and setting the order status to shipped.
-        /// </summary>
-        /// <param name="orderId">The ID of the order to ship.</param>
-        /// <param name="carrier">The name of the shipping carrier.</param>
-        /// <param name="trackingNumber">The tracking number for the shipment.</param>
-        /// <returns>A task representing the asynchronous operation.</returns>
         public async Task ShipOrderAsync(int orderId, string carrier, string trackingNumber)
         {
             var order = await _unitOfWork.OrderHeaders.GetAsync(o => o.Id == orderId);
@@ -89,12 +192,6 @@ namespace ECommerceCore.Infrastructure.Services
             _unitOfWork.OrderHeaders.Update(order);
             await _unitOfWork.SaveAsync();
         }
-
-        /// <summary>
-        /// Cancels the order specified by the order ID, processing a refund if the payment was approved.
-        /// </summary>
-        /// <param name="orderId">The ID of the order to cancel.</param>
-        /// <returns>A task representing the asynchronous operation.</returns>
         public async Task CancelOrderAsync(int orderId)
         {
             var order = await _unitOfWork.OrderHeaders.GetAsync(o => o.Id == orderId);
@@ -113,13 +210,6 @@ namespace ECommerceCore.Infrastructure.Services
             await _unitOfWork.OrderHeaders.UpdateStatusAsync(orderId, OrderStatus.Cancelled.ToString(), OrderStatus.Refunded.ToString());
             await _unitOfWork.SaveAsync();
         }
-
-        /// <summary>
-        /// Retrieves a list of orders based on the specified status, considering user roles for access.
-        /// </summary>
-        /// <param name="user">The user requesting the orders.</param>
-        /// <param name="status">The status to filter the orders by.</param>
-        /// <returns>A collection of <see cref="OrderHeader"/> representing the orders matching the criteria.</returns>
         public async Task<IEnumerable<OrderHeader>> GetOrdersByStatusAsync(ClaimsPrincipal user, string status)
         {
             IEnumerable<OrderHeader> orders;
@@ -143,12 +233,6 @@ namespace ECommerceCore.Infrastructure.Services
                 _ => orders
             };
         }
-
-        /// <summary>
-        /// Initializes a new instance of <see cref="OrderHeader"/> with the specified user ID.
-        /// </summary>
-        /// <param name="userId">The ID of the user associated with the order.</param>
-        /// <returns>A new <see cref="OrderHeader"/> instance with the current date.</returns>
         public OrderHeader InitializeOrderHeader(string userId)
         {
             return new OrderHeader
@@ -157,11 +241,6 @@ namespace ECommerceCore.Infrastructure.Services
                 OrderDate = DateTime.Now
             };
         }
-
-        /// <summary>
-        /// Calculates the total price of the order based on the quantities in the shopping cart.
-        /// </summary>
-        /// <param name="cartVM">The shopping cart view model containing the items to calculate.</param>
         public void CalculateOrderTotal(ShoppingCartVM cartVM)
         {
             cartVM.OrderHeader.OrderTotal = 0; // Reset total before calculating
@@ -169,15 +248,9 @@ namespace ECommerceCore.Infrastructure.Services
             foreach (var cart in cartVM.ShoppingCartList)
             {
                 cart.Price = GetPriceBasedOnQuantity(cart); 
-                cartVM.OrderHeader.OrderTotal += (cart.Price * cart.Count);
+                cartVM.OrderHeader.OrderTotal += (decimal)(cart.Price * cart.Count);
             }
         }
-
-        /// <summary>
-        /// Sets the payment and order status based on the user's company association.
-        /// </summary>
-        /// <param name="user">The user associated with the order.</param>
-        /// <param name="orderHeader">The order header to update.</param>
         public void SetOrderStatus(ApplicationUser user, OrderHeader orderHeader)
         {
             if (user.CompanyId.GetValueOrDefault() == 0)
@@ -191,12 +264,6 @@ namespace ECommerceCore.Infrastructure.Services
                 orderHeader.OrderStatus = OrderStatus.Approved.ToString();
             }
         }
-
-        /// <summary>
-        /// Creates a new order based on the shopping cart information provided in the view model.
-        /// </summary>
-        /// <param name="cartVM">The shopping cart view model containing the order details.</param>
-        /// <returns>A task representing the asynchronous operation.</returns>
         public async Task CreateOrder(ShoppingCartVM cartVM)
         {
             await _unitOfWork.OrderHeaders.AddAsync(cartVM.OrderHeader);
@@ -215,25 +282,11 @@ namespace ECommerceCore.Infrastructure.Services
             }
             await _unitOfWork.SaveAsync();
         }
-
-        /// <summary>
-        /// Updates the Stripe payment details for the specified order.
-        /// </summary>
-        /// <param name="orderId">The ID of the order to update.</param>
-        /// <param name="sessionId">The session ID from Stripe.</param>
-        /// <param name="paymentIntentId">The payment intent ID from Stripe.</param>
-        /// <returns>A task representing the asynchronous operation.</returns>
         public async Task UpdateStripePaymentDetails(int orderId, string sessionId, string paymentIntentId)
         {
             await _unitOfWork.OrderHeaders.UpdateStripePaymentIdAsync(orderId, sessionId, paymentIntentId);
             await _unitOfWork.SaveAsync();
         }
-
-        /// <summary>
-        /// Determines the price of a product based on the quantity specified in the shopping cart.
-        /// </summary>
-        /// <param name="cart">The shopping cart item to evaluate.</param>
-        /// <returns>The price based on the quantity.</returns>
         private double GetPriceBasedOnQuantity(ShoppingCart cart)
         {
             // Check if the product is discounted and if the discount is currently active
@@ -247,13 +300,6 @@ namespace ECommerceCore.Infrastructure.Services
             // Return regular price if not discounted or discount is not active
             return cart.Product.Price;
         }
-
-        /// <summary>
-        /// Handles the order confirmation process, updating the order status and removing shopping cart items if necessary.
-        /// </summary>
-        /// <param name="id">The ID of the order to confirm.</param>
-        /// <param name="httpContext">The current HTTP context.</param>
-        /// <returns>A task representing the asynchronous operation.</returns>
         public async Task HandleOrderConfirmation(int id, HttpContext httpContext)
         {
             // Retrieve the order header with ApplicationUser details

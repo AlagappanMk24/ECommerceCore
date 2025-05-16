@@ -17,7 +17,7 @@ namespace ECommerceCore.Infrastructure.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "8.0.11")
+                .HasAnnotation("ProductVersion", "8.0.0")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
@@ -155,7 +155,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                         {
                             Id = 1,
                             Country = "United States",
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8156),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(158),
                             Description = "Innovative technology solutions for everyday life.",
                             EstablishedYear = 2005,
                             IsActive = true,
@@ -169,7 +169,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                         {
                             Id = 2,
                             Country = "France",
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8164),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(169),
                             Description = "Trendy and comfortable clothing for all occasions.",
                             EstablishedYear = 2010,
                             IsActive = true,
@@ -183,7 +183,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                         {
                             Id = 3,
                             Country = "Canada",
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8166),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(172),
                             Description = "Eco-friendly products for sustainable living.",
                             EstablishedYear = 2015,
                             IsActive = true,
@@ -197,7 +197,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                         {
                             Id = 4,
                             Country = "United Kingdom",
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8167),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(174),
                             Description = "Quality books from authors around the world.",
                             EstablishedYear = 1995,
                             IsActive = true,
@@ -211,7 +211,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                         {
                             Id = 5,
                             Country = "Australia",
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8169),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(177),
                             Description = "High-quality equipment for outdoor enthusiasts.",
                             EstablishedYear = 2008,
                             IsActive = true,
@@ -225,7 +225,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                         {
                             Id = 6,
                             Country = "South Korea",
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8171),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(180),
                             Description = "Premium beauty products for radiant skin.",
                             EstablishedYear = 2012,
                             IsActive = true,
@@ -239,7 +239,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                         {
                             Id = 7,
                             Country = "Germany",
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8173),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(181),
                             Description = "Creative and educational toys for children of all ages.",
                             EstablishedYear = 2000,
                             IsActive = true,
@@ -302,7 +302,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8361),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(483),
                             Description = "Explore the latest gadgets and electronic devices.",
                             DisplayOrder = 1,
                             IsActive = true,
@@ -312,7 +312,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                         new
                         {
                             Id = 2,
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8364),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(487),
                             Description = "Discover stylish clothing and accessories for all occasions.",
                             DisplayOrder = 2,
                             IsActive = true,
@@ -322,7 +322,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                         new
                         {
                             Id = 3,
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8366),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(489),
                             Description = "Find everything you need for your home and outdoor spaces.",
                             DisplayOrder = 3,
                             IsActive = true,
@@ -332,7 +332,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                         new
                         {
                             Id = 4,
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8367),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(491),
                             Description = "Immerse yourself in captivating stories and knowledge.",
                             DisplayOrder = 4,
                             IsActive = true,
@@ -342,7 +342,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                         new
                         {
                             Id = 5,
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8369),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(493),
                             Description = "Gear up for your active lifestyle and outdoor adventures.",
                             DisplayOrder = 5,
                             IsActive = true,
@@ -352,7 +352,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                         new
                         {
                             Id = 6,
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8370),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(495),
                             Description = "Enhance your natural beauty and well-being.",
                             DisplayOrder = 6,
                             IsActive = true,
@@ -362,7 +362,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                         new
                         {
                             Id = 7,
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8371),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(496),
                             Description = "Unleash fun and creativity for all ages.",
                             DisplayOrder = 7,
                             IsActive = true,
@@ -372,7 +372,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                         new
                         {
                             Id = 8,
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8372),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(498),
                             Description = "The latest smartphones from top brands.",
                             DisplayOrder = 1,
                             IsActive = true,
@@ -383,7 +383,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                         new
                         {
                             Id = 9,
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8373),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(500),
                             Description = "Powerful laptops for work and play.",
                             DisplayOrder = 2,
                             IsActive = true,
@@ -394,7 +394,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                         new
                         {
                             Id = 10,
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8375),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(502),
                             Description = "High-definition televisions for home entertainment.",
                             DisplayOrder = 3,
                             IsActive = true,
@@ -405,7 +405,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                         new
                         {
                             Id = 11,
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8376),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(504),
                             Description = "Stylish clothing for men.",
                             DisplayOrder = 1,
                             IsActive = true,
@@ -416,7 +416,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                         new
                         {
                             Id = 12,
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8377),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(685),
                             Description = "Trendy clothing for women.",
                             DisplayOrder = 2,
                             IsActive = true,
@@ -427,7 +427,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                         new
                         {
                             Id = 13,
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8445),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(687),
                             Description = "Essential appliances for your kitchen.",
                             DisplayOrder = 1,
                             IsActive = true,
@@ -438,7 +438,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                         new
                         {
                             Id = 14,
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8447),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(689),
                             Description = "Tools for maintaining your garden.",
                             DisplayOrder = 2,
                             IsActive = true,
@@ -449,7 +449,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                         new
                         {
                             Id = 15,
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8448),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(691),
                             Description = "Imaginative and engaging fictional works.",
                             DisplayOrder = 1,
                             IsActive = true,
@@ -460,7 +460,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                         new
                         {
                             Id = 16,
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8449),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(694),
                             Description = "Informative and factual books on various topics.",
                             DisplayOrder = 2,
                             IsActive = true,
@@ -471,7 +471,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                         new
                         {
                             Id = 17,
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8450),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(695),
                             Description = "Gear for your outdoor adventures.",
                             DisplayOrder = 1,
                             IsActive = true,
@@ -482,7 +482,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                         new
                         {
                             Id = 18,
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8452),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(697),
                             Description = "Equipment and accessories for your fitness journey.",
                             DisplayOrder = 2,
                             IsActive = true,
@@ -543,7 +543,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                         {
                             Id = 1,
                             City = "Silicon City",
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8505),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(791),
                             IsDeleted = false,
                             Name = "Tech Solutions Inc.",
                             PhoneNumber = "555-123-4567",
@@ -555,7 +555,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                         {
                             Id = 2,
                             City = "Fashionville",
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8509),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(797),
                             IsDeleted = false,
                             Name = "Fashion Forward Ltd.",
                             PhoneNumber = "212-987-6543",
@@ -567,7 +567,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                         {
                             Id = 3,
                             City = "Eco City",
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8511),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(800),
                             IsDeleted = false,
                             Name = "Green Living Co.",
                             PhoneNumber = "404-555-7890",
@@ -579,7 +579,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                         {
                             Id = 4,
                             City = "Booktown",
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8512),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(801),
                             IsDeleted = false,
                             Name = "Global Reads",
                             PhoneNumber = "312-555-1122",
@@ -591,7 +591,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                         {
                             Id = 5,
                             City = "Outdoorsville",
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8514),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(809),
                             IsDeleted = false,
                             Name = "Adventure Gear Corp.",
                             PhoneNumber = "720-555-3344",
@@ -603,7 +603,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                         {
                             Id = 6,
                             City = "Cosmetic City",
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8515),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(819),
                             IsDeleted = false,
                             Name = "Glow & Glam",
                             PhoneNumber = "310-555-0011",
@@ -615,7 +615,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                         {
                             Id = 7,
                             City = "Toyland",
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8516),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(821),
                             IsDeleted = false,
                             Name = "Fun Time Toys",
                             PhoneNumber = "718-555-9988",
@@ -718,7 +718,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                         {
                             Id = 1,
                             Code = "USD",
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(9283),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(1899),
                             IsDeleted = false,
                             Name = "US Dollar",
                             Symbol = "$"
@@ -727,7 +727,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                         {
                             Id = 2,
                             Code = "EUR",
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(9285),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(1902),
                             IsDeleted = false,
                             Name = "Euro",
                             Symbol = "€"
@@ -736,7 +736,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                         {
                             Id = 3,
                             Code = "GBP",
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(9286),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(1903),
                             IsDeleted = false,
                             Name = "British Pound",
                             Symbol = "£"
@@ -745,7 +745,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                         {
                             Id = 4,
                             Code = "CAD",
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(9287),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(1905),
                             IsDeleted = false,
                             Name = "Canadian Dollar",
                             Symbol = "C$"
@@ -754,7 +754,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                         {
                             Id = 5,
                             Code = "AUD",
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(9288),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(1906),
                             IsDeleted = false,
                             Name = "Australian Dollar",
                             Symbol = "A$"
@@ -763,7 +763,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                         {
                             Id = 6,
                             Code = "JPY",
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(9289),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(1907),
                             IsDeleted = false,
                             Name = "Japanese Yen",
                             Symbol = "¥"
@@ -772,7 +772,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                         {
                             Id = 7,
                             Code = "INR",
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(9290),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(1908),
                             IsDeleted = false,
                             Name = "Indian Rupee",
                             Symbol = "₹"
@@ -781,7 +781,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                         {
                             Id = 8,
                             Code = "CHF",
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(9291),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(1910),
                             IsDeleted = false,
                             Name = "Swiss Franc",
                             Symbol = "Fr"
@@ -840,7 +840,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                         {
                             Id = 1,
                             CompanyId = 1,
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(9468),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(2128),
                             Email = "john.doe@example.com",
                             IsDeleted = false,
                             Name = "John Doe",
@@ -850,7 +850,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                         {
                             Id = 2,
                             CompanyId = 2,
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(9476),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(2132),
                             Email = "jane.smith@example.com",
                             IsDeleted = false,
                             Name = "Jane Smith",
@@ -860,7 +860,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                         {
                             Id = 3,
                             CompanyId = 1,
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(9477),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(2134),
                             Email = "hiroshi.tanaka@example.com",
                             IsDeleted = false,
                             Name = "Hiroshi Tanaka",
@@ -870,7 +870,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                         {
                             Id = 4,
                             CompanyId = 5,
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(9478),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(2135),
                             Email = "emma.brown@example.com",
                             IsDeleted = false,
                             Name = "Emma Brown",
@@ -880,7 +880,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                         {
                             Id = 5,
                             CompanyId = 6,
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(9480),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(2138),
                             Email = "liam.johnson@example.com",
                             IsDeleted = false,
                             Name = "Liam Johnson",
@@ -890,7 +890,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                         {
                             Id = 6,
                             CompanyId = 7,
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(9481),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(2139),
                             Email = "sophie.martin@example.com",
                             IsDeleted = false,
                             Name = "Sophie Martin",
@@ -900,7 +900,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                         {
                             Id = 7,
                             CompanyId = 4,
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(9482),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(2140),
                             Email = "arjun.patel@example.com",
                             IsDeleted = false,
                             Name = "Arjun Patel",
@@ -910,7 +910,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                         {
                             Id = 8,
                             CompanyId = 1,
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(9483),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(2142),
                             Email = "clara.fischer@example.com",
                             IsDeleted = false,
                             Name = "Clara Fischer",
@@ -1031,7 +1031,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                         {
                             Id = 1,
                             CompanyId = 1,
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 187, DateTimeKind.Utc).AddTicks(466),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(4423),
                             CustomerId = 1,
                             Discount = 0m,
                             ExternalReference = "REF-001",
@@ -1057,7 +1057,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                         {
                             Id = 2,
                             CompanyId = 2,
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 187, DateTimeKind.Utc).AddTicks(482),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(4443),
                             CustomerId = 2,
                             Discount = 10.00m,
                             ExternalReference = "REF-002",
@@ -1083,7 +1083,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                         {
                             Id = 3,
                             CompanyId = 1,
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 187, DateTimeKind.Utc).AddTicks(559),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(4450),
                             CustomerId = 3,
                             Discount = 0m,
                             ExternalReference = "REF-003",
@@ -1109,7 +1109,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                         {
                             Id = 4,
                             CompanyId = 5,
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 187, DateTimeKind.Utc).AddTicks(565),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(4456),
                             CustomerId = 4,
                             Discount = 0m,
                             ExternalReference = "REF-004",
@@ -1135,7 +1135,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                         {
                             Id = 5,
                             CompanyId = 6,
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 187, DateTimeKind.Utc).AddTicks(570),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(4523),
                             CustomerId = 5,
                             Discount = 0m,
                             ExternalReference = "REF-005",
@@ -1161,7 +1161,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                         {
                             Id = 6,
                             CompanyId = 7,
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 187, DateTimeKind.Utc).AddTicks(574),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(4530),
                             CustomerId = 6,
                             Discount = 0m,
                             ExternalReference = "REF-006",
@@ -1187,7 +1187,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                         {
                             Id = 7,
                             CompanyId = 4,
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 187, DateTimeKind.Utc).AddTicks(578),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(4538),
                             CustomerId = 7,
                             Discount = 0m,
                             ExternalReference = "REF-007",
@@ -1213,7 +1213,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                         {
                             Id = 8,
                             CompanyId = 1,
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 187, DateTimeKind.Utc).AddTicks(582),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(4544),
                             CustomerId = 8,
                             Discount = 0m,
                             ExternalReference = "REF-008",
@@ -1281,7 +1281,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                             Id = 1,
                             AttachmentContent = "/files/invoices/INV-2025-001.pdf",
                             AttachmentName = "Invoice_INV-2025-001.pdf",
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 187, DateTimeKind.Utc).AddTicks(684),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(4701),
                             InvoiceId = 1,
                             IsDeleted = false
                         },
@@ -1290,7 +1290,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                             Id = 2,
                             AttachmentContent = "/files/invoices/INV-2025-002.pdf",
                             AttachmentName = "Invoice_INV-2025-002.pdf",
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 187, DateTimeKind.Utc).AddTicks(686),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(4704),
                             InvoiceId = 2,
                             IsDeleted = false
                         },
@@ -1299,7 +1299,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                             Id = 3,
                             AttachmentContent = "/files/invoices/INV-2025-003.pdf",
                             AttachmentName = "Invoice_INV-2025-003.pdf",
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 187, DateTimeKind.Utc).AddTicks(687),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(4705),
                             InvoiceId = 3,
                             IsDeleted = false
                         },
@@ -1308,7 +1308,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                             Id = 4,
                             AttachmentContent = "/files/invoices/INV-2025-004.pdf",
                             AttachmentName = "Invoice_INV-2025-004.pdf",
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 187, DateTimeKind.Utc).AddTicks(689),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(4706),
                             InvoiceId = 4,
                             IsDeleted = false
                         },
@@ -1317,7 +1317,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                             Id = 5,
                             AttachmentContent = "/files/invoices/INV-2025-005.pdf",
                             AttachmentName = "Invoice_INV-2025-005.pdf",
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 187, DateTimeKind.Utc).AddTicks(690),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(4708),
                             InvoiceId = 5,
                             IsDeleted = false
                         },
@@ -1326,7 +1326,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                             Id = 6,
                             AttachmentContent = "/files/invoices/INV-2025-006.pdf",
                             AttachmentName = "Invoice_INV-2025-006.pdf",
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 187, DateTimeKind.Utc).AddTicks(691),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(4709),
                             InvoiceId = 6,
                             IsDeleted = false
                         },
@@ -1335,7 +1335,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                             Id = 7,
                             AttachmentContent = "/files/invoices/INV-2025-007.pdf",
                             AttachmentName = "CreditNote_INV-2025-007.pdf",
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 187, DateTimeKind.Utc).AddTicks(692),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(4710),
                             InvoiceId = 7,
                             IsDeleted = false
                         },
@@ -1344,7 +1344,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                             Id = 8,
                             AttachmentContent = "/files/invoices/INV-2025-008.pdf",
                             AttachmentName = "Invoice_INV-2025-008.pdf",
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 187, DateTimeKind.Utc).AddTicks(693),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(4711),
                             InvoiceId = 8,
                             IsDeleted = false
                         });
@@ -1402,7 +1402,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                         {
                             Id = 1,
                             Amount = 649.99m,
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 187, DateTimeKind.Utc).AddTicks(626),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(4614),
                             Description = "55-inch 4K Smart TV with HDR",
                             InvoiceId = 1,
                             IsDeleted = false,
@@ -1414,7 +1414,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                         {
                             Id = 2,
                             Amount = 129.99m,
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 187, DateTimeKind.Utc).AddTicks(631),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(4620),
                             Description = "Premium black leather handbag",
                             InvoiceId = 2,
                             IsDeleted = false,
@@ -1426,7 +1426,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                         {
                             Id = 3,
                             Amount = 799.99m,
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 187, DateTimeKind.Utc).AddTicks(633),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(4623),
                             Description = "24.1MP DSLR camera with 18-55mm lens",
                             InvoiceId = 3,
                             IsDeleted = false,
@@ -1438,7 +1438,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                         {
                             Id = 4,
                             Amount = 109.95m,
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 187, DateTimeKind.Utc).AddTicks(634),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(4625),
                             Description = "Waterproof hiking boots size US 9",
                             InvoiceId = 4,
                             IsDeleted = false,
@@ -1450,7 +1450,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                         {
                             Id = 5,
                             Amount = 75.99m,
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 187, DateTimeKind.Utc).AddTicks(636),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(4627),
                             Description = "Anti-aging skincare collection for normal skin",
                             InvoiceId = 5,
                             IsDeleted = false,
@@ -1462,7 +1462,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                         {
                             Id = 6,
                             Amount = 69.99m,
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 187, DateTimeKind.Utc).AddTicks(638),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(4629),
                             Description = "Interactive learning robot for kids",
                             InvoiceId = 6,
                             IsDeleted = false,
@@ -1474,7 +1474,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                         {
                             Id = 7,
                             Amount = -15.99m,
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 187, DateTimeKind.Utc).AddTicks(640),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(4631),
                             Description = "Credit for returned historical fiction book",
                             InvoiceId = 7,
                             IsDeleted = false,
@@ -1486,7 +1486,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                         {
                             Id = 8,
                             Amount = 149.99m,
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 187, DateTimeKind.Utc).AddTicks(642),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(4634),
                             Description = "Smart home starter kit with hub and bulbs",
                             InvoiceId = 8,
                             IsDeleted = false,
@@ -1498,7 +1498,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                         {
                             Id = 9,
                             Amount = 49.99m,
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 187, DateTimeKind.Utc).AddTicks(643),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(4636),
                             Description = "2-year extended warranty for Smart TV",
                             InvoiceId = 1,
                             IsDeleted = false,
@@ -1510,7 +1510,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                         {
                             Id = 10,
                             Amount = 29.99m,
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 187, DateTimeKind.Utc).AddTicks(645),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(4637),
                             Description = "Tripod accessory for DSLR camera",
                             InvoiceId = 3,
                             IsDeleted = false,
@@ -1571,7 +1571,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                         {
                             Id = 1,
                             CompanyId = 1,
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(9833),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(2713),
                             CurrencyId = 1,
                             IsDeleted = false,
                             Name = "Silicon City Office",
@@ -1581,7 +1581,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                         {
                             Id = 2,
                             CompanyId = 2,
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(9837),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(2721),
                             CurrencyId = 1,
                             IsDeleted = false,
                             Name = "Fashionville Store",
@@ -1591,7 +1591,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                         {
                             Id = 3,
                             CompanyId = 3,
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(9838),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(2723),
                             CurrencyId = 1,
                             IsDeleted = false,
                             Name = "Eco City Warehouse",
@@ -1601,7 +1601,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                         {
                             Id = 4,
                             CompanyId = 4,
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(9840),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(2724),
                             CurrencyId = 3,
                             IsDeleted = false,
                             Name = "London Bookstore",
@@ -1611,7 +1611,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                         {
                             Id = 5,
                             CompanyId = 5,
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(9841),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(2725),
                             CurrencyId = 5,
                             IsDeleted = false,
                             Name = "Sydney Outlet",
@@ -1621,7 +1621,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                         {
                             Id = 6,
                             CompanyId = 6,
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(9842),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(2727),
                             CurrencyId = 2,
                             IsDeleted = false,
                             Name = "Paris Boutique",
@@ -1631,7 +1631,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                         {
                             Id = 7,
                             CompanyId = 7,
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(9843),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(2728),
                             CurrencyId = 7,
                             IsDeleted = false,
                             Name = "Mumbai Store",
@@ -1641,11 +1641,239 @@ namespace ECommerceCore.Infrastructure.Migrations
                         {
                             Id = 8,
                             CompanyId = 1,
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(9845),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(2729),
                             CurrencyId = 8,
                             IsDeleted = false,
                             Name = "Zurich Tech Hub",
                             TimezoneId = 8
+                        });
+                });
+
+            modelBuilder.Entity("ECommerceCore.Domain.Entities.OrderActivityLog", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("ActivityType")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Description")
+                        .HasMaxLength(1000)
+                        .HasColumnType("nvarchar(1000)");
+
+                    b.Property<string>("Details")
+                        .HasMaxLength(4000)
+                        .HasColumnType("nvarchar(4000)");
+
+                    b.Property<int>("OrderHeaderId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("Timestamp")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("User")
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("OrderHeaderId", "Timestamp");
+
+                    b.ToTable("OrderActivityLogs", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            ActivityType = 0,
+                            Description = "Order placed by customer",
+                            Details = "{\"CustomerId\": 1}",
+                            OrderHeaderId = 1,
+                            Timestamp = new DateTime(2025, 4, 1, 10, 0, 0, 0, DateTimeKind.Unspecified),
+                            User = "john.doe"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            ActivityType = 3,
+                            Description = "Payment completed via CreditCard",
+                            Details = "{\"Amount\": 649.99}",
+                            OrderHeaderId = 1,
+                            Timestamp = new DateTime(2025, 4, 1, 10, 5, 0, 0, DateTimeKind.Unspecified),
+                            User = "john.doe"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            ActivityType = 5,
+                            Description = "Order shipped via UPS",
+                            Details = "{\"TrackingNumber\": \"TRK123456\"}",
+                            OrderHeaderId = 1,
+                            Timestamp = new DateTime(2025, 4, 3, 9, 0, 0, 0, DateTimeKind.Unspecified),
+                            User = "system"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            ActivityType = 0,
+                            Description = "Order placed by customer",
+                            Details = "{\"CustomerId\": 2}",
+                            OrderHeaderId = 2,
+                            Timestamp = new DateTime(2025, 4, 2, 11, 0, 0, 0, DateTimeKind.Unspecified),
+                            User = "jane.smith"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            ActivityType = 0,
+                            Description = "Order placed by customer",
+                            Details = "{\"CustomerId\": 2}",
+                            OrderHeaderId = 3,
+                            Timestamp = new DateTime(2025, 4, 3, 12, 0, 0, 0, DateTimeKind.Unspecified),
+                            User = "hiroshi.tanaka"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            ActivityType = 3,
+                            Description = "Payment completed via CreditCard",
+                            Details = "{\"Amount\": 799.99}",
+                            OrderHeaderId = 3,
+                            Timestamp = new DateTime(2025, 4, 3, 12, 10, 0, 0, DateTimeKind.Unspecified),
+                            User = "hiroshi.tanaka"
+                        },
+                        new
+                        {
+                            Id = 7,
+                            ActivityType = 5,
+                            Description = "Order shipped via FedEx",
+                            Details = "{\"TrackingNumber\": \"TRK789012\"}",
+                            OrderHeaderId = 3,
+                            Timestamp = new DateTime(2025, 4, 5, 8, 0, 0, 0, DateTimeKind.Unspecified),
+                            User = "system"
+                        },
+                        new
+                        {
+                            Id = 8,
+                            ActivityType = 0,
+                            Description = "Order placed by customer",
+                            Details = "{\"CustomerId\": 3}",
+                            OrderHeaderId = 4,
+                            Timestamp = new DateTime(2025, 4, 4, 14, 0, 0, 0, DateTimeKind.Unspecified),
+                            User = "emma.brown"
+                        },
+                        new
+                        {
+                            Id = 9,
+                            ActivityType = 3,
+                            Description = "Payment completed via DebitCard",
+                            Details = "{\"Amount\": 109.95}",
+                            OrderHeaderId = 4,
+                            Timestamp = new DateTime(2025, 4, 4, 14, 5, 0, 0, DateTimeKind.Unspecified),
+                            User = "emma.brown"
+                        },
+                        new
+                        {
+                            Id = 10,
+                            ActivityType = 5,
+                            Description = "Order shipped via DHL",
+                            Details = "{\"TrackingNumber\": \"TRK345678\"}",
+                            OrderHeaderId = 4,
+                            Timestamp = new DateTime(2025, 4, 6, 10, 0, 0, 0, DateTimeKind.Unspecified),
+                            User = "system"
+                        },
+                        new
+                        {
+                            Id = 11,
+                            ActivityType = 0,
+                            Description = "Order placed by customer",
+                            Details = "{\"CustomerId\": 4}",
+                            OrderHeaderId = 5,
+                            Timestamp = new DateTime(2025, 4, 5, 15, 0, 0, 0, DateTimeKind.Unspecified),
+                            User = "liam.johnson"
+                        },
+                        new
+                        {
+                            Id = 12,
+                            ActivityType = 0,
+                            Description = "Order placed by customer",
+                            Details = "{\"CustomerId\": 4}",
+                            OrderHeaderId = 6,
+                            Timestamp = new DateTime(2025, 4, 6, 16, 0, 0, 0, DateTimeKind.Unspecified),
+                            User = "sophie.martin"
+                        },
+                        new
+                        {
+                            Id = 13,
+                            ActivityType = 3,
+                            Description = "Payment completed via CreditCard",
+                            Details = "{\"Amount\": 69.99}",
+                            OrderHeaderId = 6,
+                            Timestamp = new DateTime(2025, 4, 6, 16, 5, 0, 0, DateTimeKind.Unspecified),
+                            User = "sophie.martin"
+                        },
+                        new
+                        {
+                            Id = 14,
+                            ActivityType = 5,
+                            Description = "Order shipped via UPS",
+                            Details = "{\"TrackingNumber\": \"TRK901234\"}",
+                            OrderHeaderId = 6,
+                            Timestamp = new DateTime(2025, 4, 8, 11, 0, 0, 0, DateTimeKind.Unspecified),
+                            User = "system"
+                        },
+                        new
+                        {
+                            Id = 15,
+                            ActivityType = 0,
+                            Description = "Order placed by customer",
+                            Details = "{\"CustomerId\": 4}",
+                            OrderHeaderId = 7,
+                            Timestamp = new DateTime(2025, 4, 7, 17, 0, 0, 0, DateTimeKind.Unspecified),
+                            User = "arjun.patel"
+                        },
+                        new
+                        {
+                            Id = 16,
+                            ActivityType = 3,
+                            Description = "Payment completed via DebitCard",
+                            Details = "{\"Amount\": 15.99}",
+                            OrderHeaderId = 7,
+                            Timestamp = new DateTime(2025, 4, 7, 17, 5, 0, 0, DateTimeKind.Unspecified),
+                            User = "arjun.patel"
+                        },
+                        new
+                        {
+                            Id = 17,
+                            ActivityType = 5,
+                            Description = "Order shipped via FedEx",
+                            Details = "{\"TrackingNumber\": \"TRK567890\"}",
+                            OrderHeaderId = 7,
+                            Timestamp = new DateTime(2025, 4, 9, 9, 0, 0, 0, DateTimeKind.Unspecified),
+                            User = "system"
+                        },
+                        new
+                        {
+                            Id = 18,
+                            ActivityType = 0,
+                            Description = "Order placed by customer",
+                            Details = "{\"CustomerId\": 5}",
+                            OrderHeaderId = 8,
+                            Timestamp = new DateTime(2025, 4, 8, 18, 0, 0, 0, DateTimeKind.Unspecified),
+                            User = "clara.fischer"
+                        },
+                        new
+                        {
+                            Id = 19,
+                            ActivityType = 0,
+                            Description = "Order placed by customer",
+                            Details = "{\"CustomerId\": 6}",
+                            OrderHeaderId = 9,
+                            Timestamp = new DateTime(2025, 4, 8, 19, 0, 0, 0, DateTimeKind.Unspecified),
+                            User = "clara.fischer"
                         });
                 });
 
@@ -1697,7 +1925,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                         {
                             Id = 1,
                             Count = 1,
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 187, DateTimeKind.Utc).AddTicks(402),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(4230),
                             IsDeleted = false,
                             OrderHeaderId = 1,
                             Price = 649.99000000000001,
@@ -1707,7 +1935,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                         {
                             Id = 2,
                             Count = 1,
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 187, DateTimeKind.Utc).AddTicks(405),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(4236),
                             IsDeleted = false,
                             OrderHeaderId = 2,
                             Price = 129.99000000000001,
@@ -1717,7 +1945,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                         {
                             Id = 3,
                             Count = 1,
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 187, DateTimeKind.Utc).AddTicks(407),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(4237),
                             IsDeleted = false,
                             OrderHeaderId = 3,
                             Price = 799.99000000000001,
@@ -1727,7 +1955,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                         {
                             Id = 4,
                             Count = 1,
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 187, DateTimeKind.Utc).AddTicks(408),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(4239),
                             IsDeleted = false,
                             OrderHeaderId = 4,
                             Price = 109.95,
@@ -1737,7 +1965,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                         {
                             Id = 5,
                             Count = 1,
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 187, DateTimeKind.Utc).AddTicks(409),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(4240),
                             IsDeleted = false,
                             OrderHeaderId = 5,
                             Price = 75.989999999999995,
@@ -1747,7 +1975,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                         {
                             Id = 6,
                             Count = 1,
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 187, DateTimeKind.Utc).AddTicks(411),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(4242),
                             IsDeleted = false,
                             OrderHeaderId = 6,
                             Price = 69.989999999999995,
@@ -1757,7 +1985,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                         {
                             Id = 7,
                             Count = 1,
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 187, DateTimeKind.Utc).AddTicks(412),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(4244),
                             IsDeleted = false,
                             OrderHeaderId = 7,
                             Price = 15.99,
@@ -1767,7 +1995,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                         {
                             Id = 8,
                             Count = 1,
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 187, DateTimeKind.Utc).AddTicks(413),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(4245),
                             IsDeleted = false,
                             OrderHeaderId = 8,
                             Price = 149.99000000000001,
@@ -1777,7 +2005,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                         {
                             Id = 9,
                             Count = 1,
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 187, DateTimeKind.Utc).AddTicks(414),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(4246),
                             IsDeleted = false,
                             OrderHeaderId = 9,
                             Price = 149.99000000000001,
@@ -1787,7 +2015,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                         {
                             Id = 10,
                             Count = 1,
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 187, DateTimeKind.Utc).AddTicks(415),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(4248),
                             IsDeleted = false,
                             OrderHeaderId = 9,
                             Price = 69.989999999999995,
@@ -1797,7 +2025,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                         {
                             Id = 11,
                             Count = 1,
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 187, DateTimeKind.Utc).AddTicks(416),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(4249),
                             IsDeleted = false,
                             OrderHeaderId = 3,
                             Price = 899.99000000000001,
@@ -1813,11 +2041,18 @@ namespace ECommerceCore.Infrastructure.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<decimal>("AmountDue")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("AmountPaid")
+                        .HasColumnType("decimal(18,2)");
+
                     b.Property<string>("ApplicationUserId")
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Carrier")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(max)");
@@ -1827,6 +2062,24 @@ namespace ECommerceCore.Infrastructure.Migrations
 
                     b.Property<int?>("CustomerId")
                         .HasColumnType("int");
+
+                    b.Property<string>("CustomerNotes")
+                        .HasMaxLength(1000)
+                        .HasColumnType("nvarchar(1000)");
+
+                    b.Property<string>("DeliveryMethod")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("DeliveryStatus")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<decimal>("Discount")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<DateTime?>("EstimatedDelivery")
+                        .HasColumnType("datetime2");
 
                     b.Property<bool?>("IsDeleted")
                         .HasColumnType("bit");
@@ -1841,35 +2094,63 @@ namespace ECommerceCore.Infrastructure.Migrations
                     b.Property<decimal>("OrderTotal")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<DateTime>("PaymentDate")
+                    b.Property<DateTime?>("PaymentDate")
                         .HasColumnType("datetime2");
 
                     b.Property<DateOnly>("PaymentDueDate")
                         .HasColumnType("date");
 
                     b.Property<string>("PaymentIntentId")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("PaymentMethod")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("PaymentStatus")
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("SessionId")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<decimal>("ShippingCharges")
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<string>("ShippingContactName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("ShippingContactPhone")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
 
-                    b.Property<DateTime>("ShippingDate")
+                    b.Property<DateTime?>("ShippingDate")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("ShippingMethod")
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<decimal>("Subtotal")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("Tax")
+                        .HasColumnType("decimal(18,2)");
+
                     b.Property<string>("TrackingNumber")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("TrackingUrl")
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<string>("TransactionId")
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("UpdatedBy")
                         .HasColumnType("nvarchar(max)");
@@ -1889,157 +2170,274 @@ namespace ECommerceCore.Infrastructure.Migrations
                         new
                         {
                             Id = 1,
+                            AmountDue = 0.00m,
+                            AmountPaid = 649.99m,
                             Carrier = "UPS",
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 187, DateTimeKind.Utc).AddTicks(119),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(3194),
                             CustomerId = 1,
+                            CustomerNotes = "Deliver to front porch",
+                            DeliveryMethod = "Ground",
+                            DeliveryStatus = "InTransit",
+                            Discount = 13.00m,
+                            EstimatedDelivery = new DateTime(2025, 4, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsDeleted = false,
                             OrderDate = new DateTime(2025, 4, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             OrderStatus = "Shipped",
                             OrderTotal = 649.99m,
                             PaymentDate = new DateTime(2025, 4, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             PaymentDueDate = new DateOnly(2025, 4, 30),
+                            PaymentMethod = "CreditCard",
                             PaymentStatus = "Paid",
+                            ShippingCharges = 15.00m,
                             ShippingContactName = "John Doe",
                             ShippingContactPhone = "555-0101",
                             ShippingDate = new DateTime(2025, 4, 3, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ShippingMethod = "Standard",
+                            Subtotal = 599.99m,
+                            Tax = 48.00m,
                             TrackingNumber = "TRK123456"
                         },
                         new
                         {
                             Id = 2,
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 187, DateTimeKind.Utc).AddTicks(132),
+                            AmountDue = 129.59m,
+                            AmountPaid = 0.00m,
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(3217),
                             CustomerId = 2,
+                            DeliveryMethod = "Air",
+                            DeliveryStatus = "Pending",
+                            Discount = 0.00m,
+                            EstimatedDelivery = new DateTime(2025, 4, 7, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsDeleted = false,
                             OrderDate = new DateTime(2025, 4, 2, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             OrderStatus = "Processing",
-                            OrderTotal = 129.99m,
-                            PaymentDate = new DateTime(2025, 4, 2, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            OrderTotal = 129.59m,
                             PaymentDueDate = new DateOnly(2025, 5, 2),
+                            PaymentMethod = "PayPal",
                             PaymentStatus = "Pending",
+                            ShippingCharges = 0.00m,
                             ShippingContactName = "Jane Smith",
                             ShippingContactPhone = "555-0102",
-                            ShippingDate = new DateTime(2025, 4, 4, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                            ShippingMethod = "Express",
+                            Subtotal = 119.99m,
+                            Tax = 9.60m
                         },
                         new
                         {
                             Id = 3,
+                            AmountDue = 0.00m,
+                            AmountPaid = 799.99m,
                             Carrier = "FedEx",
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 187, DateTimeKind.Utc).AddTicks(136),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(3227),
                             CustomerId = 2,
+                            CustomerNotes = "Leave at reception",
+                            DeliveryMethod = "Ground",
+                            DeliveryStatus = "Delivered",
+                            Discount = 14.88m,
+                            EstimatedDelivery = new DateTime(2025, 4, 7, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsDeleted = false,
                             OrderDate = new DateTime(2025, 4, 3, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             OrderStatus = "Delivered",
                             OrderTotal = 799.99m,
                             PaymentDate = new DateTime(2025, 4, 3, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             PaymentDueDate = new DateOnly(2025, 5, 3),
+                            PaymentMethod = "CreditCard",
                             PaymentStatus = "Paid",
+                            ShippingCharges = 20.00m,
                             ShippingContactName = "Hiroshi Tanaka",
                             ShippingContactPhone = "555-0103",
                             ShippingDate = new DateTime(2025, 4, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ShippingMethod = "Standard",
+                            Subtotal = 735.99m,
+                            Tax = 58.88m,
                             TrackingNumber = "TRK789012"
                         },
                         new
                         {
                             Id = 4,
+                            AmountDue = 0.00m,
+                            AmountPaid = 108.00m,
                             Carrier = "DHL",
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 187, DateTimeKind.Utc).AddTicks(139),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(3244),
                             CustomerId = 3,
+                            DeliveryMethod = "Air",
+                            DeliveryStatus = "InTransit",
+                            Discount = 0.00m,
+                            EstimatedDelivery = new DateTime(2025, 4, 8, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsDeleted = false,
                             OrderDate = new DateTime(2025, 4, 4, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             OrderStatus = "Shipped",
-                            OrderTotal = 109.95m,
+                            OrderTotal = 108.00m,
                             PaymentDate = new DateTime(2025, 4, 4, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             PaymentDueDate = new DateOnly(2025, 5, 4),
+                            PaymentMethod = "DebitCard",
                             PaymentStatus = "Paid",
+                            ShippingCharges = 0.00m,
                             ShippingContactName = "Emma Brown",
                             ShippingContactPhone = "555-0104",
                             ShippingDate = new DateTime(2025, 4, 6, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ShippingMethod = "Express",
+                            Subtotal = 100.00m,
+                            Tax = 8.00m,
                             TrackingNumber = "TRK345678"
                         },
                         new
                         {
                             Id = 5,
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 187, DateTimeKind.Utc).AddTicks(142),
+                            AmountDue = 75.60m,
+                            AmountPaid = 0.00m,
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(3252),
                             CustomerId = 4,
+                            CustomerNotes = "Fragile items",
+                            DeliveryMethod = "Ground",
+                            DeliveryStatus = "Pending",
+                            Discount = 0.00m,
+                            EstimatedDelivery = new DateTime(2025, 4, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsDeleted = false,
                             OrderDate = new DateTime(2025, 4, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             OrderStatus = "Processing",
-                            OrderTotal = 75.99m,
-                            PaymentDate = new DateTime(2025, 4, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            OrderTotal = 75.60m,
                             PaymentDueDate = new DateOnly(2025, 5, 5),
+                            PaymentMethod = "PayPal",
                             PaymentStatus = "Pending",
+                            ShippingCharges = 0.00m,
                             ShippingContactName = "Liam Johnson",
                             ShippingContactPhone = "555-0105",
-                            ShippingDate = new DateTime(2025, 4, 7, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                            ShippingMethod = "Standard",
+                            Subtotal = 70.00m,
+                            Tax = 5.60m
                         },
                         new
                         {
                             Id = 6,
+                            AmountDue = 0.00m,
+                            AmountPaid = 70.19m,
                             Carrier = "UPS",
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 187, DateTimeKind.Utc).AddTicks(145),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(3270),
                             CustomerId = 4,
+                            DeliveryMethod = "Ground",
+                            DeliveryStatus = "InTransit",
+                            Discount = 0.00m,
+                            EstimatedDelivery = new DateTime(2025, 4, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsDeleted = false,
                             OrderDate = new DateTime(2025, 4, 6, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             OrderStatus = "Shipped",
-                            OrderTotal = 69.99m,
+                            OrderTotal = 70.19m,
                             PaymentDate = new DateTime(2025, 4, 6, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             PaymentDueDate = new DateOnly(2025, 5, 6),
+                            PaymentMethod = "CreditCard",
                             PaymentStatus = "Paid",
+                            ShippingCharges = 0.00m,
                             ShippingContactName = "Sophie Martin",
                             ShippingContactPhone = "555-0106",
                             ShippingDate = new DateTime(2025, 4, 8, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ShippingMethod = "Standard",
+                            Subtotal = 64.99m,
+                            Tax = 5.20m,
                             TrackingNumber = "TRK901234"
                         },
                         new
                         {
                             Id = 7,
+                            AmountDue = 0.00m,
+                            AmountPaid = 16.19m,
                             Carrier = "FedEx",
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 187, DateTimeKind.Utc).AddTicks(147),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(3278),
                             CustomerId = 4,
+                            CustomerNotes = "Urgent delivery",
+                            DeliveryMethod = "Air",
+                            DeliveryStatus = "Delivered",
+                            Discount = 0.00m,
+                            EstimatedDelivery = new DateTime(2025, 4, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsDeleted = false,
                             OrderDate = new DateTime(2025, 4, 7, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             OrderStatus = "Delivered",
-                            OrderTotal = 15.99m,
+                            OrderTotal = 16.19m,
                             PaymentDate = new DateTime(2025, 4, 7, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             PaymentDueDate = new DateOnly(2025, 5, 7),
+                            PaymentMethod = "DebitCard",
                             PaymentStatus = "Paid",
+                            ShippingCharges = 0.00m,
                             ShippingContactName = "Arjun Patel",
                             ShippingContactPhone = "555-0107",
                             ShippingDate = new DateTime(2025, 4, 9, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ShippingMethod = "Express",
+                            Subtotal = 14.99m,
+                            Tax = 1.20m,
                             TrackingNumber = "TRK567890"
                         },
                         new
                         {
                             Id = 8,
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 187, DateTimeKind.Utc).AddTicks(151),
+                            AmountDue = 151.19m,
+                            AmountPaid = 0.00m,
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(3286),
                             CustomerId = 5,
+                            DeliveryMethod = "Ground",
+                            DeliveryStatus = "Pending",
+                            Discount = 0.00m,
+                            EstimatedDelivery = new DateTime(2025, 4, 13, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsDeleted = false,
                             OrderDate = new DateTime(2025, 4, 8, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             OrderStatus = "Processing",
-                            OrderTotal = 149.99m,
-                            PaymentDate = new DateTime(2025, 4, 8, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            OrderTotal = 151.19m,
                             PaymentDueDate = new DateOnly(2025, 5, 8),
+                            PaymentMethod = "CreditCard",
                             PaymentStatus = "Pending",
+                            ShippingCharges = 0.00m,
                             ShippingContactName = "Clara Fischer",
                             ShippingContactPhone = "555-0108",
-                            ShippingDate = new DateTime(2025, 4, 10, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                            ShippingMethod = "Standard",
+                            Subtotal = 139.99m,
+                            Tax = 11.20m
                         },
                         new
                         {
                             Id = 9,
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 187, DateTimeKind.Utc).AddTicks(154),
+                            AmountDue = 151.19m,
+                            AmountPaid = 0.00m,
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(3293),
                             CustomerId = 6,
+                            CustomerNotes = "Gift wrap required",
+                            DeliveryMethod = "Ground",
+                            DeliveryStatus = "Pending",
+                            Discount = 0.00m,
+                            EstimatedDelivery = new DateTime(2025, 4, 13, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsDeleted = false,
                             OrderDate = new DateTime(2025, 4, 8, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             OrderStatus = "Processing",
-                            OrderTotal = 149.99m,
-                            PaymentDate = new DateTime(2025, 4, 8, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            OrderTotal = 151.19m,
                             PaymentDueDate = new DateOnly(2025, 5, 8),
+                            PaymentMethod = "PayPal",
                             PaymentStatus = "Pending",
+                            ShippingCharges = 0.00m,
                             ShippingContactName = "Clara Fischer",
-                            ShippingContactPhone = "525-0108",
-                            ShippingDate = new DateTime(2025, 4, 10, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                            ShippingContactPhone = "555-0109",
+                            ShippingMethod = "Standard",
+                            Subtotal = 139.99m,
+                            Tax = 11.20m
                         });
+                });
+
+            modelBuilder.Entity("ECommerceCore.Domain.Entities.Permission", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Action")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("EntityName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Permissions");
                 });
 
             modelBuilder.Entity("ECommerceCore.Domain.Entities.Product", b =>
@@ -2147,6 +2545,10 @@ namespace ECommerceCore.Infrastructure.Migrations
                     b.Property<DateTime?>("UpdatedDate")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("VendorId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("Views")
                         .HasColumnType("int");
 
@@ -2173,7 +2575,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                             Barcode = "789012345678",
                             BrandId = 1,
                             CategoryId = 10,
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8554),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(890),
                             Description = "Immerse yourself in stunning visuals with this 55-inch 4K Ultra HD Smart TV. Featuring High Dynamic Range (HDR) for vibrant colors and deep contrast, built-in Wi-Fi, and access to all your favorite streaming apps. Enjoy a cinematic experience in the comfort of your living room.",
                             DiscountEndDate = new DateTime(2025, 5, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DiscountPrice = 649.99000000000001,
@@ -2195,6 +2597,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                             StockQuantity = 50,
                             Title = "Smart TV 55 inch 4K UHD with HDR",
                             TotalReviews = 85,
+                            VendorId = "1",
                             Views = 2500,
                             WeightInKg = 15.5,
                             WidthInCm = 123.5
@@ -2207,7 +2610,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                             Barcode = "456789012345",
                             BrandId = 2,
                             CategoryId = 11,
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8571),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(909),
                             Description = "Experience ultimate comfort with our premium 100% combed cotton men's t-shirt. Designed for a classic fit and exceptional softness, this navy blue tee is a versatile wardrobe staple perfect for everyday wear. Available in various sizes.",
                             DiscountEndDate = new DateTime(2025, 4, 30, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DiscountPrice = 16.989999999999998,
@@ -2229,6 +2632,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                             StockQuantity = 100,
                             Title = "Premium Cotton T-Shirt - Mens (Navy Blue)",
                             TotalReviews = 120,
+                            VendorId = "2",
                             Views = 1800,
                             WeightInKg = 0.20000000000000001,
                             WidthInCm = 50.0
@@ -2241,7 +2645,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                             Barcode = "123456789012",
                             BrandId = 3,
                             CategoryId = 14,
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8577),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(917),
                             Description = "Get your gardening tasks done with ease using our durable 3-piece garden tool set. Includes a sturdy trowel, hand fork, and cultivator, all featuring comfortable wooden handles for a secure grip. Perfect for both novice and experienced gardeners.",
                             DiscountPrice = 40.0,
                             HeightInCm = 30.0,
@@ -2261,6 +2665,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                             StockQuantity = 30,
                             Title = "Essential Garden Tool Set (3-Piece with Wooden Handles)",
                             TotalReviews = 28,
+                            VendorId = "3",
                             Views = 950,
                             WeightInKg = 0.90000000000000002,
                             WidthInCm = 12.0
@@ -2273,7 +2678,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                             Barcode = "567890123456",
                             BrandId = 1,
                             CategoryId = 9,
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8580),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(922),
                             Description = "Experience lightning-fast performance with our ultra-slim 15.6-inch laptop. Featuring a powerful processor, 512GB SSD storage, and 16GB RAM for seamless multitasking. The vibrant Full HD display and long-lasting battery make it perfect for work and entertainment on the go.",
                             DiscountEndDate = new DateTime(2025, 5, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DiscountPrice = 899.99000000000001,
@@ -2295,6 +2700,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                             StockQuantity = 35,
                             Title = "Ultra-Slim Laptop 15.6\" with SSD",
                             TotalReviews = 62,
+                            VendorId = "1",
                             Views = 3200,
                             WeightInKg = 1.8,
                             WidthInCm = 35.600000000000001
@@ -2307,7 +2713,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                             Barcode = "345678901234",
                             BrandId = 2,
                             CategoryId = 12,
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8585),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(927),
                             Description = "Add a touch of elegance to any outfit with our designer leather handbag. Crafted from premium genuine leather with a stylish gold-tone hardware and multiple interior compartments for organization. The adjustable shoulder strap and handle offer versatile carrying options.",
                             DiscountEndDate = new DateTime(2025, 5, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DiscountPrice = 129.99000000000001,
@@ -2329,6 +2735,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                             StockQuantity = 25,
                             Title = "Designer Leather Handbag - Women's (Black)",
                             TotalReviews = 45,
+                            VendorId = "2",
                             Views = 1950,
                             WeightInKg = 0.80000000000000004,
                             WidthInCm = 35.0
@@ -2341,7 +2748,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                             Barcode = "234567890123",
                             BrandId = 1,
                             CategoryId = 1,
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8589),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(934),
                             Description = "Capture life's special moments with exceptional clarity using our premium DSLR camera. Features a 24.1 megapixel CMOS sensor, 4K video recording, and includes a versatile 18-55mm lens. Perfect for both photography enthusiasts and those looking to elevate their photography skills.",
                             DiscountEndDate = new DateTime(2025, 4, 30, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DiscountPrice = 799.99000000000001,
@@ -2363,6 +2770,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                             StockQuantity = 20,
                             Title = "Premium Digital SLR Camera with 18-55mm Lens",
                             TotalReviews = 36,
+                            VendorId = "1",
                             Views = 1680,
                             WeightInKg = 0.69999999999999996,
                             WidthInCm = 12.9
@@ -2375,7 +2783,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                             Barcode = "890123456789",
                             BrandId = 3,
                             CategoryId = 3,
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8593),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(941),
                             Description = "Indulge in the refreshing taste of premium organic green tea with our curated gift set. Includes 6 distinct varieties of hand-picked green tea leaves packaged in elegant tins. Perfect for tea enthusiasts or as a thoughtful gift for special occasions.",
                             DiscountPrice = 45.0,
                             HeightInCm = 8.0,
@@ -2395,6 +2803,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                             StockQuantity = 40,
                             Title = "Organic Green Tea Gift Set (Variety Pack)",
                             TotalReviews = 22,
+                            VendorId = "3",
                             Views = 890,
                             WeightInKg = 0.5,
                             WidthInCm = 25.0
@@ -2407,7 +2816,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                             Barcode = "901234567890",
                             BrandId = 4,
                             CategoryId = 15,
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8597),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(946),
                             Description = "Journey back in time with this captivating historical fiction novel that uncovers the story of a lost dynasty. Set in the 16th century, the narrative weaves together adventure, romance, and political intrigue as a young scholar uncovers ancient secrets that could change the course of history.",
                             DiscountEndDate = new DateTime(2025, 4, 30, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DiscountPrice = 15.99,
@@ -2429,6 +2838,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                             StockQuantity = 60,
                             Title = "Historical Fiction: 'The Forgotten Dynasty'",
                             TotalReviews = 48,
+                            VendorId = "4",
                             Views = 1250,
                             WeightInKg = 0.40000000000000002,
                             WidthInCm = 15.199999999999999
@@ -2441,7 +2851,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                             Barcode = "012345678901",
                             BrandId = 5,
                             CategoryId = 17,
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8602),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(951),
                             Description = "Conquer any trail with confidence in our all-weather hiking boots. Featuring waterproof construction, superior grip rubber soles, and cushioned insoles for all-day comfort. The breathable membrane keeps feet dry while allowing moisture to escape, making these perfect for year-round outdoor adventures.",
                             DiscountEndDate = new DateTime(2025, 5, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DiscountPrice = 109.95,
@@ -2463,6 +2873,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                             StockQuantity = 45,
                             Title = "All-Weather Hiking Boots (Unisex)",
                             TotalReviews = 63,
+                            VendorId = "5",
                             Views = 2100,
                             WeightInKg = 1.2,
                             WidthInCm = 30.0
@@ -2475,7 +2886,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                             Barcode = "678901234567",
                             BrandId = 6,
                             CategoryId = 6,
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8606),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(956),
                             Description = "Turn back the clock with our comprehensive anti-aging skincare collection. This five-piece set includes cleanser, toner, day cream with SPF 30, night serum, and eye cream, all formulated with powerful peptides, antioxidants, and hyaluronic acid to reduce fine lines and restore youthful radiance.",
                             DiscountEndDate = new DateTime(2025, 5, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DiscountPrice = 75.989999999999995,
@@ -2497,6 +2908,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                             StockQuantity = 30,
                             Title = "Anti-Aging Skincare Collection Set",
                             TotalReviews = 82,
+                            VendorId = "6",
                             Views = 2800,
                             WeightInKg = 0.59999999999999998,
                             WidthInCm = 20.0
@@ -2509,7 +2921,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                             Barcode = "789012345670",
                             BrandId = 7,
                             CategoryId = 7,
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8610),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(962),
                             Description = "Spark your child's interest in STEM with our interactive learning robot. Programmable through an easy-to-use app, this friendly robot teaches coding concepts, plays educational games, and responds to voice commands. With multiple sensors and expandable capabilities, it grows with your child's skills.",
                             DiscountEndDate = new DateTime(2025, 5, 31, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DiscountPrice = 69.989999999999995,
@@ -2531,6 +2943,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                             StockQuantity = 25,
                             Title = "Interactive Learning Robot for Kids",
                             TotalReviews = 98,
+                            VendorId = "7",
                             Views = 3500,
                             WeightInKg = 0.5,
                             WidthInCm = 15.0
@@ -2543,7 +2956,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                             Barcode = "123456789013",
                             BrandId = 1,
                             CategoryId = 8,
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8614),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(968),
                             Description = "Take your mobile videography to the next level with our 3-axis smartphone stabilizer gimbal. Featuring intelligent tracking, multiple shooting modes, and foldable design for easy portability. The rechargeable battery provides up to 12 hours of operation, perfect for content creators and travelers.",
                             DiscountEndDate = new DateTime(2025, 5, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DiscountPrice = 69.989999999999995,
@@ -2565,6 +2978,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                             StockQuantity = 40,
                             Title = "Smartphone Stabilizer Gimbal",
                             TotalReviews = 42,
+                            VendorId = "1",
                             Views = 1680,
                             WeightInKg = 0.40000000000000002,
                             WidthInCm = 12.0
@@ -2577,7 +2991,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                             Barcode = "234567890124",
                             BrandId = 1,
                             CategoryId = 1,
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8618),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(974),
                             Description = "Transform your house into a smart home with our comprehensive starter kit. Includes a smart hub, two smart plugs, two motion sensors, and three smart light bulbs that can all be controlled via app or voice commands. Compatible with major voice assistants for seamless integration with your existing devices.",
                             DiscountEndDate = new DateTime(2025, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             DiscountPrice = 149.99000000000001,
@@ -2599,6 +3013,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                             StockQuantity = 20,
                             Title = "Smart Home Starter Kit",
                             TotalReviews = 38,
+                            VendorId = "1",
                             Views = 2900,
                             WeightInKg = 1.2,
                             WidthInCm = 30.0
@@ -2645,7 +3060,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8663),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(1049),
                             ImageUrl = "/images/products/smarttv_main.jpg",
                             IsDeleted = false,
                             ProductId = 1
@@ -2653,7 +3068,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                         new
                         {
                             Id = 2,
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8666),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(1052),
                             ImageUrl = "/images/products/smarttv_side.jpg",
                             IsDeleted = false,
                             ProductId = 1
@@ -2661,7 +3076,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                         new
                         {
                             Id = 3,
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8667),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(1053),
                             ImageUrl = "/images/products/smarttv_ports.jpg",
                             IsDeleted = false,
                             ProductId = 1
@@ -2669,7 +3084,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                         new
                         {
                             Id = 4,
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8668),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(1170),
                             ImageUrl = "/images/products/tshirt_navy_front.jpg",
                             IsDeleted = false,
                             ProductId = 2
@@ -2677,7 +3092,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                         new
                         {
                             Id = 5,
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8731),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(1171),
                             ImageUrl = "/images/products/tshirt_navy_back.jpg",
                             IsDeleted = false,
                             ProductId = 2
@@ -2685,7 +3100,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                         new
                         {
                             Id = 6,
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8733),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(1172),
                             ImageUrl = "/images/products/garden_tool_set.jpg",
                             IsDeleted = false,
                             ProductId = 3
@@ -2693,7 +3108,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                         new
                         {
                             Id = 7,
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8734),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(1173),
                             ImageUrl = "/images/products/gardentool_trowel.jpg",
                             IsDeleted = false,
                             ProductId = 3
@@ -2701,7 +3116,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                         new
                         {
                             Id = 8,
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8735),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(1174),
                             ImageUrl = "/images/products/gardentool_fork.jpg",
                             IsDeleted = false,
                             ProductId = 3
@@ -2709,7 +3124,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                         new
                         {
                             Id = 9,
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8736),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(1175),
                             ImageUrl = "/images/products/laptop_main.jpg",
                             IsDeleted = false,
                             ProductId = 4
@@ -2717,7 +3132,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                         new
                         {
                             Id = 10,
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8736),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(1176),
                             ImageUrl = "/images/products/laptop_open.jpg",
                             IsDeleted = false,
                             ProductId = 4
@@ -2725,7 +3140,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                         new
                         {
                             Id = 11,
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8738),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(1177),
                             ImageUrl = "/images/products/laptop_side.jpg",
                             IsDeleted = false,
                             ProductId = 4
@@ -2733,7 +3148,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                         new
                         {
                             Id = 12,
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8739),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(1179),
                             ImageUrl = "/images/products/handbag_black_main.jpg",
                             IsDeleted = false,
                             ProductId = 5
@@ -2741,7 +3156,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                         new
                         {
                             Id = 13,
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8740),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(1181),
                             ImageUrl = "/images/products/handbag_black_open.jpg",
                             IsDeleted = false,
                             ProductId = 5
@@ -2749,7 +3164,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                         new
                         {
                             Id = 14,
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8741),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(1182),
                             ImageUrl = "/images/products/camera_main.jpg",
                             IsDeleted = false,
                             ProductId = 6
@@ -2757,7 +3172,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                         new
                         {
                             Id = 15,
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8742),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(1183),
                             ImageUrl = "/images/products/camera_top.jpg",
                             IsDeleted = false,
                             ProductId = 6
@@ -2765,7 +3180,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                         new
                         {
                             Id = 16,
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8743),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(1184),
                             ImageUrl = "/images/products/camera_lens.jpg",
                             IsDeleted = false,
                             ProductId = 6
@@ -2773,7 +3188,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                         new
                         {
                             Id = 17,
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8743),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(1185),
                             ImageUrl = "/images/products/tea_set_complete.jpg",
                             IsDeleted = false,
                             ProductId = 7
@@ -2781,7 +3196,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                         new
                         {
                             Id = 18,
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8744),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(1186),
                             ImageUrl = "/images/products/tea_tin_open.jpg",
                             IsDeleted = false,
                             ProductId = 7
@@ -2789,7 +3204,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                         new
                         {
                             Id = 19,
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8745),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(1187),
                             ImageUrl = "/images/products/book_cover.jpg",
                             IsDeleted = false,
                             ProductId = 8
@@ -2797,7 +3212,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                         new
                         {
                             Id = 20,
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8746),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(1188),
                             ImageUrl = "/images/products/book_back.jpg",
                             IsDeleted = false,
                             ProductId = 8
@@ -2805,7 +3220,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                         new
                         {
                             Id = 21,
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8747),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(1189),
                             ImageUrl = "/images/products/hikingboots_pair.jpg",
                             IsDeleted = false,
                             ProductId = 9
@@ -2813,7 +3228,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                         new
                         {
                             Id = 22,
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8748),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(1190),
                             ImageUrl = "/images/products/hikingboots_sole.jpg",
                             IsDeleted = false,
                             ProductId = 9
@@ -2821,7 +3236,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                         new
                         {
                             Id = 23,
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8750),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(1191),
                             ImageUrl = "/images/products/hikingboots_side.jpg",
                             IsDeleted = false,
                             ProductId = 9
@@ -2829,7 +3244,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                         new
                         {
                             Id = 24,
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8751),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(1192),
                             ImageUrl = "/images/products/skincare_set.jpg",
                             IsDeleted = false,
                             ProductId = 10
@@ -2837,7 +3252,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                         new
                         {
                             Id = 25,
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8752),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(1193),
                             ImageUrl = "/images/products/skincare_serum.jpg",
                             IsDeleted = false,
                             ProductId = 10
@@ -2845,7 +3260,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                         new
                         {
                             Id = 26,
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8753),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(1194),
                             ImageUrl = "/images/products/skincare_cream.jpg",
                             IsDeleted = false,
                             ProductId = 10
@@ -2853,7 +3268,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                         new
                         {
                             Id = 27,
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8754),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(1195),
                             ImageUrl = "/images/products/robot_front.jpg",
                             IsDeleted = false,
                             ProductId = 11
@@ -2861,7 +3276,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                         new
                         {
                             Id = 28,
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8755),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(1196),
                             ImageUrl = "/images/products/robot_side.jpg",
                             IsDeleted = false,
                             ProductId = 11
@@ -2869,7 +3284,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                         new
                         {
                             Id = 29,
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8755),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(1198),
                             ImageUrl = "/images/products/gimbal_main.jpg",
                             IsDeleted = false,
                             ProductId = 12
@@ -2877,7 +3292,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                         new
                         {
                             Id = 30,
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8756),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(1199),
                             ImageUrl = "/images/products/gimbal_folded.jpg",
                             IsDeleted = false,
                             ProductId = 12
@@ -2885,7 +3300,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                         new
                         {
                             Id = 31,
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8757),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(1200),
                             ImageUrl = "/images/products/smarthome_kit.jpg",
                             IsDeleted = false,
                             ProductId = 13
@@ -2893,7 +3308,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                         new
                         {
                             Id = 32,
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8758),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(1201),
                             ImageUrl = "/images/products/smarthome_hub.jpg",
                             IsDeleted = false,
                             ProductId = 13
@@ -2901,7 +3316,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                         new
                         {
                             Id = 33,
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8759),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(1202),
                             ImageUrl = "/images/products/smarthome_bulb.jpg",
                             IsDeleted = false,
                             ProductId = 13
@@ -2952,7 +3367,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8822),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(1293),
                             IsDeleted = false,
                             Key = "Screen Size",
                             ProductId = 1,
@@ -2961,7 +3376,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                         new
                         {
                             Id = 2,
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8824),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(1295),
                             IsDeleted = false,
                             Key = "Resolution",
                             ProductId = 1,
@@ -2970,7 +3385,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                         new
                         {
                             Id = 3,
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8825),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(1297),
                             IsDeleted = false,
                             Key = "Display Technology",
                             ProductId = 1,
@@ -2979,7 +3394,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                         new
                         {
                             Id = 4,
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8826),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(1298),
                             IsDeleted = false,
                             Key = "HDR",
                             ProductId = 1,
@@ -2988,7 +3403,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                         new
                         {
                             Id = 5,
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8828),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(1299),
                             IsDeleted = false,
                             Key = "Smart TV",
                             ProductId = 1,
@@ -2997,7 +3412,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                         new
                         {
                             Id = 6,
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8829),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(1302),
                             IsDeleted = false,
                             Key = "Connectivity",
                             ProductId = 1,
@@ -3006,7 +3421,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                         new
                         {
                             Id = 7,
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8830),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(1303),
                             IsDeleted = false,
                             Key = "Material",
                             ProductId = 2,
@@ -3015,7 +3430,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                         new
                         {
                             Id = 8,
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8831),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(1304),
                             IsDeleted = false,
                             Key = "Color",
                             ProductId = 2,
@@ -3024,7 +3439,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                         new
                         {
                             Id = 9,
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8832),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(1305),
                             IsDeleted = false,
                             Key = "Care Instructions",
                             ProductId = 2,
@@ -3033,7 +3448,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                         new
                         {
                             Id = 10,
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8833),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(1306),
                             IsDeleted = false,
                             Key = "Material",
                             ProductId = 3,
@@ -3042,7 +3457,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                         new
                         {
                             Id = 11,
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8834),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(1307),
                             IsDeleted = false,
                             Key = "Pieces",
                             ProductId = 3,
@@ -3051,7 +3466,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                         new
                         {
                             Id = 12,
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8835),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(1309),
                             IsDeleted = false,
                             Key = "Tool Length",
                             ProductId = 3,
@@ -3060,7 +3475,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                         new
                         {
                             Id = 13,
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8836),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(1310),
                             IsDeleted = false,
                             Key = "Processor",
                             ProductId = 4,
@@ -3069,7 +3484,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                         new
                         {
                             Id = 14,
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8837),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(1311),
                             IsDeleted = false,
                             Key = "RAM",
                             ProductId = 4,
@@ -3078,7 +3493,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                         new
                         {
                             Id = 15,
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8838),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(1312),
                             IsDeleted = false,
                             Key = "Storage",
                             ProductId = 4,
@@ -3087,7 +3502,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                         new
                         {
                             Id = 16,
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8840),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(1313),
                             IsDeleted = false,
                             Key = "Display",
                             ProductId = 4,
@@ -3096,7 +3511,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                         new
                         {
                             Id = 17,
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8841),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(1315),
                             IsDeleted = false,
                             Key = "Battery Life",
                             ProductId = 4,
@@ -3105,7 +3520,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                         new
                         {
                             Id = 18,
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8842),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(1316),
                             IsDeleted = false,
                             Key = "Operating System",
                             ProductId = 4,
@@ -3114,7 +3529,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                         new
                         {
                             Id = 19,
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8843),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(1317),
                             IsDeleted = false,
                             Key = "Material",
                             ProductId = 5,
@@ -3123,7 +3538,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                         new
                         {
                             Id = 20,
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8844),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(1318),
                             IsDeleted = false,
                             Key = "Color",
                             ProductId = 5,
@@ -3132,7 +3547,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                         new
                         {
                             Id = 21,
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8845),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(1319),
                             IsDeleted = false,
                             Key = "Dimensions",
                             ProductId = 5,
@@ -3141,7 +3556,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                         new
                         {
                             Id = 22,
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8846),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(1321),
                             IsDeleted = false,
                             Key = "Hardware",
                             ProductId = 5,
@@ -3150,7 +3565,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                         new
                         {
                             Id = 23,
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8847),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(1322),
                             IsDeleted = false,
                             Key = "Megapixels",
                             ProductId = 6,
@@ -3159,7 +3574,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                         new
                         {
                             Id = 24,
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8848),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(1323),
                             IsDeleted = false,
                             Key = "Sensor Type",
                             ProductId = 6,
@@ -3168,7 +3583,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                         new
                         {
                             Id = 25,
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8849),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(1324),
                             IsDeleted = false,
                             Key = "Video Resolution",
                             ProductId = 6,
@@ -3177,7 +3592,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                         new
                         {
                             Id = 26,
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8850),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(1326),
                             IsDeleted = false,
                             Key = "Lens",
                             ProductId = 6,
@@ -3186,7 +3601,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                         new
                         {
                             Id = 27,
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8851),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(1327),
                             IsDeleted = false,
                             Key = "ISO Range",
                             ProductId = 6,
@@ -3195,7 +3610,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                         new
                         {
                             Id = 28,
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8852),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(1328),
                             IsDeleted = false,
                             Key = "Varieties",
                             ProductId = 7,
@@ -3204,7 +3619,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                         new
                         {
                             Id = 29,
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8853),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(1329),
                             IsDeleted = false,
                             Key = "Organic",
                             ProductId = 7,
@@ -3213,7 +3628,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                         new
                         {
                             Id = 30,
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8854),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(1406),
                             IsDeleted = false,
                             Key = "Weight",
                             ProductId = 7,
@@ -3222,7 +3637,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                         new
                         {
                             Id = 31,
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8892),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(1408),
                             IsDeleted = false,
                             Key = "Packaging",
                             ProductId = 7,
@@ -3231,7 +3646,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                         new
                         {
                             Id = 32,
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8893),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(1410),
                             IsDeleted = false,
                             Key = "Format",
                             ProductId = 8,
@@ -3240,7 +3655,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                         new
                         {
                             Id = 33,
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8894),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(1411),
                             IsDeleted = false,
                             Key = "Pages",
                             ProductId = 8,
@@ -3249,7 +3664,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                         new
                         {
                             Id = 34,
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8895),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(1412),
                             IsDeleted = false,
                             Key = "Genre",
                             ProductId = 8,
@@ -3258,7 +3673,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                         new
                         {
                             Id = 35,
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8897),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(1413),
                             IsDeleted = false,
                             Key = "Language",
                             ProductId = 8,
@@ -3267,7 +3682,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                         new
                         {
                             Id = 36,
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8898),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(1414),
                             IsDeleted = false,
                             Key = "Material",
                             ProductId = 9,
@@ -3276,7 +3691,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                         new
                         {
                             Id = 37,
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8899),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(1415),
                             IsDeleted = false,
                             Key = "Sole",
                             ProductId = 9,
@@ -3285,7 +3700,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                         new
                         {
                             Id = 38,
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8900),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(1416),
                             IsDeleted = false,
                             Key = "Closure",
                             ProductId = 9,
@@ -3294,7 +3709,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                         new
                         {
                             Id = 39,
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8901),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(1418),
                             IsDeleted = false,
                             Key = "Gender",
                             ProductId = 9,
@@ -3303,7 +3718,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                         new
                         {
                             Id = 40,
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8903),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(1419),
                             IsDeleted = false,
                             Key = "Pieces",
                             ProductId = 10,
@@ -3312,7 +3727,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                         new
                         {
                             Id = 41,
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8904),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(1420),
                             IsDeleted = false,
                             Key = "Skin Type",
                             ProductId = 10,
@@ -3321,7 +3736,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                         new
                         {
                             Id = 42,
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8905),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(1421),
                             IsDeleted = false,
                             Key = "Key Ingredients",
                             ProductId = 10,
@@ -3330,7 +3745,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                         new
                         {
                             Id = 43,
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8906),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(1422),
                             IsDeleted = false,
                             Key = "SPF",
                             ProductId = 10,
@@ -3339,7 +3754,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                         new
                         {
                             Id = 44,
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8907),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(1424),
                             IsDeleted = false,
                             Key = "Age Range",
                             ProductId = 11,
@@ -3348,7 +3763,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                         new
                         {
                             Id = 45,
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8908),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(1425),
                             IsDeleted = false,
                             Key = "Programmable",
                             ProductId = 11,
@@ -3357,7 +3772,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                         new
                         {
                             Id = 46,
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8909),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(1426),
                             IsDeleted = false,
                             Key = "Battery Life",
                             ProductId = 11,
@@ -3366,7 +3781,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                         new
                         {
                             Id = 47,
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8910),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(1427),
                             IsDeleted = false,
                             Key = "Connectivity",
                             ProductId = 11,
@@ -3375,7 +3790,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                         new
                         {
                             Id = 48,
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8911),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(1429),
                             IsDeleted = false,
                             Key = "App Compatibility",
                             ProductId = 11,
@@ -3384,7 +3799,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                         new
                         {
                             Id = 49,
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8913),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(1430),
                             IsDeleted = false,
                             Key = "Axes",
                             ProductId = 12,
@@ -3393,7 +3808,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                         new
                         {
                             Id = 50,
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8914),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(1431),
                             IsDeleted = false,
                             Key = "Battery Life",
                             ProductId = 12,
@@ -3402,7 +3817,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                         new
                         {
                             Id = 51,
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8915),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(1432),
                             IsDeleted = false,
                             Key = "Compatibility",
                             ProductId = 12,
@@ -3411,7 +3826,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                         new
                         {
                             Id = 52,
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8916),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(1433),
                             IsDeleted = false,
                             Key = "Weight",
                             ProductId = 12,
@@ -3420,7 +3835,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                         new
                         {
                             Id = 53,
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8917),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(1434),
                             IsDeleted = false,
                             Key = "Components",
                             ProductId = 13,
@@ -3429,7 +3844,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                         new
                         {
                             Id = 54,
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8918),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(1436),
                             IsDeleted = false,
                             Key = "Connectivity",
                             ProductId = 13,
@@ -3438,7 +3853,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                         new
                         {
                             Id = 55,
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8919),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(1438),
                             IsDeleted = false,
                             Key = "Voice Assistant Compatibility",
                             ProductId = 13,
@@ -3447,7 +3862,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                         new
                         {
                             Id = 56,
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8920),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(1439),
                             IsDeleted = false,
                             Key = "App Control",
                             ProductId = 13,
@@ -3495,7 +3910,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8986),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(1547),
                             IsDeleted = false,
                             ProductId = 1,
                             TagName = "4K"
@@ -3503,7 +3918,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                         new
                         {
                             Id = 2,
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8988),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(1550),
                             IsDeleted = false,
                             ProductId = 1,
                             TagName = "Smart TV"
@@ -3511,7 +3926,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                         new
                         {
                             Id = 3,
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8989),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(1551),
                             IsDeleted = false,
                             ProductId = 1,
                             TagName = "HDR"
@@ -3519,7 +3934,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                         new
                         {
                             Id = 4,
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8990),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(1553),
                             IsDeleted = false,
                             ProductId = 1,
                             TagName = "Home Entertainment"
@@ -3527,7 +3942,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                         new
                         {
                             Id = 5,
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8991),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(1554),
                             IsDeleted = false,
                             ProductId = 2,
                             TagName = "Men's Fashion"
@@ -3535,7 +3950,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                         new
                         {
                             Id = 6,
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8991),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(1555),
                             IsDeleted = false,
                             ProductId = 2,
                             TagName = "Casual Wear"
@@ -3543,7 +3958,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                         new
                         {
                             Id = 7,
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8992),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(1556),
                             IsDeleted = false,
                             ProductId = 2,
                             TagName = "Cotton"
@@ -3551,7 +3966,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                         new
                         {
                             Id = 8,
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8993),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(1558),
                             IsDeleted = false,
                             ProductId = 3,
                             TagName = "Gardening"
@@ -3559,7 +3974,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                         new
                         {
                             Id = 9,
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8995),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(1559),
                             IsDeleted = false,
                             ProductId = 3,
                             TagName = "Tools"
@@ -3567,7 +3982,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                         new
                         {
                             Id = 10,
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8996),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(1560),
                             IsDeleted = false,
                             ProductId = 3,
                             TagName = "New Arrival"
@@ -3575,7 +3990,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                         new
                         {
                             Id = 11,
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8997),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(1561),
                             IsDeleted = false,
                             ProductId = 4,
                             TagName = "Computing"
@@ -3583,7 +3998,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                         new
                         {
                             Id = 12,
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8997),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(1562),
                             IsDeleted = false,
                             ProductId = 4,
                             TagName = "SSD"
@@ -3591,7 +4006,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                         new
                         {
                             Id = 13,
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8998),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(1563),
                             IsDeleted = false,
                             ProductId = 4,
                             TagName = "Lightweight"
@@ -3599,7 +4014,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                         new
                         {
                             Id = 14,
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(8999),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(1564),
                             IsDeleted = false,
                             ProductId = 4,
                             TagName = "New Arrival"
@@ -3607,7 +4022,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                         new
                         {
                             Id = 15,
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(9000),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(1565),
                             IsDeleted = false,
                             ProductId = 5,
                             TagName = "Women's Fashion"
@@ -3615,7 +4030,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                         new
                         {
                             Id = 16,
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(9001),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(1566),
                             IsDeleted = false,
                             ProductId = 5,
                             TagName = "Leather"
@@ -3623,7 +4038,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                         new
                         {
                             Id = 17,
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(9002),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(1567),
                             IsDeleted = false,
                             ProductId = 5,
                             TagName = "Designer"
@@ -3631,7 +4046,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                         new
                         {
                             Id = 18,
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(9002),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(1568),
                             IsDeleted = false,
                             ProductId = 5,
                             TagName = "Trending"
@@ -3639,7 +4054,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                         new
                         {
                             Id = 19,
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(9003),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(1569),
                             IsDeleted = false,
                             ProductId = 6,
                             TagName = "Photography"
@@ -3647,7 +4062,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                         new
                         {
                             Id = 20,
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(9004),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(1571),
                             IsDeleted = false,
                             ProductId = 6,
                             TagName = "4K Video"
@@ -3655,7 +4070,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                         new
                         {
                             Id = 21,
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(9005),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(1572),
                             IsDeleted = false,
                             ProductId = 6,
                             TagName = "Featured"
@@ -3663,7 +4078,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                         new
                         {
                             Id = 22,
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(9006),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(1573),
                             IsDeleted = false,
                             ProductId = 7,
                             TagName = "Organic"
@@ -3671,7 +4086,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                         new
                         {
                             Id = 23,
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(9007),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(1574),
                             IsDeleted = false,
                             ProductId = 7,
                             TagName = "Gift Set"
@@ -3679,7 +4094,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                         new
                         {
                             Id = 24,
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(9008),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(1575),
                             IsDeleted = false,
                             ProductId = 7,
                             TagName = "New Arrival"
@@ -3687,7 +4102,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                         new
                         {
                             Id = 25,
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(9009),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(1576),
                             IsDeleted = false,
                             ProductId = 8,
                             TagName = "Historical Fiction"
@@ -3695,7 +4110,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                         new
                         {
                             Id = 26,
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(9009),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(1577),
                             IsDeleted = false,
                             ProductId = 8,
                             TagName = "Bestseller"
@@ -3703,7 +4118,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                         new
                         {
                             Id = 27,
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(9010),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(1579),
                             IsDeleted = false,
                             ProductId = 8,
                             TagName = "New Arrival"
@@ -3711,7 +4126,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                         new
                         {
                             Id = 28,
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(9011),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(1580),
                             IsDeleted = false,
                             ProductId = 9,
                             TagName = "Outdoor"
@@ -3719,7 +4134,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                         new
                         {
                             Id = 29,
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(9012),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(1581),
                             IsDeleted = false,
                             ProductId = 9,
                             TagName = "Waterproof"
@@ -3727,7 +4142,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                         new
                         {
                             Id = 30,
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(9013),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(1582),
                             IsDeleted = false,
                             ProductId = 9,
                             TagName = "Unisex"
@@ -3735,7 +4150,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                         new
                         {
                             Id = 31,
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(9014),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(1584),
                             IsDeleted = false,
                             ProductId = 9,
                             TagName = "Trending"
@@ -3743,7 +4158,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                         new
                         {
                             Id = 32,
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(9014),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(1585),
                             IsDeleted = false,
                             ProductId = 10,
                             TagName = "Anti-Aging"
@@ -3751,7 +4166,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                         new
                         {
                             Id = 33,
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(9120),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(1586),
                             IsDeleted = false,
                             ProductId = 10,
                             TagName = "Beauty"
@@ -3759,7 +4174,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                         new
                         {
                             Id = 34,
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(9122),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(1664),
                             IsDeleted = false,
                             ProductId = 10,
                             TagName = "New Arrival"
@@ -3767,7 +4182,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                         new
                         {
                             Id = 35,
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(9122),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(1666),
                             IsDeleted = false,
                             ProductId = 10,
                             TagName = "Trending"
@@ -3775,7 +4190,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                         new
                         {
                             Id = 36,
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(9123),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(1667),
                             IsDeleted = false,
                             ProductId = 11,
                             TagName = "Educational"
@@ -3783,7 +4198,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                         new
                         {
                             Id = 37,
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(9124),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(1668),
                             IsDeleted = false,
                             ProductId = 11,
                             TagName = "STEM"
@@ -3791,7 +4206,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                         new
                         {
                             Id = 38,
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(9127),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(1669),
                             IsDeleted = false,
                             ProductId = 11,
                             TagName = "Kids"
@@ -3799,7 +4214,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                         new
                         {
                             Id = 39,
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(9128),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(1670),
                             IsDeleted = false,
                             ProductId = 11,
                             TagName = "New Arrival"
@@ -3807,7 +4222,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                         new
                         {
                             Id = 40,
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(9129),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(1671),
                             IsDeleted = false,
                             ProductId = 12,
                             TagName = "Photography"
@@ -3815,7 +4230,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                         new
                         {
                             Id = 41,
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(9130),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(1672),
                             IsDeleted = false,
                             ProductId = 12,
                             TagName = "Accessories"
@@ -3823,7 +4238,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                         new
                         {
                             Id = 42,
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(9130),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(1673),
                             IsDeleted = false,
                             ProductId = 12,
                             TagName = "New Arrival"
@@ -3831,7 +4246,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                         new
                         {
                             Id = 43,
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(9131),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(1674),
                             IsDeleted = false,
                             ProductId = 13,
                             TagName = "Smart Home"
@@ -3839,7 +4254,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                         new
                         {
                             Id = 44,
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(9132),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(1675),
                             IsDeleted = false,
                             ProductId = 13,
                             TagName = "IoT"
@@ -3847,7 +4262,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                         new
                         {
                             Id = 45,
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(9133),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(1676),
                             IsDeleted = false,
                             ProductId = 13,
                             TagName = "New Arrival"
@@ -3855,7 +4270,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                         new
                         {
                             Id = 46,
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(9134),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(1677),
                             IsDeleted = false,
                             ProductId = 13,
                             TagName = "Trending"
@@ -3915,7 +4330,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(9204),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(1783),
                             DiscountPrice = 16.989999999999998,
                             IsDeleted = false,
                             Price = 20.0,
@@ -3927,7 +4342,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                         new
                         {
                             Id = 2,
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(9210),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(1791),
                             DiscountPrice = 16.989999999999998,
                             IsDeleted = false,
                             Price = 20.0,
@@ -3939,7 +4354,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                         new
                         {
                             Id = 3,
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(9212),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(1793),
                             DiscountPrice = 16.989999999999998,
                             IsDeleted = false,
                             Price = 20.0,
@@ -3951,7 +4366,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                         new
                         {
                             Id = 4,
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(9214),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(1795),
                             DiscountPrice = 18.989999999999998,
                             IsDeleted = false,
                             Price = 22.0,
@@ -3963,7 +4378,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                         new
                         {
                             Id = 5,
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(9215),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(1801),
                             DiscountPrice = 129.99000000000001,
                             IsDeleted = false,
                             Price = 149.99000000000001,
@@ -3975,7 +4390,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                         new
                         {
                             Id = 6,
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(9217),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(1802),
                             DiscountPrice = 129.99000000000001,
                             IsDeleted = false,
                             Price = 149.99000000000001,
@@ -3987,7 +4402,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                         new
                         {
                             Id = 7,
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(9218),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(1804),
                             DiscountPrice = 109.95,
                             IsDeleted = false,
                             Price = 129.94999999999999,
@@ -3999,7 +4414,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                         new
                         {
                             Id = 8,
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(9220),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(1806),
                             DiscountPrice = 109.95,
                             IsDeleted = false,
                             Price = 129.94999999999999,
@@ -4011,7 +4426,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                         new
                         {
                             Id = 9,
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(9222),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(1807),
                             DiscountPrice = 109.95,
                             IsDeleted = false,
                             Price = 129.94999999999999,
@@ -4023,7 +4438,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                         new
                         {
                             Id = 10,
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(9223),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(1809),
                             DiscountPrice = 109.95,
                             IsDeleted = false,
                             Price = 129.94999999999999,
@@ -4035,7 +4450,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                         new
                         {
                             Id = 11,
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(9225),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(1811),
                             DiscountPrice = 109.95,
                             IsDeleted = false,
                             Price = 129.94999999999999,
@@ -4047,7 +4462,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                         new
                         {
                             Id = 12,
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(9227),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(1812),
                             DiscountPrice = 649.99000000000001,
                             IsDeleted = false,
                             Price = 699.99000000000001,
@@ -4059,7 +4474,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                         new
                         {
                             Id = 13,
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(9228),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(1814),
                             DiscountPrice = 849.99000000000001,
                             IsDeleted = false,
                             Price = 899.99000000000001,
@@ -4071,7 +4486,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                         new
                         {
                             Id = 14,
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(9230),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(1816),
                             DiscountPrice = 899.99000000000001,
                             IsDeleted = false,
                             Price = 999.99000000000001,
@@ -4083,7 +4498,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                         new
                         {
                             Id = 15,
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(9231),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(1817),
                             DiscountPrice = 1199.99,
                             IsDeleted = false,
                             Price = 1299.99,
@@ -4095,7 +4510,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                         new
                         {
                             Id = 16,
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(9233),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(1819),
                             DiscountPrice = 75.989999999999995,
                             IsDeleted = false,
                             Price = 89.989999999999995,
@@ -4107,7 +4522,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                         new
                         {
                             Id = 17,
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(9234),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(1821),
                             DiscountPrice = 75.989999999999995,
                             IsDeleted = false,
                             Price = 89.989999999999995,
@@ -4119,7 +4534,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                         new
                         {
                             Id = 18,
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(9236),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(1823),
                             DiscountPrice = 79.989999999999995,
                             IsDeleted = false,
                             Price = 94.989999999999995,
@@ -4128,6 +4543,21 @@ namespace ECommerceCore.Infrastructure.Migrations
                             StockQuantity = 5,
                             VariantName = "For Sensitive Skin"
                         });
+                });
+
+            modelBuilder.Entity("ECommerceCore.Domain.Entities.RolePermission", b =>
+                {
+                    b.Property<string>("RoleId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("PermissionId")
+                        .HasColumnType("int");
+
+                    b.HasKey("RoleId", "PermissionId");
+
+                    b.HasIndex("PermissionId");
+
+                    b.ToTable("RolePermissions");
                 });
 
             modelBuilder.Entity("ECommerceCore.Domain.Entities.ShoppingCart", b =>
@@ -4219,7 +4649,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                         {
                             Id = 1,
                             Amount = 52.00m,
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 187, DateTimeKind.Utc).AddTicks(729),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(4773),
                             InvoiceId = 1,
                             IsDeleted = false,
                             Rate = 8.00m,
@@ -4229,7 +4659,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                         {
                             Id = 2,
                             Amount = 10.40m,
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 187, DateTimeKind.Utc).AddTicks(732),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(4777),
                             InvoiceId = 2,
                             IsDeleted = false,
                             Rate = 8.00m,
@@ -4239,7 +4669,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                         {
                             Id = 3,
                             Amount = 64.00m,
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 187, DateTimeKind.Utc).AddTicks(733),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(4779),
                             InvoiceId = 3,
                             IsDeleted = false,
                             Rate = 8.00m,
@@ -4249,7 +4679,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                         {
                             Id = 4,
                             Amount = 8.80m,
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 187, DateTimeKind.Utc).AddTicks(735),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(4780),
                             InvoiceId = 4,
                             IsDeleted = false,
                             Rate = 8.00m,
@@ -4259,7 +4689,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                         {
                             Id = 5,
                             Amount = 6.08m,
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 187, DateTimeKind.Utc).AddTicks(736),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(4782),
                             InvoiceId = 5,
                             IsDeleted = false,
                             Rate = 8.00m,
@@ -4269,7 +4699,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                         {
                             Id = 6,
                             Amount = 5.60m,
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 187, DateTimeKind.Utc).AddTicks(738),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(4783),
                             InvoiceId = 6,
                             IsDeleted = false,
                             Rate = 8.00m,
@@ -4279,7 +4709,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                         {
                             Id = 7,
                             Amount = -1.28m,
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 187, DateTimeKind.Utc).AddTicks(739),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(4785),
                             InvoiceId = 7,
                             IsDeleted = false,
                             Rate = 8.00m,
@@ -4289,7 +4719,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                         {
                             Id = 8,
                             Amount = 12.00m,
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 187, DateTimeKind.Utc).AddTicks(740),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(4787),
                             InvoiceId = 8,
                             IsDeleted = false,
                             Rate = 8.00m,
@@ -4348,7 +4778,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                         {
                             Id = 1,
                             Abbreviation = "EST",
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(9327),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(1973),
                             IsDeleted = false,
                             Name = "America/New_York",
                             UtcOffset = "-05:00",
@@ -4358,7 +4788,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                         {
                             Id = 2,
                             Abbreviation = "GMT",
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(9330),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(1975),
                             IsDeleted = false,
                             Name = "Europe/London",
                             UtcOffset = "+00:00",
@@ -4368,7 +4798,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                         {
                             Id = 3,
                             Abbreviation = "JST",
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(9331),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(1977),
                             IsDeleted = false,
                             Name = "Asia/Tokyo",
                             UtcOffset = "+09:00",
@@ -4378,7 +4808,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                         {
                             Id = 4,
                             Abbreviation = "AEDT",
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(9332),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(1978),
                             IsDeleted = false,
                             Name = "Australia/Sydney",
                             UtcOffset = "+10:00",
@@ -4388,7 +4818,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                         {
                             Id = 5,
                             Abbreviation = "EST",
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(9334),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(1980),
                             IsDeleted = false,
                             Name = "America/Toronto",
                             UtcOffset = "-05:00",
@@ -4398,7 +4828,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                         {
                             Id = 6,
                             Abbreviation = "CET",
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(9426),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(1981),
                             IsDeleted = false,
                             Name = "Europe/Paris",
                             UtcOffset = "+01:00",
@@ -4408,7 +4838,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                         {
                             Id = 7,
                             Abbreviation = "IST",
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(9428),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(2062),
                             IsDeleted = false,
                             Name = "Asia/Mumbai",
                             UtcOffset = "+05:30",
@@ -4418,7 +4848,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                         {
                             Id = 8,
                             Abbreviation = "CET",
-                            CreatedDate = new DateTime(2025, 4, 26, 10, 48, 17, 186, DateTimeKind.Utc).AddTicks(9429),
+                            CreatedDate = new DateTime(2025, 5, 16, 14, 0, 20, 731, DateTimeKind.Utc).AddTicks(2063),
                             IsDeleted = false,
                             Name = "Europe/Zurich",
                             UtcOffset = "+01:00",
@@ -4589,7 +5019,7 @@ namespace ECommerceCore.Infrastructure.Migrations
 
                     b.ToTable("AspNetUsers", (string)null);
 
-                    b.HasDiscriminator().HasValue("IdentityUser");
+                    b.HasDiscriminator<string>("Discriminator").HasValue("IdentityUser");
 
                     b.UseTphMappingStrategy();
                 });
@@ -4675,7 +5105,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("ECommerceCore.Domain.Entities.ApplicationUser", b =>
+            modelBuilder.Entity("ECommerceCore.Domain.Entities.Identity.ApplicationUser", b =>
                 {
                     b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUser");
 
@@ -4691,6 +5121,22 @@ namespace ECommerceCore.Infrastructure.Migrations
                     b.Property<int?>("CompanyId")
                         .HasColumnType("int");
 
+                    b.Property<string>("CountryCode")
+                        .HasMaxLength(5)
+                        .HasColumnType("nvarchar(5)");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DeletedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -4698,10 +5144,23 @@ namespace ECommerceCore.Infrastructure.Migrations
                     b.Property<string>("PostalCode")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("ProfileImageUrl")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("State")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("UpdatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("UpdatedDate")
+                        .HasColumnType("datetime2");
+
                     b.HasIndex("CompanyId");
+
+                    b.HasIndex("IsDeleted", "DeletedDate")
+                        .HasDatabaseName("IX_AspNetUsers_IsDeleted_DeletedDate")
+                        .HasFilter("IsDeleted = 1");
 
                     b.HasDiscriminator().HasValue("ApplicationUser");
                 });
@@ -5066,6 +5525,15 @@ namespace ECommerceCore.Infrastructure.Migrations
                     b.Navigation("Timezone");
                 });
 
+            modelBuilder.Entity("ECommerceCore.Domain.Entities.OrderActivityLog", b =>
+                {
+                    b.HasOne("ECommerceCore.Domain.Entities.OrderHeader", null)
+                        .WithMany("OrderActivityLog")
+                        .HasForeignKey("OrderHeaderId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("ECommerceCore.Domain.Entities.OrderDetail", b =>
                 {
                     b.HasOne("ECommerceCore.Domain.Entities.OrderHeader", "OrderHeader")
@@ -5087,7 +5555,7 @@ namespace ECommerceCore.Infrastructure.Migrations
 
             modelBuilder.Entity("ECommerceCore.Domain.Entities.OrderHeader", b =>
                 {
-                    b.HasOne("ECommerceCore.Domain.Entities.ApplicationUser", "ApplicationUser")
+                    b.HasOne("ECommerceCore.Domain.Entities.Identity.ApplicationUser", "ApplicationUser")
                         .WithMany()
                         .HasForeignKey("ApplicationUserId")
                         .OnDelete(DeleteBehavior.NoAction);
@@ -5097,6 +5565,145 @@ namespace ECommerceCore.Infrastructure.Migrations
                         .HasForeignKey("CustomerId")
                         .OnDelete(DeleteBehavior.NoAction);
 
+                    b.OwnsOne("ECommerceCore.Domain.Entities.BillingAddress", "BillToAddress", b1 =>
+                        {
+                            b1.Property<int>("OrderHeaderId")
+                                .HasColumnType("int");
+
+                            b1.Property<string>("BillingAddress1")
+                                .IsRequired()
+                                .HasMaxLength(100)
+                                .HasColumnType("nvarchar(100)")
+                                .HasColumnName("BillingAddress1");
+
+                            b1.Property<string>("BillingAddress2")
+                                .HasMaxLength(100)
+                                .HasColumnType("nvarchar(100)")
+                                .HasColumnName("BillingAddress2");
+
+                            b1.Property<string>("BillingCity")
+                                .IsRequired()
+                                .HasMaxLength(50)
+                                .HasColumnType("nvarchar(50)")
+                                .HasColumnName("BillingCity");
+
+                            b1.Property<string>("BillingCountry")
+                                .IsRequired()
+                                .HasMaxLength(50)
+                                .HasColumnType("nvarchar(50)")
+                                .HasColumnName("BillingCountry");
+
+                            b1.Property<string>("BillingState")
+                                .HasMaxLength(50)
+                                .HasColumnType("nvarchar(50)")
+                                .HasColumnName("BillingState");
+
+                            b1.Property<string>("BillingZipCode")
+                                .IsRequired()
+                                .HasMaxLength(20)
+                                .HasColumnType("nvarchar(20)")
+                                .HasColumnName("BillingZipCode");
+
+                            b1.HasKey("OrderHeaderId");
+
+                            b1.ToTable("OrderHeaders");
+
+                            b1.WithOwner()
+                                .HasForeignKey("OrderHeaderId");
+
+                            b1.HasData(
+                                new
+                                {
+                                    OrderHeaderId = 1,
+                                    BillingAddress1 = "123 Maple St",
+                                    BillingAddress2 = "Suite 100",
+                                    BillingCity = "Springfield",
+                                    BillingCountry = "USA",
+                                    BillingState = "IL",
+                                    BillingZipCode = "94016"
+                                },
+                                new
+                                {
+                                    OrderHeaderId = 2,
+                                    BillingAddress1 = "456 Style Avenue",
+                                    BillingAddress2 = "Oak Ave",
+                                    BillingCity = "London",
+                                    BillingCountry = "USA",
+                                    BillingState = "NY",
+                                    BillingZipCode = "10001"
+                                },
+                                new
+                                {
+                                    OrderHeaderId = 3,
+                                    BillingAddress1 = "789 Earth Street",
+                                    BillingAddress2 = "Industrial Zone Ave ",
+                                    BillingCity = "Eco City",
+                                    BillingCountry = "USA",
+                                    BillingState = "GA",
+                                    BillingZipCode = "30303"
+                                },
+                                new
+                                {
+                                    OrderHeaderId = 4,
+                                    BillingAddress1 = "101 Literary Lane",
+                                    BillingAddress2 = "Off Charing Cross Rd",
+                                    BillingCity = "London",
+                                    BillingCountry = "UK",
+                                    BillingState = "London",
+                                    BillingZipCode = "WC1B 3PA"
+                                },
+                                new
+                                {
+                                    OrderHeaderId = 5,
+                                    BillingAddress1 = "222 Trail Road",
+                                    BillingAddress2 = "Near Blue Mountains Entry",
+                                    BillingCity = "Sydney",
+                                    BillingCountry = "Australia",
+                                    BillingState = "NSW",
+                                    BillingZipCode = "2000"
+                                },
+                                new
+                                {
+                                    OrderHeaderId = 6,
+                                    BillingAddress1 = "333 Radiant Road",
+                                    BillingAddress2 = "Galerie Vivienne",
+                                    BillingCity = "Paris",
+                                    BillingCountry = "France",
+                                    BillingState = "Paris",
+                                    BillingZipCode = "75002"
+                                },
+                                new
+                                {
+                                    OrderHeaderId = 7,
+                                    BillingAddress1 = "444 Playful Place",
+                                    BillingAddress2 = "Linking Road, Bandra",
+                                    BillingCity = "Mumbai",
+                                    BillingCountry = "India",
+                                    BillingState = "MH",
+                                    BillingZipCode = "400002"
+                                },
+                                new
+                                {
+                                    OrderHeaderId = 8,
+                                    BillingAddress1 = "555 Tech Park",
+                                    BillingAddress2 = "Innovation Center, Floor 3",
+                                    BillingCity = "Zurich",
+                                    BillingCountry = "Switzerland",
+                                    BillingState = "",
+                                    BillingZipCode = "8002"
+                                },
+                                new
+                                {
+                                    OrderHeaderId = 9,
+                                    BillingAddress1 = "777 Skyline Boulevard",
+                                    BillingAddress2 = "Sky Tower, Apt 905",
+                                    BillingCity = "Toronto",
+                                    BillingCountry = "Canada",
+                                    BillingState = "ON",
+                                    BillingZipCode = "M5V 2T6"
+                                });
+                        });
+
                     b.OwnsOne("ECommerceCore.Domain.Entities.ShippingAddress", "ShipToAddress", b1 =>
                         {
                             b1.Property<int>("OrderHeaderId")
@@ -5104,30 +5711,36 @@ namespace ECommerceCore.Infrastructure.Migrations
 
                             b1.Property<string>("ShippingAddress1")
                                 .IsRequired()
-                                .HasColumnType("nvarchar(max)")
+                                .HasMaxLength(100)
+                                .HasColumnType("nvarchar(100)")
                                 .HasColumnName("ShippingAddress1");
 
                             b1.Property<string>("ShippingAddress2")
-                                .HasColumnType("nvarchar(max)")
+                                .HasMaxLength(100)
+                                .HasColumnType("nvarchar(100)")
                                 .HasColumnName("ShippingAddress2");
 
                             b1.Property<string>("ShippingCity")
                                 .IsRequired()
-                                .HasColumnType("nvarchar(max)")
+                                .HasMaxLength(50)
+                                .HasColumnType("nvarchar(50)")
                                 .HasColumnName("ShippingCity");
 
                             b1.Property<string>("ShippingCountry")
                                 .IsRequired()
-                                .HasColumnType("nvarchar(max)")
+                                .HasMaxLength(50)
+                                .HasColumnType("nvarchar(50)")
                                 .HasColumnName("ShippingCountry");
 
                             b1.Property<string>("ShippingState")
-                                .HasColumnType("nvarchar(max)")
+                                .HasMaxLength(50)
+                                .HasColumnType("nvarchar(50)")
                                 .HasColumnName("ShippingState");
 
                             b1.Property<string>("ShippingZipCode")
                                 .IsRequired()
-                                .HasColumnType("nvarchar(max)")
+                                .HasMaxLength(20)
+                                .HasColumnType("nvarchar(20)")
                                 .HasColumnName("ShippingZipCode");
 
                             b1.HasKey("OrderHeaderId");
@@ -5232,6 +5845,9 @@ namespace ECommerceCore.Infrastructure.Migrations
 
                     b.Navigation("ApplicationUser");
 
+                    b.Navigation("BillToAddress")
+                        .IsRequired();
+
                     b.Navigation("Customer");
 
                     b.Navigation("ShipToAddress")
@@ -5301,9 +5917,28 @@ namespace ECommerceCore.Infrastructure.Migrations
                     b.Navigation("Product");
                 });
 
+            modelBuilder.Entity("ECommerceCore.Domain.Entities.RolePermission", b =>
+                {
+                    b.HasOne("ECommerceCore.Domain.Entities.Permission", "Permission")
+                        .WithMany("RolePermissions")
+                        .HasForeignKey("PermissionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", "Role")
+                        .WithMany()
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Permission");
+
+                    b.Navigation("Role");
+                });
+
             modelBuilder.Entity("ECommerceCore.Domain.Entities.ShoppingCart", b =>
                 {
-                    b.HasOne("ECommerceCore.Domain.Entities.ApplicationUser", "ApplicationUser")
+                    b.HasOne("ECommerceCore.Domain.Entities.Identity.ApplicationUser", "ApplicationUser")
                         .WithMany()
                         .HasForeignKey("ApplicationUserId")
                         .OnDelete(DeleteBehavior.Cascade);
@@ -5338,7 +5973,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("ECommerceCore.Domain.Entities.ApplicationUser", "User")
+                    b.HasOne("ECommerceCore.Domain.Entities.Identity.ApplicationUser", "User")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -5400,7 +6035,7 @@ namespace ECommerceCore.Infrastructure.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("ECommerceCore.Domain.Entities.ApplicationUser", b =>
+            modelBuilder.Entity("ECommerceCore.Domain.Entities.Identity.ApplicationUser", b =>
                 {
                     b.HasOne("ECommerceCore.Domain.Entities.Company", "Company")
                         .WithMany()
@@ -5446,7 +6081,14 @@ namespace ECommerceCore.Infrastructure.Migrations
                 {
                     b.Navigation("Invoices");
 
+                    b.Navigation("OrderActivityLog");
+
                     b.Navigation("OrderDetails");
+                });
+
+            modelBuilder.Entity("ECommerceCore.Domain.Entities.Permission", b =>
+                {
+                    b.Navigation("RolePermissions");
                 });
 
             modelBuilder.Entity("ECommerceCore.Domain.Entities.Product", b =>

@@ -1,6 +1,7 @@
 ﻿using ECommerceCore.Application.Contract.Persistence;
 using ECommerceCore.Application.Contract.Service;
 using ECommerceCore.Domain.Entities;
+using ECommerceCore.Domain.Models;
 using ECommerceCore.Infrastructure.Utilities;
 using MailKit.Net.Smtp;
 using MailKit.Security;
@@ -12,14 +13,6 @@ namespace ECommerceCore.Infrastructure.Services.Email
     public class EmailService(IOptions<EmailSettings> options) : IEmailService
     {
         private readonly EmailSettings emailSettings = options.Value;
-
-        /// <summary>
-        /// Sends an email asynchronously with the specified recipient email address, subject, and HTML message content.
-        /// </summary>
-        /// <param name="email">The recipient's email address.</param>
-        /// <param name="subject">The subject of the email.</param>
-        /// <param name="htmlMessage">The HTML content of the email.</param>
-        /// <returns>A task representing the asynchronous operation.</returns>
         public async Task SendEmailAsync(string email, string subject, string htmlMessage)
         {
             //logic to send email
@@ -43,13 +36,6 @@ namespace ECommerceCore.Infrastructure.Services.Email
             await smtp.SendAsync(message);
             smtp.Disconnect(true);
         }
-
-        /// <summary>
-        /// Sends a two-factor authentication (2FA) code to the specified email address asynchronously.
-        /// </summary>
-        /// <param name="email">The recipient's email address.</param>
-        /// <param name="token">The 2FA token to be sent.</param>
-        /// <returns>A task representing the asynchronous operation.</returns>
         public async Task Send2FACodeToEmailAsync(string email, string token)
         {
             //logic to send email
@@ -73,12 +59,53 @@ namespace ECommerceCore.Infrastructure.Services.Email
             await smtp.SendAsync(message);
             smtp.Disconnect(true);
         }
+        public async Task SendOrderConfirmEmailAsync(string email, string subject, OrderHeader orderHeader)
+        {
+            var message = new MimeMessage();
+            message.Sender = MailboxAddress.Parse(emailSettings.Email);
+            message.To.Add(MailboxAddress.Parse(email));
+            message.Subject = subject;
 
-        /// <summary>
-        /// Generates an HTML email template with the specified content.
-        /// </summary>
-        /// <param name="content">The content to be included in the email body.</param>
-        /// <returns>A string containing the complete HTML email template.</returns>
+            var builder = new BodyBuilder
+            {
+                HtmlBody = OrderConfirmEmailTemplate(orderHeader)
+            };
+
+            message.Body = builder.ToMessageBody();
+
+            using var smtp = new SmtpClient();
+            smtp.ServerCertificateValidationCallback = (s, c, h, e) => true;
+            smtp.Connect(emailSettings.Host, emailSettings.Port, SecureSocketOptions.StartTls);
+            smtp.Authenticate(emailSettings.Email, emailSettings.Password);
+            await smtp.SendAsync(message);
+            smtp.Disconnect(true);
+        }
+        public async Task SendCleanupReportEmailAsync(IEnumerable<string> toEmails, CleanupReportModel report)
+        {
+            var message = new MimeMessage();
+            message.Sender = MailboxAddress.Parse(emailSettings.Email);
+
+            foreach (var email in toEmails)
+            {
+                message.To.Add(MailboxAddress.Parse(email));
+            }
+
+            message.Subject = "User Cleanup Report - Ecommerce Core";
+
+            var builder = new BodyBuilder
+            {
+                HtmlBody = CreateCleanupReportEmailTemplate(report)
+            };
+
+            message.Body = builder.ToMessageBody();
+
+            using var smtp = new SmtpClient();
+            smtp.ServerCertificateValidationCallback = (s, c, h, e) => true;
+            smtp.Connect(emailSettings.Host, emailSettings.Port, SecureSocketOptions.StartTls);
+            smtp.Authenticate(emailSettings.Email, emailSettings.Password);
+            await smtp.SendAsync(message);
+            smtp.Disconnect(true);
+        }
         private string CreateEmailTemplate(string content)
         {
             return $@"
@@ -151,12 +178,6 @@ namespace ECommerceCore.Infrastructure.Services.Email
                 </html>
                 ";
         }
-
-        /// <summary>
-        /// Generates an HTML template for a two-factor authentication (2FA) email with the specified code.
-        /// </summary>
-        /// <param name="code">The 2FA code to be included in the email.</param>
-        /// <returns>A string containing the complete HTML 2FA email template.</returns>
         private string Create2FAEmailTemplate(string code)
         {
             return $@"
@@ -251,41 +272,6 @@ namespace ECommerceCore.Infrastructure.Services.Email
                 </body>
                 </html>";
         }
-
-        /// <summary>
-        /// Sends an order confirmation email to the specified recipient with order details.
-        /// </summary>
-        /// <param name="email">The recipient's email address.</param>
-        /// <param name="subject">The subject of the email.</param>
-        /// <param name="orderHeader">The order header containing order details.</param>
-        /// <returns>A task representing the asynchronous operation.</returns>
-        public async Task SendOrderConfirmEmailAsync(string email, string subject, OrderHeader orderHeader)
-        {
-            var message = new MimeMessage();
-            message.Sender = MailboxAddress.Parse(emailSettings.Email);
-            message.To.Add(MailboxAddress.Parse(email));
-            message.Subject = subject;
-
-            var builder = new BodyBuilder
-            {
-                HtmlBody = OrderConfirmEmailTemplate(orderHeader)
-            };
-
-            message.Body = builder.ToMessageBody();
-
-            using var smtp = new SmtpClient();
-            smtp.ServerCertificateValidationCallback = (s, c, h, e) => true;
-            smtp.Connect(emailSettings.Host, emailSettings.Port, SecureSocketOptions.StartTls);
-            smtp.Authenticate(emailSettings.Email, emailSettings.Password);
-            await smtp.SendAsync(message);
-            smtp.Disconnect(true);
-        }
-
-        /// <summary>
-        /// Generates the HTML email template for order confirmation with dynamic order details.
-        /// </summary>
-        /// <param name="orderHeader">The order header containing order and product details.</param>
-        /// <returns>A string representing the HTML content of the email.</returns>
         private string OrderConfirmEmailTemplate(OrderHeader orderHeader)
         {
             var orderItemsHtml = string.Join("", orderHeader.OrderDetails.Select(
@@ -392,6 +378,168 @@ namespace ECommerceCore.Infrastructure.Services.Email
                     </div>
                 </body>
                 </html>";
+        }
+        private string CreateCleanupReportEmailTemplate(CleanupReportModel report)
+        {
+            // Convert UTC time to IST
+            var istTimeZone = TimeZoneInfo.FindSystemTimeZoneById("India Standard Time");
+            var istCleanupTime = TimeZoneInfo.ConvertTimeFromUtc(report.CleanupTime, istTimeZone);
+            var istThreshold = TimeZoneInfo.ConvertTimeFromUtc(report.Threshold, istTimeZone);
+
+            return $@"
+        <!DOCTYPE html>
+        <html lang='en'>
+        <head>
+            <meta charset='UTF-8'>
+            <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+            <title>User Cleanup Report</title>
+            <style>
+                body {{
+                    font-family: 'Segoe UI', Arial, sans-serif;
+                    margin: 0;
+                    padding: 0;
+                    background-color: #f5f6fa;
+                    color: #2d3436;
+                }}
+                .email-container {{
+                     max-width: 600px;
+                     margin: 20px auto;
+                     background: #ffffff;
+                     padding: 20px;
+                     border: 1px solid #e1e1e1;
+                     border-radius: 8px;
+                     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+                }}
+                .email-header {{
+                    background: linear-gradient(135deg, #6c5ce7 0%, #a29bfe 100%);
+                    color: #ffffff;
+                    text-align: center;
+                    padding: 30px 20px;
+                    border-top-left-radius: 12px;
+                    border-top-right-radius: 12px;
+                }}
+                .email-header h1 {{
+                    margin: 0;
+                    font-size: 28px;
+                    font-weight: 600;
+                }}
+                .email-header p {{
+                    margin: 5px 0 0;
+                    font-size: 16px;
+                    opacity: 0.9;
+                }}
+                .email-body {{
+                    padding: 30px;
+                }}
+                .report-summary {{
+                    background: #f8f9fa;
+                    padding: 20px;
+                    border-radius: 8px;
+                    text-align: center;
+                    margin-bottom: 20px;
+                }}
+                .report-summary h2 {{
+                    font-size: 22px;
+                    color: #6c5ce7;
+                    margin: 0 0 10px;
+                }}
+                .report-summary p {{
+                    font-size: 16px;
+                    margin: 5px 0;
+                    line-height: 1.6;
+                }}
+                .highlight {{
+                    font-size: 24px;
+                    font-weight: bold;
+                    color: #2d3436;
+                    display: inline-block;
+                    padding: 5px 15px;
+                    border-radius: 5px;
+                    background: #dfe6e9;
+                }}
+                .details-section {{
+                    margin-top: 20px;
+                }}
+                .details-section h3 {{
+                    font-size: 18px;
+                    color: #2d3436;
+                    margin-bottom: 10px;
+                    border-bottom: 2px solid #dfe6e9;
+                    padding-bottom: 5px;
+                }}
+                .details-section p {{
+                    font-size: 15px;
+                    margin: 5px 0;
+                    line-height: 1.6;
+                }}
+                .email-footer {{
+                    text-align: center;
+                    padding: 20px;
+                    background: #f8f9fa;
+                    font-size: 14px;
+                    color: #636e72;
+                    border-top: 1px solid #dfe6e9;
+                }}
+                .email-footer a {{
+                    color: #6c5ce7;
+                    text-decoration: none;
+                    font-weight: 500;
+                }}
+                .email-footer a:hover {{
+                    text-decoration: underline;
+                }}
+                @media (max-width: 600px) {{
+                    .email-container {{
+                        width: 100%;
+                        margin: 10px;
+                        border-radius: 8px;
+                    }}
+                    .email-header h1 {{
+                        font-size: 24px;
+                    }}
+                    .email-header p {{
+                        font-size: 14px;
+                    }}
+                    .email-body {{
+                        padding: 20px;
+                    }}
+                    .report-summary h2 {{
+                        font-size: 20px;
+                    }}
+                    .highlight {{
+                        font-size: 20px;
+                    }}
+                }}
+            </style>
+        </head>
+        <body>
+            <div class='email-container'>
+                <div class='email-header'>
+                    <h1>User Cleanup Report</h1>
+                    <p>Ecommerce Core System Update</p>
+                </div>
+                <div class='email-body'>
+                    <div class='report-summary'>
+                        <h2>Cleanup Completed Successfully</h2>
+                        <p>A scheduled user cleanup operation has been performed.</p>
+                        <p>Total Users Deleted: <span class='highlight'>{report.DeletedCount}</span></p>
+                    </div>
+                    <div class='details-section'>
+                        <h3>Details</h3>
+                            <p><strong>Cleanup Time (IST):</strong> {istCleanupTime:dddd, MMMM dd, yyyy, hh:mm:ss tt}</p>
+                            <p><strong>Retention Period:</strong> {report.RetentionDays} days</p>
+                            <p><strong>Threshold Date:</strong> {istThreshold:dddd, MMMM dd, yyyy}</p>
+                        <p>This cleanup removed user accounts that were soft-deleted before the threshold date as part of routine system maintenance.</p>
+                    </div>
+                </div>
+                <div class='email-footer'>
+                    <p>Thank you for overseeing Ecommerce Core operations.</p>
+                    <p><a href='https://ecommercecore.com'>Visit Ecommerce Core</a> | <a href='https://ecommercecore.com/support'>Contact Support</a></p>
+                    <p>&copy; {DateTime.Now.Year} Ecommerce Core. All rights reserved.</p>
+                </div>
+            </div>
+        </body>
+        </html>";
         }
     }
 }

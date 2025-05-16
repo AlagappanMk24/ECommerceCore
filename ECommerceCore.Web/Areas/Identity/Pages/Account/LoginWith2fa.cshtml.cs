@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Identity;
 using ECommerceCore.Application.Contract.Service;
 using ECommerceCore.Infrastructure.Services.Email;
-using ECommerceCore.Domain.Entities;
+using ECommerceCore.Domain.Entities.Identity;
 
 namespace ECommerceCore.Web.Areas.Identity.Pages.Account
 {

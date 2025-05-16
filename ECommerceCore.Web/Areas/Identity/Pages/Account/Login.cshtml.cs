@@ -11,6 +11,7 @@ using ECommerceCore.Infrastructure.External.SMS;
 using ECommerceCore.Infrastructure.Services.Email;
 using ECommerceCore.Application.Contracts.Services;
 using ECommerceCore.Domain.Entities;
+using ECommerceCore.Domain.Entities.Identity;
 
 namespace ECommerceCore.Web.Areas.Identity.Pages.Account
 {

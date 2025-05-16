@@ -1,9 +1,8 @@
-﻿using ECommerceCore.Application.Common.QueryParameters;
-using ECommerceCore.Application.Common.Results;
+﻿using ECommerceCore.Application.Common.Results;
 using ECommerceCore.Application.Contract.Persistence;
 using ECommerceCore.Application.Contract.Service;
-using ECommerceCore.Application.Contract.ViewModels;
 using ECommerceCore.Application.Contracts.DTOs;
+using ECommerceCore.Application.Contracts.ViewModels.Products;
 using ECommerceCore.Domain.Entities;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
@@ -135,12 +134,25 @@ namespace ECommerceCore.Infrastructure.Services
                 throw;
             }
         }
+        public async Task<PaginatedResult<ProductDto>> GetProductsPaginatedForVendorAsync(ProductQueryParameters parameters, string vendorId)
+        {
+            var paginatedResult = await GetProductsPaginatedAsync(parameters);
+            paginatedResult.Items = paginatedResult.Items.Where(p => p.VendorId == vendorId).ToList();
+            paginatedResult.TotalCount = paginatedResult.Items.Count;
+            return paginatedResult;
+        }
         public async Task<Product> GetProductByIdAsync(int id)
         {
             return await _unitOfWork.Products.GetAsync(p => p.Id == id, includeProperties: "Category,ProductImages");
         }
-        public async Task<string> UpsertProductAsync(ProductVM productVM, List<IFormFile> files, string webRootPath)
+        public async Task<Product> GetProductByIdForVendorAsync(int id, string vendorId)
         {
+            var product = await _unitOfWork.Products.GetAsync(p => p.Id == id && p.VendorId == vendorId, includeProperties: "Category,Brand,ProductImages");
+            return product;
+        }
+        public async Task<string> UpsertProductAsync(ProductVM productVM, List<IFormFile> files, string webRootPath, string vendorId)
+        {
+            productVM.Product.VendorId = vendorId; // Assign the VendorId to the product
             if (productVM.Product.Id == 0)
             {
                 await _unitOfWork.Products.AddAsync(productVM.Product);
@@ -148,11 +160,15 @@ namespace ECommerceCore.Infrastructure.Services
             }
             else
             {
+                var existingProduct = await _unitOfWork.Products.GetAsync(p => p.Id == productVM.Product.Id && p.VendorId == vendorId);
+                if (existingProduct == null)
+                    throw new UnauthorizedAccessException("You are not authorized to update this product.");
+
                 _unitOfWork.Products.Update(productVM.Product);
                 await _unitOfWork.SaveAsync();
             }
 
-            if (files != null)
+            if (files != null && files.Any())
             {
                 string productPath = $@"images\products\product-{productVM.Product.Id}";
                 foreach (var file in files)

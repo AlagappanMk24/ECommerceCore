@@ -8,7 +8,7 @@ using System.Text.Encodings.Web;
 using ECommerceCore.Application.Constants;
 using ECommerceCore.Application.Contract.Persistence;
 using ECommerceCore.Application.Contract.Service;
-using ECommerceCore.Domain.Entities;
+using ECommerceCore.Domain.Entities.Identity;
 using ECommerceCore.Domain.Exceptions;
 using ECommerceCore.Domain.ValueObjects;
 using ECommerceCore.Infrastructure.Services.Email;
@@ -27,8 +27,8 @@ namespace ECommerceCore.Web.Areas.Identity.Pages.Account
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly RoleManager<IdentityRole> _roleManager;
         private readonly UserManager<ApplicationUser> _userManager;
-        private readonly IUserStore<IdentityUser> _userStore;
-        private readonly IUserEmailStore<IdentityUser> _emailStore;
+        private readonly IUserStore<ApplicationUser> _userStore;
+        private readonly IUserEmailStore<ApplicationUser> _emailStore;
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailService _emailService;
         private readonly IUnitOfWork _unitOfWork;
@@ -36,7 +36,7 @@ namespace ECommerceCore.Web.Areas.Identity.Pages.Account
         public RegisterModel(
             UserManager<ApplicationUser> userManager,
             RoleManager<IdentityRole> roleManager,
-            IUserStore<IdentityUser> userStore,
+            IUserStore<ApplicationUser> userStore,
             SignInManager<ApplicationUser> signInManager,
             ILogger<RegisterModel> logger,
             IEmailService emailService,
@@ -106,6 +106,7 @@ namespace ECommerceCore.Web.Areas.Identity.Pages.Account
             public string ConfirmPassword { get; set; }
 
             public string? Role { get; set; }
+
             [ValidateNever]
             public IEnumerable<SelectListItem> RoleList { get; set; }
 
@@ -263,13 +264,13 @@ namespace ECommerceCore.Web.Areas.Identity.Pages.Account
                     $"override the register page in /Areas/Identity/Pages/Account/Register.cshtml");
             }
         }
-        private IUserEmailStore<IdentityUser> GetEmailStore()
+        private IUserEmailStore<ApplicationUser> GetEmailStore()
         {
             if (!_userManager.SupportsUserEmail)
             {
                 throw new NotSupportedException("The default UI requires a user store with email support.");
             }
-            return (IUserEmailStore<IdentityUser>)_userStore;
+            return (IUserEmailStore<ApplicationUser>)_userStore;
         }
     }
 }

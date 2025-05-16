@@ -7,6 +7,7 @@
         Processing,
         Shipped,
         Cancelled,
-        Refunded
+        Refunded,
+        Delivered
     }
 }

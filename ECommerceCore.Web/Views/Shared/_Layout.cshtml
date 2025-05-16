@@ -1,7 +1,6 @@
 ﻿@using ECommerceCore.Application.Constants
-@using ECommerceCore.Domain.Entities
+@using ECommerceCore.Domain.Entities.Identity
 @using ECommerceCore.Web.Helpers
-@using Microsoft.AspNetCore.Http
 @using Microsoft.AspNetCore.Identity
 @inject IHttpContextAccessor HttpContextAccessor
 @inject SignInManager<ApplicationUser> SignInManager
@@ -38,7 +37,7 @@
     <!-- Theme Color -->
     <meta name="theme-color" content="#ffffff">
 </head>
-<body class="d-flex flex-column min-vh-100 bg-light">
+<body class="d-flex flex-column min-vh-100 bg-light @(SignInManager.IsSignedIn(User) ? "signed-in" : "")">
     <!-- Floating Action Button -->
     <div class="position-fixed bottom-3 end-3" style="z-index: 1000;">
         <button class="btn btn-primary rounded-circle p-3 shadow-lg" id="backToTop" style="display: none;">
@@ -65,7 +64,7 @@
                 <div class="collapse navbar-collapse" id="navbarContent">
                     <!-- Left Navigation -->
                     <ul class="navbar-nav me-auto">
-                        <li class="nav-item">
+                        @*  <li class="nav-item">
                             <a class="nav-link text-dark hover-effect" asp-area="Customer" asp-controller="Home" asp-action="Index">
                                 <i class="bi bi-house-door-fill me-1"></i> Home
                             </a>
@@ -79,7 +78,7 @@
                             <a class="nav-link text-dark hover-effect" asp-area="Customer" asp-controller="Home" asp-action="About">
                                 <i class="bi bi-info-circle-fill me-1"></i> About
                             </a>
-                        </li>
+                        </li> *@
                         @if (User.IsInRole(AppConstants.Role_Admin))
                         {
                             <li class="nav-item dropdown">
@@ -118,97 +117,239 @@
                     </form>
 
                     <!-- Right Navigation -->
-                    <partial name="_LoginPartial" />
+                    <div class="d-flex align-items-center">
+                        <button class="theme-toggle ms-3" id="themeToggle">
+                            <i class="bi bi-moon-fill"></i>
+                        </button>
+                        <partial name="_LoginPartial" />
+                    </div>
                 </div>
             </div>
         </nav>
     </header>
+    <!-- Add this to your navbar (right side) -->
+    <button class="sidebar-toggle d-lg-none" id="sidebarToggle">
+        <i class="bi bi-list"></i>
+    </button>
     <!-- Main Wrapper -->
-    <div class="main-wrapper flex-grow-1 d-flex">
+    <div class="main-wrapper flex-grow-1">
         @if (SignInManager.IsSignedIn(User))
         {
             <!-- Sidebar -->
-            <aside class="sidebar">
+            <aside class="sidebar" id="sidebar">
                 <div class="sidebar-header">
                     <h5 class="mb-0">Ecommerce</h5>
-                    @* <button class="btn btn-sm btn-light"><i class="fas fa-moon"></i></button> *@
                 </div>
                 <nav class="sidebar-nav">
                     <ul>
-                        <li class="@Html.IsActive("Dashboard", area: "Admin")">
-                            <a asp-area="Admin" asp-controller="Dashboard" asp-action="Index">
-                                <i class="fas fa-tachometer-alt me-2"></i> Dashboard
-                            </a>
-                        </li>
-                        <li class="@Html.IsActive("User", area: "Admin")">
-                            <a asp-area="Admin" asp-controller="User" asp-action="Index">
-                                <i class="fas fa-users me-2"></i> Users
-                            </a>
-                        </li>
-                        <li class="@Html.IsActive("Catalog", area: "Admin")">
-                            <a asp-area="Admin" asp-controller="Category" asp-action="Index">
-                                <i class="bi bi-tags-fill me-2"></i> Categories
-                            </a>
-                        </li>
-                        <li class="@Html.IsActive("Product", area: "Admin")">
-                            <a asp-area="Admin" asp-controller="Product" asp-action="Index">
-                                <i class="bi bi-box-seam-fill me-2"></i> Products
-                            </a>
-                        </li>
-                        <li class="@Html.IsActive("Order", area: "Admin")">
-                            <a asp-area="Admin" asp-controller="Order" asp-action="Index">
-                                <i class="fas fa-shopping-cart me-2"></i> Orders
-                            </a>
-                        </li>
-                        <li class="@Html.IsActive("Invoice", area: "Admin")">
-                            <a asp-area="Admin" asp-controller="Invoice" asp-action="Index">
-                                <i class="fas fa-file-invoice me-2"></i>Invoices
-                            </a>
-                        </li>
-                        <li class="@Html.IsActive("Customer", area: "Admin")">
-                            <a asp-area="Admin" asp-controller="Customer" asp-action="Index">
-                                <i class="fas fa-user me-2"></i>Customers
-                            </a>
-                        </li>
-                        <li class="@Html.IsActive("Company", area: "Admin")">
-                            <a asp-area="Admin" asp-controller="Company" asp-action="Index">
-                                <i class="fas fa-building me-2"></i>Companies
-                            </a>
-                        </li>
-                        <li class="@Html.IsActive("Sales", area: "Admin")">
-                            <a asp-area="Admin" asp-controller="Sales" asp-action="Index">
-                                <i class="fas fa-chart-line me-2"></i> Sales
-                            </a>
-                        </li>
-                        <li class="@Html.IsActive("Report", area: "Admin")">
-                            <a asp-area="Admin" asp-controller="Report" asp-action="Index">
-                                <i class="fas fa-file-alt me-2"></i> Reports
-                            </a>
-                        </li>
-                        <li class="@Html.IsActive("Coupons", area: "Admin")">
-                            <a asp-area="Admin" asp-controller="Coupons" asp-action="Index">
-                                <i class="fas fa-tags me-2"></i> Coupons
-                            </a>
-                        </li>
-                        <li class="@Html.IsActive("App", area: "Admin")">
-                            <a asp-area="Admin" asp-controller="App" asp-action="Index">
-                                <i class="fas fa-mobile-alt me-2"></i> App
-                            </a>
-                        </li>
+                        @if (User.IsInRole(AppConstants.Role_Admin) || User.IsInRole(AppConstants.Role_Admin_Super))
+                        {
+                            <li class="@Html.IsActive("Dashboard", area: "Admin")">
+                                <a asp-area="Admin" asp-controller="Dashboard" asp-action="Index">
+                                    <i class="fas fa-tachometer-alt me-2"></i> Dashboard
+                                </a>
+                            </li>
+                            <li class="@Html.IsActive("User", area: "Admin")">
+                                <a asp-area="Admin" asp-controller="User" asp-action="Index">
+                                    <i class="fas fa-users me-2"></i> Users
+                                </a>
+                            </li>
+                            <li class="@Html.IsActive("Catalog", area: "Admin")">
+                                <a asp-area="Admin" asp-controller="Category" asp-action="Index">
+                                    <i class="bi bi-tags-fill me-2"></i> Categories
+                                </a>
+                            </li>
+                            <li class="@Html.IsActive("Product", area: "Admin")">
+                                <a asp-area="Admin" asp-controller="Product" asp-action="Index">
+                                    <i class="bi bi-box-seam-fill me-2"></i> Products
+                                </a>
+                            </li>
+                            <li class="@Html.IsActive("Order", area: "Admin")">
+                                <a asp-area="Admin" asp-controller="Order" asp-action="Index">
+                                    <i class="fas fa-shopping-cart me-2"></i> Orders
+                                </a>
+                            </li>
+                            <li class="@Html.IsActive("Invoice", area: "Admin")">
+                                <a asp-area="Admin" asp-controller="Invoice" asp-action="Index">
+                                    <i class="fas fa-file-invoice me-2"></i>Invoices
+                                </a>
+                            </li>
+                            <li class="@Html.IsActive("Customer", area: "Admin")">
+                                <a asp-area="Admin" asp-controller="Customer" asp-action="Index">
+                                    <i class="fas fa-user me-2"></i>Customers
+                                </a>
+                            </li>
+                            <li class="@Html.IsActive("Company", area: "Admin")">
+                                <a asp-area="Admin" asp-controller="Company" asp-action="Index">
+                                    <i class="fas fa-building me-2"></i>Companies
+                                </a>
+                            </li>
+                            <li class="@Html.IsActive("Sales", area: "Admin")">
+                                <a asp-area="Admin" asp-controller="Sales" asp-action="Index">
+                                    <i class="fas fa-chart-line me-2"></i> Sales
+                                </a>
+                            </li>
+                            <li class="@Html.IsActive("Report", area: "Admin")">
+                                <a asp-area="Admin" asp-controller="Report" asp-action="Index">
+                                    <i class="fas fa-file-alt me-2"></i> Reports
+                                </a>
+                            </li>
+                            <li class="@Html.IsActive("Coupons", area: "Admin")">
+                                <a asp-area="Admin" asp-controller="Coupons" asp-action="Index">
+                                    <i class="fas fa-tags me-2"></i> Coupons
+                                </a>
+                            </li>
+                            <li class="@Html.IsActive("App", area: "Admin")">
+                                <a asp-area="Admin" asp-controller="App" asp-action="Index">
+                                    <i class="fas fa-mobile-alt me-2"></i> App
+                                </a>
+                            </li>
+                        }
+                        @if (User.IsInRole(AppConstants.Role_Customer))
+                        {
+                            <li class="@Html.IsActive("Home", area: "Customer")">
+                                <a asp-area="Customer" asp-controller="Home" asp-action="Index">
+                                    <i class="fas fa-home me-2"></i> Home
+                                </a>
+                            </li>
+                            <li class="@Html.IsActive("Product", area: "Customer")">
+                                <a asp-area="Customer" asp-controller="Product" asp-action="Index">
+                                    <i class="fas fa-shopping-bag me-2"></i> Shop
+                                </a>
+                            </li>
+                            <li class="@Html.IsActive("Cart", area: "")">
+                                <a asp-area="" asp-controller="Cart" asp-action="Index">
+                                    <i class="fas fa-shopping-cart me-2"></i> Cart
+                                </a>
+                            </li>
+                            <li class="@Html.IsActive("Order", area: "Customer")">
+                                <a asp-area="Customer" asp-controller="Order" asp-action="Index">
+                                    <i class="fas fa-receipt me-2"></i> Orders
+                                </a>
+                            </li>
+                            <li class="@Html.IsActive("Profile", area: "Customer")">
+                                <a asp-area="Identity" asp-page="/Account/Manage/Index">
+                                    <i class="fas fa-user me-2"></i> Profile
+                                </a>
+                            </li>
+                        }
+                        @if (User.IsInRole(AppConstants.Role_Company) || User.IsInRole(AppConstants.Role_Vendor))
+                        {
+                            <li class="@Html.IsActive("Dashboard", area: "Vendor")">
+                                <a asp-area="Vendor" asp-controller="Dashboard" asp-action="Index">
+                                    <i class="fas fa-tachometer-alt me-2"></i> Dashboard
+                                </a>
+                            </li>
+                            <li class="@Html.IsActive("Product", area: "Vendor")">
+                                <a asp-area="Vendor" asp-controller="Product" asp-action="Index">
+                                    <i class="bi bi-box-seam-fill me-2"></i> Products
+                                </a>
+                            </li>
+                            <li class="@Html.IsActive("Order", area: "Vendor")">
+                                <a asp-area="Vendor" asp-controller="Order" asp-action="Index">
+                                    <i class="fas fa-shopping-cart me-2"></i> Orders
+                                </a>
+                            </li>
+                            <li class="@Html.IsActive("Sales", area: "Vendor")">
+                                <a asp-area="Vendor" asp-controller="Sales" asp-action="Index">
+                                    <i class="fas fa-chart-line me-2"></i> Sales
+                                </a>
+                            </li>
+                            <li class="@Html.IsActive("Inventory", area: "Vendor")">
+                                <a asp-area="Vendor" asp-controller="Inventory" asp-action="Index">
+                                    <i class="fas fa-warehouse me-2"></i> Inventory
+                                </a>
+                            </li>
+                        }
+                        @if (User.IsInRole(AppConstants.Role_Employee) || User.IsInRole(AppConstants.Role_Manager))
+                        {
+                            <li class="@Html.IsActive("Dashboard", area: "Employee")">
+                                <a asp-area="Employee" asp-controller="Dashboard" asp-action="Index">
+                                    <i class="fas fa-tachometer-alt me-2"></i> Dashboard
+                                </a>
+                            </li>
+                            <li class="@Html.IsActive("Order", area: "Employee")">
+                                <a asp-area="Employee" asp-controller="Order" asp-action="Index">
+                                    <i class="fas fa-shopping-cart me-2"></i> Orders
+                                </a>
+                            </li>
+                            <li class="@Html.IsActive("Inventory", area: "Employee")">
+                                <a asp-area="Employee" asp-controller="Inventory" asp-action="Index">
+                                    <i class="fas fa-warehouse me-2"></i> Inventory
+                                </a>
+                            </li>
+                            <li class="@Html.IsActive("CustomerSupport", area: "Employee")">
+                                <a asp-area="Employee" asp-controller="CustomerSupport" asp-action="Index">
+                                    <i class="fas fa-headset me-2"></i> Support Tickets
+                                </a>
+                            </li>
+                        }
+                        @if (User.IsInRole(AppConstants.Role_Supplier))
+                        {
+                            <li class="@Html.IsActive("Dashboard", area: "Supplier")">
+                                <a asp-area="Supplier" asp-controller="Dashboard" asp-action="Index">
+                                    <i class="fas fa-tachometer-alt me-2"></i> Dashboard
+                                </a>
+                            </li>
+                            <li class="@Html.IsActive("Inventory", area: "Supplier")">
+                                <a asp-area="Supplier" asp-controller="Inventory" asp-action="Index">
+                                    <i class="fas fa-warehouse me-2"></i> Inventory
+                                </a>
+                            </li>
+                            <li class="@Html.IsActive("Delivery", area: "Supplier")">
+                                <a asp-area="Supplier" asp-controller="Delivery" asp-action="Index">
+                                    <i class="fas fa-truck me-2"></i> Deliveries
+                                </a>
+                            </li>
+                        }
+                        @if (User.IsInRole(AppConstants.Role_DeliveryAgent))
+                        {
+                            <li class="@Html.IsActive("Dashboard", area: "Delivery")">
+                                <a asp-area="Delivery" asp-controller="Dashboard" asp-action="Index">
+                                    <i class="fas fa-tachometer-alt me-2"></i> Dashboard
+                                </a>
+                            </li>
+                            <li class="@Html.IsActive("Delivery", area: "Delivery")">
+                                <a asp-area="Delivery" asp-controller="Delivery" asp-action="Index">
+                                    <i class="fas fa-truck me-2"></i> Deliveries
+                                </a>
+                            </li>
+                        }
+                        @if (User.IsInRole(AppConstants.Role_CustomerSupport))
+                        {
+                            <li class="@Html.IsActive("Dashboard", area: "Support")">
+                                <a asp-area="Support" asp-controller="Dashboard" asp-action="Index">
+                                    <i class="fas fa-tachometer-alt me-2"></i> Dashboard
+                                </a>
+                            </li>
+                            <li class="@Html.IsActive("Tickets", area: "Support")">
+                                <a asp-area="Support" asp-controller="Tickets" asp-action="Index">
+                                    <i class="fas fa-headset me-2"></i> Support Tickets
+                                </a>
+                            </li>
+                            <li class="@Html.IsActive("Customer", area: "Support")">
+                                <a asp-area="Support" asp-controller="Customer" asp-action="Index">
+                                    <i class="fas fa-user me-2"></i> Customers
+                                </a>
+                            </li>
+                        }
                     </ul>
                 </nav>
             </aside>
         }
         <!-- Content Area -->
-        <main class="main-content">
+        <main class="main-content" id="mainContent">
             @RenderBody()
             <div id="toastContainer" class="position-fixed bottom-0 end-0 p-3 z-3"></div>
             <partial name="_NotificationPartialView" />
         </main>
     </div>
-    <!-- Footer -->
-    <footer class="bg-light text-dark border-top border-light mt-auto">
-        <div class="container py-5">
+
+    @if (!SignInManager.IsSignedIn(User))
+    {
+        <!-- Footer -->
+        <footer class="bg-light text-dark border-top border-light mt-auto">
+            <div class="container py-5">
             <div class="row g-4">
                 <!-- Company Info -->
                 <div class="col-lg-3 col-md-6">
@@ -284,7 +425,7 @@
             </div>
         </div>
     </footer>
-
+    }
     <!-- JavaScript Libraries -->
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
@@ -296,9 +437,10 @@
     <!-- Custom Scripts -->
     <script src="~/js/site.js" asp-append-version="true"></script>
 
-    @*  <!-- Smooth Scrolling -->
+    <!-- Smooth Scrolling -->
     <script>
-        // Back to top button
+
+          // Back to top button
         window.addEventListener('scroll', function() {
             const backToTop = document.getElementById('backToTop');
             if (window.pageYOffset > 300) {
@@ -312,6 +454,70 @@
             e.preventDefault();
             window.scrollTo({top: 0, behavior: 'smooth'});
         });
+       
+        // Sidebar toggle functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const sidebar = document.getElementById('sidebar');
+            const sidebarToggle = document.getElementById('sidebarToggle');
+            const mainContent = document.getElementById('mainContent');
+
+            if (sidebarToggle && sidebar) {
+                sidebarToggle.addEventListener('click', function() {
+                    sidebar.classList.toggle('active');
+                    mainContent.classList.toggle('sidebar-active');
+                });
+            }
+
+            // Close sidebar when clicking outside on mobile
+            document.addEventListener('click', function(event) {
+                if (window.innerWidth < 992) {
+                    const isClickInsideSidebar = sidebar.contains(event.target);
+                    const isClickOnToggle = event.target === sidebarToggle ||
+                                          sidebarToggle.contains(event.target);
+
+                    if (!isClickInsideSidebar && !isClickOnToggle && sidebar.classList.contains('active')) {
+                        sidebar.classList.remove('active');
+                        mainContent.classList.remove('sidebar-active');
+                    }
+                }
+            });
+
+            // Add active class to current page link
+            const currentPath = window.location.pathname;
+            const navLinks = document.querySelectorAll('.sidebar-nav li a');
+
+            navLinks.forEach(link => {
+                if (link.getAttribute('href') === currentPath) {
+                    link.parentElement.classList.add('active');
+                }
+            });
+
+            // Dark mode toggle
+            const themeToggle = document.getElementById('themeToggle');
+            const themeIcon = themeToggle.querySelector('i');
+
+            // Check for saved theme preference
+            if (localStorage.getItem('theme') === 'dark') {
+                document.body.classList.add('dark-mode');
+                themeIcon.classList.remove('bi-moon-fill');
+                themeIcon.classList.add('bi-sun-fill');
+            }
+
+            themeToggle.addEventListener('click', function() {
+                document.body.classList.toggle('dark-mode');
+
+                if (document.body.classList.contains('dark-mode')) {
+                    localStorage.setItem('theme', 'dark');
+                    themeIcon.classList.remove('bi-moon-fill');
+                    themeIcon.classList.add('bi-sun-fill');
+                } else {
+                    localStorage.setItem('theme', 'light');
+                    themeIcon.classList.remove('bi-sun-fill');
+                    themeIcon.classList.add('bi-moon-fill');
+                }
+            });
+        });
+
 
         // Smooth scrolling for all links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -322,7 +528,7 @@
                 });
             });
         });
-    </script> *@
+    </script>
 
     @await RenderSectionAsync("Scripts", required: false)
 </body>

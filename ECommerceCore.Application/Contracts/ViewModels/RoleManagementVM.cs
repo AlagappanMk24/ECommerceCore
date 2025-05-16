@@ -1,4 +1,4 @@
-﻿using ECommerceCore.Domain.Entities;
+﻿using ECommerceCore.Domain.Entities.Identity;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace ECommerceCore.Application.Contract.ViewModels

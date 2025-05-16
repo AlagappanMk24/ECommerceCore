@@ -16,11 +16,22 @@ namespace ECommerceCore.Domain.Entities
     [Owned]
     public class ShippingAddress
     {
-        public string ShippingAddress1 { get; set; }
+        public string? ShippingAddress1 { get; set; }
         public string? ShippingAddress2 { get; set; }
-        public string ShippingCity { get; set; }
-        public string ShippingState { get; set; }
-        public string ShippingCountry { get; set; }
-        public string ShippingZipCode { get; set; }
+        public string? ShippingCity { get; set; }
+        public string? ShippingState { get; set; }
+        public string? ShippingCountry { get; set; }
+        public string? ShippingZipCode { get; set; }
+    }
+
+    [Owned]
+    public class BillingAddress
+    {
+        public string? BillingAddress1 { get; set; }
+        public string? BillingAddress2 { get; set; }
+        public string? BillingCity { get; set; }
+        public string? BillingState { get; set; }
+        public string? BillingCountry { get; set; }
+        public string? BillingZipCode { get; set; }
     }
 }

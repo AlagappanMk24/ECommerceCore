@@ -2,7 +2,7 @@
 using ECommerceCore.Application.Common.Results;
 using ECommerceCore.Application.Contract.Persistence;
 using ECommerceCore.Application.Contract.Service;
-using ECommerceCore.Application.Contract.ViewModels;
+using ECommerceCore.Application.Contract.ViewModels.Categories;
 using ECommerceCore.Application.Contracts.DTOs;
 using ECommerceCore.Domain.Entities;
 using Microsoft.EntityFrameworkCore;

@@ -15,7 +15,14 @@ using Newtonsoft.Json;
 using Stripe;
 using System.Text;
 using Newtonsoft.Json.Converters;
-using ECommerceCore.Domain.Entities;
+using ECommerceCore.Application.Authorization.Handlers;
+using Microsoft.AspNetCore.Authorization;
+using ECommerceCore.Application.Authorization.Requirements;
+using ECommerceCore.Application.Constants;
+using ECommerceCore.Application.Contracts.Services;
+using ECommerceCore.Infrastructure.Services.Authorization;
+using ECommerceCore.Domain.Entities.Identity;
+using ECommerceCore.Infrastructure.Services.Background;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -53,13 +60,24 @@ void ConfigureServices(IServiceCollection services, IConfiguration configuration
 
     services.AddRazorPages();
 
+    services.Configure<UserCleanupOptions>(options =>
+    {
+        options.RetentionDays = configuration.GetValue<int>("UserCleanup:RetentionDays", 30);
+    });
+
+    services.AddHostedService<UserCleanupService>();
+
     ConfigureDatabase(services, configuration);
 
     ConfigureJwtSettings(services, configuration);
 
-    ConfigureJwtAuthentication(services, configuration);
+    ConfigureAuthentication(services, configuration);
+
+    ConfigureAuthorization(services);
 
     GenerateSecretKey(configuration);
+
+    ConfigureAdminSettings(services, configuration);
 
     ConfigureEmailSettings(services, configuration);
 
@@ -74,6 +92,8 @@ void ConfigureServices(IServiceCollection services, IConfiguration configuration
     ConfigureExternalLogins(builder.Services, builder.Configuration);
 
     ConfigureSession(services);
+
+    services.AddAuthorization();
 
     RegisterApplicationServices(services);
 
@@ -112,7 +132,7 @@ void GenerateSecretKey(IConfiguration configuration)
         System.IO.File.WriteAllText(appSettingsFile, output);
     }
 }
-void ConfigureJwtAuthentication(IServiceCollection services, IConfiguration configuration)
+void ConfigureAuthentication(IServiceCollection services, IConfiguration configuration)
 {
     var jwtSettings = configuration.GetSection("JwtSettings").Get<JwtSettings>();
 
@@ -135,6 +155,126 @@ void ConfigureJwtAuthentication(IServiceCollection services, IConfiguration conf
               ClockSkew = TimeSpan.Zero
           };
       });
+}
+
+void ConfigureAuthorization(IServiceCollection services)
+{
+    // Register the permission handler
+    services.AddScoped<IAuthorizationHandler, PermissionAuthorizationHandler>();
+
+    //services.AddScoped<IPermissionService, PermissionService>();
+
+    // Configure authorization policies
+    services.AddAuthorization(options =>
+    {
+        // Register policies for all defined permissions
+        foreach (var permissionField in typeof(AuthorizationConstants.Permissions)
+            .GetFields(System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Static))
+        {
+            if (permissionField.FieldType == typeof(string))
+            {
+                var permission = (string)permissionField.GetValue(null);
+                options.AddPolicy(permission, policy =>
+                    policy.Requirements.Add(new PermissionRequirement(permission)));
+            }
+        }
+
+        // Grouped policies for common use cases
+        options.AddPolicy("ProductAccess", policy =>
+            policy.RequireAssertion(context =>
+                context.User.IsInRole(AppConstants.Role_Admin) ||
+                context.User.IsInRole(AppConstants.Role_Admin_Super) ||
+                context.User.IsInRole(AppConstants.Role_Manager) ||
+                context.User.IsInRole(AppConstants.Role_Vendor) ||
+                context.User.IsInRole(AppConstants.Role_Supplier) ||
+                context.User.HasClaim(c => c.Type == "Permission" &&
+                    (c.Value == AuthorizationConstants.Permissions.Product_View ||
+                     c.Value == AuthorizationConstants.Permissions.Product_Manage))));
+
+        options.AddPolicy("ProductManagement", policy =>
+            policy.RequireAssertion(context =>
+                context.User.IsInRole(AppConstants.Role_Admin) ||
+                context.User.IsInRole(AppConstants.Role_Admin_Super) ||
+                context.User.IsInRole(AppConstants.Role_Manager) ||
+                context.User.HasClaim(c => c.Type == "Permission" &&
+                    c.Value == AuthorizationConstants.Permissions.Product_Manage)));
+
+        options.AddPolicy("OrderAccess", policy =>
+            policy.RequireAssertion(context =>
+                context.User.IsInRole(AppConstants.Role_Admin) ||
+                context.User.IsInRole(AppConstants.Role_Admin_Super) ||
+                context.User.IsInRole(AppConstants.Role_Manager) ||
+                context.User.IsInRole(AppConstants.Role_CustomerSupport) ||
+                context.User.IsInRole(AppConstants.Role_DeliveryAgent) ||
+                context.User.HasClaim(c => c.Type == "Permission" &&
+                    (c.Value == AuthorizationConstants.Permissions.Order_View ||
+                     c.Value == AuthorizationConstants.Permissions.Order_Manage))));
+
+        options.AddPolicy("OrderManagement", policy =>
+            policy.RequireAssertion(context =>
+                context.User.IsInRole(AppConstants.Role_Admin) ||
+                context.User.IsInRole(AppConstants.Role_Admin_Super) ||
+                context.User.IsInRole(AppConstants.Role_Manager) ||
+                context.User.HasClaim(c => c.Type == "Permission" &&
+                    c.Value == AuthorizationConstants.Permissions.Order_Manage)));
+
+        options.AddPolicy("AdminOnly", policy =>
+            policy.RequireRole(AppConstants.Role_Admin, AppConstants.Role_Admin_Super));
+
+        options.AddPolicy("UserManagement", policy =>
+            policy.RequireAssertion(context =>
+                context.User.IsInRole(AppConstants.Role_Admin) ||
+                context.User.IsInRole(AppConstants.Role_Admin_Super) ||
+                context.User.HasClaim(c => c.Type == "Permission" &&
+                    c.Value == AuthorizationConstants.Permissions.User_Manage)));
+
+        // Additional grouped policies for other entities
+        options.AddPolicy("CategoryManagement", policy =>
+            policy.RequireAssertion(context =>
+                context.User.IsInRole(AppConstants.Role_Admin) ||
+                context.User.IsInRole(AppConstants.Role_Admin_Super) ||
+                context.User.IsInRole(AppConstants.Role_Manager) ||
+                context.User.HasClaim(c => c.Type == "Permission" &&
+                    c.Value == AuthorizationConstants.Permissions.Category_Manage)));
+
+        options.AddPolicy("InvoiceManagement", policy =>
+            policy.RequireAssertion(context =>
+                context.User.IsInRole(AppConstants.Role_Admin) ||
+                context.User.IsInRole(AppConstants.Role_Admin_Super) ||
+                context.User.IsInRole(AppConstants.Role_Manager) ||
+                context.User.HasClaim(c => c.Type == "Permission" &&
+                    c.Value == AuthorizationConstants.Permissions.Invoice_Manage)));
+
+        options.AddPolicy("CustomerManagement", policy =>
+            policy.RequireAssertion(context =>
+                context.User.IsInRole(AppConstants.Role_Admin) ||
+                context.User.IsInRole(AppConstants.Role_Admin_Super) ||
+                context.User.IsInRole(AppConstants.Role_Manager) ||
+                context.User.IsInRole(AppConstants.Role_CustomerSupport) ||
+                context.User.HasClaim(c => c.Type == "Permission" &&
+                    c.Value == AuthorizationConstants.Permissions.Customer_Manage)));
+
+        options.AddPolicy("CompanyManagement", policy =>
+            policy.RequireAssertion(context =>
+                context.User.IsInRole(AppConstants.Role_Admin) ||
+                context.User.IsInRole(AppConstants.Role_Admin_Super) ||
+                context.User.IsInRole(AppConstants.Role_Manager) ||
+                context.User.HasClaim(c => c.Type == "Permission" &&
+                    c.Value == AuthorizationConstants.Permissions.Company_Manage)));
+
+        options.AddPolicy("BrandManagement", policy =>
+            policy.RequireAssertion(context =>
+                context.User.IsInRole(AppConstants.Role_Admin) ||
+                context.User.IsInRole(AppConstants.Role_Admin_Super) ||
+                context.User.IsInRole(AppConstants.Role_Manager) ||
+                context.User.HasClaim(c => c.Type == "Permission" &&
+                    c.Value == AuthorizationConstants.Permissions.Brand_Manage)));
+    });
+}
+
+void ConfigureAdminSettings(IServiceCollection services, IConfiguration configuration)
+{
+    services.Configure<AdminSettings>(configuration.GetSection("AdminSettings"));
 }
 void ConfigureEmailSettings(IServiceCollection services, IConfiguration configuration)
 {
@@ -254,7 +394,25 @@ void SeedDatabase()
     using (var scope = app.Services.CreateScope())
     {
         var dbInitializer = scope.ServiceProvider.GetRequiredService<IDbInitializer>();
-        dbInitializer.Initialize();
+        //dbInitializer.Initialize();
+        var logger = scope.ServiceProvider.GetRequiredService<ILogger<Program>>();
+        try
+        {
+            // Create a cancellation token with a timeout
+            using var cts = new CancellationTokenSource(TimeSpan.FromMinutes(10));
+            dbInitializer.Initialize(cts.Token).GetAwaiter().GetResult();
+            logger.LogInformation("Database seeding completed successfully.");
+        }
+        catch (OperationCanceledException ex)
+        {
+            logger.LogError(ex, "Database seeding was canceled: {Message}", ex.Message);
+            throw;
+        }
+        catch (Exception ex)
+        {
+            logger.LogError(ex, "Error during database seeding: {Message}", ex.Message);
+            throw;
+        }
     }
 }
 void ConfigureCustomLogging(WebApplication app)

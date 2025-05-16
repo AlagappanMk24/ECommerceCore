@@ -1,4 +1,5 @@
-﻿using ECommerceCore.Domain.Entities;
+﻿using ECommerceCore.Application.Common.QueryParams;
+using ECommerceCore.Domain.Entities;
 
 namespace ECommerceCore.Application.Contracts.ViewModels.Customers
 {
@@ -10,13 +11,8 @@ namespace ECommerceCore.Application.Contracts.ViewModels.Customers
     }
 
     // Query parameters for filtering and sorting customers
-    public class CustomerQueryParameters
+    public class CustomerQueryParameters : QueryParameters
     {
-        public int PageNumber { get; set; } = 1;
-        public int PageSize { get; set; } = 10;
-        public string? SearchTerm { get; set; }
-        public string? SortColumn { get; set; }
-        public string? SortDirection { get; set; }
         public int? CompanyId { get; set; }
     }
 }

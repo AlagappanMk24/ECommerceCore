@@ -1,5 +1,5 @@
 ﻿using ECommerceCore.Application.Common.Results;
-using ECommerceCore.Application.Contract.ViewModels;
+using ECommerceCore.Application.Contract.ViewModels.Categories;
 using ECommerceCore.Application.Contracts.DTOs;
 using ECommerceCore.Domain.Entities;
 

@@ -55,6 +55,7 @@ namespace ECommerceCore.Domain.Entities
         // Ratings & Reviews
         public double AverageRating { get; set; }
         public int TotalReviews { get; set; }
+        public string VendorId { get; set; } // Added to associate product with a Vendor/Company
 
         [ForeignKey("CategoryId")]
         [ValidateNever]

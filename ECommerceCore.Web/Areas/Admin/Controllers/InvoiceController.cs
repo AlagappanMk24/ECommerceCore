@@ -1,6 +1,6 @@
 ﻿using ECommerceCore.Application.Constants;
 using ECommerceCore.Application.Contracts.Services;
-using ECommerceCore.Application.Contracts.ViewModels;
+using ECommerceCore.Application.Contracts.ViewModels.Invoices;
 using ECommerceCore.Domain.Entities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;

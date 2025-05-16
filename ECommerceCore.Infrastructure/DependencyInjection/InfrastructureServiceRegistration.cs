@@ -6,6 +6,7 @@ using ECommerceCore.Infrastructure.External.Payments;
 using ECommerceCore.Infrastructure.External.SMS;
 using ECommerceCore.Infrastructure.Persistence;
 using ECommerceCore.Infrastructure.Services;
+using ECommerceCore.Infrastructure.Services.Authorization;
 using ECommerceCore.Infrastructure.Services.Email;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -18,6 +19,7 @@ namespace ECommerceCore.Application.DependencyInjection
             // Register Unit Of Work and Generic Repository and Services
             services.AddScoped<IDbInitializer, DbInitializer>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
+            services.AddScoped<IPermissionService, PermissionService>();
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IOrderService, OrderService>();
             services.AddScoped<IProductService, ProductService>();

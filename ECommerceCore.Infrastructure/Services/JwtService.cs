@@ -1,5 +1,6 @@
 ﻿using ECommerceCore.Application.Contracts.Services;
 using ECommerceCore.Domain.Entities;
+using ECommerceCore.Domain.Entities.Identity;
 using ECommerceCore.Infrastructure.Data.Context;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;

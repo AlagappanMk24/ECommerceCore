@@ -26,6 +26,7 @@ namespace ECommerceCore.Application.Contracts.DTOs
         public int Views { get; set; }
         public int SoldCount { get; set; }
         public double AverageRating { get; set; }
+        public string VendorId { get; set; }
     }
 
 }

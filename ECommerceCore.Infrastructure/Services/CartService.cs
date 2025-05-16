@@ -3,6 +3,7 @@ using ECommerceCore.Application.Contract.Persistence;
 using ECommerceCore.Application.Contract.Service;
 using ECommerceCore.Application.Contract.ViewModels;
 using ECommerceCore.Domain.Entities;
+using ECommerceCore.Domain.Entities.Identity;
 using Microsoft.AspNetCore.Http;
 using System.Text.Json;
 
@@ -35,7 +36,7 @@ namespace ECommerceCore.Infrastructure.Services
                 // Calculate price based on quantity
                 cart.Price = GetPriceBasedOnQuantity(cart);
                 // Update the order total
-                shoppingCartVM.OrderHeader.OrderTotal += (cart.Price * cart.Count);
+                shoppingCartVM.OrderHeader.OrderTotal += (decimal)(cart.Price * cart.Count);
             }
             // Return the complete shopping cart details
             return shoppingCartVM;
@@ -141,7 +142,7 @@ namespace ECommerceCore.Infrastructure.Services
             foreach (var cart in shoppingCartVM.ShoppingCartList)
             {
                 cart.Price = GetPriceBasedOnQuantity(cart);
-                shoppingCartVM.OrderHeader.OrderTotal += (cart.Price * cart.Count);
+                shoppingCartVM.OrderHeader.OrderTotal += (decimal)(cart.Price * cart.Count);
             }
 
             return shoppingCartVM;
